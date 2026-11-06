@@ -12,6 +12,7 @@ export interface Member {
   photo?: string;
   bio?: string;
   instagram?: string;
+  linkedin?: string;
 }
 
 export const team: Member[] = [
@@ -21,6 +22,7 @@ export const team: Member[] = [
     role: 'Fondateur, animateur et producteur',
     group: 'fondateur',
     photo: '/equipe/shamsh.webp',
+    instagram: 'https://www.instagram.com/awanshamsh/',
     bio: "Ancien joueur et éducateur, il a créé UNIFOOT TV pour donner la parole aux acteurs du foot amateur. Il anime Kick in the Foot et réalise les émissions.",
   },
   // Chroniqueurs : liste à vérifier avant mise en ligne (ajoute photo et rôle exact).
