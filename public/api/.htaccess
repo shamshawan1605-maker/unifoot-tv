@@ -1,0 +1,8 @@
+# Seul form.php est accessible
+Options -Indexes
+<FilesMatch ".*">
+  Require all denied
+</FilesMatch>
+<Files "form.php">
+  Require all granted
+</Files>

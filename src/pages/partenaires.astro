@@ -80,7 +80,7 @@ const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric
         <h2 id="contact-p" class="h2">Parlons de votre projet</h2>
         <p>Laissez vos coordonnées, on vous répond sous 48 heures ouvrées avec une proposition.</p>
       </div>
-      <form class="form" name="partenaires" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance data-success="Merci, votre demande est bien arrivée. On vous répond sous 48 heures ouvrées.">
+      <form class="form" name="partenaires" method="POST" action="/api/form.php" data-enhance data-success="Merci, votre demande est bien arrivée. On vous répond sous 48 heures ouvrées.">
         <input type="hidden" name="form-name" value="partenaires" />
         <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
         <div class="form-body form">

@@ -63,9 +63,9 @@ export const legal = {
   address: '9 rue des Colonnes, 75002 Paris, France',
   publicationDirector: 'Khalid Shamsh Awan',
   host: {
-    name: 'Netlify, Inc.',
-    address: '512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis',
-    url: 'https://www.netlify.com',
+    name: 'O2switch',
+    address: '222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France',
+    url: 'https://www.o2switch.fr',
   },
   updatedAt: '2026-11-06',
 };

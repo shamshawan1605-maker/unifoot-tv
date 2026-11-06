@@ -17,7 +17,7 @@ const roles = ['Joueur ou joueuse', 'Éducateur ou éducatrice', 'Parent', 'Arbi
       <p>Une situation vécue au club, un coup de gueule, une belle histoire ou un sujet qu'on n'aborde jamais : écris-nous. On lit tout, et si ta proposition est retenue, on te recontacte.</p>
     </header>
     <section class="wrap pp__body" aria-label="Formulaire de participation">
-      <form class="form" name="participer" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance
+      <form class="form" name="participer" method="POST" action="/api/form.php" data-enhance
         data-success="Merci, ton message est bien arrivé. On le lit avant la prochaine émission et on te recontacte si on le retient.">
         <input type="hidden" name="form-name" value="participer" />
         <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>

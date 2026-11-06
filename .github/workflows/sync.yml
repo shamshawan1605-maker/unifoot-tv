@@ -17,13 +17,15 @@ permissions:
   contents: write
 
 concurrency:
-  group: sync
+  group: deploy
   cancel-in-progress: false
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      FTP_SERVER: ${{ secrets.FTP_SERVER }}
     steps:
       - uses: actions/checkout@v4
 
@@ -67,7 +69,7 @@ jobs:
         if: steps.sync.outputs.changed == 'true'
         run: npm run build
 
-      - name: Publier les nouveaux contenus
+      - name: Enregistrer les nouveaux contenus
         if: steps.sync.outputs.changed == 'true'
         run: |
           git config user.name "unifoot-sync"
@@ -75,3 +77,19 @@ jobs:
           git add data/content.json
           git commit -m "Synchronisation des contenus $(date -u +'%Y-%m-%d %H:%M') UTC"
           git push
+
+      - name: Mettre en ligne sur o2switch
+        if: ${{ steps.sync.outputs.changed == 'true' && env.FTP_SERVER != '' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.FTP_DIR || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            _headers
+            _redirects

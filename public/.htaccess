@@ -1,0 +1,68 @@
+# Fichier généré par scripts/build-redirects.ts à partir de config/htaccess-base.conf : ne pas modifier public/.htaccess à la main.
+# Hébergement o2switch (Apache).
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # HTTPS obligatoire
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # www -> sans www
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---- Redirections (anciennes URL, épisodes supprimés ou déplacés) ----
+RedirectMatch 301 "^/kick-in-the-foot/?$" "/emissions/kick-in-the-foot/"
+RedirectMatch 301 "^/lequipe/?$" "/equipe/"
+RedirectMatch 301 "^/la-boutique/?$" "/"
+RedirectMatch 301 "^/la-boutique/" "/"
+RedirectMatch 301 "^/boutique/" "/"
+RedirectMatch 301 "^/produit/" "/"
+RedirectMatch 301 "^/panier/" "/"
+RedirectMatch 301 "^/category/" "/themes/"
+RedirectMatch 301 "^/tag/" "/themes/"
+RedirectMatch 301 "^/author/" "/equipe/"
+RedirectMatch 301 "^/2021/" "/actualites/"
+RedirectMatch 301 "^/2022/" "/actualites/"
+RedirectMatch 301 "^/2023/" "/actualites/"
+RedirectMatch 301 "^/2024/" "/actualites/"
+RedirectMatch 301 "^/2025/" "/actualites/"
+RedirectMatch 301 "^/feed/" "/"
+RedirectMatch 301 "^/wp-admin/" "/"
+RedirectMatch 301 "^/wp-login\.php/?$" "/"
+RedirectMatch 301 "^/mentions-legales-2/?$" "/mentions-legales/"
+RedirectMatch 301 "^/politique-de-confidentialite/?$" "/confidentialite/"
+RedirectMatch 301 "^/emissions/hors-serie/rencontre-avec-les-benevoles-du-tournoi-de-paques/?$" "/emissions/kick-in-the-foot/rencontre-avec-les-benevoles-du-tournoi-de-paques/"
+RedirectMatch 301 "^/emissions/entre-2/santiago-cucci-president-aviron-bayonnais-fc-ex-ol-rachat-girondins-rate/?$" "/emissions/entre-2/"
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://i.ytimg.com https://i9.ytimg.com; media-src 'self' https:; frame-src https://www.youtube-nocookie.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'self'"
+  # Adresse de test (nouveau.unifoottv.fr) : jamais indexée par Google
+  <If "%{HTTP_HOST} =~ /^nouveau\./">
+    Header always set X-Robots-Tag "noindex, nofollow"
+  </If>
+  <FilesMatch "\.(woff2|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/xml text/plain
+</IfModule>

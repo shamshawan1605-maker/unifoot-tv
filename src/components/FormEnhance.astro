@@ -1,6 +1,6 @@
 ---
-// Envoi des formulaires Netlify sans rechargement, avec messages de confirmation et d'erreur.
-// Sans JavaScript, le formulaire est envoyé normalement et redirige vers /merci/.
+// Envoi des formulaires (script /api/form.php sur l'hébergement) sans rechargement, avec messages de confirmation et d'erreur.
+// Sans JavaScript, le formulaire est envoyé normalement et le script redirige vers /merci/.
 ---
 <script>
   const MIN_DELAY = 3000; // un humain met plus de 3 s à remplir un formulaire
@@ -59,12 +59,14 @@
       btn.disabled = true;
       btn.textContent = 'Envoi en cours…';
       try {
-        const res = await fetch(form.getAttribute('action') === '/merci/' ? '/' : form.action, {
+        data.set('_t', String(Math.round((Date.now() - started) / 1000)));
+        const res = await fetch(form.action, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
           body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
         });
-        if (!res.ok) throw new Error(String(res.status));
+        const out = await res.json().catch(() => ({ ok: false }));
+        if (!res.ok || !out.ok) throw new Error(String(res.status));
         form.reset();
         form.querySelectorAll('.form-body').forEach((b) => ((b as HTMLElement).hidden = true));
         status.dataset.kind = 'ok';

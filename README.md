@@ -1,6 +1,6 @@
 # UNIFOOT TV : site du média
 
-Site statique (Astro + TypeScript) hébergé sur Netlify. Les épisodes, les extraits et les liens podcast se mettent à jour seuls : une tâche GitHub Actions interroge YouTube et le flux du podcast toutes les heures, et toutes les 10 minutes du mercredi au samedi de 18h à 20h (heure de Paris). Quand quelque chose change, elle enregistre `data/content.json` et Netlify republie le site.
+Site statique (Astro + TypeScript) hébergé chez o2switch. Les épisodes, les extraits et les liens podcast se mettent à jour seuls : une tâche GitHub Actions interroge YouTube et le flux du podcast toutes les heures, et toutes les 10 minutes du mercredi au samedi de 18h à 20h (heure de Paris). Quand quelque chose change, elle enregistre `data/content.json`, reconstruit le site et l'envoie par FTP sur o2switch.
 
 Configuration à faire **une seule fois**, en 30 minutes environ.
 
@@ -23,11 +23,15 @@ Le quota gratuit est de 10 000 unités par jour. La synchro en utilise moins de 
 
 Alertes : crée un compte gratuit sur [resend.com](https://resend.com) et vérifie le domaine unifoottv.fr. Un e-mail part seulement après 3 échecs de suite, puis un autre quand la synchro repart. Sans Resend, le site marche quand même, il n'y a juste pas d'alerte.
 
-## 3. Netlify
+## 3. o2switch
 
-1. Sur [app.netlify.com](https://app.netlify.com) : *Add new site > Import an existing project*, puis choisis le dépôt. Les réglages sont lus dans `netlify.toml`, il n'y a rien à remplir.
-2. *Forms* : clique sur **Enable form detection**, puis relance un déploiement. Dans *Forms > Form notifications*, ajoute une notification e-mail vers contact@unifoottv.fr pour les formulaires `participer`, `partenaires`, `contact` et `newsletter`.
-3. *Domain management* : ajoute **unifoottv.fr** et suis les instructions DNS. Les anciennes adresses du site WordPress sont redirigées automatiquement (voir `config/redirects.ts`).
+1. Dans le cPanel : **Domaines**, crée le sous-domaine de test `nouveau.unifoottv.fr` (note son dossier).
+2. **Comptes FTP** : crée un compte `deploy` dont le répertoire est ce dossier.
+3. Dans GitHub, onglet **Secrets** : `FTP_SERVER` (ex. `xxxx.o2switch.net`), `FTP_USERNAME` (ex. `deploy@unifoottv.fr`), `FTP_PASSWORD`.
+4. Onglet *Actions* > **Mise en ligne (o2switch)** > *Run workflow* : le site apparaît sur `nouveau.unifoottv.fr` (jamais indexé par Google).
+5. Bascule : quand tout est validé, fais pointer le domaine principal vers ce même dossier (cPanel > Domaines > unifoottv.fr > racine du document). Le WordPress reste dans `public_html` : pour revenir en arrière, remets l'ancienne racine.
+
+Formulaires : ils arrivent par e-mail sur contact@unifoottv.fr (script `public/api/form.php`). Les inscriptions newsletter sont aussi enregistrées dans `api/data/newsletter.csv` sur l'hébergement (non accessible depuis le web, téléchargeable par FTP).
 
 ## 4. Publier une actualité
 

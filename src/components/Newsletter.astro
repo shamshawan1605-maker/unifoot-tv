@@ -11,7 +11,7 @@ const { withSupport = false } = Astro.props;
       <h2 id="nl-title">Le récap de la semaine</h2>
       <p>Un e-mail par semaine avec les 4 parties de l'émission, les meilleurs extraits et l'actu. Désinscription en un clic.</p>
     </div>
-    <form class="form nl__form" name="newsletter" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance data-success="C'est noté : tu recevras le prochain récap de la semaine.">
+    <form class="form nl__form" name="newsletter" method="POST" action="/api/form.php" data-enhance data-success="C'est noté : tu recevras le prochain récap de la semaine.">
       <input type="hidden" name="form-name" value="newsletter" />
       <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
       <div class="form-body">

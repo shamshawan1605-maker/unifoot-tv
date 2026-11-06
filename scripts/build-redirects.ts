@@ -1,4 +1,6 @@
-// Génère public/_redirects (Netlify) : anciennes URL du site WordPress + épisodes supprimés ou déplacés.
+// Génère les redirections 301 : anciennes URL du site WordPress + épisodes supprimés ou déplacés.
+// - public/.htaccess  (hébergement o2switch / Apache, utilisé en production)
+// - public/_redirects (format Netlify / Cloudflare Pages, si l'hébergement change un jour)
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -37,4 +39,16 @@ if (store) {
 }
 
 await writeFile(resolve(ROOT, 'public/_redirects'), lines.join('\n') + '\n');
-console.log(`[redirects] ${lines.filter((l) => l && !l.startsWith('#')).length} règles écrites dans public/_redirects`);
+
+// ---------- Apache (.htaccess) ----------
+const esc = (p: string) => p.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+const redirects = lines
+  .filter((l) => l && !l.startsWith('#'))
+  .map((l) => {
+    const [from, to] = l.split(/\s+/);
+    const pattern = from.endsWith('/*') ? `^${esc(from.slice(0, -1))}` : `^${esc(from.replace(/\/$/, ''))}/?$`;
+    return `RedirectMatch 301 "${pattern}" "${to}"`;
+  })
+  .filter((r, i, a) => a.indexOf(r) === i);
+const base = await readFile(resolve(ROOT, 'config/htaccess-base.conf'), 'utf8');
+await writeFile(resolve(ROOT, 'public/.htaccess'), base.replace('# {{REDIRECTIONS}}', redirects.join('\n')));
