@@ -257,7 +257,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
       </div>
       <div class="cta__art" aria-hidden="true">
         <span class="cta__sun"></span>
-        <svg class="cta__mic" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="13" rx="4" fill="#4fffbe"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <img class="cta__mic" src="/brand/micro-unifoot.webp" alt="" width="455" height="560" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -409,6 +409,8 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .cta__choices { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .cta__art { position: relative; min-height: 12rem; display: grid; place-items: center; }
   .cta__sun { position: absolute; width: min(18rem, 70vw); aspect-ratio: 1; border-radius: 50%; background: var(--jaune); }
-  .cta__mic { position: relative; width: 7rem; height: 7rem; transform: rotate(-12deg); }
+  .cta__mic { position: relative; width: min(13rem, 60%); height: auto; transform: rotate(-8deg); filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35)); transition: transform .3s ease; }
+  .cta:hover .cta__mic { transform: rotate(-2deg) translateY(-6px); }
+  @media (prefers-reduced-motion: reduce) { .cta__mic { transition: none; } }
   @media (max-width: 55.99rem) { .cta__art { display: none; } }
 </style>
