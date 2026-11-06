@@ -108,6 +108,7 @@ const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10
 
   /* Chroniqueurs */
   .crew { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(45%, 11.5rem), 1fr)); }
+  @media (min-width: 56rem) { .crew { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .crew__card { position: relative; aspect-ratio: 3 / 4; border-radius: 16px; overflow: hidden; background: radial-gradient(90% 70% at 50% 30%, #1b2b5a, var(--marine)); }
   .crew__photo { position: absolute; inset: 0; display: grid; place-items: center; }
   .crew__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform .35s ease; }
