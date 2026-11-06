@@ -97,7 +97,9 @@ function comparable(store: ContentStore) {
   const { generatedAt, ...rest } = store;
   const copy = JSON.parse(JSON.stringify(rest));
   if (copy.podcast) delete copy.podcast.fetchedAt;
-  for (const v of copy.videos) delete v.refreshedAt;
+  // Les compteurs de vues bougent sans cesse : ils ne déclenchent pas à eux seuls une republication
+  for (const v of copy.videos) { delete v.refreshedAt; delete v.viewCount; }
+  if (copy.channel) delete copy.channel.subscriberCount;
   return JSON.stringify(copy);
 }
 
