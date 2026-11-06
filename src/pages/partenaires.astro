@@ -10,7 +10,7 @@ const [y, m] = audienceUpdatedAt.split('-');
 const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(Number(y), Number(m) - 1, 1));
 const num = (v: string) => parseFloat(v.replace(',', '.').replace(/[^\d.]/g, ''));
 const maxNet = Math.max(1, ...audienceByNetwork.map((a) => num(a.value)));
-const netIcon: Record<string, string> = { TikTok: 'tiktok', Facebook: 'facebook', Instagram: 'instagram', YouTube: 'youtube' };
+const netIcon: Record<string, string> = { TikTok: 'tiktok', Facebook: 'facebook', Instagram: 'instagram', YouTube: 'youtube', X: 'x', LinkedIn: 'linkedin' };
 const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10) * 10}+`, label: 'invités reçus sur le plateau' }];
 const slots = [
   { t: '« Présenté par »', d: "Votre marque en tête d'une émission : Kick in the Foot, Entre 2 ou Au cœur d'une séance.", k: 'show' },
