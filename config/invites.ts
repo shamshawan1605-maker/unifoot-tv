@@ -38,7 +38,7 @@ export const invites: Invite[] = [
   { name: 'Raymond Domenech', video: '08uQBnGleeU' },
   { name: 'Florentin Pogba', role: 'Footballeur professionnel', video: '4VV1qqZP0SA' },
   { name: 'Cyrille Dolce', role: 'Éducateur U15 de l’OL', video: 'baE7JyC3O3E' },
-  { name: 'Nasser Larguet', video: '7OTcr_ng22o' },
+  { name: 'Nasser Larguet', role: 'Invité de L’Entre 2', video: '7OTcr_ng22o', photo: '/invites/nasser-larguet.webp', link: 'https://www.youtube.com/watch?v=7OTcr_ng22o&t=6s' },
   { name: 'Angelo Michaud', role: 'Recruteur de l’En Avant Guingamp', video: 'RX7X2JazkpQ' },
   { name: 'Eduardo Moreira', role: 'US Créteil Lusitanos', video: 'hXtk6iq_ZX4' },
   { name: 'Emmanuel Trégoat', video: 'ipWYwxavW8w' },
