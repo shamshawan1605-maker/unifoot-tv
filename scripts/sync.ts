@@ -179,8 +179,9 @@ export async function runSync(): Promise<SyncResult> {
             membership.set(item.videoId, [...(membership.get(item.videoId) || []), pid]);
           }
         } catch (e) {
-          playlistsOk = false;
-          log(`playlist ${pid} (${show.name}) indisponible :`, (e as Error).message);
+          // Playlist supprimée ou privée (404) : simplement ignorée. Autre erreur : on garde le rangement précédent.
+          if ((e as { status?: number }).status !== 404) playlistsOk = false;
+          log(`playlist ${pid} (${show.name}) ignorée :`, (e as Error).message);
         }
       }
     }
