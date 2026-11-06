@@ -1,84 +1,176 @@
 ---
 import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
 import FormEnhance from '~/components/FormEnhance.astro';
 import { audienceHighlights, audienceByNetwork, audienceUpdatedAt } from '@config/audience';
 import { partners, offers, offersAreExample, mediaKitUrl } from '@config/partners';
+import { invites } from '@config/invites';
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Partenaires' }];
 const [y, m] = audienceUpdatedAt.split('-');
 const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(Number(y), Number(m) - 1, 1));
+const num = (v: string) => parseFloat(v.replace(',', '.').replace(/[^\d.]/g, ''));
+const maxNet = Math.max(...audienceByNetwork.map((a) => num(a.value)));
+const netIcon: Record<string, string> = { TikTok: 'tiktok', Facebook: 'facebook', Instagram: 'instagram', YouTube: 'youtube' };
+const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10) * 10}+`, label: 'invités reçus sur le plateau' }];
+const slots = [
+  { t: '« Présenté par »', d: "Votre marque en tête d'une émission : Kick in the Foot, Entre 2 ou Au cœur d'une séance.", k: 'show' },
+  { t: 'Partenaire de rubrique', d: 'Associez-vous à un thème : formation, arbitrage, éducateurs, bénévoles, parents ou vie des clubs.', k: 'rub' },
+  { t: 'Encart dans les contenus', d: "Présent sur chaque actu et chaque page d'épisode.", k: 'enc' },
+  { t: "Bandeau d'accueil", d: "La visibilité maximale, sur la page d'accueil du site.", k: 'home' },
+];
 ---
 <Base title="Devenir partenaire du foot amateur" description="Associez votre marque au média du football amateur : audience, formules de partenariat et contact. UNIFOOT TV, Kick in the Foot chaque mercredi." breadcrumbs={crumbs}>
-  <header class="wrap page-head">
-    <h1>Parlez à ceux qui font le foot amateur</h1>
-    <p>Joueurs, éducateurs, dirigeants, parents : une communauté engagée qui suit l'émission chaque semaine.</p>
-  </header>
-
-  <section class="wrap section aud" style="padding-top:0" aria-labelledby="audience">
-    <h2 id="audience" class="sr-only">Audience</h2>
-    <dl class="aud__big">
-      {audienceHighlights.map((a) => <div><dt>{a.label}</dt><dd>{a.value}</dd></div>)}
-    </dl>
-    <dl class="aud__nets">
-      {audienceByNetwork.map((a) => <div><dt>{a.network}</dt><dd>{a.value}</dd></div>)}
-    </dl>
-    <p class="meta">Chiffres de {updated}.</p>
-  </section>
-
-  {partners.length > 0 && (
-    <section class="section alt" aria-labelledby="ils">
-      <div class="wrap">
-        <h2 id="ils" class="h2">Ils nous accompagnent</h2>
-        <ul class="partners">
-          {partners.map((p) => (
-            <li>
-              <a href={p.url} rel="noopener sponsored" target="_blank">
-                {p.logo ? <img src={p.logo} alt={p.name} width="80" height="80" loading="lazy" /> : <span class="partners__name">{p.name}</span>}
-              </a>
-              {p.description && <p>{p.description}</p>}
-            </li>
-          ))}
-        </ul>
+  <!-- Bandeau -->
+  <section class="ph sombre" aria-labelledby="ph-title">
+    <div class="ph__bg" aria-hidden="true"><img src="/photos/p9Acoe81iAE.webp" alt="" width="1600" height="900" decoding="async" fetchpriority="high" /></div>
+    <div class="wrap ph__in">
+      <p class="ph__kicker"><span></span>Partenariats</p>
+      <h1 id="ph-title">Parlez à ceux qui <em>font</em> le foot amateur.</h1>
+      <p class="ph__lead">Joueurs, éducateurs, dirigeants, parents : une communauté engagée qui suit l'émission chaque semaine. Votre marque au cœur du terrain.</p>
+      <div class="ph__ctas">
+        <a class="btn btn--menthe" href="#contact-p">Devenir partenaire</a>
+        <a class="btn btn--ghost" href="#offres">Voir les formules</a>
       </div>
-    </section>
-  )}
-
-  <section class="section wrap" aria-labelledby="emplacements" style="padding-bottom:0">
-    <div class="section-head"><div><h2 id="emplacements">Les emplacements sur le site</h2><p>Uniquement des marques du sport et du foot amateur. Pas de paris sportifs.</p></div></div>
-    <ul class="slots">
-      <li><strong>« Présenté par »</strong><span>Votre marque en tête d'une émission : Kick in the Foot, Entre 2 ou Au cœur d'une séance.</span></li>
-      <li><strong>Partenaire de rubrique</strong><span>Associez-vous à un thème : formation, arbitrage, éducateurs, bénévoles, parents ou vie des clubs.</span></li>
-      <li><strong>Encart dans les contenus</strong><span>Présent sur chaque actu et chaque page d'épisode.</span></li>
-      <li><strong>Bandeau d'accueil</strong><span>La visibilité maximale, sur la page d'accueil du site.</span></li>
-    </ul>
-  </section>
-
-  <section class="section" aria-labelledby="offres">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <h2 id="offres" class="h2">Les formules</h2>
-          <p>Partenariat à la saison. Chaque formule s'adapte à vos objectifs.</p>
-        </div>
-        {mediaKitUrl && <a class="more" href={mediaKitUrl}>Télécharger le media kit</a>}
-      </div>
-      {offersAreExample && <p class="example">Contenu d'exemple : détail des formules à compléter.</p>}
-      <ol class="offers">
-        {offers.map((o) => (
-          <li class="offer">
-            <h3>{o.name}</h3>
-            <p class="offer__pitch">{o.pitch}</p>
-            <ul>{o.items.map((i) => <li>{i}</li>)}</ul>
-          </li>
-        ))}
-      </ol>
+      <ul class="ph__chips" aria-label="En bref">
+        {audienceHighlights.map((a) => <li><strong>{a.value}</strong><span>{a.label}</span></li>)}
+      </ul>
     </div>
   </section>
 
-  <section class="papier section" aria-labelledby="contact-p">
-    <div class="wrap pf">
+  <!-- Audience -->
+  <section class="section wrap aud" aria-labelledby="audience">
+    <div class="aud__grid">
       <div>
-        <h2 id="contact-p" class="h2">Parlons de votre projet</h2>
+        <p class="kick">L'audience</p>
+        <h2 id="audience" class="h2b">Une communauté qui regarde, commente et partage.</h2>
+        <dl class="aud__big">
+          {stats.map((a) => <div><dd data-count>{a.value}</dd><dt>{a.label}</dt></div>)}
+        </dl>
+      </div>
+      <div class="nets">
+        <p class="nets__t">Abonnés par réseau</p>
+        <ul>
+          {audienceByNetwork.map((a) => (
+            <li style={`--w:${Math.round((num(a.value) / maxNet) * 100)}%`}>
+              <span class="nets__name">{netIcon[a.network] && <Icon name={netIcon[a.network] as any} size={18} />}{a.network}</span>
+              <span class="nets__bar"><i></i></span>
+              <strong>{a.value}</strong>
+            </li>
+          ))}
+        </ul>
+        <p class="meta">Chiffres de {updated}.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi -->
+  <section class="section why-s" aria-labelledby="pourquoi">
+    <div class="wrap">
+      <p class="kick">Pourquoi UNIFOOT TV</p>
+      <h2 id="pourquoi" class="h2b">Une visibilité qui a du sens.</h2>
+      <ul class="why">
+        <li>
+          <span class="why__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2"/><circle cx="17" cy="9" r="2.4"/><path d="M16 13.9c2.5.1 4.3 1.6 4.9 4.6"/></svg></span>
+          <h3>Une cible précise</h3>
+          <p>Ceux qui font vivre les clubs : joueurs, éducateurs, présidents, bénévoles et parents. Pas une audience au hasard.</p>
+        </li>
+        <li>
+          <span class="why__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2.5"/><path d="M10 9l4.5 2-4.5 2z"/><path d="M8 20h8"/></svg></span>
+          <h3>Des contenus qui durent</h3>
+          <p>Une émission chaque semaine et des extraits qui tournent sur 9 plateformes pendant des mois.</p>
+        </li>
+        <li>
+          <span class="why__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.3-3 7.8-7 9.5-4-1.7-7-5.2-7-9.5V6z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/></svg></span>
+          <h3>Un média engagé</h3>
+          <p>Uniquement des marques du sport et du foot amateur. Pas de paris sportifs, pas d'alcool.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {partners.length > 0 && (
+    <section class="section wrap" aria-labelledby="ils">
+      <p class="kick">Ils nous accompagnent</p>
+      <h2 id="ils" class="h2b">Nos partenaires</h2>
+      <ul class="partners">
+        {partners.map((p) => (
+          <li class="pcard sombre">
+            <a class="pcard__logo" href={p.url} rel="noopener sponsored" target="_blank" aria-label={p.name}>
+              {p.logo ? <img src={p.logo} alt="" width="120" height="120" loading="lazy" /> : <span>{p.name}</span>}
+            </a>
+            <div class="pcard__txt">
+              <h3>{p.name}</h3>
+              {p.description && <p>{p.description}</p>}
+              <a class="pcard__link" href={p.url} rel="noopener sponsored" target="_blank">Découvrir <Icon name="external" size={16} /></a>
+            </div>
+          </li>
+        ))}
+        <li class="pcard pcard--free">
+          <a href="#contact-p"><span class="pcard__plus" aria-hidden="true">+</span><strong>Votre marque ici</strong><span>Rejoignez l'aventure</span></a>
+        </li>
+      </ul>
+    </section>
+  )}
+
+  <!-- Emplacements -->
+  <section class="section wrap" aria-labelledby="emplacements">
+    <p class="kick">Sur le site</p>
+    <h2 id="emplacements" class="h2b">Les emplacements</h2>
+    <ul class="slots">
+      {slots.map((sl, i) => (
+        <li>
+          <div class:list={['mock', `mock--${sl.k}`]} aria-hidden="true">
+            <span class="mock__bar"></span><span class="mock__hl"></span><span class="mock__a"></span><span class="mock__b"></span><span class="mock__c"></span>
+          </div>
+          <span class="slots__n">0{i + 1}</span>
+          <h3>{sl.t}</h3>
+          <p>{sl.d}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Formules -->
+  <section class="section offers-s sombre" aria-labelledby="offres">
+    <div class="wrap">
+      <p class="kick">Les formules</p>
+      <h2 id="offres" class="h2b">Partenariat à la saison.</h2>
+      <p class="sub">Chaque formule s'adapte à vos objectifs.{mediaKitUrl && <> <a class="pf__dl" href={mediaKitUrl}>Télécharger le media kit</a></>}</p>
+      <ol class="offers">
+        {offers.map((o, i) => (
+          <li class:list={['offer', { 'offer--top': i === offers.length - 1 }]} style={`--lvl:${i}`}>
+            {i === offers.length - 1 && <span class="offer__badge">Le plus complet</span>}
+            <span class="offer__gem" aria-hidden="true"></span>
+            <h3>{o.name}</h3>
+            <p class="offer__pitch">{o.pitch}</p>
+            <ul>{o.items.map((it) => <li>{it}</li>)}</ul>
+            <a class="offer__cta" href="#contact-p" data-formule={o.name}>Choisir {o.name}</a>
+          </li>
+        ))}
+      </ol>
+      {offersAreExample && <p class="example">Détail des formules à titre indicatif : on construit l'offre avec vous.</p>}
+    </div>
+  </section>
+
+  <!-- Étapes -->
+  <section class="section wrap" aria-labelledby="etapes">
+    <p class="kick">Comment ça se passe</p>
+    <h2 id="etapes" class="h2b">Trois étapes, c'est tout.</h2>
+    <ol class="steps">
+      <li><span>1</span><h3>On échange</h3><p>Vous nous parlez de votre marque et de vos objectifs.</p></li>
+      <li><span>2</span><h3>On vous propose</h3><p>Une offre sur mesure sous 48 heures ouvrées.</p></li>
+      <li><span>3</span><h3>On lance</h3><p>Votre marque à l'antenne et sur le site, avec un bilan des résultats.</p></li>
+    </ol>
+  </section>
+
+  <!-- Contact -->
+  <section class="section wrap" aria-labelledby="contact-p" id="contact">
+    <div class="pf">
+      <div class="pf__side sombre">
+        <img class="pf__mic" src="/brand/micro-unifoot.webp" alt="" width="200" height="200" loading="lazy" aria-hidden="true" />
+        <h2 id="contact-p" class="h2b">Parlons de votre projet</h2>
         <p>Laissez vos coordonnées, on vous répond sous 48 heures ouvrées avec une proposition.</p>
+        <p class="pf__mail">Ou écrivez-nous : <a href="mailto:contact@unifoottv.fr">contact@unifoottv.fr</a></p>
       </div>
       <form class="form" name="partenaires" method="POST" action="/api/form.php" data-enhance data-success="Merci, votre demande est bien arrivée. On vous répond sous 48 heures ouvrées.">
         <input type="hidden" name="form-name" value="partenaires" />
@@ -106,38 +198,175 @@ const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric
   </section>
   <FormEnhance />
 </Base>
+<script>
+  // Chiffres qui défilent + barres qui se remplissent à l'arrivée
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nets = document.querySelector('.nets');
+  if (!('IntersectionObserver' in window) || reduce) nets?.classList.add('is-in');
+  else {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      io.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      if (el.classList.contains('nets')) { el.classList.add('is-in'); return; }
+      const final = el.textContent || '';
+      const m = final.match(/^(\d+)(?:,(\d+))?(.*)$/);
+      if (!m) return;
+      const dec = m[2] ? m[2].length : 0, target = Number(m[1] + (m[2] ? '.' + m[2] : '')), rest = m[3];
+      el.style.minWidth = `${el.offsetWidth}px`;
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const k = Math.min(1, (t - t0) / 1600), ease = 1 - Math.pow(1 - k, 3);
+        el.textContent = (target * ease).toFixed(dec).replace('.', ',') + rest;
+        if (k < 1) requestAnimationFrame(step); else el.textContent = final;
+      };
+      requestAnimationFrame(step);
+    }), { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach((n) => io.observe(n));
+    if (nets) io.observe(nets);
+  }
+  // « Choisir Gold » préremplit la formule du formulaire
+  document.querySelectorAll<HTMLAnchorElement>('[data-formule]').forEach((a) => a.addEventListener('click', () => {
+    const sel = document.getElementById('pa-formule') as HTMLSelectElement | null;
+    if (sel) sel.value = a.dataset.formule || '';
+  }));
+</script>
 <style>
-  .h2 { font-size: var(--t-xl); }
-  .slots { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
-  .slots li { display: grid; gap: 0.4rem; padding: 1.1rem 1.2rem; border: 1px solid var(--trait); border-radius: var(--r-m); }
-  .slots strong { font: 800 1rem/1.3 var(--f-titre); }
-  .slots span { color: var(--texte-2); font-size: var(--t-s); }
-  .alt { background: var(--fond-2); }
-  .aud__big { display: grid; gap: 1rem 2.5rem; margin: 0; grid-template-columns: repeat(auto-fit, minmax(14rem, max-content)); }
-  .aud__big div { display: flex; flex-direction: column-reverse; }
-  .aud__big dd { margin: 0; font: 800 clamp(2.5rem, 1.8rem + 3vw, 4.5rem)/1 var(--f-titre); letter-spacing: -0.03em; color: var(--bleu); }
-  .aud__big dt { font: 600 var(--t-l)/1.2 var(--f-info); margin-top: 0.4rem; }
-  .aud__nets { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: var(--ligne); }
-  .aud__nets div { display: flex; gap: 0.5rem; align-items: baseline; }
-  .aud__nets dt { font: 600 1rem/1 var(--f-info); color: var(--texte-2); }
-  .aud__nets dd { margin: 0; font: 800 1.5rem/1 var(--f-titre); }
-  .partners { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-  .partners a { text-decoration: none; display: inline-block; }
-  .partners__name { font: 800 1.5rem/1 var(--f-titre); }
-  .partners img { height: 5rem; width: auto; }
-  .partners p { color: var(--texte-2); margin-top: 0.5rem; font-size: var(--t-s); }
-  .example { display: inline-block; background: #8fe6ef; color: #1a1a1a; padding: 0.3rem 0.6rem; border-radius: 3px; font: 600 0.9rem/1.2 var(--f-info); }
-  .offers { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); border-top: var(--ligne); }
-  .offer { padding: 1.5rem 1.25rem 1.5rem 0; border-bottom: var(--ligne); }
-  @media (min-width: 64rem) { .offer { border-bottom: 0; border-right: 1px solid var(--trait); padding-left: 1.25rem; } .offer:first-child { padding-left: 0; } .offer:last-child { border-right: 0; } }
-  .offer h3 { font: 800 var(--t-xl)/1.1 var(--f-titre); }
-  .offer:last-child h3 { color: var(--accent); }
-  .offer__pitch { font: 700 1.0625rem/1.3 var(--f-info); margin: 0.5rem 0 0.75rem; }
-  .offer ul { padding-left: 1.1rem; margin: 0; color: var(--texte-2); font-size: var(--t-s); }
-  .offer li + li { margin-top: 0.35rem; }
-  .pf { display: grid; gap: 2rem; }
-  @media (min-width: 56rem) { .pf { grid-template-columns: 1fr 1.6fr; } }
-  .pf p { color: var(--texte-2); margin-top: 0.8rem; }
+  .kick { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.6rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); }
+  .kick::before { content: ''; width: 1.4rem; height: 2px; background: currentColor; }
+  .h2b { font: 800 clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem)/1.08 var(--f-titre); letter-spacing: -0.02em; max-width: 22ch; }
+
+  /* Bandeau */
+  .ph { position: relative; overflow: hidden; background: var(--marine); color: #fff; isolation: isolate; }
+  .ph__bg { position: absolute; inset: 0; z-index: -1; }
+  .ph__bg img { position: absolute; right: 0; top: 0; height: 100%; width: 100%; object-fit: cover; object-position: 60% 40%; }
+  .ph__bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--marine) 0%, rgb(10 12 44 / 0.88) 35%, rgb(10 12 44 / 0.2) 65%, transparent), linear-gradient(0deg, var(--marine), transparent 30%); }
+  @media (max-width: 48rem) { .ph__bg::after { background: linear-gradient(0deg, var(--marine) 30%, rgb(10 12 44 / 0.75)); } }
+  .ph__in { padding-block: clamp(3rem, 2rem + 5vw, 6.5rem) clamp(2.5rem, 2rem + 3vw, 4.5rem); }
+  .ph__kicker { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.8rem; border-radius: 99px; background: rgb(34 195 211 / 0.15); border: 1px solid rgb(34 195 211 / 0.4); color: var(--menthe); font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 1.1rem; }
+  .ph__kicker span { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--menthe); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(34 195 211 / 0.6); } 50% { box-shadow: 0 0 0 7px rgb(34 195 211 / 0); } }
+  .ph h1 { font: 800 clamp(2.4rem, 1.4rem + 4vw, 4.6rem)/1 var(--f-titre); letter-spacing: -0.03em; max-width: 14ch; color: #fff; }
+  .ph h1 em { font-style: normal; color: var(--menthe); }
+  .ph__lead { font-size: var(--t-l); line-height: 1.5; color: #c9cde6; max-width: 44ch; margin: 1.2rem 0 0; }
+  .ph__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.8rem; }
+  .ph__chips { list-style: none; margin: 2.5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .ph__chips li { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.75rem 1.1rem; border-radius: 14px; background: rgb(255 255 255 / 0.07); border: 1px solid rgb(255 255 255 / 0.14); backdrop-filter: blur(8px); }
+  .ph__chips strong { font: 800 1.6rem/1 var(--f-titre); color: var(--menthe); white-space: nowrap; }
+  .ph__chips span { font: 600 0.875rem/1.2 var(--f-info); color: #dfe2f2; }
+
+  /* Audience */
+  .aud__grid { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 60rem) { .aud__grid { grid-template-columns: 1.15fr 1fr; gap: 4rem; } }
+  .aud__big { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 0; }
+  .aud__big div { padding-top: 1rem; border-top: 3px solid var(--menthe); }
+  .aud__big dd { margin: 0; font: 800 clamp(2rem, 1.4rem + 2.4vw, 3.4rem)/1 var(--f-titre); letter-spacing: -0.03em; color: var(--bleu); white-space: nowrap; }
+  .aud__big dt { font: 600 var(--t-s)/1.3 var(--f-info); color: var(--texte-2); margin-top: 0.5rem; }
+  @media (max-width: 30rem) { .aud__big { grid-template-columns: 1fr; } }
+  .nets { padding: 1.6rem; border-radius: 20px; background: var(--fond-2); border: 1px solid var(--trait); }
+  .nets__t { font: 800 0.8125rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--texte-2); margin: 0 0 1.2rem; }
+  .nets ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .nets li { display: grid; grid-template-columns: 7.5rem 1fr 3.5rem; align-items: center; gap: 0.75rem; }
+  .nets__name { display: inline-flex; align-items: center; gap: 0.5rem; font: 700 0.9375rem/1 var(--f-info); }
+  .nets__bar { height: 0.7rem; border-radius: 99px; background: var(--surface); overflow: hidden; }
+  .nets__bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--bleu), var(--menthe)); transition: width 1.2s cubic-bezier(.2,.7,.2,1); }
+  .nets li:nth-child(2) i { transition-delay: .1s; } .nets li:nth-child(3) i { transition-delay: .2s; } .nets li:nth-child(4) i { transition-delay: .3s; }
+  .nets.is-in .nets__bar i { width: var(--w); }
+  .nets strong { font: 800 1.125rem/1 var(--f-titre); text-align: right; }
+  .nets .meta { margin: 1.2rem 0 0; }
+
+  /* Pourquoi */
+  .why-s { background: var(--fond-2); }
+  .why { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .why li { padding: 1.6rem; border-radius: 20px; background: var(--fond); border: 1px solid var(--trait); transition: transform .25s ease, box-shadow .25s ease, border-color .25s; }
+  .why li:hover { transform: translateY(-4px); border-color: var(--menthe); box-shadow: 0 18px 40px -20px rgb(10 12 44 / 0.35); }
+  .why__ic { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 14px; background: var(--marine); color: var(--menthe); margin-bottom: 1.1rem; }
+  .why__ic svg { width: 1.6rem; height: 1.6rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .why h3 { font: 800 1.25rem/1.2 var(--f-titre); }
+  .why p { color: var(--texte-2); margin: 0.5rem 0 0; line-height: 1.55; }
+
+  /* Partenaires */
+  .partners { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); }
+  .pcard { display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: center; padding: 1.6rem; border-radius: 20px; background: radial-gradient(120% 120% at 0% 0%, rgb(34 195 211 / 0.22), transparent 55%), var(--marine); color: #fff; }
+  .pcard__logo { display: grid; place-items: center; width: 6.5rem; height: 6.5rem; border-radius: 50%; background: #fff; box-shadow: 0 0 0 6px rgb(255 255 255 / 0.08); transition: transform .3s ease; }
+  .pcard__logo:hover { transform: rotate(-6deg) scale(1.05); }
+  .pcard__logo img { width: 80%; height: auto; }
+  .pcard h3 { font: 800 1.35rem/1.15 var(--f-titre); color: #fff; }
+  .pcard p { color: #c9cde6; margin: 0.4rem 0 0.8rem; font-size: var(--t-s); line-height: 1.5; }
+  .pcard__link { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--menthe); font-weight: 800; text-decoration: none; }
+  .pcard__link:hover { text-decoration: underline; }
+  .pcard--free { display: block; padding: 0; background: none; border: 2px dashed var(--trait); color: var(--texte); }
+  .pcard--free a { display: grid; justify-items: center; align-content: center; gap: 0.35rem; height: 100%; min-height: 9rem; padding: 1.5rem; text-decoration: none; border-radius: 18px; transition: background .2s, border-color .2s; }
+  .pcard--free:hover { border-color: var(--menthe); }
+  .pcard--free a:hover { background: var(--fond-2); }
+  .pcard__plus { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--marine); color: var(--menthe); font: 800 1.5rem/1 var(--f-titre); }
+  .pcard--free strong { font: 800 1.1rem/1.2 var(--f-titre); }
+  .pcard--free span:last-child { color: var(--accent); font-size: var(--t-s); font-weight: 600; }
+
+  /* Emplacements */
+  .slots { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .slots li { position: relative; padding: 1.2rem 1.2rem 1.4rem; border-radius: 20px; border: 1px solid var(--trait); background: var(--fond); transition: transform .25s ease, box-shadow .25s ease; }
+  .slots li:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgb(10 12 44 / 0.35); }
+  .slots__n { font: 800 0.8125rem/1 var(--f-info); color: var(--accent); letter-spacing: 0.08em; }
+  .slots h3 { font: 800 1.125rem/1.25 var(--f-titre); margin-top: 0.4rem; }
+  .slots p { color: var(--texte-2); font-size: var(--t-s); margin: 0.4rem 0 0; line-height: 1.5; }
+  /* Mini-maquette de page, la zone du partenaire en turquoise */
+  .mock { position: relative; aspect-ratio: 16 / 10; border-radius: 12px; background: var(--fond-2); border: 1px solid var(--trait); margin-bottom: 1rem; overflow: hidden; }
+  .mock span { position: absolute; border-radius: 4px; background: var(--surface); }
+  .mock__bar { left: 0; right: 0; top: 0; height: 12%; border-radius: 0 !important; background: var(--marine) !important; }
+  .mock__a { left: 8%; top: 22%; width: 52%; height: 36%; }
+  .mock__b { left: 66%; top: 22%; width: 26%; height: 36%; }
+  .mock__c { left: 8%; top: 66%; width: 84%; height: 10%; }
+  .mock__hl { z-index: 2; background: var(--menthe) !important; box-shadow: 0 0 0 4px rgb(34 195 211 / 0.25); animation: glow 2.2s ease-in-out infinite; }
+  @keyframes glow { 50% { box-shadow: 0 0 0 8px rgb(34 195 211 / 0.1); } }
+  .mock--show .mock__hl { left: 8%; top: 22%; width: 22%; height: 9%; }
+  .mock--rub .mock__hl { left: 66%; top: 22%; width: 26%; height: 36%; }
+  .mock--enc .mock__hl { left: 8%; top: 82%; width: 84%; height: 10%; }
+  .mock--home .mock__hl { left: 0; top: 12%; width: 100%; height: 8%; border-radius: 0; }
+  .mock--home .mock__a, .mock--home .mock__b { top: 26%; }
+
+  /* Formules */
+  .offers-s { background: radial-gradient(70% 90% at 100% 0%, rgb(34 195 211 / 0.18), transparent 60%), var(--marine); color: #fff; }
+  .offers-s .kick { color: var(--menthe); }
+  .offers-s .h2b { color: #fff; }
+  .sub { color: #c9cde6; margin: 0.6rem 0 0; }
+  .offers { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); align-items: stretch; }
+  .offer { position: relative; display: flex; flex-direction: column; padding: 1.6rem 1.4rem 1.4rem; border-radius: 20px; background: rgb(255 255 255 / 0.05); border: 1px solid rgb(255 255 255 / 0.12); transition: transform .25s ease, border-color .25s, background .25s; }
+  .offer:hover { transform: translateY(-6px); border-color: rgb(34 195 211 / 0.6); background: rgb(255 255 255 / 0.08); }
+  .offer--top { background: linear-gradient(160deg, rgb(34 195 211 / 0.28), rgb(34 195 211 / 0.06)); border-color: var(--menthe); box-shadow: 0 24px 60px -24px rgb(34 195 211 / 0.5); }
+  .offer__badge { position: absolute; top: -0.75rem; right: 1.2rem; padding: 0.35rem 0.7rem; border-radius: 99px; background: var(--menthe); color: var(--marine); font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.06em; }
+  .offer__gem { display: block; width: 2.4rem; height: 2.4rem; border-radius: 10px; transform: rotate(45deg); margin: 0.2rem 0 1.2rem 0.3rem; background: linear-gradient(135deg, #fff, var(--menthe)); opacity: calc(0.35 + var(--lvl) * 0.22); box-shadow: 0 0 calc(var(--lvl) * 10px) rgb(34 195 211 / 0.6); }
+  .offer h3 { font: 800 1.6rem/1 var(--f-titre); color: #fff; }
+  .offer--top h3 { color: var(--menthe); }
+  .offer__pitch { font: 700 1rem/1.35 var(--f-info); margin: 0.5rem 0 1rem; color: #fff; }
+  .offer ul { list-style: none; padding: 0; margin: 0 0 1.4rem; display: grid; gap: 0.55rem; color: #c9cde6; font-size: var(--t-s); }
+  .offer ul li { position: relative; padding-left: 1.5rem; line-height: 1.4; }
+  .offer ul li::before { content: ''; position: absolute; left: 0; top: 0.3em; width: 0.9rem; height: 0.9rem; border-radius: 50%; background: var(--menthe) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.3l2.6 2.5L12 5.5' fill='none' stroke='%230a0c2c' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat; }
+  .offer__cta { margin-top: auto; display: inline-flex; justify-content: center; padding: 0.7rem 1rem; border-radius: 99px; border: 1px solid rgb(255 255 255 / 0.3); color: #fff; font-weight: 800; text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
+  .offer__cta:hover, .offer--top .offer__cta { background: var(--menthe); border-color: var(--menthe); color: var(--marine); }
+  .offer__cta:focus-visible { box-shadow: var(--focus); }
+  .example { margin: 1.5rem 0 0; color: #9aa0c4; font-size: var(--t-xs); }
+
+  /* Étapes */
+  .steps { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); counter-reset: s; }
+  .steps li { position: relative; padding: 1.4rem 1.4rem 1.4rem 4.6rem; border-radius: 20px; background: var(--fond-2); }
+  .steps span { position: absolute; left: 1.3rem; top: 1.3rem; display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--marine); color: var(--menthe); font: 800 1.1rem/1 var(--f-titre); }
+  .steps h3 { font: 800 1.125rem/1.2 var(--f-titre); }
+  .steps p { color: var(--texte-2); margin: 0.35rem 0 0; font-size: var(--t-s); line-height: 1.5; }
+
+  /* Contact */
+  .pf { display: grid; gap: 1.5rem; padding: clamp(1rem, 0.5rem + 2vw, 2rem); border-radius: 28px; background: var(--fond-2); border: 1px solid var(--trait); }
+  @media (min-width: 56rem) { .pf { grid-template-columns: 0.9fr 1.5fr; gap: 2.5rem; } }
+  .pf__side { position: relative; overflow: hidden; padding: 2rem; border-radius: 20px; background: radial-gradient(120% 90% at 100% 100%, rgb(34 195 211 / 0.3), transparent 55%), var(--marine); color: #fff; min-height: 18rem; }
+  .pf__side .h2b { color: #fff; position: relative; }
+  .pf__side p { color: #c9cde6; margin-top: 0.8rem; position: relative; max-width: 30ch; }
+  .pf__mail a { color: var(--menthe); font-weight: 700; }
+  .pf__mic { position: absolute; right: -1.5rem; bottom: -1.5rem; width: 11rem; height: auto; opacity: 0.9; transform: rotate(-14deg); animation: float 5s ease-in-out infinite; pointer-events: none; }
+  @keyframes float { 50% { transform: rotate(-10deg) translateY(-10px); } }
+  @media (max-width: 56rem) { .pf__mic { width: 8rem; } }
   .opt { font-weight: 400; color: var(--texte-2); }
   .form-body { max-width: none; }
+  .hp { position: absolute; left: -9999px; }
+  @media (prefers-reduced-motion: reduce) { .mock__hl, .pf__mic, .ph__kicker span { animation: none; } .why li, .slots li, .offer { transition: none; } }
 </style>
+<style>@media (min-width: 60rem) { .ph__bg img { left: auto; width: 68%; } } .pf__dl { color: var(--menthe); font-weight: 700; }</style>
