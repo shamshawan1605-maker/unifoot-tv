@@ -6,6 +6,7 @@ import { activeShows, episodesOfShow, paginate } from '~/lib/content';
 import { podcastSeriesLd } from '~/lib/seo';
 import { allShows } from '@config/shows';
 import SponsorSlot from '~/components/SponsorSlot.astro';
+import ShowTabs from '~/components/ShowTabs.astro';
 import { placements } from '@config/sponsors';
 export const PER_PAGE = 24;
 export function getStaticPaths() {
@@ -14,7 +15,7 @@ export function getStaticPaths() {
 const { show } = Astro.props;
 const eps = episodesOfShow(show.slug);
 const [first] = paginate(eps, PER_PAGE);
-const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Émissions', href: '/emissions/' }, { name: show.name }];
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Émissions', href: '/emissions/kick-in-the-foot/' }, { name: show.name }];
 const isMain = show.slug === allShows[0].slug;
 ---
 <Base
@@ -23,6 +24,7 @@ const isMain = show.slug === allShows[0].slug;
   breadcrumbs={crumbs}
   jsonLd={isMain ? [podcastSeriesLd()] : []}
 >
+  <div class="wrap"><ShowTabs current={show.slug} /></div>
   <header class="wrap page-head">
     <h1>{show.name}</h1>
     <p>{show.intro}</p>

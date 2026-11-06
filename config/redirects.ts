@@ -1,6 +1,7 @@
 // Redirections 301 depuis les anciennes URL du site WordPress (unifoottv.fr).
 // Format : [ancienne URL, nouvelle URL]. Les jokers * et :splat sont ceux de Netlify.
 export const legacyRedirects: [string, string][] = [
+  ['/emissions/', '/emissions/kick-in-the-foot/'], // la page Émissions ouvre directement Kick in the Foot (onglets pour les autres)
   ['/emissions/hors-serie/', '/emissions/kick-in-the-foot/'], // il n'y a plus de hors-série
   ['/kick-in-the-foot/', '/emissions/kick-in-the-foot/'],
   ['/kick-in-the-foot', '/emissions/kick-in-the-foot/'],

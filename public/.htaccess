@@ -21,6 +21,7 @@ AddDefaultCharset utf-8
 </IfModule>
 
 # ---- Redirections (anciennes URL, épisodes supprimés ou déplacés) ----
+RedirectMatch 301 "^/emissions/?$" "/emissions/kick-in-the-foot/"
 RedirectMatch 301 "^/emissions/hors-serie/?$" "/emissions/kick-in-the-foot/"
 RedirectMatch 301 "^/kick-in-the-foot/?$" "/emissions/kick-in-the-foot/"
 RedirectMatch 301 "^/lequipe/?$" "/equipe/"

@@ -167,7 +167,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
       <div class="dm__main">
         <div class="section-head">
           <h2 id="dm-title">À ne pas manquer</h2>
-          <a class="more" href="/emissions/">Toutes les émissions</a>
+          <a class="more" href="/emissions/kick-in-the-foot/">Toutes les émissions</a>
         </div>
         <div class="dm__grid">
           {dontMiss.map((v, i) => <OverlayCard video={v} size={i === 0 ? 'big' : 'small'} badgeColor={badgeFor(i)} sizes={i === 0 ? '(min-width: 64rem) 30vw, 100vw' : '(min-width: 64rem) 18vw, 50vw'} />)}
@@ -177,7 +177,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
         <aside class="rank" aria-labelledby="rank-title">
           <div class="rank__head">
             <h2 id="rank-title">{rankTitle}</h2>
-            <a class="more" href={news.length ? '/actualites/' : '/emissions/'}>Tout voir</a>
+            <a class="more" href={news.length ? '/actualites/' : '/emissions/kick-in-the-foot/'}>Tout voir</a>
           </div>
           <ol>
             {ranked.map((r) => (

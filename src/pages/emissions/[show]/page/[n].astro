@@ -1,6 +1,7 @@
 ---
 import Base from '~/layouts/Base.astro';
 import Listing from '~/components/Listing.astro';
+import ShowTabs from '~/components/ShowTabs.astro';
 import { activeShows, episodesOfShow, paginate } from '~/lib/content';
 export function getStaticPaths() {
   return activeShows.flatMap((show) =>
@@ -10,9 +11,10 @@ export function getStaticPaths() {
   );
 }
 const { show, p } = Astro.props;
-const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Émissions', href: '/emissions/' }, { name: show.name, href: `/emissions/${show.slug}/` }, { name: `Page ${p.page}` }];
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Émissions', href: '/emissions/kick-in-the-foot/' }, { name: show.name, href: `/emissions/${show.slug}/` }, { name: `Page ${p.page}` }];
 ---
 <Base title={`${show.name}, épisodes page ${p.page}`} description={`Les épisodes de ${show.name} sur UNIFOOT TV, page ${p.page} sur ${p.pages}.`} breadcrumbs={crumbs}>
+  <div class="wrap"><ShowTabs current={show.slug} /></div>
   <header class="wrap page-head"><h1>{show.name} <span class="pg">page {p.page}</span></h1></header>
   <section class="wrap section" style="padding-top:0">
     <Listing items={p.items} page={p.page} pages={p.pages} base={`/emissions/${show.slug}/`} showShow={false} label={show.name} />

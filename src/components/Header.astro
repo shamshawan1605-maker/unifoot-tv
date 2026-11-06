@@ -5,15 +5,14 @@ import { links, socials } from '@config/site';
 import { latestEpisode, videoPath, fr } from '~/lib/content';
 const nav = [
   { href: '/actualites/', label: 'Actualités' },
-  { href: '/emissions/', label: 'Émissions' },
+  { href: '/emissions/kick-in-the-foot/', label: 'Émissions' },
   { href: '/extraits/', label: 'Extraits' },
-  { href: '/themes/', label: 'Thèmes' },
   { href: '/participer/', label: 'Participer' },
   { href: '/equipe/', label: "L'équipe" },
   { href: '/partenaires/', label: 'Partenaires' },
 ];
 const path = Astro.url.pathname;
-const isActive = (href: string) => path.startsWith(href);
+const isActive = (href: string) => (href.startsWith('/emissions/') ? path.startsWith('/emissions/') : path.startsWith(href));
 ---
 <div class="top sombre">
   <div class="wrap top__in">

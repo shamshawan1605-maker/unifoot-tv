@@ -20,7 +20,7 @@ const { newer, older } = neighbours(video);
 const vThemes = video.themes.map((t) => themeBySlug.get(t)).filter(Boolean);
 const crumbs = [
   { name: 'Accueil', href: '/' },
-  { name: 'Émissions', href: '/emissions/' },
+  { name: 'Émissions', href: '/emissions/kick-in-the-foot/' },
   { name: show.name, href: `/emissions/${show.slug}/` },
   { name: video.title },
 ];

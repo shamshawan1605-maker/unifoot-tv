@@ -13,7 +13,6 @@ export const GET: APIRoute = async () => {
     urls.push(`<url><loc>${abs(path)}</loc>${mod ? `<lastmod>${mod}</lastmod>` : ''}${extra}</url>`);
   if (!isDemo) {
     add('/', episodes[0]?.publishedAt || lastmod);
-    add('/emissions/', episodes[0]?.publishedAt);
     if (shorts.length) add('/extraits/', shorts[0]?.publishedAt);
     if (activeThemes.length) add('/themes/');
     for (const p of ['/participer/', '/equipe/', '/partenaires/', '/contact/']) add(p);
