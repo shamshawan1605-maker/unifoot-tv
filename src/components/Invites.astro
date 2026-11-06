@@ -3,11 +3,19 @@
 import { invites } from '@config/invites';
 import { videos, thumbSrcset, videoPath } from '~/lib/content';
 import Icon from './Icon.astro';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+
+// ?v=… change quand la photo change, pour que les navigateurs ne gardent pas l'ancienne
+const versioned = (p: string) => {
+  try { return `${p}?v=${createHash('md5').update(readFileSync(join(process.cwd(), 'public', p))).digest('hex').slice(0, 8)}`; } catch { return p; }
+};
 
 const items = invites
   .map((i) => ({ ...i, v: videos.find((x) => x.id === i.video) }))
   .filter((i) => i.v)
-  .map((i) => ({ ...i, img: i.photo ?? (thumbSrcset(i.v!).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
+  .map((i) => ({ ...i, img: i.photo ? versioned(i.photo) : (thumbSrcset(i.v!).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
 ---
 {items.length >= 4 && (
   <section class="wrap section inv" aria-labelledby="inv-title">
