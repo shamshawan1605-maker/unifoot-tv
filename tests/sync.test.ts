@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { startMock } from './mock-server.ts';
-import { demoState, PL_KITF } from './fixtures.ts';
+import { demoState, PL_KITF, PL_SEANCE } from './fixtures.ts';
 import type { ContentStore, SyncState } from '../src/types.ts';
 
 const dir = await mkdtemp(join(tmpdir(), 'unifoot-sync-'));
@@ -69,7 +69,7 @@ await step('1. synchronisation complète initiale', async () => {
   assert.equal(byId(c, 'demoKITF001')!.guest, undefined, 'pas de faux invité');
   assert.equal(byId(c, 'demoSEA0001')!.show, 'au-coeur-d-une-seance');
   assert.equal(byId(c, 'demoSEA0001')!.podcast, undefined, "pas d'audio pour une émission sans podcast");
-  assert.equal(byId(c, 'demoHS00001')!.show, 'hors-serie');
+  assert.equal(byId(c, 'demoHS00001')!.show, 'kick-in-the-foot'); // pas de hors-série : par défaut, Kick in the Foot
   assert.equal(byId(c, 'demoHS00001')!.thin, true, 'description pauvre => noindex');
   assert.equal(kitf.thin, false);
   assert.equal(byId(c, 'demoENT0003')!.podcast?.audioUrl, 'https://example.com/audio/cucci.mp3');
@@ -117,11 +117,11 @@ await step('4. titre modifié sur YouTube : contenu mis à jour, URL inchangée'
 });
 
 await step('5. vidéo hors playlist ajoutée ensuite à une émission : ancienne URL redirigée', async () => {
-  state.playlists[PL_KITF].push('demoHS00001');
+  state.playlists[PL_SEANCE].push('demoHS00001');
   await runSync();
   const v = byId(await content(), 'demoHS00001')!;
-  assert.equal(v.show, 'kick-in-the-foot');
-  assert.deepEqual(v.previousPaths, ['/emissions/hors-serie/rencontre-avec-les-benevoles-du-tournoi-de-paques/']);
+  assert.equal(v.show, 'au-coeur-d-une-seance');
+  assert.deepEqual(v.previousPaths, ['/emissions/kick-in-the-foot/rencontre-avec-les-benevoles-du-tournoi-de-paques/']);
 });
 
 await step('6. vidéo passée en privée + vidéo supprimée : retirées et redirigées vers leur émission', async () => {
@@ -137,7 +137,7 @@ await step('6. vidéo passée en privée + vidéo supprimée : retirées et redi
   execFileSync('npx', ['tsx', 'scripts/build-redirects.ts'], { env: process.env, stdio: 'pipe' });
   const redirects = await readFile('public/_redirects', 'utf8');
   assert.match(redirects, /\/emissions\/entre-2\/santiago-cucci-president-aviron-bayonnais-fc-ex-ol-rachat-girondins-rate\/\s+\/emissions\/entre-2\/\s+301/);
-  assert.match(redirects, /\/emissions\/hors-serie\/rencontre-avec-les-benevoles-du-tournoi-de-paques\/\s+\/emissions\/kick-in-the-foot\/rencontre-avec-les-benevoles-du-tournoi-de-paques\/\s+301/);
+  assert.match(redirects, /\/emissions\/kick-in-the-foot\/rencontre-avec-les-benevoles-du-tournoi-de-paques\/\s+\/emissions\/au-coeur-d-une-seance\/rencontre-avec-les-benevoles-du-tournoi-de-paques\/\s+301/);
   assert.match(redirects, /\/lequipe\/\s+\/equipe\/\s+301/);
 });
 

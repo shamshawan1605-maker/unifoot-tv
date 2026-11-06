@@ -1,6 +1,6 @@
 import type { Chapter } from '../../src/types.ts';
 import { themes, THEME_MIN_SCORE, THEME_MAX_PER_VIDEO } from '../../config/themes.ts';
-import { shows, fallbackShow } from '../../config/shows.ts';
+import { shows } from '../../config/shows.ts';
 import { syncConfig } from '../../config/sync.ts';
 import { normalize, parseClock } from './text.ts';
 
@@ -132,7 +132,7 @@ export function isThin(description: string, chapters: Chapter[]): boolean {
   return usefulDescription(description).length < syncConfig.thinDescriptionChars && chapters.length < 3;
 }
 
-/** Émission d'une vidéo : playlist d'abord, puis mots-clés du titre, sinon hors-série */
+/** Émission d'une vidéo : playlist d'abord, puis mots-clés du titre, sinon Kick in the Foot (il n'y a pas de hors-série) */
 export function assignShow(videoPlaylists: string[], title: string): string {
   for (const show of [...shows].sort((a, b) => a.order - b.order)) {
     if (show.playlistIds.some((p) => videoPlaylists.includes(p))) return show.slug;
@@ -141,7 +141,7 @@ export function assignShow(videoPlaylists: string[], title: string): string {
   for (const show of shows) {
     if (show.titleMatches?.some((m) => nt.includes(normalize(m)))) return show.slug;
   }
-  return fallbackShow.slug;
+  return 'kick-in-the-foot';
 }
 
 export { parseClock };
