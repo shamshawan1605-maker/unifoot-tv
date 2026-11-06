@@ -2,12 +2,17 @@
 // Le rendez-vous de la semaine (du mercredi au samedi), façon panneau d'affichage de stade, avec compte à rebours (heure de Paris).
 import Icon from './Icon.astro';
 import { links, site } from '@config/site';
-const { weekdays, hour, minute, label } = site.rendezVous;
+import { episodesOfShow } from '~/lib/content';
+import { allShows } from '@config/shows';
+const { weekdays, hour, minute, label, reprise } = site.rendezVous;
+// Dernier épisode de l'émission principale : « C'est en ligne » seulement s'il vient vraiment de sortir
+const latest = episodesOfShow(allShows[0].slug)[0]?.publishedAt ?? '';
+const repriseLabel = reprise ? new Date(`${reprise}T12:00:00`).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }) : '';
 ---
 <div class="sb">
   <p class="sb__title">{label}</p>
-  <div class="sb__board" data-weekdays={weekdays.join(",")} data-hour={hour} data-minute={minute}>
-    <p class="sb__label" id="sb-label">Prochaine sortie dans</p>
+  <div class="sb__board" data-weekdays={weekdays.join(",")} data-hour={hour} data-minute={minute} data-reprise={reprise} data-latest={latest}>
+    <p class="sb__label" id="sb-label" data-reprise-label={repriseLabel ? `Reprise le ${repriseLabel}, dans` : undefined}>Prochaine sortie dans</p>
     <div class="sb__digits" role="timer" aria-labelledby="sb-label">
       <span class="sb__cell"><b data-u="d">–</b><small>jours</small></span>
       <span class="sb__cell"><b data-u="h">–</b><small>heures</small></span>
@@ -39,16 +44,23 @@ const { weekdays, hour, minute, label } = site.rendezVous;
     const hh = Number(board.dataset.hour), mm = Number(board.dataset.minute);
     // Heures "murales" de Paris : indépendant du fuseau du visiteur
     const paris = (d: Date) => new Date(d.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+    const reprise = board.dataset.reprise ? new Date(`${board.dataset.reprise}T00:00:00`) : null;
+    const latest = board.dataset.latest ? new Date(board.dataset.latest).getTime() : 0;
+    const labelEl = board.querySelector<HTMLElement>('.sb__label')!;
     function state(now: Date) {
-      const p = paris(now);
-      let live = false;
+      const real = paris(now);
+      const paused = !!reprise && real < reprise;
+      if (paused && labelEl.dataset.repriseLabel) labelEl.textContent = labelEl.dataset.repriseLabel;
+      const p = paused ? new Date(reprise!) : real;
+      // En ligne : un épisode est vraiment sorti il y a moins de 3 heures
+      const live = latest > 0 && now.getTime() - latest < 3 * 3600e3;
       for (let add = 0; add <= 7; add++) {
         const t = new Date(p);
         t.setDate(p.getDate() + add);
         t.setHours(hh, mm, 0, 0);
         if (!days.includes(t.getDay())) continue;
-        if (add === 0 && p >= t) { if (p.getTime() - t.getTime() < 2 * 3600e3) live = true; continue; }
-        return { ms: t.getTime() - p.getTime(), live };
+        if (add === 0 && p >= t) { continue; }
+        return { ms: t.getTime() - real.getTime(), live };
       }
       return { ms: 0, live };
     }

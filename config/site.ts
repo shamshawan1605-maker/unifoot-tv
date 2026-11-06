@@ -11,7 +11,11 @@ export const site = {
   email: 'contact@unifoottv.fr',
   /** Rendez-vous hebdomadaire (heure de Paris) */
   /** Jours de sortie (0 = dimanche … 3 = mercredi … 6 = samedi), heure de Paris */
-  rendezVous: { weekdays: [3, 4, 5, 6], hour: 18, minute: 0, label: 'Du mercredi au samedi, 18h' },
+  rendezVous: {
+    weekdays: [3, 4, 5, 6], hour: 18, minute: 0, label: 'Du mercredi au samedi, 18h',
+    /** Pause : date de reprise des émissions (AAAA-MM-JJ). Le compte à rebours vise la première sortie à partir de ce jour. Mettre '' quand il n'y a pas de pause. */
+    reprise: '2026-11-11',
+  },
   /** Image de partage par défaut (dans /public) */
   ogImage: '/brand/og-default.png',
   /**
