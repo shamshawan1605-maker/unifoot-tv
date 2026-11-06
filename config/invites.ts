@@ -58,6 +58,7 @@ export const invites: Invite[] = [
   { name: 'Gaël Diarra', role: 'Coach U16 R1 de l’ES Nanterre', video: 'RZ63ZCUK-yo', photo: '/invites/gael-diarra.webp', link: 'https://www.youtube.com/watch?v=RZ63ZCUK-yo&t=4s' },
   { name: 'Sami Benchebana', role: 'Identification des talents chez Footsider', video: 'rgUT3FG6yuU', photo: '/invites/sami-benchebana.webp', link: 'https://www.youtube.com/watch?v=rgUT3FG6yuU&t=3860s' },
   { name: 'Wesley Ngo Baheng', role: 'Ancien pro à Newcastle', video: 'QZFxU3CdqxI', photo: '/invites/wesley-ngo-baheng.webp', link: 'https://www.youtube.com/watch?v=QZFxU3CdqxI&t=1531s' },
+  { name: 'Laurent Fellous', role: 'Avocat en droit du sport', video: 'zgUvz0RdTZU', photo: '/invites/laurent-fellous.webp', link: 'https://www.youtube.com/watch?v=zgUvz0RdTZU&t=11s' },
   { name: 'Frédéric Advice-Desruisseaux', role: 'Ex-coach du Paris 13 Atletico (N2)', video: 'jfatOAWbNZ4', photo: '/invites/frederic-advice-desruisseaux.webp', link: 'https://www.youtube.com/watch?v=jfatOAWbNZ4&t=5874s' },
   { name: 'Angelo Michaud', role: 'Recruteur de l’En Avant Guingamp', video: 'RX7X2JazkpQ', photo: '/invites/angelo-michaud.webp', link: 'https://www.youtube.com/watch?v=RX7X2JazkpQ&t=1s' },
   { name: 'Samy Mandessi-Bell', role: 'Coach U17 National de Montrouge FC 92', video: 'TYzv5Ka2Wd8', photo: '/invites/samy-mandessi-bell.webp', link: 'https://www.youtube.com/watch?v=TYzv5Ka2Wd8&t=2024s' },
