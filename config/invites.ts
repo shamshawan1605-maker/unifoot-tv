@@ -23,7 +23,7 @@ export const invites: Invite[] = [
   { name: 'Gessime Yassine', video: '5rjiPyLH4lU' },
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw' },
-  { name: 'Fabio Frasconi', role: 'U19 National', video: 'sUAM1QH1wFU' },
+  { name: 'Fabio Frasconi', role: 'U19 National', video: 'sUAM1QH1wFU', photo: '/invites/fabio-frasconi.webp' },
   { name: 'Baptiste Monveneur', video: 'J679xfI93t0' },
   { name: 'Kaou Diallo', role: 'Responsable préformation au PSG', video: 'h-J8Fzf5dUg' },
   { name: 'Teddy Bartouche-Selbonne', role: 'Gardien en Ligue 2', video: 'VZCpLxeNmUE' },
