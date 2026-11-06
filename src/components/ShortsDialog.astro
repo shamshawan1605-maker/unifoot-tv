@@ -15,7 +15,14 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
     </div>
     <div class="sd__body">
       <div class="sd__player">
-        <div class="sd__frame"></div>
+        <div class="sd__stage">
+          <div class="sd__frame"></div>
+          <div class="sd__nav">
+            <button type="button" class="sd__arrow" data-step="-1" aria-label="Extrait précédent"><Icon name="arrow-left" size={22} /></button>
+            <span class="sd__pos" aria-live="polite"></span>
+            <button type="button" class="sd__arrow" data-step="1" aria-label="Extrait suivant"><Icon name="arrow-right" size={22} /></button>
+          </div>
+        </div>
         <p class="sd__note">Lecture via YouTube. <a class="sd__yt" href="#" rel="noopener" target="_blank">Ouvrir sur YouTube</a></p>
       </div>
       <aside class="sd__com" aria-labelledby="sd-com-title">
@@ -40,6 +47,14 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
   @media (min-width: 52rem) { .sd__body { grid-template-columns: 22rem 1fr; align-items: start; } }
   .sd__frame { position: relative; aspect-ratio: 9 / 16; max-height: 78vh; background: #000; border-radius: var(--r-m); overflow: hidden; }
   .sd__frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* Navigation entre les extraits : flèches, clavier, molette, glisser */
+  .sd__nav { display: flex; align-items: center; justify-content: center; gap: 0.9rem; margin-top: 0.7rem; }
+  .sd__arrow { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 2px solid rgb(34 195 211 / 0.6); background: var(--marine-2); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .15s ease, transform .15s ease; }
+  .sd__arrow:hover:not(:disabled) { background: var(--menthe); color: var(--marine); transform: scale(1.06); }
+  .sd__arrow:disabled { opacity: 0.3; cursor: default; }
+  .sd__pos { min-width: 4.5rem; text-align: center; font: 700 0.8125rem/1 var(--f-info); color: #c9cbe0; font-variant-numeric: tabular-nums; }
+  .sd__frame { transition: opacity .2s ease; }
+  .sd__frame.is-switching { opacity: 0.25; }
   .sd__note { margin: 0.6rem 0 0; font-size: 0.8125rem; color: #c9cbe0; text-align: center; }
   .sd__note a { color: var(--menthe); }
 
@@ -123,10 +138,55 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       });
     };
     const close = () => { frame.querySelector('iframe')?.remove(); dlg.close(); };
-    document.addEventListener('click', (e) => {
-      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-short]');
-      if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    // Liste des extraits de la page (dans l'ordre), pour passer au suivant
+    let items: HTMLAnchorElement[] = [];
+    let index = 0;
+    const prevBtn = dlg.querySelector<HTMLButtonElement>('[data-step="-1"]')!;
+    const nextBtn = dlg.querySelector<HTMLButtonElement>('[data-step="1"]')!;
+    const pos = dlg.querySelector<HTMLElement>('.sd__pos')!;
+    const collect = (from: HTMLAnchorElement) => {
+      const scope = from.closest('section, main') || document;
+      const seen = new Set<string>();
+      items = [...scope.querySelectorAll<HTMLAnchorElement>('a[data-short]')].filter((x) => {
+        const id = x.dataset.short!;
+        if (seen.has(id) || x.closest('[aria-hidden="true"], [hidden]')) return false;
+        seen.add(id); return x.offsetParent !== null;
+      });
+      index = Math.max(0, items.findIndex((x) => x.dataset.short === from.dataset.short));
+    };
+    const go = (step: number) => {
+      const n = index + step;
+      if (n < 0 || n >= items.length) return;
+      index = n;
+      frame.classList.add('is-switching');
+      setTimeout(() => { show(items[index]); frame.classList.remove('is-switching'); }, 150);
+    };
+    prevBtn.addEventListener('click', () => go(-1));
+    nextBtn.addEventListener('click', () => go(1));
+    dlg.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    });
+    // Molette (hors liste des commentaires) : un cran = un extrait
+    let wheelLock = 0;
+    dlg.addEventListener('wheel', (e) => {
+      if ((e.target as HTMLElement).closest('.sd__com-list')) return;
       e.preventDefault();
+      if (Date.now() < wheelLock || Math.abs(e.deltaY) < 20) return;
+      wheelLock = Date.now() + 700;
+      go(e.deltaY > 0 ? 1 : -1);
+    }, { passive: false });
+    // Glisser sur téléphone (en dehors du lecteur, qui capte le doigt)
+    let y0 = 0, x0 = 0;
+    dlg.addEventListener('touchstart', (e) => { y0 = e.touches[0].clientY; x0 = e.touches[0].clientX; }, { passive: true });
+    dlg.addEventListener('touchend', (e) => {
+      if ((e.target as HTMLElement).closest('.sd__com-list')) return;
+      const dy = e.changedTouches[0].clientY - y0, dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      else if (Math.abs(dy) > 70) go(dy < 0 ? 1 : -1);
+    }, { passive: true });
+
+    function show(a: HTMLAnchorElement) {
       const id = a.dataset.short!;
       title.textContent = a.dataset.title || '';
       yt.href = a.href;
@@ -139,7 +199,18 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       f.allow = 'autoplay; encrypted-media; picture-in-picture; web-share';
       f.allowFullscreen = true;
       frame.append(f);
-      dlg.showModal();
+      prevBtn.disabled = index <= 0;
+      nextBtn.disabled = index >= items.length - 1;
+      pos.textContent = items.length > 1 ? `${index + 1} / ${items.length}` : '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-short]');
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey || dlg.contains(a)) return;
+      e.preventDefault();
+      collect(a);
+      show(a);
+      if (!dlg.open) dlg.showModal();
       dlg.querySelector<HTMLButtonElement>('.sd__close')!.focus();
     });
     dlg.querySelector('.sd__close')!.addEventListener('click', close);
