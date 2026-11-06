@@ -31,7 +31,7 @@ export const invites: Invite[] = [
   { name: 'Teddy Bartouche-Selbonne', role: 'Gardien en Ligue 2', video: 'VZCpLxeNmUE', photo: '/invites/teddy-bartouche-selbonne.webp', link: 'https://www.youtube.com/watch?v=VZCpLxeNmUE&t=2s' },
   { name: 'Patrice Ribaton', role: 'Institut international Sadio Mané', video: 'HGKzHbZ3dVU', photo: '/invites/patrice-ribaton.webp', link: 'https://www.youtube.com/watch?v=HGKzHbZ3dVU&t=2500s' },
   { name: 'Hassan Baillon', role: 'Président de club', video: '8vg0jnjg3JE' },
-  { name: 'Jasmine Cherchali', role: 'Football ghanéen', video: 'aN87fPkn5FA' },
+  { name: 'Jasmine Cherchali', role: 'Football ghanéen', video: 'aN87fPkn5FA', photo: '/invites/jasmine-cherchali.webp', link: 'https://www.youtube.com/watch?v=aN87fPkn5FA&t=332s' },
   { name: 'Ousmane Diaby', role: 'Directeur technique de l’ES Nanterre', video: 'sRCapZvROEM', photo: '/invites/ousmane-diaby.webp', link: 'https://www.youtube.com/watch?v=sRCapZvROEM&t=4033s' },
   { name: 'Bakary Sylla', role: 'Coach U17 National de Montfermeil', video: 'v-D0tKlJeJ4', photo: '/invites/bakary-sylla.webp', link: 'https://www.youtube.com/watch?v=v-D0tKlJeJ4&t=5418s' },
   { name: 'Rafik Masmoudi', role: 'Santé du sportif', video: 'LEnUyKq5yEg' },
