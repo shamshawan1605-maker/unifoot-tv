@@ -29,6 +29,8 @@ const partNames: Record<number, string> = { 3: 'Avant-match', 4: 'Première pér
 const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const mainEps = episodesOfShow(allShows[0].slug);
 let week: { day: number; video?: (typeof episodes)[number] }[] = [];
+let weekIsCurrent = true;
+let weekLabel = '';
 if (hero && hero.show === allShows[0].slug) {
   const h = parisDay(hero.publishedAt);
   const wed = new Date(h);
@@ -36,6 +38,8 @@ if (hero && hero.show === allShows[0].slug) {
   wed.setDate(h.getDate() - ((h.getDay() - 3 + 7) % 7));
   const end = new Date(wed); end.setDate(wed.getDate() + 7);
   const inWeek = mainEps.filter((v) => { const d = parisDay(v.publishedAt); return d >= wed && d < end; });
+  weekIsCurrent = parisDay(new Date().toISOString()) < end;
+  weekLabel = wed.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
   week = [3, 4, 5, 6].map((day) => ({ day, video: [...inWeek].reverse().find((v) => parisDay(v.publishedAt).getDay() === day) }));
 }
 const weekIds = new Set(week.map((w) => w.video?.id).filter(Boolean));
@@ -121,7 +125,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
       <Scoreboard />
       {week.length > 0 && (
         <div class="onair">
-          <p class="onair__h">Cette semaine dans {allShows[0].name}</p>
+          <p class="onair__h">{weekIsCurrent ? `Cette semaine dans ${allShows[0].name}` : `${allShows[0].name}, semaine du ${weekLabel}`}</p>
           <ol>
             {week.map((w) => (
               <li class:list={{ 'onair__now': w.video?.id === hero?.id, 'onair__soon': !w.video }}>
@@ -133,7 +137,9 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
                 ) : (
                   <div class="onair__wait">
                     <span class="onair__part">{partNames[w.day]}</span>
-                    <span><span class="onair__t">À venir</span><span class="onair__m">{dayNames[w.day]} à 18h</span></span>
+                    {weekIsCurrent
+                      ? <span><span class="onair__t">À venir</span><span class="onair__m">{dayNames[w.day]} à 18h</span></span>
+                      : <span><span class="onair__t">Pas de diffusion</span><span class="onair__m">{dayNames[w.day]}</span></span>}
                   </div>
                 )}
               </li>
