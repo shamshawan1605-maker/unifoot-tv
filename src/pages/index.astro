@@ -25,6 +25,7 @@ const listenHref = hero?.podcast?.url || links.spotify;
 // La semaine de l'émission : 4 parties du mercredi au samedi (heure de Paris)
 const parisDay = (iso: string) => new Date(new Date(iso).toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
 const partNames: Record<number, string> = { 3: 'Avant-match', 4: 'Première période', 5: 'Deuxième période', 6: 'Prolongations' };
+const partMinutes: Record<number, string> = { 3: "0'", 4: "45'", 5: "90'", 6: "120'" };
 const dayNames = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
 const mainEps = episodesOfShow(allShows[0].slug);
 let week: { day: number; video?: (typeof episodes)[number] }[] = [];
@@ -125,20 +126,20 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
       {week.length > 0 && (
         <div class="onair">
           <p class="onair__h">{weekIsCurrent ? `Cette semaine dans ${allShows[0].name}` : `${allShows[0].name}, semaine du ${weekLabel}`}</p>
-          <ol>
+          <ol class="fil">
             {week.map((w) => (
-              <li class:list={{ 'onair__now': w.video?.id === hero?.id, 'onair__soon': !w.video }}>
+              <li class:list={{ 'fil__now': w.video?.id === hero?.id, 'fil__off': !w.video }}>
+                <span class="fil__min" aria-hidden="true">{partMinutes[w.day]}</span>
                 {w.video ? (
-                  <a href={videoPath(w.video)}>
-                    <span class="onair__part">{partNames[w.day]}</span>
-                    <span><span class="onair__t">{fr(w.video.title)}</span><span class="onair__m">{dayNames[w.day]}{w.video.id === hero?.id ? ' / À la une' : ''}</span></span>
+                  <a class="fil__txt" href={videoPath(w.video)}>
+                    <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.day]}</span></span>
+                    <span class="fil__t">{fr(w.video.title)}</span>
+                    {w.video.id === hero?.id && <span class="fil__badge">À la une</span>}
                   </a>
                 ) : (
-                  <div class="onair__wait">
-                    <span class="onair__part">{partNames[w.day]}</span>
-                    {weekIsCurrent
-                      ? <span><span class="onair__t">À venir</span><span class="onair__m">{dayNames[w.day]} à 18h</span></span>
-                      : <span><span class="onair__t">Pas de diffusion</span><span class="onair__m">{dayNames[w.day]}</span></span>}
+                  <div class="fil__txt">
+                    <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.day]}</span></span>
+                    <span class="fil__t">{weekIsCurrent ? `À venir, ${dayNames[w.day].toLowerCase()} à 18h` : 'Pas de diffusion'}</span>
                   </div>
                 )}
               </li>
@@ -337,15 +338,23 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
 
   .une__side { border-radius: var(--r-m); padding: 1.25rem; display: grid; gap: 1.5rem; align-content: start; }
   .onair__h { font: 700 0.9375rem/1 var(--f-info); color: #fff; margin: 0 0 0.4rem; }
-  .onair ol { list-style: none; margin: 0; padding: 0; }
-  .onair li + li { border-top: 1px solid var(--trait); }
-  .onair a, .onair__wait { display: grid; grid-template-columns: 6.25rem 1fr; gap: 0.75rem; align-items: center; padding: 0.7rem 0; text-decoration: none; }
-  .onair__part { align-self: start; justify-self: start; padding: 0.3rem 0.5rem; border-radius: 4px; background: var(--surface); font: 700 0.6875rem/1.2 var(--f-info); color: var(--texte); text-align: center; }
-  .onair__now .onair__part { background: var(--menthe); color: var(--marine); }
-  .onair__soon .onair__t { color: var(--texte-2); font-weight: 600; }
-  .onair__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font: 700 0.875rem/1.3 var(--f-texte); }
-  .onair__m { display: block; margin-top: 0.2rem; font: 600 0.75rem/1.2 var(--f-info); color: var(--texte-2); }
-  .onair a:hover .onair__t { color: var(--accent); }
+  /* Fil du match : 4 sorties de la semaine comme le déroulé d'un match */
+  .fil { list-style: none; margin: 0.6rem 0 0; padding: 0; position: relative; }
+  .fil li { position: relative; display: grid; grid-template-columns: 2.75rem 1fr; gap: 0.85rem; padding-bottom: 1rem; }
+  .fil li:last-child { padding-bottom: 0; }
+  .fil li:not(:last-child)::before { content: ''; position: absolute; left: calc(1.375rem - 1px); top: 2.75rem; bottom: 0; width: 2px; background: linear-gradient(var(--menthe), rgb(79 255 190 / 0.25)); }
+  .fil__off:not(:last-child)::before, .fil li:has(+ .fil__off)::before { background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.3) 0 4px, transparent 4px 8px) !important; }
+  .fil__min { width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--menthe); color: var(--menthe); font: 800 0.8125rem/1 var(--f-info); font-variant-numeric: tabular-nums; background: var(--marine); }
+  .fil__now .fil__min { background: var(--menthe); color: var(--marine); box-shadow: 0 0 0 5px rgb(79 255 190 / 0.2); }
+  .fil__off .fil__min { border-style: dashed; border-color: rgb(255 255 255 / 0.35); color: rgb(255 255 255 / 0.5); }
+  .fil__txt { display: grid; gap: 0.2rem; align-content: center; min-height: 2.75rem; text-decoration: none; justify-items: start; }
+  .fil__part { font: 800 0.6875rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.06em; color: var(--menthe); }
+  .fil__day { font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--texte-2); }
+  .fil__off .fil__part { color: var(--texte-2); }
+  .fil__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font: 700 0.875rem/1.3 var(--f-texte); color: var(--texte); }
+  .fil__off .fil__t { font-weight: 500; color: var(--texte-2); }
+  .fil a:hover .fil__t { color: var(--menthe); }
+  .fil__badge { margin-top: 0.15rem; padding: 0.15rem 0.45rem; border-radius: 4px; background: var(--jaune); color: var(--marine); font: 800 0.625rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.05em; }
 
   /* ---- À ne pas manquer ---- */
   .dm { display: grid; gap: 2.5rem; }
