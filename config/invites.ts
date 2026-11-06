@@ -19,6 +19,7 @@ export const invites: Invite[] = [
   { name: 'Santiago Cucci', role: 'Président de l’Aviron Bayonnais FC', video: 'hsDgxLIhlmw' },
   { name: 'Sambou Tati', role: 'Président du Roissy FC', video: '5Eg9G9zh3XE', photo: '/invites/sambou-tati.webp' },
   { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA', photo: '/invites/emmanuel-dorado.webp', link: 'https://www.youtube.com/watch?v=X4dpWkIbFJA&t=2777s' },
+  { name: 'Boulaya', video: 'O5Zbz6sV52c', photo: '/invites/boulaya.webp', link: 'https://www.youtube.com/watch?v=O5Zbz6sV52c&t=26s' },
   { name: 'Gessime Yassine', video: '5rjiPyLH4lU' },
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw' },
