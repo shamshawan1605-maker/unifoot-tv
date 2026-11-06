@@ -4,6 +4,7 @@ import Thumb from '~/components/Thumb.astro';
 import PlayerScript from '~/components/PlayerScript.astro';
 import Scoreboard from '~/components/Scoreboard.astro';
 import OverlayCard from '~/components/OverlayCard.astro';
+import Invites from '~/components/Invites.astro';
 import Bands from '~/components/Bands.astro';
 import SponsorSlot from '~/components/SponsorSlot.astro';
 import { placements } from '@config/sponsors';
@@ -56,9 +57,6 @@ const topRow = [
   ...news.slice(0, 4).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: `Actu / ${formatShortDate(n.data.date.toISOString())}`, img: newsImage(n), short: '' })),
   ...shorts.map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v).src as string | undefined, short: v.id })),
 ].slice(0, 4);
-// Les plus regardées : uniquement des vidéos qui ne sont pas déjà plus haut sur la page
-const shownIds = new Set([hero?.id, ...weekIds, ...dontMiss.map((v) => v.id)]);
-const popular = others.filter((v) => !shownIds.has(v.id)).sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0) || b.publishedAt.localeCompare(a.publishedAt)).slice(0, 4);
 const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i % 5];
 ---
 <Base
@@ -205,28 +203,8 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
     </section>
   )}
 
-  <!-- Vidéos populaires : une grande + liste -->
-  {popular.length >= 3 && (
-    <section class="wrap section pop" aria-labelledby="pop-title">
-      <div class="section-head">
-        <h2 id="pop-title">Les plus regardées</h2>
-        <a class="more" href="/emissions/">Toutes les vidéos</a>
-      </div>
-      <div class="pop__grid">
-        <OverlayCard video={popular[0]} size="big" badgeColor="corail" sizes="(min-width: 64rem) 55vw, 100vw" />
-        <ul class="pop__list">
-          {popular.slice(1).map((v) => (
-            <li>
-              <a href={videoPath(v)}>
-                <span class="pop__thumb"><Thumb video={v} sizes="10rem" /></span>
-                <span><span class="pop__t">{fr(v.title)}</span><span class="pop__m">{showOf(v).name} / {formatShortDate(v.publishedAt)}</span></span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )}
+  <!-- Les invités passés sur UNIFOOT TV -->
+  <Invites />
 
   <!-- Extraits -->
   {topShorts.length > 0 && (
@@ -300,15 +278,6 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .toprow__m { display: block; margin-top: 0.2rem; font: 500 0.75rem/1.2 var(--f-info); color: var(--texte-2); }
 
   /* ---- Vidéos populaires ---- */
-  .pop__grid { display: grid; gap: 1.25rem; }
-  @media (min-width: 56rem) { .pop__grid { grid-template-columns: 1.6fr 1fr; } }
-  .pop__grid > :global(.oc) { aspect-ratio: 16 / 9; }
-  .pop__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; align-content: start; }
-  .pop__list a { display: grid; grid-template-columns: 10rem 1fr; gap: 0.9rem; align-items: center; text-decoration: none; }
-  .pop__thumb :global(.thumb) { aspect-ratio: 16 / 9; }
-  .pop__t { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font: 700 0.9375rem/1.35 var(--f-texte); }
-  .pop__m { display: block; margin-top: 0.3rem; font: 500 0.8125rem/1.2 var(--f-info); color: var(--texte-2); }
-  .pop__list a:hover .pop__t { color: var(--accent); }
 
   /* ---- À la une ---- */
   .une { display: grid; gap: 1.25rem; padding-top: 1.25rem; }
