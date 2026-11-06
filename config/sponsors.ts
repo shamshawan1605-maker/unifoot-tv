@@ -23,7 +23,12 @@ export const placements: {
   /** Encart dans les actus et sur les pages d'épisodes */
   contenus: Sponsor | null;
 } = {
-  accueil: null,
+  accueil: {
+    nom: 'Do Your Football',
+    texte: "L'application de suivi des joueurs et des séances pour les clubs.",
+    lien: 'https://www.doyourfootball.com/',
+    bouton: 'Découvrir DYF',
+  },
   emissions: {
     'kick-in-the-foot': null,
     'entre-2': null,
@@ -37,7 +42,12 @@ export const placements: {
     parents: null,
     'vie-des-clubs': null,
   },
-  contenus: null,
+  contenus: {
+    nom: 'Do Your Football',
+    texte: "L'application de suivi des joueurs et des séances pour les clubs.",
+    lien: 'https://www.doyourfootball.com/',
+    bouton: 'Découvrir DYF',
+  },
 };
 
 /** Catégories refusées, pour mémoire (aucune pub automatique n'est diffusée sur le site) */
