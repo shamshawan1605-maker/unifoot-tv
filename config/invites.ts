@@ -20,7 +20,7 @@ export const invites: Invite[] = [
   { name: 'Sambou Tati', role: 'Président du Roissy FC', video: '5Eg9G9zh3XE', photo: '/invites/sambou-tati.webp' },
   { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA', photo: '/invites/emmanuel-dorado.webp', link: 'https://www.youtube.com/watch?v=X4dpWkIbFJA&t=2777s' },
   { name: 'Boulaya', video: 'O5Zbz6sV52c', photo: '/invites/boulaya.webp', link: 'https://www.youtube.com/watch?v=O5Zbz6sV52c&t=26s' },
-  { name: 'Romain', role: 'Bontaz Academy Coaching', video: 'v4QIAYF9hV4', photo: '/invites/romain-bontaz.webp', link: 'https://www.youtube.com/watch?v=v4QIAYF9hV4' },
+  { name: 'Romain', role: 'Arrêt Flash', video: 'v4QIAYF9hV4', photo: '/invites/romain-bontaz.webp', link: 'https://www.youtube.com/watch?v=v4QIAYF9hV4' },
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw', photo: '/invites/oussama-moueddene.webp', link: 'https://www.youtube.com/watch?v=lG51nKqw8Aw&t=1427s' },
   { name: 'Fabio Frasconi', role: 'U19 National', video: 'sUAM1QH1wFU', photo: '/invites/fabio-frasconi.webp' },
