@@ -2,6 +2,8 @@
 titre: "Bondy : le président de la JS Bondy agressé pour un créneau, la FFF sort du silence"
 date: 2026-11-06T06:00:00+01:00
 chapo: "Le président de la Jeunesse Sportive de Bondy a été violemment agressé au stade Robert-Gazzi, sur fond de conflit autour d'un créneau d'entraînement. La FFF condamne et envisage de se porter partie civile."
+image: /actualites/2026-11-06-fff-siege.webp
+imageAlt: "Le logo de la Fédération française de football sur la façade de son siège"
 source:
   nom: "Foot National"
   url: "https://www.foot-national.com/foot-amateur/foot-amateur-le-president-de-la-js-de-bondy-passe-a-tabac-la-fff-sort-du-silence-960170"
