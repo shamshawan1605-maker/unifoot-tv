@@ -42,6 +42,7 @@ export const invites: Invite[] = [
   { name: 'Karim Mazeghrane', role: 'Adjoint N2 du FC 93', video: 'Rh76HVm7emM', photo: '/invites/karim-mazeghrane.webp', link: 'https://www.youtube.com/watch?v=Rh76HVm7emM&t=11s' },
   { name: 'Stevens', role: 'Coach U17 National de Brétigny', video: '-7Q6hEi2hiE', photo: '/invites/stevens-bretigny.webp', link: 'https://www.youtube.com/watch?v=-7Q6hEi2hiE&t=14s' },
   { name: 'Mohamed Segueni', role: 'Agent FFF', video: 'TdWJqqwuCpU', photo: '/invites/mohamed-segueni.webp', link: 'https://www.youtube.com/watch?v=TdWJqqwuCpU&t=5606s' },
+  { name: 'Fanny Roussel', role: 'Nutrition et hygiène de vie des jeunes', video: 'eJBT5pYwDDY', photo: '/invites/fanny-roussel.webp', link: 'https://www.youtube.com/watch?v=eJBT5pYwDDY&t=9298s' },
   { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0', photo: '/invites/hassoun-camara.webp', link: 'https://www.youtube.com/watch?v=9YIkfAuQaQ0&t=44s' },
   { name: 'Ludovic Baal', role: 'Ancien pro (Lens, Rennes, Brest)', video: '3SYbuYS-zq4', photo: '/invites/ludovic-baal.webp', link: 'https://www.youtube.com/watch?v=3SYbuYS-zq4&t=300s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
