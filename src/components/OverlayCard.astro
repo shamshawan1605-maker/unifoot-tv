@@ -10,7 +10,7 @@ const { video, size = 'small', badge, badgeColor = '', sizes = '(min-width: 64re
   <Thumb video={video} sizes={sizes} showTime={false} />
   <span class:list={['badge', badgeColor && `badge--${badgeColor}`]}>{badge ?? showOf(video).name}</span>
   <div class="oc__txt">
-    <h3><a href={videoPath(video)}>{fr(video.title)}</a></h3>
+    <h3><a href={videoPath(video)} title={video.title}>{fr(video.title)}</a></h3>
     <p class="oc__meta">{video.guest ? `Avec ${video.guest} / ` : ''}{formatShortDate(video.publishedAt)}</p>
   </div>
 </article>
@@ -23,6 +23,8 @@ const { video, size = 'small', badge, badgeColor = '', sizes = '(min-width: 64re
   .oc::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgb(10 12 44 / 0.96) 0%, rgb(10 12 44 / 0.55) 45%, transparent 75%); pointer-events: none; }
   .oc__txt { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 0.9rem; display: grid; gap: 0.5rem; justify-items: start; color: #fff; }
   .oc h3 { font-size: 0.9375rem; line-height: 1.3; }
+  /* petites cartes : titre sur 2 lignes maximum, suivi de … */
+  .oc--small h3 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .oc--big h3 { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); }
   .oc h3 a { text-decoration: none; color: #fff; }
   .oc h3 a::after { content: ''; position: absolute; inset: 0; z-index: 4; }
