@@ -93,10 +93,10 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
         <div class="yt une__media" data-yt={hero.id} data-title={hero.title}>
           <Thumb video={hero} eager showTime={false} sizes="(min-width: 64rem) 66vw, 100vw" />
           <button class="yt__play une__play" type="button"><Icon name="play" size={30} /><span class="sr-only">Lire : {hero.title}</span></button>
+          <span class="badge une__badge">{heroShow!.name}</span>
         </div>
         <div class="une__txt">
           <p class="une__meta">
-            <span class="badge">{heroShow!.name}</span>
             <span class="badge badge--menthe">Nouvel épisode</span>
             <time datetime={hero.publishedAt}>{formatDate(hero.publishedAt)}</time>
             <span>{durationLabel(hero.durationSec)}</span>
@@ -353,6 +353,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   /* ---- Vidéos populaires ---- */
   .pop__grid { display: grid; gap: 1.25rem; }
   @media (min-width: 56rem) { .pop__grid { grid-template-columns: 1.6fr 1fr; } }
+  .pop__grid > :global(.oc) { aspect-ratio: 16 / 9; }
   .pop__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; align-content: start; }
   .pop__list a { display: grid; grid-template-columns: 10rem 1fr; gap: 0.9rem; align-items: center; text-decoration: none; }
   .pop__thumb :global(.thumb) { aspect-ratio: 16 / 9; }
@@ -378,9 +379,19 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .une__ctas .btn { flex: 1 1 9rem; min-height: 3.25rem; }
   .une__note { font-size: 0.75rem; color: var(--texte-2); margin: 0.6rem 0 0; }
   @media (min-width: 48rem) { .une__ctas .btn { flex: 0 0 auto; min-width: 11rem; } }
-  /* La vignette YouTube porte déjà son titre : on ne pose rien dessus, le texte vient dessous */
+  /* grand écran : le texte se pose sur l'image, comme une une de journal */
   @media (min-width: 64rem) {
-    .une__title { font-size: clamp(1.75rem, 1.2rem + 1.4vw, 2.5rem); max-width: 32ch; }
+    .une__main { display: block; border-radius: var(--r-m); overflow: hidden; }
+    .une__media { aspect-ratio: auto; height: 100%; min-height: 32rem; border-radius: 0; }
+    .une__media::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(to top, rgb(10 12 44 / 0.97) 0%, rgb(10 12 44 / 0.7) 38%, transparent 70%); }
+    .une__play { inset: 0 0 45% 0; }
+
+    .une__txt { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; padding: 1.5rem 2rem 1.25rem; color: #fff; pointer-events: none; }
+    .une__txt a, .une__txt .btn { pointer-events: auto; }
+    .une__meta, .une__note { color: #c9cde3; }
+    .une__title a { color: #fff; }
+    .une__guest { color: var(--menthe); }
   }
   .une__main--empty { padding: 2.5rem 2rem; border-radius: var(--r-m); }
   .une__main--empty p { color: var(--texte-2); font-size: var(--t-l); margin-top: 1rem; }
@@ -402,13 +413,10 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   @media (min-width: 64rem) { .dm { grid-template-columns: minmax(0, 2.1fr) minmax(19rem, 1fr); } }
   .dm__main { min-width: 0; }
   .dm__grid { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
-  .dm__grid > :global(:first-child) { grid-column: 1 / -1; }
+  .dm__grid > :global(:first-child) { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
   @media (min-width: 48rem) {
-    .dm__grid { grid-template-columns: repeat(4, 1fr); }
-    /* grande carte : vignette à gauche, texte à droite */
-    .dm__grid > :global(:first-child) { flex-direction: row; }
-    .dm__grid > :global(:first-child .oc__img) { flex: 0 0 58%; }
-    .dm__grid > :global(:first-child .oc__txt) { align-content: center; padding: 1.25rem; }
+    .dm__grid { grid-template-columns: 1.15fr 1fr 1fr; }
+    .dm__grid > :global(:first-child) { grid-column: 1; grid-row: span 2; aspect-ratio: auto; }
   }
   .rank { border: 1px solid var(--trait); box-shadow: 0 2px 8px rgb(10 12 44 / 0.06); border-radius: var(--r-m); padding: 1.1rem 1.1rem 0.4rem; align-self: start; }
   .rank__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }

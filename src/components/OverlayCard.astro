@@ -1,5 +1,5 @@
 ---
-// Carte « à la une » : vignette propre, titre en dessous (style site d'info)
+// Carte « à la une » : titre posé sur la vignette (style site d'info)
 import type { Video } from '~/types';
 import Thumb from './Thumb.astro';
 import { videoPath, showOf, formatShortDate, fr } from '~/lib/content';
@@ -7,26 +7,28 @@ interface Props { video: Video; size?: 'big' | 'small'; badge?: string; badgeCol
 const { video, size = 'small', badge, badgeColor = '', sizes = '(min-width: 64rem) 25vw, 100vw' } = Astro.props;
 ---
 <article class:list={['oc', `oc--${size}`]}>
-  <div class="oc__img"><Thumb video={video} sizes={sizes} showTime={false} /></div>
+  <Thumb video={video} sizes={sizes} showTime={false} />
+  <span class:list={['badge', badgeColor && `badge--${badgeColor}`]}>{badge ?? showOf(video).name}</span>
   <div class="oc__txt">
-    <span class:list={['badge', badgeColor && `badge--${badgeColor}`]}>{badge ?? showOf(video).name}</span>
     <h3><a href={videoPath(video)}>{fr(video.title)}</a></h3>
     <p class="oc__meta">{video.guest ? `Avec ${video.guest} / ` : ''}{formatShortDate(video.publishedAt)}</p>
   </div>
 </article>
 <style>
-  /* La vignette YouTube porte déjà son titre : image propre en haut, texte en dessous */
-  .oc { position: relative; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: var(--fond); border: 1px solid var(--trait); }
-  .oc__img { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--surface); }
-  .oc__img :global(.thumb) { border-radius: 0; position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
-  .oc__txt { padding: 0.85rem 0.9rem 1rem; display: grid; gap: 0.45rem; justify-items: start; align-content: start; flex: 1; }
+  .oc { position: relative; border-radius: 10px; overflow: hidden; background: var(--marine); }
+  .oc .badge { position: absolute; z-index: 3; top: 0.75rem; left: 0.75rem; }
+  .oc :global(.thumb) { border-radius: 0; height: 100%; aspect-ratio: auto; position: absolute; inset: 0; }
+  .oc--small { aspect-ratio: 4 / 3; }
+  .oc--big { aspect-ratio: 4 / 5; }
+  .oc::after { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(to top, rgb(10 12 44 / 0.96) 0%, rgb(10 12 44 / 0.55) 45%, transparent 75%); pointer-events: none; }
+  .oc__txt { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; padding: 0.9rem; display: grid; gap: 0.5rem; justify-items: start; color: #fff; }
   .oc h3 { font-size: 0.9375rem; line-height: 1.3; }
   .oc--big h3 { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); }
-  .oc h3 a { text-decoration: none; color: var(--texte); }
+  .oc h3 a { text-decoration: none; color: #fff; }
   .oc h3 a::after { content: ''; position: absolute; inset: 0; z-index: 4; }
-  .oc:hover h3 a { color: var(--accent); }
-  .oc__meta { margin: 0; font: 600 0.8125rem/1.3 var(--f-info); color: var(--texte-2); }
+  .oc__meta { margin: 0; font: 600 0.8125rem/1.3 var(--f-info); color: #c9cde3; }
   .oc:hover :global(img) { transform: scale(1.04); }
   .oc:has(:focus-visible) { box-shadow: var(--focus); }
   .oc :focus-visible { box-shadow: none; }
+  .oc :global(.thumb__fallback) { display: none; }
 </style>

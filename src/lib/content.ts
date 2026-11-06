@@ -1,3 +1,5 @@
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 // Accès aux contenus synchronisés (data/content.json) pour la construction du site.
 import type { ContentStore, Video } from '~/types';
 import { allShows, type ShowConfig } from '@config/shows';
@@ -113,7 +115,25 @@ export function metaDescription(v: Video): string {
   return (base + suffix).slice(0, 160);
 }
 
+/**
+ * Photos personnalisées : public/photos/<identifiant de la vidéo YouTube>.jpg (ou .webp / .png).
+ * Si une photo existe, elle remplace la miniature YouTube partout sur le site.
+ */
+const customPhotos: Map<string, string> = (() => {
+  const m = new Map<string, string>();
+  try {
+    for (const f of readdirSync(join(process.cwd(), 'public', 'photos'))) {
+      const match = f.match(/^(.+)\.(jpe?g|webp|png)$/i);
+      if (match) m.set(match[1], `/photos/${f}`);
+    }
+  } catch { /* pas de dossier photos */ }
+  return m;
+})();
+export const hasCustomPhoto = (v: Video) => customPhotos.has(v.id);
+
 export function thumbSrcset(v: Video) {
+  const photo = customPhotos.get(v.id);
+  if (photo) return { src: photo, srcset: `${photo} 1280w`, largest: new URL(photo, import.meta.env.SITE).href };
   if (isDemo && v.id.startsWith('demo')) return { src: '/demo-sans-miniature.jpg', srcset: '/demo-sans-miniature.jpg 480w', largest: '/brand/og-default.png' };
   const t = v.thumbnails.length
     ? v.thumbnails

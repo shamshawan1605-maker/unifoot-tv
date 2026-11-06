@@ -8,7 +8,6 @@ import PlayerScript from './PlayerScript.astro';
 interface Props { video: Video; eager?: boolean }
 const { video, eager = true } = Astro.props;
 ---
-<div class="ytw">
 <div class="yt" data-yt={video.id} data-title={video.title}>
   <Thumb video={video} eager={eager} showTime={false} sizes="(min-width: 64rem) 60vw, 100vw" />
   <div class="yt__overlay">
@@ -16,23 +15,24 @@ const { video, eager = true } = Astro.props;
       <Icon name="play" size={34} />
       <span class="sr-only">Lire la vidéo : {video.title}</span>
     </button>
-  </div>
-</div>
     <p class="yt__note" id={`yt-note-${video.id}`}>
       La lecture charge le lecteur YouTube, qui peut déposer des cookies.
       <a href={watchUrl(video)} rel="noopener" target="_blank">Regarder sur YouTube</a>
     </p>
+  </div>
 </div>
 
 <style>
   .yt { position: relative; border-radius: var(--r-m); overflow: hidden; background: var(--marine); aspect-ratio: 16 / 9; }
   .yt :global(.thumb) { position: absolute; inset: 0; border-radius: 0; }
-  .yt__overlay { position: absolute; inset: 0; display: grid; place-items: center; z-index: 4; }
+  .yt__overlay { position: absolute; inset: 0; display: grid; place-items: center; z-index: 4;
+    background: linear-gradient(to top, rgb(10 12 44 / 0.85), transparent 45%); }
   .yt__play { width: 5rem; height: 5rem; border-radius: 50%; border: 0; display: grid; place-items: center;
     background: var(--menthe); color: var(--marine); cursor: pointer; transition: transform .15s ease; padding-left: 4px; }
   .yt__play:hover { transform: scale(1.06); }
-  .yt__note { margin: 0.5rem 0 0; max-width: none; font-size: 0.8125rem; line-height: 1.35; color: var(--texte-2); }
-  .yt__note a { color: var(--accent); }
+  .yt__note { position: absolute; left: 1rem; right: 1rem; bottom: 0.6rem; margin: 0; max-width: none;
+    font-size: 0.8125rem; line-height: 1.35; color: #fff; text-shadow: 0 1px 2px #000; }
+  .yt__note a { color: var(--menthe); }
   .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5; }
 </style>
 <PlayerScript />
