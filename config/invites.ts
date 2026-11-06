@@ -50,6 +50,7 @@ export const invites: Invite[] = [
   { name: 'Ludo da Silva', role: 'Fondateur de la Football School Academy', video: '3Wx8kGq6HcE', photo: '/invites/ludo-da-silva.webp', link: 'https://www.youtube.com/watch?v=3Wx8kGq6HcE&t=3268s' },
   { name: 'Nicolas Khamsopha', role: 'Réalisateur de « Projet 2036 »', video: 'mUrtBPnCuw0', photo: '/invites/nicolas-khamsopha.webp', link: 'https://www.youtube.com/watch?v=mUrtBPnCuw0&t=1270s' },
   { name: 'Kevin Goba', role: 'Ancien pro (Châteauroux)', video: 'suw6AzjvoXE', photo: '/invites/kevin-goba.webp', link: 'https://www.youtube.com/watch?v=suw6AzjvoXE&t=4114s' },
+  { name: 'Benjamin Morel', role: 'Coach N2 de l’AS Villers-Houlgate', video: 'nrbWDuq4zws', photo: '/invites/benjamin-morel.webp', link: 'https://www.youtube.com/watch?v=nrbWDuq4zws&t=66s' },
   { name: 'Yacoub Yassine', role: 'Entraîneur de l’US Chantilly', video: 'glIkdFI_Jdo', photo: '/invites/yacoub-yassine.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Chardel Makaya', role: 'Formé au Havre AC', video: 'glIkdFI_Jdo', photo: '/invites/chardel-makaya.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Marc Bascol-Munuera', video: 'Xg4dipLTXbo', photo: '/invites/marc-bascol-munuera.webp', link: 'https://www.youtube.com/watch?v=Xg4dipLTXbo&t=1s' },
