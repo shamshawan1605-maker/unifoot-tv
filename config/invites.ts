@@ -29,7 +29,7 @@ export const invites: Invite[] = [
   { name: 'Kaou Diallo', role: 'Responsable préformation au PSG', video: 'h-J8Fzf5dUg', photo: '/invites/kaou-diallo.webp', link: 'https://www.youtube.com/watch?v=h-J8Fzf5dUg&t=8842s' },
   { name: 'Nadim Saïd', role: 'De Clairefontaine à la Ligue 2', video: 'pT1ISQbEcKw', photo: '/invites/nadim-said.webp', link: 'https://www.youtube.com/watch?v=pT1ISQbEcKw&t=4223s' },
   { name: 'Teddy Bartouche-Selbonne', role: 'Gardien en Ligue 2', video: 'VZCpLxeNmUE' },
-  { name: 'Patrice Ribaton', role: 'Institut international Sadio Mané', video: 'HGKzHbZ3dVU' },
+  { name: 'Patrice Ribaton', role: 'Institut international Sadio Mané', video: 'HGKzHbZ3dVU', photo: '/invites/patrice-ribaton.webp', link: 'https://www.youtube.com/watch?v=HGKzHbZ3dVU&t=2500s' },
   { name: 'Hassan Baillon', role: 'Président de club', video: '8vg0jnjg3JE' },
   { name: 'Jasmine Cherchali', role: 'Football ghanéen', video: 'aN87fPkn5FA' },
   { name: 'Ousmane Diaby', role: 'Directeur technique de l’ES Nanterre', video: 'sRCapZvROEM', photo: '/invites/ousmane-diaby.webp', link: 'https://www.youtube.com/watch?v=sRCapZvROEM&t=4033s' },
