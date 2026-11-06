@@ -3,7 +3,7 @@
 import type { MockState, MockVideo } from './mock-server.ts';
 
 export const CHANNEL_ID = 'UCdemoUnifootTv000000000';
-export const PL_KITF = 'PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-';
+export const PL_KITF = 'PL2RJrkbFf1HxuY01BYKrlAN5fsFAd3B0f';
 export const PL_ENTRE2 = 'PL2RJrkbFf1HyAYoJuMypsDBILoTa0OR1n';
 export const PL_SEANCE = 'PL2RJrkbFf1HwoYU4VTX1v93odpqBvWqid';
 
