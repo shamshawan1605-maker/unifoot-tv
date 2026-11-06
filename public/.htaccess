@@ -12,6 +12,9 @@ AddDefaultCharset utf-8
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  # Ancienne adresse de test -> site officiel
+  RewriteCond %{HTTP_HOST} ^(www\.)?nouveau\.unifoottv\.fr$ [NC]
+  RewriteRule ^ https://unifoottv.fr%{REQUEST_URI} [L,R=301]
   # www -> sans www
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
