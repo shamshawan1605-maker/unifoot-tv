@@ -38,7 +38,7 @@ export const invites: Invite[] = [
   { name: 'Siné', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/sine-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
   { name: 'Kevin', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/kevin-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
   { name: 'Mohamed Segueni', role: 'Agent FFF', video: 'TdWJqqwuCpU', photo: '/invites/mohamed-segueni.webp', link: 'https://www.youtube.com/watch?v=TdWJqqwuCpU&t=5606s' },
-  { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0' },
+  { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0', photo: '/invites/hassoun-camara.webp', link: 'https://www.youtube.com/watch?v=9YIkfAuQaQ0&t=44s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
   { name: 'Yacoub Yassine', role: 'Entraîneur de l’US Chantilly', video: 'glIkdFI_Jdo', photo: '/invites/yacoub-yassine.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Chardel Makaya', role: 'Formé au Havre AC', video: 'glIkdFI_Jdo', photo: '/invites/chardel-makaya.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
