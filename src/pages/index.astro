@@ -306,7 +306,8 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .une__media { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--marine); border-radius: var(--r-m); }
   .une__media :global(.thumb) { position: absolute; inset: 0; border-radius: 0; }
   .une__badge { position: absolute; z-index: 4; left: 1rem; top: 1rem; }
-  .une__play { position: absolute; z-index: 4; inset: 0; margin: auto; width: 4.75rem; height: 4.75rem; border-radius: 50%; border: 0; display: grid; place-items: center;
+  /* bouton lecture dans le coin, pour ne pas cacher les visages */
+  .une__play { position: absolute; z-index: 4; inset: auto 1rem 1rem auto; margin: 0; width: 3.5rem; height: 3.5rem; border-radius: 50%; border: 0; display: grid; place-items: center;
     background: var(--menthe); color: var(--marine); cursor: pointer; padding-left: 4px; box-shadow: 0 0 0 10px rgb(79 255 190 / 0.25); transition: transform .15s ease; }
   .une__play:hover { transform: scale(1.06); }
   .une__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0; font: 600 var(--t-xs)/1.3 var(--f-info); color: var(--texte-2); }
@@ -323,7 +324,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
     .une__media { aspect-ratio: auto; height: 100%; min-height: 32rem; border-radius: 0; }
     .une__media::after { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
       background: linear-gradient(to top, rgb(10 12 44 / 0.97) 0%, rgb(10 12 44 / 0.7) 38%, transparent 70%); }
-    .une__play { inset: 0 0 45% 0; }
+    .une__play { inset: 1.25rem 1.25rem auto auto; width: 4rem; height: 4rem; }
 
     .une__txt { position: absolute; z-index: 4; left: 0; right: 0; bottom: 0; padding: 1.5rem 2rem 1.25rem; color: #fff; pointer-events: none; }
     .une__txt a, .une__txt .btn { pointer-events: auto; }
