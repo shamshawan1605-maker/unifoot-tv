@@ -34,7 +34,7 @@ export const invites: Invite[] = [
   { name: 'Ousmane Diaby', role: 'Directeur technique de l’ES Nanterre', video: 'sRCapZvROEM', photo: '/invites/ousmane-diaby.webp', link: 'https://www.youtube.com/watch?v=sRCapZvROEM&t=4033s' },
   { name: 'Bakary Sylla', role: 'Coach U17 National de Montfermeil', video: 'v-D0tKlJeJ4', photo: '/invites/bakary-sylla.webp', link: 'https://www.youtube.com/watch?v=v-D0tKlJeJ4&t=5418s' },
   { name: 'Rafik Masmoudi', role: 'Santé du sportif', video: 'LEnUyKq5yEg' },
-  { name: 'Samy Guenfoud', role: 'FC Montreuil', video: 'ACqtc0FIJiY' },
+  { name: 'Samy Guenfoud', role: 'FC Montreuil', video: 'ACqtc0FIJiY', photo: '/invites/samy-guenfoud.webp', link: 'https://www.youtube.com/watch?v=ACqtc0FIJiY&t=24s' },
   { name: 'Alexandre Lafitte', role: 'Entraîneur champion à 28 ans', video: 'aecg1tCuiCw', photo: '/invites/alexandre-lafitte.webp', link: 'https://www.youtube.com/watch?v=aecg1tCuiCw&t=185s' },
   { name: 'Siné', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/sine-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
   { name: 'Kevin', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/kevin-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
