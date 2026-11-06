@@ -7,7 +7,7 @@ import Icon from './Icon.astro';
 const items = invites
   .map((i) => ({ ...i, v: videos.find((x) => x.id === i.video) }))
   .filter((i) => i.v)
-  .map((i) => ({ ...i, img: i.photo ?? (thumbSrcset(i.v!).src as string), href: videoPath(i.v!) }));
+  .map((i) => ({ ...i, img: i.photo ?? (thumbSrcset(i.v!).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
 ---
 {items.length >= 4 && (
   <section class="wrap section inv" aria-labelledby="inv-title">
@@ -21,7 +21,7 @@ const items = invites
     <ul class="inv__list">
       {items.map((i) => (
         <li>
-          <a href={i.href} class="inv__card">
+          <a href={i.href} class="inv__card" {...(i.ext ? { target: '_blank', rel: 'noopener' } : {})}>
             <img src={i.img} alt="" width="300" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'" />
             <span class="inv__txt">
               <span class="inv__name">{i.name}</span>

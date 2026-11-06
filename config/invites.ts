@@ -9,6 +9,8 @@ export interface Invite {
   role?: string;
   video: string;
   photo?: string;
+  /** Lien du clic (sinon : la page de l'émission sur le site) */
+  link?: string;
 }
 
 export const invites: Invite[] = [
@@ -16,7 +18,7 @@ export const invites: Invite[] = [
   { name: 'Gauthier Diafutua', role: 'Ancien pro passé par Watford', video: 'Oun_cmc9KhY' },
   { name: 'Santiago Cucci', role: 'Président de l’Aviron Bayonnais FC', video: 'hsDgxLIhlmw' },
   { name: 'Sambou Tati', role: 'Président du Roissy FC', video: '5Eg9G9zh3XE' },
-  { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA' },
+  { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA', photo: '/invites/emmanuel-dorado.webp', link: 'https://www.youtube.com/watch?v=X4dpWkIbFJA&t=2777s' },
   { name: 'Gessime Yassine', video: '5rjiPyLH4lU' },
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw' },
