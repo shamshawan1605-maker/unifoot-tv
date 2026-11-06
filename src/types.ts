@@ -39,6 +39,8 @@ export interface Video {
   tags: string[];
   podcast?: PodcastMatch;
   viewCount?: number;
+  /** Nombre de commentaires YouTube */
+  commentCount?: number;
   /** vrai si la description est trop pauvre : page en noindex */
   thin: boolean;
   /** date de la dernière mise à jour des détails via l'API */

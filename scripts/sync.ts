@@ -98,7 +98,7 @@ function comparable(store: ContentStore) {
   const copy = JSON.parse(JSON.stringify(rest));
   if (copy.podcast) delete copy.podcast.fetchedAt;
   // Les compteurs de vues bougent sans cesse : ils ne déclenchent pas à eux seuls une republication
-  for (const v of copy.videos) { delete v.refreshedAt; delete v.viewCount; }
+  for (const v of copy.videos) { delete v.refreshedAt; delete v.viewCount; delete v.commentCount; }
   if (copy.channel) delete copy.channel.subscriberCount;
   return JSON.stringify(copy);
 }
@@ -276,6 +276,7 @@ export async function runSync(): Promise<SyncResult> {
       base.kind = durationSec <= 180 ? 'short' : 'episode';
       base.tags = d.snippet.tags || [];
       base.viewCount = d.statistics?.viewCount ? Number(d.statistics.viewCount) : undefined;
+      base.commentCount = d.statistics?.commentCount ? Number(d.statistics.commentCount) : undefined;
       base.refreshedAt = now.toISOString();
       if (existing) {
         if (prevSig !== JSON.stringify([base.title, base.description, base.durationSec, base.tags])) updated.push(d.id);

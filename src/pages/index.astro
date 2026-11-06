@@ -53,7 +53,12 @@ const ranked = news.length
   : [...episodes].filter((v) => v.viewCount !== undefined).sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0)).slice(0, 5)
       .map((v) => ({ href: videoPath(v), title: v.title, meta: showOf(v).name, img: thumbSrcset(v, true).src as string | undefined }));
 const rankTitle = news.length ? "L'actu" : 'Les plus regardés';
-const topShorts = shorts.slice(0, 12);
+// Les extraits qui font parler : les plus commentés des 30 derniers jours, complétés par les plus récents
+const monthAgo = Date.now() - 30 * 86_400_000;
+const talked = shorts
+  .filter((v) => (v.commentCount ?? 0) > 0 && new Date(v.publishedAt).getTime() >= monthAgo)
+  .sort((a, b) => (b.commentCount ?? 0) - (a.commentCount ?? 0) || (b.viewCount ?? 0) - (a.viewCount ?? 0));
+const topShorts = [...talked, ...shorts.filter((v) => !talked.includes(v))].slice(0, 12);
 const topRow = [
   ...news.slice(0, 4).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: `Actu / ${formatShortDate(n.data.date.toISOString())}`, img: newsImage(n), short: '' })),
   ...shorts.map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v, true).src as string | undefined, short: v.id })),

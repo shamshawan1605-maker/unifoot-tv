@@ -27,7 +27,7 @@ export interface YtVideo {
   };
   contentDetails: { duration: string };
   status: { privacyStatus: string; uploadStatus?: string; embeddable?: boolean };
-  statistics?: { viewCount?: string };
+  statistics?: { viewCount?: string; commentCount?: string };
 }
 
 export class YouTubeClient {
