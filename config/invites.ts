@@ -39,6 +39,7 @@ export const invites: Invite[] = [
   { name: 'Kevin', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/kevin-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
   { name: 'Mohamed Segueni', role: 'Agent FFF', video: 'TdWJqqwuCpU', photo: '/invites/mohamed-segueni.webp', link: 'https://www.youtube.com/watch?v=TdWJqqwuCpU&t=5606s' },
   { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0' },
+  { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
   { name: 'Marc Bascol-Munuera', video: 'Xg4dipLTXbo' },
   { name: 'Raymond Domenech', video: '08uQBnGleeU' },
   { name: 'Florentin Pogba', role: 'Footballeur professionnel', video: '4VV1qqZP0SA' },
