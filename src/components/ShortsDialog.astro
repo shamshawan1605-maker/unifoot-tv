@@ -37,6 +37,7 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
 <script type="application/json" id="sd-comments" set:html={JSON.stringify(commentsById).replace(/</g, '\\u003c')} />
 <style>
   .sd { padding: 0; border: 0; background: transparent; color: var(--texte); max-width: none; max-height: none; }
+  .sd { overscroll-behavior: contain; }
   .sd::backdrop { background: rgb(4 5 22 / 0.88); }
   .sd__box { width: min(24rem, 92vw); }
   @media (min-width: 52rem) { .sd__box { width: min(48rem, 94vw); } }
@@ -147,7 +148,7 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
         list.append(li);
       });
     };
-    const close = () => { frame.querySelector('iframe')?.remove(); dlg.close(); };
+    const close = () => { frame.querySelector('iframe')?.remove(); dlg.close(); document.documentElement.style.overflow = ''; };
     // Liste des extraits de la page (dans l'ordre), pour passer au suivant
     let items: HTMLAnchorElement[] = [];
     let index = 0;
@@ -238,6 +239,8 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       collect(a);
       show(a);
       if (!dlg.open) dlg.showModal();
+      // Le site derrière ne défile plus tant que la fenêtre est ouverte
+      document.documentElement.style.overflow = 'hidden';
       dlg.querySelector<HTMLButtonElement>('.sd__close')!.focus();
     });
     dlg.querySelector('.sd__close')!.addEventListener('click', close);
