@@ -17,6 +17,7 @@ export const invites: Invite[] = [
   { name: 'Wilo Footix', role: 'Arbitre et créateur de contenu', video: 'p9Acoe81iAE', photo: '/invites/wilo-footix.webp', link: 'https://www.youtube.com/watch?v=p9Acoe81iAE' },
   { name: 'Gauthier Diafutua', role: 'Ancien pro passé par Watford', video: 'Oun_cmc9KhY' },
   { name: 'Santiago Cucci', role: 'Président de l’Aviron Bayonnais FC', video: 'hsDgxLIhlmw' },
+  { name: 'Nicolas Maurice-Belay', role: 'Ancien pro (Monaco, Sochaux, Bordeaux)', video: '1ciBWk1oK0c', photo: '/invites/nicolas-maurice-belay.webp', link: 'https://www.youtube.com/watch?v=1ciBWk1oK0c&t=2913s' },
   { name: 'Sambou Tati', role: 'Président du Roissy FC', video: '5Eg9G9zh3XE', photo: '/invites/sambou-tati.webp' },
   { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA', photo: '/invites/emmanuel-dorado.webp', link: 'https://www.youtube.com/watch?v=X4dpWkIbFJA&t=2777s' },
   { name: 'Boulaya', video: 'O5Zbz6sV52c', photo: '/invites/boulaya.webp', link: 'https://www.youtube.com/watch?v=O5Zbz6sV52c&t=26s' },
