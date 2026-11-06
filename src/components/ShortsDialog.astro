@@ -19,7 +19,7 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
         <p class="sd__note">Lecture via YouTube. <a class="sd__yt" href="#" rel="noopener" target="_blank">Ouvrir sur YouTube</a></p>
       </div>
       <aside class="sd__com" aria-labelledby="sd-com-title">
-        <p class="sd__com-h" id="sd-com-title">Commentaires <span class="sd__com-n"></span></p>
+        <p class="sd__com-h" id="sd-com-title"><span class="sd__live" aria-hidden="true"></span>Ça parle en commentaires <span class="sd__com-n"></span></p>
         <ol class="sd__com-list"></ol>
         <p class="sd__com-empty" hidden>Pas encore de commentaire. Lance le débat !</p>
         <a class="btn btn--menthe sd__com-btn" href="#" rel="noopener" target="_blank"><Icon name="youtube" size={18} />Commenter sur YouTube</a>
@@ -46,15 +46,24 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
   .sd__com { background: var(--marine-2); border-radius: var(--r-m); padding: 1rem; display: grid; gap: 0.85rem; color: #fff; }
   @media (min-width: 52rem) { .sd__com { max-height: 78vh; grid-template-rows: auto 1fr auto auto; } }
   .sd__com-h { margin: 0; font: 800 1rem/1 var(--f-titre); }
-  .sd__com-n { color: var(--menthe); }
   .sd__com-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; overflow-y: auto; align-content: start; overscroll-behavior: contain; max-height: 40vh; }
   @media (min-width: 52rem) { .sd__com-list { max-height: none; } }
-  .sd__com-list :global(li) { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; }
-  .sd__com-list :global(img), .sd__com-list :global(.sd__av) { width: 2rem; height: 2rem; border-radius: 50%; background: var(--sarcelle); display: grid; place-items: center; font: 800 0.8rem/1 var(--f-info); color: var(--marine); object-fit: cover; }
-  .sd__com-list :global(.sd__who) { font: 700 0.8125rem/1.2 var(--f-info); color: #c9cbe0; }
-  .sd__com-list :global(.sd__who time) { font-weight: 500; color: #8a8fb0; margin-left: 0.35rem; }
-  .sd__com-list :global(.sd__txt) { margin: 0.2rem 0 0; font: 500 0.875rem/1.45 var(--f-texte); color: #fff; white-space: pre-line; overflow-wrap: anywhere; }
-  .sd__com-list :global(.sd__likes) { margin-top: 0.25rem; font: 600 0.75rem/1 var(--f-info); color: #8a8fb0; }
+  /* Les commentaires arrivent un par un, comme un fil en direct */
+  .sd__com-list :global(li) { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.65rem; align-items: start; opacity: 0; transform: translateY(14px) scale(0.98); animation: com-in .45s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 0.35s + 0.15s); }
+  @keyframes com-in { to { opacity: 1; transform: none; } }
+  .sd__com-list :global(img), .sd__com-list :global(.sd__av) { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--sarcelle); display: grid; place-items: center; font: 800 0.85rem/1 var(--f-info); color: var(--marine); object-fit: cover; box-shadow: 0 0 0 2px var(--marine-2), 0 0 0 3px rgb(34 195 211 / 0.45); }
+  .sd__com-list :global(.sd__bubble) { position: relative; background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.08); border-radius: 4px 14px 14px 14px; padding: 0.6rem 0.75rem 0.65rem; }
+  .sd__com-list :global(li:first-child .sd__bubble) { background: rgb(34 195 211 / 0.14); border-color: rgb(34 195 211 / 0.45); }
+  .sd__com-list :global(.sd__top) { display: inline-block; margin-bottom: 0.35rem; padding: 0.15rem 0.45rem; border-radius: 999px; background: var(--menthe); color: var(--marine); font: 800 0.625rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.05em; }
+  .sd__com-list :global(.sd__who) { margin: 0; font: 800 0.8125rem/1.2 var(--f-info); color: var(--menthe); }
+  .sd__com-list :global(.sd__who time) { font-weight: 500; color: #8a8fb0; margin-left: 0.4rem; }
+  .sd__com-list :global(.sd__txt) { margin: 0.25rem 0 0; font: 500 0.875rem/1.45 var(--f-texte); color: #fff; white-space: pre-line; overflow-wrap: anywhere; }
+  .sd__com-list :global(.sd__likes) { display: inline-flex; align-items: center; gap: 0.25rem; margin-top: 0.4rem; padding: 0.15rem 0.5rem; border-radius: 999px; background: rgb(255 255 255 / 0.08); font: 700 0.75rem/1.2 var(--f-info); color: #ffb3c4; }
+  .sd__live { display: inline-block; width: 0.55rem; height: 0.55rem; margin-right: 0.45rem; border-radius: 50%; background: #ff4d6d; vertical-align: 0.1em; animation: live 1.4s ease-in-out infinite; }
+  @keyframes live { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 77 109 / 0.6); } 50% { box-shadow: 0 0 0 6px rgb(255 77 109 / 0); } }
+  .sd__com-n { display: inline-block; margin-left: 0.35rem; padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--menthe); color: var(--marine); font: 800 0.75rem/1.2 var(--f-info); vertical-align: 0.1em; }
+  .sd__com-n:empty { display: none; }
+  @media (prefers-reduced-motion: reduce) { .sd__com-list :global(li) { animation: none; opacity: 1; transform: none; } .sd__live { animation: none; } }
   .sd__com-empty { margin: 0; color: #c9cbe0; font-size: 0.875rem; }
   .sd__com-btn { justify-content: center; }
 </style>
@@ -81,10 +90,11 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
     const renderComments = (id: string) => {
       const entry = data[id];
       list.replaceChildren();
-      count.textContent = entry ? `(${entry.n})` : '';
+      count.textContent = entry ? String(entry.n) : '';
       empty.hidden = !!entry?.c.length;
-      for (const c of entry?.c || []) {
+      (entry?.c || []).forEach((c, i) => {
         const li = document.createElement('li');
+        li.style.setProperty('--i', String(i));
         let av: HTMLElement;
         if (c.avatar) {
           const img = document.createElement('img');
@@ -94,16 +104,16 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
         } else {
           av = Object.assign(document.createElement('span'), { className: 'sd__av', textContent: (c.author.replace('@', '')[0] || '?').toUpperCase() });
         }
-        const body = document.createElement('div');
+        const body = Object.assign(document.createElement('div'), { className: 'sd__bubble' });
+        if (i === 0 && entry!.c.length > 1) body.append(Object.assign(document.createElement('span'), { className: 'sd__top', textContent: 'Top commentaire' }));
         const who = Object.assign(document.createElement('p'), { className: 'sd__who', textContent: c.author });
-        who.style.margin = '0';
         const time = document.createElement('time'); time.dateTime = c.date; time.textContent = ago(c.date); who.append(time);
         const txt = Object.assign(document.createElement('p'), { className: 'sd__txt', textContent: c.text });
         body.append(who, txt);
         if (c.likes > 0) body.append(Object.assign(document.createElement('p'), { className: 'sd__likes', textContent: `♥ ${c.likes}` }));
         li.append(av, body);
         list.append(li);
-      }
+      });
     };
     const close = () => { frame.querySelector('iframe')?.remove(); dlg.close(); };
     document.addEventListener('click', (e) => {
