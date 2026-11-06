@@ -25,7 +25,7 @@ export const invites: Invite[] = [
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw' },
   { name: 'Fabio Frasconi', role: 'U19 National', video: 'sUAM1QH1wFU', photo: '/invites/fabio-frasconi.webp' },
-  { name: 'Baptiste Monveneur', video: 'J679xfI93t0' },
+  { name: 'Baptiste Monveneur', video: 'J679xfI93t0', photo: '/invites/baptiste-monveneur.webp', link: 'https://www.youtube.com/watch?v=J679xfI93t0&t=13s' },
   { name: 'Kaou Diallo', role: 'Responsable préformation au PSG', video: 'h-J8Fzf5dUg', photo: '/invites/kaou-diallo.webp', link: 'https://www.youtube.com/watch?v=h-J8Fzf5dUg&t=8842s' },
   { name: 'Teddy Bartouche-Selbonne', role: 'Gardien en Ligue 2', video: 'VZCpLxeNmUE' },
   { name: 'Patrice Ribaton', role: 'Institut international Sadio Mané', video: 'HGKzHbZ3dVU' },
