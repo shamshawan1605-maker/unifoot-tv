@@ -2,6 +2,9 @@
 titre: "Service civique : des clubs de foot amateur accusés de détourner l'argent de l'État"
 date: 2026-11-03T12:00:00+01:00
 chapo: "Une enquête du Monde révèle que des associations, dont de nombreux clubs de foot amateur, recrutent de faux volontaires en service civique pour gonfler leur budget, payer des joueurs ou rendre service à des proches."
+image: /actualites/2026-11-03-service-civique.webp
+imageAlt: "Un jeune homme sur son canapé, téléphone en main, à côté d'un contrat de service civique et d'un ballon"
+credit: "Illustration"
 source:
   nom: "Le Monde"
   url: "https://www.lemonde.fr/campus/article/2026/11/03/tous-les-mois-je-prenais-mes-620-euros-de-l-etat-sans-avoir-rempli-une-seule-mission-faux-volontaires-et-vrais-detournements-du-service-civique_6805537_4401467.html"
