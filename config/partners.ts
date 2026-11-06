@@ -12,7 +12,7 @@ export const partners: Partner[] = [
   {
     name: 'Do Your Football',
     url: 'https://www.doyourfootball.com/',
-    // logo: '/partenaires/dyf.png',
+    logo: '/partenaires/dyf.png',
     description: "L'application de suivi des joueurs et des séances pour les clubs. Code UNIFOOTTV : -20 %.",
   },
 ];

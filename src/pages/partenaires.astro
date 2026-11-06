@@ -32,7 +32,7 @@ const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric
           {partners.map((p) => (
             <li>
               <a href={p.url} rel="noopener sponsored" target="_blank">
-                {p.logo ? <img src={p.logo} alt={p.name} width="200" height="80" loading="lazy" /> : <span class="partners__name">{p.name}</span>}
+                {p.logo ? <img src={p.logo} alt={p.name} width="80" height="80" loading="lazy" /> : <span class="partners__name">{p.name}</span>}
               </a>
               {p.description && <p>{p.description}</p>}
             </li>
@@ -124,6 +124,7 @@ const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric
   .partners { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
   .partners a { text-decoration: none; display: inline-block; }
   .partners__name { font: 800 1.5rem/1 var(--f-titre); }
+  .partners img { height: 5rem; width: auto; }
   .partners p { color: var(--texte-2); margin-top: 0.5rem; font-size: var(--t-s); }
   .example { display: inline-block; background: #8fe6ef; color: #1a1a1a; padding: 0.3rem 0.6rem; border-radius: 3px; font: 600 0.9rem/1.2 var(--f-info); }
   .offers { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); border-top: var(--ligne); }

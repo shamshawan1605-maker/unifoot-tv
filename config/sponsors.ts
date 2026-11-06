@@ -27,6 +27,7 @@ export const placements: {
     nom: 'Do Your Football',
     texte: "L'application de suivi des joueurs et des séances pour les clubs.",
     lien: 'https://www.doyourfootball.com/',
+    logo: '/partenaires/dyf.png',
     bouton: 'Découvrir DYF',
   },
   emissions: {
@@ -46,6 +47,7 @@ export const placements: {
     nom: 'Do Your Football',
     texte: "L'application de suivi des joueurs et des séances pour les clubs.",
     lien: 'https://www.doyourfootball.com/',
+    logo: '/partenaires/dyf.png',
     bouton: 'Découvrir DYF',
   },
 };
