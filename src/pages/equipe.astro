@@ -5,6 +5,11 @@ import { team, story } from '@config/team';
 import { audienceHighlights } from '@config/audience';
 import { invites } from '@config/invites';
 import { links } from '@config/site';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+// ?v=… change quand la photo change, pour que les navigateurs ne gardent pas l'ancienne
+const ver = (p: string) => { try { return `${p}?v=${createHash('md5').update(readFileSync(join(process.cwd(), 'public', p))).digest('hex').slice(0, 8)}`; } catch { return p; } };
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: "L'équipe" }];
 const founder = team.find((m) => m.group === 'fondateur');
 const others = team.filter((m) => m.group !== 'fondateur');
@@ -24,7 +29,7 @@ const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10
     <section class="wrap" aria-labelledby="fondateur">
       <article class="lead sombre">
         <div class="lead__photo">
-          {founder.photo ? <img src={founder.photo} alt={`Portrait de ${founder.name}`} width="600" height="800" decoding="async" /> : <span aria-hidden="true">{initials(founder.name)}</span>}
+          {founder.photo ? <img src={ver(founder.photo)} alt={`Portrait de ${founder.name}`} width="600" height="800" decoding="async" /> : <span aria-hidden="true">{initials(founder.name)}</span>}
         </div>
         <div class="lead__txt">
           <p class="lead__tag">Fondateur</p>
@@ -51,7 +56,7 @@ const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10
       {others.map((m) => (
         <li class="crew__card">
           <div class="crew__photo">
-            {m.photo ? <img src={m.photo} alt="" width="300" height="400" loading="lazy" decoding="async" /> : <span class="crew__ini" aria-hidden="true">{initials(m.name)}</span>}
+            {m.photo ? <img src={ver(m.photo)} alt="" width="300" height="400" loading="lazy" decoding="async" /> : <span class="crew__ini" aria-hidden="true">{initials(m.name)}</span>}
           </div>
           <div class="crew__txt">
             <h3 class="crew__name">{m.name}</h3>
