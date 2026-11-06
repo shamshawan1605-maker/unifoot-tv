@@ -1,0 +1,92 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { links, socials } from '@config/site';
+import { getNews } from '~/lib/news';
+import { latestEpisode, videoPath, fr } from '~/lib/content';
+const hasNews = (await getNews()).length > 0;
+const nav = [
+  { href: '/emissions/', label: 'Émissions' },
+  { href: '/extraits/', label: 'Extraits' },
+  ...(hasNews ? [{ href: '/actualites/', label: 'Actualités' }] : []),
+  { href: '/themes/', label: 'Thèmes' },
+  { href: '/participer/', label: 'Participer' },
+  { href: '/equipe/', label: "L'équipe" },
+  { href: '/partenaires/', label: 'Partenaires' },
+];
+const path = Astro.url.pathname;
+const isActive = (href: string) => path.startsWith(href);
+---
+<div class="top sombre">
+  <div class="wrap top__in">
+    {latestEpisode
+      ? <p class="top__new"><span class="badge badge--corail">Nouveau</span><a href={videoPath(latestEpisode)}>{fr(latestEpisode.title)}</a></p>
+      : <p class="top__new"><span class="badge badge--corail">Du mercredi au samedi</span><span>Kick in the Foot à 18h</span></p>}
+    <ul class="top__soc" aria-label="Réseaux sociaux">
+      {socials.slice(0, 5).map((s) => <li><a href={s.url} rel="noopener" target="_blank"><Icon name={s.icon} size={16} label={s.name} /></a></li>)}
+    </ul>
+  </div>
+</div>
+<header class="hd sombre">
+  <div class="hd__bar wrap">
+    <a class="hd__logo" href="/" aria-label="UNIFOOT TV, accueil"><Logo chip={false} /></a>
+    <nav class="hd__nav" id="menu" aria-label="Navigation principale">
+      <ul>
+        {nav.map((n) => (
+          <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <a class="btn btn--small hd__support" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={16} />Soutenir</a>
+    <button class="hd__toggle" type="button" aria-expanded="false" aria-controls="menu">
+      <Icon name="menu" size={26} class="i-open" /><Icon name="close" size={26} class="i-close" />
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .top { background: #070920; border-bottom: 1px solid var(--trait); font-size: var(--t-xs); }
+  .top__in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 2.5rem; }
+  .top__new { display: flex; align-items: center; gap: 0.6rem; margin: 0; min-width: 0; font-weight: 600; }
+  .top__new a, .top__new > span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none; }
+  .top__new .badge { flex: none; }
+  .top__soc { display: none; list-style: none; margin: 0; padding: 0; gap: 0.15rem; }
+  .top__soc a { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; }
+  .top__soc a:hover { background: var(--surface); }
+  @media (min-width: 48rem) { .top__soc { display: flex; } }
+
+  .hd { position: sticky; top: 0; z-index: 50; background: rgb(10 12 44 / 0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--trait); }
+  .hd__bar { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; }
+  .hd__logo { text-decoration: none; margin-right: auto; display: inline-flex; padding: 0.3rem 0; }
+  .hd__logo :global(.logo img) { width: 92px; }
+  .hd__nav ul { display: flex; gap: 0.1rem; list-style: none; margin: 0; padding: 0; }
+  .hd__nav a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.6rem; text-decoration: none;
+    font: 700 0.8125rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.03em; border-radius: var(--r-s); }
+  .hd__nav a[aria-current] { color: var(--menthe); box-shadow: inset 0 -3px 0 var(--menthe); border-radius: 0; }
+  .hd__toggle { display: none; background: none; border: 0; padding: 0.5rem; margin-right: -0.5rem; cursor: pointer; color: var(--texte); }
+  .hd__toggle :global(.i-close) { display: none; }
+  @media (max-width: 71.99rem) {
+    .hd__toggle { display: inline-grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; }
+    .hd__nav { display: none; position: absolute; inset: 100% 0 auto; background: var(--fond); border-bottom: 1px solid var(--trait);
+      padding: 0.5rem var(--gouttiere) 1.25rem; }
+    .hd__nav ul { flex-direction: column; }
+    .hd__nav a { font: 800 1.375rem/1 var(--f-titre); letter-spacing: -0.01em; text-transform: none; min-height: 3.25rem; padding: 0; }
+    .hd__nav a[aria-current] { box-shadow: none; }
+    .hd[data-open] .hd__nav { display: block; }
+    .hd[data-open] :global(.i-open) { display: none; }
+    .hd[data-open] :global(.i-close) { display: block; }
+  }
+</style>
+<script>
+  const hd = document.querySelector<HTMLElement>('.hd')!;
+  const btn = hd.querySelector<HTMLButtonElement>('.hd__toggle')!;
+  const set = (open: boolean) => {
+    btn.setAttribute('aria-expanded', String(open));
+    open ? hd.setAttribute('data-open', '') : hd.removeAttribute('data-open');
+  };
+  btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hd.hasAttribute('data-open')) { set(false); btn.focus(); }
+  });
+</script>

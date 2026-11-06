@@ -1,0 +1,57 @@
+---
+import FormEnhance from './FormEnhance.astro';
+import Icon from './Icon.astro';
+import { links } from '@config/site';
+interface Props { withSupport?: boolean }
+const { withSupport = false } = Astro.props;
+---
+<section class:list={['nl papier', { 'nl--duo': withSupport }]} aria-labelledby="nl-title">
+  <div class="wrap nl__in">
+    <div>
+      <h2 id="nl-title">Le récap de la semaine</h2>
+      <p>Un e-mail par semaine avec les 4 parties de l'émission, les meilleurs extraits et l'actu. Désinscription en un clic.</p>
+    </div>
+    <form class="form nl__form" name="newsletter" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance data-success="C'est noté : tu recevras le prochain récap de la semaine.">
+      <input type="hidden" name="form-name" value="newsletter" />
+      <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="form-body">
+        <div class="field">
+          <label for="nl-email">Ton adresse e-mail</label>
+          <div class="nl__row">
+            <input id="nl-email" name="email" type="email" autocomplete="email" required placeholder="prenom@club.fr" />
+            <button class="btn btn--ink" type="submit">S'inscrire</button>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte de recevoir la newsletter d'UNIFOOT TV. Voir la <a href="/confidentialite/">politique de confidentialité</a>.</span></label>
+      </div>
+      <p class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    {withSupport && (
+      <div class="nl__support">
+        <h2 class="nl__h">Soutenir le média</h2>
+        <p>UNIFOOT TV est indépendant. Un soutien sur Tipeee ou un partenariat aide à produire l'émission chaque semaine.</p>
+        <div class="nl__btns">
+          <a class="btn btn--small" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={16} />Soutenir sur Tipeee</a>
+          <a class="btn btn--small btn--ghost" href="/partenaires/">Devenir partenaire</a>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+<FormEnhance />
+<style>
+  .nl__in { display: grid; gap: 1.5rem; padding-block: clamp(2.5rem, 2rem + 2vw, 4rem); }
+  @media (min-width: 56rem) { .nl__in { grid-template-columns: 1fr 1.2fr; align-items: center; } }
+  @media (min-width: 64rem) { .nl--duo .nl__in { grid-template-columns: 0.9fr 1.2fr 1fr; gap: 2.5rem; } }
+  @media (min-width: 56rem) and (max-width: 63.99rem) { .nl__support { grid-column: 1 / -1; } }
+  .nl__support { padding: 1.25rem; background: var(--fond); border: 1px solid var(--trait); border-radius: var(--r-m); align-self: stretch; display: grid; align-content: center; gap: 0.6rem; }
+  .nl__h { font-size: 1.125rem; margin: 0 !important; }
+  .nl__support p { margin: 0; font-size: var(--t-s); }
+  .nl__btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.3rem; }
+  .nl h2 { font-size: var(--t-xl); margin-bottom: 0.6rem; }
+  .nl p { color: var(--texte-2); }
+  .nl__row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .nl__row input { flex: 1 1 14rem; }
+  .nl__form { gap: 0.8rem; }
+  .nl .form-body { display: grid; gap: 0.8rem; }
+</style>

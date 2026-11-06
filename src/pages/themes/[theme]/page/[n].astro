@@ -1,0 +1,16 @@
+---
+import Base from '~/layouts/Base.astro';
+import Listing from '~/components/Listing.astro';
+import { activeThemes, contentOfTheme, paginate } from '~/lib/content';
+export function getStaticPaths() {
+  return activeThemes.flatMap((theme) =>
+    paginate(contentOfTheme(theme.slug).episodes, 24).slice(1).map((p) => ({ params: { theme: theme.slug, n: String(p.page) }, props: { theme, p } })),
+  );
+}
+const { theme, p } = Astro.props;
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Thèmes', href: '/themes/' }, { name: theme.name, href: `/themes/${theme.slug}/` }, { name: `Page ${p.page}` }];
+---
+<Base title={`${theme.heading}, page ${p.page}`} description={`Épisodes UNIFOOT TV sur le thème ${theme.name.toLowerCase()}, page ${p.page} sur ${p.pages}.`} breadcrumbs={crumbs}>
+  <header class="wrap page-head"><h1>{theme.heading}</h1></header>
+  <section class="wrap section" style="padding-top:0"><Listing items={p.items} page={p.page} pages={p.pages} base={`/themes/${theme.slug}/`} label={theme.name} /></section>
+</Base>

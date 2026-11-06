@@ -1,0 +1,25 @@
+---
+import type { Video } from '~/types';
+import { thumbSrcset, formatDuration } from '~/lib/content';
+interface Props { video: Video; ratio?: '16x9' | '9x16'; sizes?: string; eager?: boolean; showTime?: boolean; alt?: string; fallbackLabel?: string }
+const { video, ratio = '16x9', sizes = '(min-width: 64rem) 22vw, (min-width: 40rem) 40vw, 78vw', eager = false, showTime = true, alt = '', fallbackLabel } = Astro.props;
+const t = thumbSrcset(video);
+// Pour un Short, la miniature 16:9 est recadrée au centre
+---
+<div class={`thumb thumb--${ratio}`}>
+  {fallbackLabel && <span class="thumb__fallback" aria-hidden="true">{fallbackLabel}</span>}
+  <img
+    src={t.src}
+    srcset={t.srcset}
+    sizes={sizes}
+    width="480"
+    height={ratio === '16x9' ? 270 : 853}
+    alt={alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : undefined}
+    referrerpolicy="no-referrer"
+    onerror="this.remove()"
+  />
+  {showTime && <span class="thumb__time"><span class="sr-only">Durée </span>{formatDuration(video.durationSec)}</span>}
+</div>

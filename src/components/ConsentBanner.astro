@@ -1,0 +1,55 @@
+---
+// Consentement RGPD. Aucun traceur n'est chargé sans accord.
+// La mesure d'audience n'est active que si PUBLIC_ANALYTICS_SRC est défini (ex. Plausible, Matomo).
+// Les vidéos YouTube demandent une action explicite (clic sur Lecture) et passent par youtube-nocookie.com.
+interface Props { enabled: boolean }
+const { enabled } = Astro.props;
+const src = import.meta.env.PUBLIC_ANALYTICS_SRC || '';
+const domain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN || '';
+---
+{enabled && (
+  <div class="consent" id="consent" role="region" aria-label="Cookies" hidden data-src={src} data-domain={domain}>
+    <p>On aimerait mesurer l'audience du site pour savoir quelles émissions vous intéressent. Aucune publicité. <a href="/cookies/">En savoir plus</a></p>
+    <div class="consent__btns">
+      <button class="btn btn--small btn--ghost" type="button" data-consent="no">Refuser</button>
+      <button class="btn btn--small" type="button" data-consent="yes">Accepter</button>
+    </div>
+  </div>
+)}
+<style>
+  .consent { position: fixed; z-index: 60; left: 1rem; right: 1rem; bottom: 1rem; max-width: 34rem; margin-left: auto;
+    background: var(--surface); border: 1px solid var(--trait); border-radius: var(--r-m); padding: 1rem 1.1rem;
+    box-shadow: 0 10px 40px rgb(0 0 0 / 0.45); }
+  .consent p { margin: 0 0 0.8rem; font-size: var(--t-s); }
+  .consent a { color: var(--accent); }
+  .consent__btns { display: flex; gap: 0.6rem; justify-content: flex-end; }
+</style>
+<script>
+  const KEY = 'uftv-consent';
+  const box = document.getElementById('consent');
+  function read(): string | null { try { return localStorage.getItem(KEY); } catch { return null; } }
+  function write(v: string) { try { localStorage.setItem(KEY, v); } catch {} }
+  function loadAnalytics() {
+    if (!box?.dataset.src) return;
+    const s = document.createElement('script');
+    s.defer = true; s.src = box.dataset.src;
+    if (box.dataset.domain) s.dataset.domain = box.dataset.domain;
+    document.head.append(s);
+  }
+  if (box) {
+    const v = read();
+    if (v === 'yes') loadAnalytics();
+    else if (v !== 'no') box.hidden = false;
+    box.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((b) =>
+      b.addEventListener('click', () => {
+        write(b.dataset.consent!);
+        box.hidden = true;
+        if (b.dataset.consent === 'yes') loadAnalytics();
+      }),
+    );
+  }
+  // Lien "Gérer mes choix" (page Cookies)
+  document.querySelectorAll('[data-consent-reset]').forEach((el) =>
+    el.addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch {} location.reload(); }),
+  );
+</script>

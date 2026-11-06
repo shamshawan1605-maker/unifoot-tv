@@ -1,0 +1,15 @@
+---
+import Base from '~/layouts/Base.astro';
+import NewsGrid from '~/components/NewsGrid.astro';
+import { getNews } from '~/lib/news';
+import { paginate } from '~/lib/content';
+export async function getStaticPaths() {
+  return paginate(await getNews(), 18).slice(1).map((p) => ({ params: { n: String(p.page) }, props: { p } }));
+}
+const { p } = Astro.props;
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: `Page ${p.page}` }];
+---
+<Base title={`L'actu du foot amateur, page ${p.page}`} description={`Actualités du football amateur sur UNIFOOT TV, page ${p.page} sur ${p.pages}.`} breadcrumbs={crumbs}>
+  <header class="wrap page-head"><h1>L'actu du foot amateur</h1></header>
+  <section class="wrap section" style="padding-top:0"><NewsGrid items={p.items} page={p.page} pages={p.pages} /></section>
+</Base>

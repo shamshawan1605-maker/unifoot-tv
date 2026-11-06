@@ -1,0 +1,20 @@
+---
+// Grille paginée d'épisodes
+import type { Video } from '~/types';
+import EpisodeCard from './EpisodeCard.astro';
+interface Props { items: Video[]; page: number; pages: number; base: string; showShow?: boolean; label: string }
+const { items, page, pages, base, showShow = true, label } = Astro.props;
+const href = (n: number) => (n === 1 ? base : `${base}page/${n}/`);
+---
+<div class="grid-16x9">
+  {items.map((v) => <EpisodeCard video={v} showShow={showShow} headingLevel="h3" />)}
+</div>
+{pages > 1 && (
+  <nav class="pager" aria-label={`Pages : ${label}`}>
+    {page > 1 && <a href={href(page - 1)} rel="prev">Précédent<span class="sr-only">e page</span></a>}
+    {Array.from({ length: pages }, (_, i) => i + 1).map((n) =>
+      n === page ? <span aria-current="page">{n}</span> : <a href={href(n)}><span class="sr-only">Page </span>{n}</a>,
+    )}
+    {page < pages && <a href={href(page + 1)} rel="next">Suivant<span class="sr-only">e page</span></a>}
+  </nav>
+)}

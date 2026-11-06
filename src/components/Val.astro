@@ -1,0 +1,6 @@
+---
+// Affiche une valeur de configuration ; les champs "A_COMPLETER" sont surlignés pour être repérés.
+interface Props { v: string }
+const { v } = Astro.props;
+---
+{v === 'A_COMPLETER' ? <mark>à compléter</mark> : v}

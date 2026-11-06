@@ -1,0 +1,83 @@
+---
+// Envoi des formulaires Netlify sans rechargement, avec messages de confirmation et d'erreur.
+// Sans JavaScript, le formulaire est envoyé normalement et redirige vers /merci/.
+---
+<script>
+  const MIN_DELAY = 3000; // un humain met plus de 3 s à remplir un formulaire
+  document.querySelectorAll<HTMLFormElement>('form[data-enhance]').forEach((form) => {
+    const started = Date.now();
+    const status = form.querySelector<HTMLElement>('.form-status')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const label = btn.textContent;
+    form.noValidate = true;
+
+    const showError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => {
+      const wrap = field.closest('.field, .check, fieldset');
+      let msg = wrap?.querySelector<HTMLElement>('.error');
+      field.setAttribute('aria-invalid', 'true');
+      if (wrap && !msg) {
+        msg = document.createElement('p');
+        msg.className = 'error';
+        msg.id = `${field.name}-err`;
+        wrap.append(msg);
+      }
+      if (msg) {
+        msg.textContent =
+          field.validity.valueMissing ? (field.type === 'checkbox' ? 'Coche cette case pour continuer.' : 'Ce champ est obligatoire.')
+          : field.validity.typeMismatch ? (field.type === 'email' ? 'Adresse e-mail invalide (exemple : prenom@club.fr).' : 'Lien invalide (il doit commencer par https://).')
+          : field.validationMessage;
+        field.setAttribute('aria-describedby', [field.getAttribute('aria-describedby'), msg.id].filter(Boolean).join(' '));
+      }
+    };
+    const clearError = (field: Element) => {
+      field.removeAttribute('aria-invalid');
+      field.closest('.field, .check, fieldset')?.querySelector('.error')?.remove();
+    };
+    form.addEventListener('input', (e) => clearError(e.target as Element));
+    form.addEventListener('change', (e) => clearError(e.target as Element));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
+      const invalid = [...form.elements].filter(
+        (el): el is HTMLInputElement => 'checkValidity' in el && !(el as HTMLInputElement).checkValidity(),
+      );
+      if (invalid.length) {
+        invalid.forEach(showError);
+        status.dataset.kind = 'error';
+        status.textContent = invalid.length > 1 ? `${invalid.length} champs sont à corriger.` : 'Un champ est à corriger.';
+        invalid[0].focus();
+        return;
+      }
+      const data = new FormData(form);
+      if (data.get('bot-field') || Date.now() - started < MIN_DELAY) {
+        // Robot probable : on simule un succès sans rien envoyer
+        status.dataset.kind = 'ok';
+        status.textContent = form.dataset.success || 'Merci, c\'est envoyé.';
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Envoi en cours…';
+      try {
+        const res = await fetch(form.getAttribute('action') === '/merci/' ? '/' : form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        form.querySelectorAll('.form-body').forEach((b) => ((b as HTMLElement).hidden = true));
+        status.dataset.kind = 'ok';
+        status.textContent = form.dataset.success || 'Merci, c\'est envoyé.';
+        status.tabIndex = -1;
+        status.focus();
+      } catch {
+        status.dataset.kind = 'error';
+        status.textContent = `L'envoi n'a pas abouti. Vérifie ta connexion et réessaie, ou écris-nous à contact@unifoottv.fr.`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+  });
+</script>

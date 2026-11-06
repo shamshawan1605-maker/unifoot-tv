@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Les commits de la synchronisation ne touchent que data/ : Netlify reconstruit le site à chaque nouveauté.

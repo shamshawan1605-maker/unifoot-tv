@@ -1,0 +1,30 @@
+# Fichier généré automatiquement par scripts/build-redirects.ts : ne pas modifier à la main.
+
+# Anciennes URL du site WordPress
+/kick-in-the-foot/  /emissions/kick-in-the-foot/  301
+/kick-in-the-foot  /emissions/kick-in-the-foot/  301
+/lequipe/  /equipe/  301
+/lequipe  /equipe/  301
+/la-boutique/  /  301
+/la-boutique  /  301
+/la-boutique/*  /  301
+/boutique/*  /  301
+/produit/*  /  301
+/panier/*  /  301
+/category/*  /themes/  301
+/tag/*  /themes/  301
+/author/*  /equipe/  301
+/2021/*  /actualites/  301
+/2022/*  /actualites/  301
+/2023/*  /actualites/  301
+/2024/*  /actualites/  301
+/2025/*  /actualites/  301
+/feed/*  /  301
+/wp-admin/*  /  301
+/wp-login.php  /  301
+/mentions-legales-2/  /mentions-legales/  301
+/politique-de-confidentialite/  /confidentialite/  301
+
+# Épisodes déplacés vers une autre émission
+
+# Épisodes supprimés ou passés en privé : redirigés vers leur émission

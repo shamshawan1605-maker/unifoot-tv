@@ -1,0 +1,11 @@
+---
+import type { Video } from '~/types';
+import Thumb from './Thumb.astro';
+import { watchUrl, fr } from '~/lib/content';
+interface Props { video: Video }
+const { video } = Astro.props;
+---
+<a class="short" href={watchUrl(video)} data-short={video.id} data-title={video.title} data-themes={video.themes.join(' ')}>
+  <Thumb video={video} ratio="9x16" sizes="(min-width: 64rem) 15vw, (min-width: 40rem) 24vw, 42vw" />
+  <span class="short__title">{fr(video.title)}<span class="sr-only"> (extrait vidéo)</span></span>
+</a>

@@ -1,0 +1,41 @@
+---
+import type { News } from '~/lib/news';
+import { newsPath } from '~/lib/news';
+import { formatShortDate, fr, themeBySlug } from '~/lib/content';
+interface Props { news: News; lead?: boolean; headingLevel?: 'h2' | 'h3' }
+const { news, lead = false, headingLevel = 'h3' } = Astro.props;
+const d = news.data;
+const H = headingLevel;
+const theme = d.themes[0] ? themeBySlug.get(d.themes[0]) : undefined;
+---
+<article class:list={['nc', { 'nc--lead': lead, 'nc--noimg': !d.image }]}>
+  {d.image
+    ? <div class="nc__img"><img src={d.image} alt="" width="800" height="450" loading="lazy" decoding="async" /></div>
+    : <div class="nc__img nc__img--txt" aria-hidden="true"><span>{theme?.name ?? 'Actu'}</span></div>}
+  <div class="nc__body">
+    <p class="meta">
+      {theme && <span>{theme.name}</span>}
+      <time datetime={d.date.toISOString()}>{formatShortDate(d.date.toISOString())}</time>
+    </p>
+    <H class="nc__title"><a href={newsPath(news)}>{fr(d.titre)}</a></H>
+    {lead && <p class="nc__chapo">{fr(d.chapo)}</p>}
+  </div>
+</article>
+<style>
+  .nc { position: relative; display: grid; gap: 0.7rem; align-content: start; }
+  .nc__img { aspect-ratio: 16 / 9; border-radius: var(--r-s); overflow: hidden; background: var(--surface); }
+  .nc__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+  .nc__img--txt { display: grid; align-items: end; padding: 0.9rem; background: var(--marine); }
+  .nc__img--txt span { font: 800 1.25rem/1.1 var(--f-titre); color: var(--menthe); }
+  .nc__title { font: 700 1rem/1.35 var(--f-texte); }
+  .nc__title a { text-decoration: none; }
+  .nc__title a::after { content: ''; position: absolute; inset: 0; }
+  .nc:hover .nc__title { color: var(--accent); }
+  .nc:hover img { transform: scale(1.04); }
+  .nc:has(:focus-visible) .nc__img { box-shadow: var(--focus); }
+  .nc :focus-visible { box-shadow: none; }
+  .nc__body { display: grid; gap: 0.4rem; }
+  .nc__chapo { color: var(--texte-2); margin: 0.2rem 0 0; }
+  .nc--lead .nc__title { font: 800 var(--t-hero)/1.15 var(--f-titre); letter-spacing: -0.02em; }
+  @media (min-width: 56rem) { .nc--lead { grid-template-columns: 1.25fr 1fr; gap: 1.75rem; align-items: center; } }
+</style>

@@ -1,0 +1,38 @@
+---
+// Écouter : épisode audio associé (lecteur + lien) sinon liens généraux du podcast
+import type { Video } from '~/types';
+import Icon from './Icon.astro';
+import { podcastPlatforms } from '@config/site';
+interface Props { video?: Video; compact?: boolean }
+const { video, compact = false } = Astro.props;
+const p = video?.podcast;
+const icon: Record<string, string> = { Spotify: 'spotify', 'Apple Podcasts': 'apple', Deezer: 'deezer', 'Amazon Music': 'amazon' };
+---
+<div class:list={['listen', { 'listen--compact': compact }]}>
+  {p?.audioUrl && !compact && (
+    <figure class="listen__player">
+      <figcaption class="meta">Version audio de l'épisode</figcaption>
+      <audio controls preload="none" src={p.audioUrl}>
+        <a href={p.audioUrl}>Télécharger l'épisode audio</a>
+      </audio>
+    </figure>
+  )}
+  <ul class="listen__list" aria-label={p ? "Écouter l'épisode sur" : 'Écouter le podcast sur'}>
+    {p?.url && (
+      <li><a class="listen__link listen__link--main" href={p.url} rel="noopener" target="_blank"><Icon name="listen" size={18} /> Cet épisode en audio</a></li>
+    )}
+    {podcastPlatforms.map((pl) => (
+      <li><a class="listen__link" href={pl.url} rel="noopener" target="_blank"><Icon name={icon[pl.name]} size={18} /> {pl.name}</a></li>
+    ))}
+  </ul>
+</div>
+<style>
+  .listen { display: grid; gap: 1rem; }
+  .listen__player { margin: 0; display: grid; gap: 0.5rem; }
+  .listen__player audio { width: 100%; max-width: 32rem; }
+  .listen__list { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+  .listen__link { display: inline-flex; align-items: center; gap: 0.45rem; min-height: 2.75rem; padding: 0.5rem 0.9rem;
+    border: 1.5px solid var(--trait); border-radius: var(--r-s); text-decoration: none; font: 600 0.95rem/1 var(--f-info); }
+  .listen__link:hover { border-color: var(--accent); }
+  .listen__link--main { background: var(--surface); border-color: var(--accent); }
+</style>

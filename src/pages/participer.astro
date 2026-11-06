@@ -1,0 +1,80 @@
+---
+import Base from '~/layouts/Base.astro';
+import FormEnhance from '~/components/FormEnhance.astro';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Participer' }];
+const types = [
+  { v: 'temoignage', l: 'Témoigner' },
+  { v: 'sujet', l: 'Proposer un sujet' },
+  { v: 'invite', l: 'Venir sur le plateau' },
+  { v: 'chroniqueur', l: 'Devenir chroniqueur' },
+];
+const roles = ['Joueur ou joueuse', 'Éducateur ou éducatrice', 'Parent', 'Arbitre', 'Dirigeant ou bénévole', 'Supporter', 'Autre'];
+---
+<Base title="Participer : témoigne ou propose un sujet" description="Éducateur, arbitre, parent, bénévole ou joueur : envoie ton témoignage ou propose un sujet pour Kick in the Foot, l'émission du foot amateur." breadcrumbs={crumbs} fond="gris">
+  <div class="papier pp">
+    <header class="wrap page-head">
+      <h1>C'est votre émission aussi</h1>
+      <p>Une situation vécue au club, un coup de gueule, une belle histoire ou un sujet qu'on n'aborde jamais : écris-nous. On lit tout, et si ta proposition est retenue, on te recontacte.</p>
+    </header>
+    <section class="wrap pp__body" aria-label="Formulaire de participation">
+      <form class="form" name="participer" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance
+        data-success="Merci, ton message est bien arrivé. On le lit avant la prochaine émission et on te recontacte si on le retient.">
+        <input type="hidden" name="form-name" value="participer" />
+        <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="form-body form">
+          <fieldset class="choices field">
+            <legend>Tu veux…</legend>
+            {types.map((t, i) => (
+              <label class="choice"><input type="radio" name="type" value={t.v} required checked={i === 0} /><span>{t.l}</span></label>
+            ))}
+          </fieldset>
+          <div class="row">
+            <div class="field"><label for="p-nom">Prénom et nom</label><input id="p-nom" name="nom" autocomplete="name" required /></div>
+            <div class="field"><label for="p-email">E-mail</label><input id="p-email" name="email" type="email" autocomplete="email" required /></div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="p-role">Tu es</label>
+              <select id="p-role" name="role" required>
+                <option value="">Choisir</option>
+                {roles.map((r) => <option>{r}</option>)}
+              </select>
+            </div>
+            <div class="field"><label for="p-club">Club et ville <span class="opt">(facultatif)</span></label><input id="p-club" name="club" autocomplete="organization" /></div>
+          </div>
+          <div class="field">
+            <label for="p-msg">Ton message</label>
+            <p class="hint" id="p-msg-hint">Raconte les faits, le contexte et ce que tu en penses. Quelques lignes suffisent.</p>
+            <textarea id="p-msg" name="message" required minlength="20" aria-describedby="p-msg-hint"></textarea>
+          </div>
+          <div class="field">
+            <label for="p-lien">Lien vers une vidéo ou un article <span class="opt">(facultatif)</span></label>
+            <input id="p-lien" name="lien" type="url" inputmode="url" placeholder="https://" />
+          </div>
+          <fieldset class="field">
+            <legend>Si ton message est lu dans l'émission</legend>
+            <label class="check"><input type="radio" name="anonymat" value="nom" checked /><span>On peut citer mon prénom et mon club</span></label>
+            <label class="check"><input type="radio" name="anonymat" value="anonyme" /><span>Je préfère rester anonyme</span></label>
+          </fieldset>
+          <label class="check"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte qu'UNIFOOT TV utilise ces informations pour traiter ma demande et me recontacter. Voir la <a href="/confidentialite/">politique de confidentialité</a>.</span></label>
+          <div><button class="btn btn--ink" type="submit">Envoyer ma proposition</button></div>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+  <FormEnhance />
+</Base>
+<style>
+  .pp { padding-bottom: 4rem; }
+  .pp :global(.crumbs) { color: var(--texte-2); }
+  .opt { font-weight: 400; color: var(--texte-2); }
+  .form-body { max-width: none; }
+</style>
+<script>
+  const t = new URLSearchParams(location.search).get('type');
+  if (t) {
+    const r = document.querySelector<HTMLInputElement>(`input[name="type"][value="${CSS.escape(t)}"]`);
+    if (r) r.checked = true;
+  }
+</script>

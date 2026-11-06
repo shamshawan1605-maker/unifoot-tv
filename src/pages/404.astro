@@ -1,0 +1,18 @@
+---
+import Base from '~/layouts/Base.astro';
+import EpisodeCard from '~/components/EpisodeCard.astro';
+import { episodes } from '~/lib/content';
+---
+<Base title="Page introuvable" description="Cette page n'existe pas ou plus." noindex path="/404/">
+  <section class="wrap page-head" style="padding-block:3rem">
+    <h1>Hors-jeu : cette page n'existe pas</h1>
+    <p>Elle a peut-être été déplacée ou la vidéo n'est plus en ligne.</p>
+    <p><a class="btn" href="/emissions/">Voir les émissions</a></p>
+  </section>
+  {episodes.length > 0 && (
+    <section class="wrap section" style="padding-top:0" aria-labelledby="l">
+      <h2 id="l" style="font-size:var(--t-xl);margin-bottom:1rem">Derniers épisodes</h2>
+      <div class="grid-16x9">{episodes.slice(0, 4).map((v) => <EpisodeCard video={v} />)}</div>
+    </section>
+  )}
+</Base>

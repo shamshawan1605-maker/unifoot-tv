@@ -1,0 +1,42 @@
+---
+// Deux bandeaux inclinés qui se croisent et défilent, avec les thèmes du foot amateur. Décoratif.
+import { themes } from '@config/themes';
+const words = [...themes.map((t) => t.name), 'Kick in the Foot', 'Entre 2', "Au cœur d'une séance"];
+const colors = ['menthe', 'jaune', 'bleu', 'corail', 'sarcelle'];
+const row = (offset: number) => [...words, ...words].map((w, i) => ({ w, c: colors[(i + offset) % colors.length], hi: (i + offset) % 3 === 0 }));
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<div class:list={['bands', { 'bands--compact': compact }]} aria-hidden="true">
+  {[0, 2].map((o, k) => (
+    <div class:list={['band', `band--${k}`]}>
+      <div class="band__track">
+        {row(o).map((x) => (
+          <span class:list={['band__item', x.hi && `band__item--${x.c}`]}>
+            {x.w}
+            <svg viewBox="0 0 24 24" width="14" height="14"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+<style>
+  .bands { position: relative; height: 9.5rem; overflow: hidden; margin-block: 0.5rem -1rem; }
+  .bands--compact { height: 8rem; }
+  .band { position: absolute; left: -5%; right: -5%; background: var(--marine); padding: 0.55rem 0; border-block: 2px solid var(--marine); }
+  .band--0 { top: 1.6rem; transform: rotate(-3.5deg); z-index: 2; }
+  .band--1 { top: 4.6rem; transform: rotate(2.5deg); background: #fff; border-color: var(--marine); }
+  .band__track { display: flex; gap: 0.5rem; width: max-content; animation: band 60s linear infinite; }
+  .band--1 .band__track { animation-direction: reverse; animation-duration: 70s; }
+  .band__item { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.9rem; border-radius: 999px; white-space: nowrap;
+    font: 800 0.9rem/1 var(--f-titre); letter-spacing: 0.02em; text-transform: uppercase; color: #fff; }
+  .band--1 .band__item { color: var(--marine); }
+  .band__item--menthe { background: var(--menthe); color: var(--marine) !important; }
+  .band__item--jaune { background: var(--jaune); color: var(--marine) !important; }
+  .band__item--bleu { background: var(--bleu); color: #fff !important; }
+  .band__item--corail { background: var(--corail); color: var(--marine) !important; }
+  .band__item--sarcelle { background: var(--sarcelle); color: var(--marine) !important; }
+  @keyframes band { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .band__track { animation: none; } }
+</style>

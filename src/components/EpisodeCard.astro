@@ -1,0 +1,17 @@
+---
+import type { Video } from '~/types';
+import Thumb from './Thumb.astro';
+import { videoPath, showOf, formatShortDate, fr } from '~/lib/content';
+interface Props { video: Video; headingLevel?: 'h2' | 'h3'; showShow?: boolean; sizes?: string }
+const { video, headingLevel = 'h3', showShow = true, sizes } = Astro.props;
+const H = headingLevel;
+---
+<article class="card">
+  <Thumb video={video} sizes={sizes} fallbackLabel={showOf(video).name} />
+  <H><a href={videoPath(video)}>{fr(video.title)}</a></H>
+  {video.guest && <p class="card__guest">Avec {video.guest}</p>}
+  <p class="meta">
+    {showShow && <span>{showOf(video).name}</span>}
+    <time datetime={video.publishedAt}>{formatShortDate(video.publishedAt)}</time>
+  </p>
+</article>

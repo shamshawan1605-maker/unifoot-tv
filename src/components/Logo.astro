@@ -1,0 +1,22 @@
+---
+// Logo officiel (lettres blanches) posé sur une pastille marine, comme un logo de chaîne à l'antenne.
+import { site } from '@config/site';
+interface Props { chip?: boolean }
+const { chip = true } = Astro.props;
+---
+<span class:list={['logo', { 'logo--chip': chip }]}>
+  {site.logo.src
+    ? (
+      <picture>
+        <source type="image/webp" srcset="/brand/logo-120.webp 120w, /brand/logo-180.webp 180w, /brand/logo-240.webp 240w" sizes="96px" />
+        <img src={site.logo.src} srcset="/brand/logo-120.png 120w, /brand/logo-180.png 180w, /brand/logo-240.png 240w" sizes="96px" width="96" height="46" alt="UNIFOOT TV" />
+      </picture>
+    )
+    : <span class="logo-txt">UNIFOOT TV</span>}
+</span>
+<style>
+  .logo { display: inline-flex; align-items: center; }
+  .logo img { width: 96px; height: auto; }
+  .logo--chip { background: var(--marine); padding: 0.35rem 0.7rem 0.4rem 0.55rem; border-radius: 10px; transform: rotate(-2deg); }
+  .logo-txt { font: 800 1.25rem/1 var(--f-titre); color: #fff; }
+</style>

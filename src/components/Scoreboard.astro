@@ -1,0 +1,66 @@
+---
+// Le rendez-vous de la semaine (du mercredi au samedi), façon panneau d'affichage de stade, avec compte à rebours (heure de Paris).
+import Icon from './Icon.astro';
+import { links, site } from '@config/site';
+const { weekdays, hour, minute, label } = site.rendezVous;
+---
+<div class="sb">
+  <p class="sb__title">{label}</p>
+  <div class="sb__board" data-weekdays={weekdays.join(",")} data-hour={hour} data-minute={minute}>
+    <p class="sb__label" id="sb-label">Prochaine sortie dans</p>
+    <div class="sb__digits" role="timer" aria-labelledby="sb-label">
+      <span class="sb__cell"><b data-u="d">–</b><small>jours</small></span>
+      <span class="sb__cell"><b data-u="h">–</b><small>heures</small></span>
+      <span class="sb__cell"><b data-u="m">–</b><small>min</small></span>
+    </div>
+    <p class="sb__live" hidden>C'est en ligne : la partie du jour vient de sortir.</p>
+  </div>
+  <a class="btn btn--menthe btn--small sb__cta" href={links.youtubeSubscribe} rel="noopener" target="_blank"><Icon name="bell" size={18} />S'abonner sur YouTube</a>
+</div>
+
+<style>
+  .sb { display: grid; gap: 0.9rem; }
+  .sb__title { font: 800 1.125rem/1.2 var(--f-titre); margin: 0; color: #fff; }
+  .sb__board { background: #04051a; border: 2px solid var(--sarcelle); border-radius: 8px; padding: 0.7rem 0.8rem 0.75rem; }
+  .sb__label { margin: 0 0 0.45rem; font: 600 0.8125rem/1 var(--f-info); color: #b9bedb; }
+  .sb__digits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.45rem; }
+  .sb__cell { display: grid; justify-items: center; gap: 0.25rem; padding: 0.4rem 0.3rem; background: #0a0d2b; border-radius: 4px;
+    background-image: radial-gradient(rgb(79 255 190 / 0.08) 1px, transparent 1.2px); background-size: 4px 4px; }
+  .sb__cell b { font: 800 2.1rem/1 var(--f-titre); letter-spacing: -0.02em; color: var(--menthe); text-shadow: 0 0 12px rgb(79 255 190 / 0.45); font-variant-numeric: tabular-nums; }
+  .sb__cell small { font: 600 0.75rem/1 var(--f-info); color: #b9bedb; }
+  .sb__live { margin: 0.6rem 0 0; font: 800 0.9rem/1.2 var(--f-info); color: var(--menthe); }
+  .sb__cta { justify-self: start; }
+</style>
+
+<script>
+  const board = document.querySelector<HTMLElement>('.sb__board');
+  if (board) {
+    const days = (board.dataset.weekdays || '3').split(',').map(Number);
+    const hh = Number(board.dataset.hour), mm = Number(board.dataset.minute);
+    // Heures "murales" de Paris : indépendant du fuseau du visiteur
+    const paris = (d: Date) => new Date(d.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+    function state(now: Date) {
+      const p = paris(now);
+      let live = false;
+      for (let add = 0; add <= 7; add++) {
+        const t = new Date(p);
+        t.setDate(p.getDate() + add);
+        t.setHours(hh, mm, 0, 0);
+        if (!days.includes(t.getDay())) continue;
+        if (add === 0 && p >= t) { if (p.getTime() - t.getTime() < 2 * 3600e3) live = true; continue; }
+        return { ms: t.getTime() - p.getTime(), live };
+      }
+      return { ms: 0, live };
+    }
+    const set = (u: string, v: number) => { const el = board.querySelector(`[data-u="${u}"]`); if (el) el.textContent = String(v).padStart(2, '0'); };
+    const liveEl = board.querySelector<HTMLElement>('.sb__live')!;
+    const tick = () => {
+      const { ms, live } = state(new Date());
+      const total = Math.max(0, Math.floor(ms / 60000));
+      set('d', Math.floor(total / 1440)); set('h', Math.floor((total % 1440) / 60)); set('m', total % 60);
+      liveEl.hidden = !live;
+    };
+    tick();
+    setInterval(tick, 30000);
+  }
+</script>

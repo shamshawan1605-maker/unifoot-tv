@@ -1,0 +1,16 @@
+---
+import Base from '~/layouts/Base.astro';
+import ThemesList from '~/components/ThemesList.astro';
+import { activeThemes } from '~/lib/content';
+import { links } from '@config/site';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Thèmes' }];
+---
+<Base title="Les thèmes du foot amateur" description="Formation, éducateurs, arbitrage, bénévoles, parents, vie des clubs : toutes les vidéos d'UNIFOOT TV classées par thème." breadcrumbs={crumbs}>
+  <header class="wrap page-head">
+    <h1>Les thèmes</h1>
+    <p>Retrouve les émissions et les extraits par sujet.</p>
+  </header>
+  <section class="wrap section" style="padding-top:0" aria-label="Liste des thèmes">
+    {activeThemes.length ? <ThemesList headingLevel="h2" /> : <p><a class="btn" href={links.youtube} rel="noopener" target="_blank">Voir les vidéos sur YouTube</a></p>}
+  </section>
+</Base>

@@ -1,0 +1,42 @@
+---
+import Base from '~/layouts/Base.astro';
+import Listing from '~/components/Listing.astro';
+import ListenLinks from '~/components/ListenLinks.astro';
+import { activeShows, episodesOfShow, paginate } from '~/lib/content';
+import { podcastSeriesLd } from '~/lib/seo';
+import { allShows } from '@config/shows';
+import SponsorSlot from '~/components/SponsorSlot.astro';
+import { placements } from '@config/sponsors';
+export const PER_PAGE = 24;
+export function getStaticPaths() {
+  return activeShows.map((show) => ({ params: { show: show.slug }, props: { show } }));
+}
+const { show } = Astro.props;
+const eps = episodesOfShow(show.slug);
+const [first] = paginate(eps, PER_PAGE);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Émissions', href: '/emissions/' }, { name: show.name }];
+const isMain = show.slug === allShows[0].slug;
+---
+<Base
+  title={`${show.name} : ${show.kicker.toLowerCase()}`}
+  description={`${show.intro.slice(0, 150).replace(/\s\S*$/, '')}…`}
+  breadcrumbs={crumbs}
+  jsonLd={isMain ? [podcastSeriesLd()] : []}
+>
+  <header class="wrap page-head">
+    <h1>{show.name}</h1>
+    <p>{show.intro}</p>
+    {show.schedule && <p class="sched">{show.schedule}, sur YouTube et en podcast.</p>}
+    {show.slug in placements.emissions && <SponsorSlot sponsor={placements.emissions[show.slug]} variant="presented" />}
+    {show.hasPodcast && <div class="listen-wrap"><ListenLinks compact /></div>}
+  </header>
+  <section class="wrap section" aria-labelledby="eps">
+    <h2 id="eps" class="sr-only">Les épisodes</h2>
+    <Listing items={first.items} page={1} pages={first.pages} base={`/emissions/${show.slug}/`} showShow={false} label={show.name} />
+  </section>
+</Base>
+<style>
+  .sched { font: 700 var(--t-l)/1.2 var(--f-info) !important; color: var(--accent) !important; }
+  .listen-wrap { margin-top: 1.25rem; }
+  .section { padding-top: 0; }
+</style>

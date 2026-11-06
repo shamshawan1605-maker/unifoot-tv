@@ -1,0 +1,19 @@
+---
+import Legal from '~/layouts/Legal.astro';
+import { legal, site } from '@config/site';
+---
+<Legal title="Politique de confidentialité" description="Comment UNIFOOT TV collecte et utilise vos données personnelles : formulaires, newsletter, vidéos YouTube et vos droits.">
+  <p>{legal.company} ({legal.address}) est responsable des traitements décrits ici. Pour toute question ou pour exercer tes droits : <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <h2>Données collectées et utilisation</h2>
+  <ul>
+    <li><strong>Formulaires Participer et Contact</strong> : nom, e-mail, rôle, club, message et lien éventuel. Ils servent à lire ta proposition, à te recontacter et, si tu l'acceptes, à citer ton témoignage dans l'émission. Base légale : ton consentement. Conservation : 3 ans après le dernier échange.</li>
+    <li><strong>Formulaire Partenaires</strong> : coordonnées professionnelles et projet, pour te répondre. Base légale : mesures précontractuelles. Conservation : 3 ans après le dernier échange.</li>
+    <li><strong>Newsletter</strong> : adresse e-mail, pour envoyer le récap hebdomadaire. Base légale : ton consentement. Conservation : jusqu'à ta désinscription.</li>
+  </ul>
+  <p>Les formulaires sont traités par notre hébergeur Netlify (États-Unis), qui applique les clauses contractuelles types de la Commission européenne. Tes données ne sont jamais vendues ni utilisées à des fins publicitaires.</p>
+  <h2>Vidéos, images et audio</h2>
+  <p>Les vidéos YouTube ne sont chargées que lorsque tu cliques sur Lecture, via le domaine youtube-nocookie.com. À ce moment, YouTube (Google) peut collecter des données selon sa propre politique. Les miniatures des vidéos sont affichées depuis les serveurs d'images de YouTube, ce qui transmet ton adresse IP à Google. Les épisodes audio sont lus depuis la plateforme d'hébergement du podcast, seulement si tu lances la lecture.</p>
+  <h2>Tes droits</h2>
+  <p>Tu disposes d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de tes données, et du droit de retirer ton consentement à tout moment. Écris-nous à <a href={`mailto:${site.email}`}>{site.email}</a>. Tu peux aussi saisir la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
+  <p>Pour les cookies, voir la page <a href="/cookies/">Cookies</a>.</p>
+</Legal>

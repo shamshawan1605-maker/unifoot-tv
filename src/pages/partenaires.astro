@@ -1,0 +1,142 @@
+---
+import Base from '~/layouts/Base.astro';
+import FormEnhance from '~/components/FormEnhance.astro';
+import { audienceHighlights, audienceByNetwork, audienceUpdatedAt } from '@config/audience';
+import { partners, offers, offersAreExample, mediaKitUrl } from '@config/partners';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Partenaires' }];
+const [y, m] = audienceUpdatedAt.split('-');
+const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(Number(y), Number(m) - 1, 1));
+---
+<Base title="Devenir partenaire du foot amateur" description="Associez votre marque au média du football amateur : audience, formules de partenariat et contact. UNIFOOT TV, Kick in the Foot chaque mercredi." breadcrumbs={crumbs}>
+  <header class="wrap page-head">
+    <h1>Parlez à ceux qui font le foot amateur</h1>
+    <p>Joueurs, éducateurs, dirigeants, parents : une communauté engagée qui suit l'émission chaque semaine.</p>
+  </header>
+
+  <section class="wrap section aud" style="padding-top:0" aria-labelledby="audience">
+    <h2 id="audience" class="sr-only">Audience</h2>
+    <dl class="aud__big">
+      {audienceHighlights.map((a) => <div><dt>{a.label}</dt><dd>{a.value}</dd></div>)}
+    </dl>
+    <dl class="aud__nets">
+      {audienceByNetwork.map((a) => <div><dt>{a.network}</dt><dd>{a.value}</dd></div>)}
+    </dl>
+    <p class="meta">Chiffres de {updated}.</p>
+  </section>
+
+  {partners.length > 0 && (
+    <section class="section alt" aria-labelledby="ils">
+      <div class="wrap">
+        <h2 id="ils" class="h2">Ils nous accompagnent</h2>
+        <ul class="partners">
+          {partners.map((p) => (
+            <li>
+              <a href={p.url} rel="noopener sponsored" target="_blank">
+                {p.logo ? <img src={p.logo} alt={p.name} width="200" height="80" loading="lazy" /> : <span class="partners__name">{p.name}</span>}
+              </a>
+              {p.description && <p>{p.description}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section wrap" aria-labelledby="emplacements" style="padding-bottom:0">
+    <div class="section-head"><div><h2 id="emplacements">Les emplacements sur le site</h2><p>Uniquement des marques du sport et du foot amateur. Pas de paris sportifs.</p></div></div>
+    <ul class="slots">
+      <li><strong>« Présenté par »</strong><span>Votre marque en tête d'une émission : Kick in the Foot, Entre 2 ou Au cœur d'une séance.</span></li>
+      <li><strong>Partenaire de rubrique</strong><span>Associez-vous à un thème : formation, arbitrage, éducateurs, bénévoles, parents ou vie des clubs.</span></li>
+      <li><strong>Encart dans les contenus</strong><span>Présent sur chaque actu et chaque page d'épisode.</span></li>
+      <li><strong>Bandeau d'accueil</strong><span>La visibilité maximale, sur la page d'accueil du site.</span></li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="offres">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <h2 id="offres" class="h2">Les formules</h2>
+          <p>Partenariat à la saison. Chaque formule s'adapte à vos objectifs.</p>
+        </div>
+        {mediaKitUrl && <a class="more" href={mediaKitUrl}>Télécharger le media kit</a>}
+      </div>
+      {offersAreExample && <p class="example">Contenu d'exemple : détail des formules à compléter.</p>}
+      <ol class="offers">
+        {offers.map((o) => (
+          <li class="offer">
+            <h3>{o.name}</h3>
+            <p class="offer__pitch">{o.pitch}</p>
+            <ul>{o.items.map((i) => <li>{i}</li>)}</ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="papier section" aria-labelledby="contact-p">
+    <div class="wrap pf">
+      <div>
+        <h2 id="contact-p" class="h2">Parlons de votre projet</h2>
+        <p>Laissez vos coordonnées, on vous répond sous 48 heures ouvrées avec une proposition.</p>
+      </div>
+      <form class="form" name="partenaires" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance data-success="Merci, votre demande est bien arrivée. On vous répond sous 48 heures ouvrées.">
+        <input type="hidden" name="form-name" value="partenaires" />
+        <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="form-body form">
+          <div class="row">
+            <div class="field"><label for="pa-nom">Nom</label><input id="pa-nom" name="nom" autocomplete="name" required /></div>
+            <div class="field"><label for="pa-org">Entreprise ou structure</label><input id="pa-org" name="entreprise" autocomplete="organization" required /></div>
+          </div>
+          <div class="row">
+            <div class="field"><label for="pa-email">E-mail professionnel</label><input id="pa-email" name="email" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="pa-tel">Téléphone <span class="opt">(facultatif)</span></label><input id="pa-tel" name="telephone" type="tel" autocomplete="tel" /></div>
+          </div>
+          <div class="field">
+            <label for="pa-formule">Formule envisagée</label>
+            <select id="pa-formule" name="formule"><option value="">Je ne sais pas encore</option>{offers.map((o) => <option>{o.name}</option>)}</select>
+          </div>
+          <div class="field"><label for="pa-msg">Votre projet</label><textarea id="pa-msg" name="message" required minlength="10"></textarea></div>
+          <label class="check"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte qu'UNIFOOT TV utilise ces informations pour me recontacter. Voir la <a href="/confidentialite/">politique de confidentialité</a>.</span></label>
+          <div><button class="btn btn--ink" type="submit">Envoyer la demande</button></div>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+  <FormEnhance />
+</Base>
+<style>
+  .h2 { font-size: var(--t-xl); }
+  .slots { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .slots li { display: grid; gap: 0.4rem; padding: 1.1rem 1.2rem; border: 1px solid var(--trait); border-radius: var(--r-m); }
+  .slots strong { font: 800 1rem/1.3 var(--f-titre); }
+  .slots span { color: var(--texte-2); font-size: var(--t-s); }
+  .alt { background: var(--fond-2); }
+  .aud__big { display: grid; gap: 1rem 2.5rem; margin: 0; grid-template-columns: repeat(auto-fit, minmax(14rem, max-content)); }
+  .aud__big div { display: flex; flex-direction: column-reverse; }
+  .aud__big dd { margin: 0; font: 800 clamp(2.5rem, 1.8rem + 3vw, 4.5rem)/1 var(--f-titre); letter-spacing: -0.03em; color: var(--bleu); }
+  .aud__big dt { font: 600 var(--t-l)/1.2 var(--f-info); margin-top: 0.4rem; }
+  .aud__nets { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin: 2rem 0 0.75rem; padding-top: 1rem; border-top: var(--ligne); }
+  .aud__nets div { display: flex; gap: 0.5rem; align-items: baseline; }
+  .aud__nets dt { font: 600 1rem/1 var(--f-info); color: var(--texte-2); }
+  .aud__nets dd { margin: 0; font: 800 1.5rem/1 var(--f-titre); }
+  .partners { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  .partners a { text-decoration: none; display: inline-block; }
+  .partners__name { font: 800 1.5rem/1 var(--f-titre); }
+  .partners p { color: var(--texte-2); margin-top: 0.5rem; font-size: var(--t-s); }
+  .example { display: inline-block; background: #ffd23f; color: #1a1a1a; padding: 0.3rem 0.6rem; border-radius: 3px; font: 600 0.9rem/1.2 var(--f-info); }
+  .offers { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); border-top: var(--ligne); }
+  .offer { padding: 1.5rem 1.25rem 1.5rem 0; border-bottom: var(--ligne); }
+  @media (min-width: 64rem) { .offer { border-bottom: 0; border-right: 1px solid var(--trait); padding-left: 1.25rem; } .offer:first-child { padding-left: 0; } .offer:last-child { border-right: 0; } }
+  .offer h3 { font: 800 var(--t-xl)/1.1 var(--f-titre); }
+  .offer:last-child h3 { color: var(--accent); }
+  .offer__pitch { font: 700 1.0625rem/1.3 var(--f-info); margin: 0.5rem 0 0.75rem; }
+  .offer ul { padding-left: 1.1rem; margin: 0; color: var(--texte-2); font-size: var(--t-s); }
+  .offer li + li { margin-top: 0.35rem; }
+  .pf { display: grid; gap: 2rem; }
+  @media (min-width: 56rem) { .pf { grid-template-columns: 1fr 1.6fr; } }
+  .pf p { color: var(--texte-2); margin-top: 0.8rem; }
+  .opt { font-weight: 400; color: var(--texte-2); }
+  .form-body { max-width: none; }
+</style>

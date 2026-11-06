@@ -1,0 +1,44 @@
+---
+// Charge le lecteur YouTube (youtube-nocookie) seulement au clic : boutons .yt__play, liens [data-play], chapitres [data-seek].
+---
+<style is:global>
+  .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 5; }
+</style>
+<script>
+  function load(box: HTMLElement, start = 0) {
+    const id = box.dataset.yt!;
+    let iframe = box.querySelector('iframe');
+    const src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1${start ? `&start=${start}` : ''}`;
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.title = box.dataset.title || 'Vidéo YouTube';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      box.append(iframe);
+    }
+    iframe.src = src;
+    iframe.focus();
+  }
+  document.querySelectorAll<HTMLElement>('.yt').forEach((box) => {
+    box.querySelectorAll('.yt__play').forEach((b) => b.addEventListener('click', () => load(box)));
+  });
+  // Boutons "Regarder" ailleurs sur la page : <a data-play="ID" href="…">
+  document.querySelectorAll<HTMLAnchorElement>('[data-play]').forEach((a) =>
+    a.addEventListener('click', (e) => {
+      const box = document.querySelector<HTMLElement>(`.yt[data-yt="${a.dataset.play}"]`);
+      if (!box) return;
+      e.preventDefault();
+      load(box);
+    }),
+  );
+  // Chapitres : <button data-seek="123" data-target="ID">
+  document.querySelectorAll<HTMLButtonElement>('[data-seek]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const box = document.querySelector<HTMLElement>(`.yt[data-yt="${b.dataset.target}"]`);
+      if (!box) return;
+      load(box, Number(b.dataset.seek));
+      box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }),
+  );
+</script>

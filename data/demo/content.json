@@ -1,0 +1,1192 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-06T02:16:46.752Z",
+  "channel": {
+    "id": "UCdemoUnifootTv000000000",
+    "title": "UNIFOOT TV",
+    "handle": "@unifoottv",
+    "subscriberCount": 16000,
+    "videoCount": 21
+  },
+  "videos": [
+    {
+      "id": "demoSHT0010",
+      "slug": "les-parents-doivent-rester-des-parents",
+      "title": "« Les parents doivent rester des parents »",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-25T16:00:00Z",
+      "durationSec": 58,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0010/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0010/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0010/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0010/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "parents"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoKITF006",
+      "slug": "wilo-footix-arbitre-a-16-ans-950-000-abonnes-les-coulisses-de-ground-et-du",
+      "title": "Wilo Footix : arbitre à 16 ans, 950 000 abonnés, les coulisses de Ground et du format VS",
+      "description": "[Démo] Description d'exemple. Cette semaine dans Kick in the Foot, on parle de l'arbitrage chez les jeunes et des réseaux sociaux. Éducateurs, présidents et joueurs du foot amateur réagissent et débattent autour de la table.\n\nPour participer à l'émission : https://unifoottv.fr/participer/\n\n00:00 Introduction\n02:15 Le sujet de la semaine\n14:40 Le débat\n31:05 Vos questions\n44:20 Le mot de la fin\n\n#footamateur #football",
+      "publishedAt": "2026-10-24T16:00:00Z",
+      "durationSec": 3130,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF006/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF006/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF006/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF006/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Introduction"
+        },
+        {
+          "start": 135,
+          "label": "Le sujet de la semaine"
+        },
+        {
+          "start": 880,
+          "label": "Le débat"
+        },
+        {
+          "start": 1865,
+          "label": "Vos questions"
+        },
+        {
+          "start": 2660,
+          "label": "Le mot de la fin"
+        }
+      ],
+      "themes": [
+        "arbitrage"
+      ],
+      "tags": [
+        "arbitre",
+        "arbitrage"
+      ],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Wilo Footix",
+      "podcast": {
+        "guid": "ep-0-2026-10-24T18:00:00Z",
+        "title": "Wilo Footix : arbitre à 16 ans, 950 000 abonnés, les coulisses de Ground et du format VS",
+        "url": "https://creators.spotify.com/pod/demo/episodes/wilo",
+        "audioUrl": "https://example.com/audio/wilo.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T18:00:00.000Z",
+        "durationSec": 3130
+      }
+    },
+    {
+      "id": "demoKITF005",
+      "slug": "comment-lancer-un-pole-foot-adapte-dans-ton-club-amateur-l-astuce-du-jour",
+      "title": "Comment lancer un pôle foot adapté dans ton club amateur ? (L'astuce du jour)",
+      "description": "[Démo] Description d'exemple. Les étapes pour créer une section de foot adapté dans un club amateur : encadrement, licences, accueil des familles et partenaires.",
+      "publishedAt": "2026-10-24T16:00:00Z",
+      "durationSec": 520,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF005/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF005/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF005/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF005/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [],
+      "themes": [
+        "vie-des-clubs"
+      ],
+      "tags": [
+        "club"
+      ],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "podcast": {
+        "guid": "ep-1-2026-10-24T18:30:00Z",
+        "title": "Comment lancer un pôle foot adapté dans ton club amateur ? (L'astuce du jour)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/pole",
+        "audioUrl": "https://example.com/audio/pole.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T18:30:00.000Z",
+        "durationSec": 520
+      }
+    },
+    {
+      "id": "demoSHT0009",
+      "slug": "l-arbitre-de-16-ans-qui-a-950-000-abonnes",
+      "title": "L'arbitre de 16 ans qui a 950 000 abonnés",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-24T16:00:00Z",
+      "durationSec": 45,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0009/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0009/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0009/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0009/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "arbitrage"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoKITF004",
+      "slug": "qui-merite-vraiment-le-ballon-d-or-debat-vs-avec-wilo-footix",
+      "title": "Qui mérite vraiment le Ballon d'Or ? Débat VS avec Wilo Footix !",
+      "description": "[Démo] Description d'exemple. Débat sans filtre sur le Ballon d'Or.",
+      "publishedAt": "2026-10-22T16:00:00Z",
+      "durationSec": 1290,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF004/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF004/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF004/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF004/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [],
+      "themes": [],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Wilo Footix",
+      "podcast": {
+        "guid": "ep-2-2026-10-22T18:00:00Z",
+        "title": "Qui mérite vraiment le Ballon d'Or ? Débat VS avec Wilo Footix !",
+        "url": "https://creators.spotify.com/pod/demo/episodes/bo",
+        "audioUrl": "https://example.com/audio/bo.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-22T18:00:00.000Z",
+        "durationSec": 1290
+      }
+    },
+    {
+      "id": "demoENT0004",
+      "slug": "ancien-pro-passe-par-watford-il-ramene-des-joueurs-amateurs-vers-le-pro",
+      "title": "Ancien pro passé par Watford, il ramène des joueurs amateurs vers le pro : Gauthier Diafutua",
+      "description": "[Démo] Description d'exemple. Invité : Gauthier Diafutua\nSon parcours d'ancien joueur professionnel et son travail de détection de joueurs amateurs, du recrutement à l'accompagnement vers les centres de formation.",
+      "publishedAt": "2026-10-18T16:00:00Z",
+      "durationSec": 2285,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0004/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0004/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0004/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0004/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "entre-2",
+      "playlists": [
+        "PL2RJrkbFf1HyAYoJuMypsDBILoTa0OR1n"
+      ],
+      "chapters": [],
+      "themes": [
+        "formation"
+      ],
+      "tags": [
+        "recrutement",
+        "formation"
+      ],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Gauthier Diafutua",
+      "podcast": {
+        "guid": "ep-3-2026-10-18T09:00:00Z",
+        "title": "Ancien pro passé par Watford, il ramène des joueurs amateurs vers le pro : Gauthier Diafutua",
+        "url": "https://creators.spotify.com/pod/demo/episodes/gd",
+        "audioUrl": "https://example.com/audio/gd.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-18T09:00:00.000Z",
+        "durationSec": 2285
+      }
+    },
+    {
+      "id": "demoSHT0008",
+      "slug": "un-educateur-benevole-menace-le-debat",
+      "title": "Un éducateur bénévole menacé : le débat",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-17T16:00:00Z",
+      "durationSec": 102,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0008/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0008/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0008/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0008/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "educateurs",
+        "benevoles"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoKITF003",
+      "slug": "educateurs-abandonnes-les-responsables-techniques-sont-ils-en-cause",
+      "title": "Éducateurs abandonnés ? Les responsables techniques sont-ils en cause ?",
+      "description": "[Démo] Description d'exemple. Cette semaine dans Kick in the Foot, on parle de la place des éducateurs dans les clubs et du rôle des responsables techniques. Éducateurs, présidents et joueurs du foot amateur réagissent et débattent autour de la table.\n\nPour participer à l'émission : https://unifoottv.fr/participer/\n\n00:00 Introduction\n02:15 Le sujet de la semaine\n14:40 Le débat\n31:05 Vos questions\n44:20 Le mot de la fin\n\n#footamateur #football",
+      "publishedAt": "2026-10-16T16:00:00Z",
+      "durationSec": 2870,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF003/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF003/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF003/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF003/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Introduction"
+        },
+        {
+          "start": 135,
+          "label": "Le sujet de la semaine"
+        },
+        {
+          "start": 880,
+          "label": "Le débat"
+        },
+        {
+          "start": 1865,
+          "label": "Vos questions"
+        },
+        {
+          "start": 2660,
+          "label": "Le mot de la fin"
+        }
+      ],
+      "themes": [
+        "educateurs",
+        "vie-des-clubs"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "podcast": {
+        "guid": "ep-4-2026-10-16T18:00:00Z",
+        "title": "Éducateurs abandonnés ? Les responsables techniques sont-ils en cause ?",
+        "url": "https://creators.spotify.com/pod/demo/episodes/edu",
+        "audioUrl": "https://example.com/audio/edu.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-16T18:00:00.000Z",
+        "durationSec": 2870
+      }
+    },
+    {
+      "id": "demoSHT0007",
+      "slug": "responsable-technique-un-role-mal-compris",
+      "title": "Responsable technique : un rôle mal compris ?",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-16T16:00:00Z",
+      "durationSec": 70,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0007/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0007/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0007/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0007/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "educateurs"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoKITF002",
+      "slug": "un-parent-menace-un-educateur-benevole-de-21-ans-le-tour-de-l-actu",
+      "title": "Un parent menace un éducateur bénévole de 21 ans (Le tour de l'actu)",
+      "description": "[Démo] Description d'exemple. Cette semaine dans Kick in the Foot, on parle de l'actu de la semaine : un éducateur bénévole menacé par un parent. Éducateurs, présidents et joueurs du foot amateur réagissent et débattent autour de la table.\n\nPour participer à l'émission : https://unifoottv.fr/participer/\n\n00:00 Introduction\n02:15 Le sujet de la semaine\n14:40 Le débat\n31:05 Vos questions\n44:20 Le mot de la fin\n\n#footamateur #football",
+      "publishedAt": "2026-10-15T16:00:00Z",
+      "durationSec": 1920,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF002/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF002/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF002/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF002/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Introduction"
+        },
+        {
+          "start": 135,
+          "label": "Le sujet de la semaine"
+        },
+        {
+          "start": 880,
+          "label": "Le débat"
+        },
+        {
+          "start": 1865,
+          "label": "Vos questions"
+        }
+      ],
+      "themes": [
+        "educateurs",
+        "benevoles",
+        "parents"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "podcast": {
+        "guid": "ep-5-2026-10-15T18:00:00Z",
+        "title": "Un parent menace un éducateur bénévole de 21 ans (Le tour de l'actu)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/actu",
+        "audioUrl": "https://example.com/audio/actu.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-15T18:00:00.000Z",
+        "durationSec": 1920
+      }
+    },
+    {
+      "id": "demoSHT0004",
+      "slug": "le-president-qui-voulait-racheter-les-girondins",
+      "title": "Le président qui voulait racheter les Girondins",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-11T16:00:00Z",
+      "durationSec": 90,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0004/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0004/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0004/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0004/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "vie-des-clubs"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoENT0003",
+      "slug": "santiago-cucci-president-aviron-bayonnais-fc-ex-ol-rachat-girondins-rate",
+      "title": "Santiago Cucci, Président Aviron Bayonnais FC, ex-OL : rachat Girondins raté, business vs foot.",
+      "description": "[Démo] Description d'exemple. Le président de l'Aviron Bayonnais FC raconte son parcours, le projet de rachat des Girondins et sa vision du business dans le football de National et des clubs régionaux.",
+      "publishedAt": "2026-10-10T16:00:00Z",
+      "durationSec": 3312,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0003/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0003/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0003/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0003/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "entre-2",
+      "playlists": [
+        "PL2RJrkbFf1HyAYoJuMypsDBILoTa0OR1n"
+      ],
+      "chapters": [],
+      "themes": [
+        "vie-des-clubs"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Santiago Cucci",
+      "podcast": {
+        "guid": "ep-6-2026-10-10T18:00:00Z",
+        "title": "Santiago Cucci, Président Aviron Bayonnais FC, ex-OL : rachat Girondins raté, business vs foot.",
+        "url": "https://creators.spotify.com/pod/demo/episodes/cucci",
+        "audioUrl": "https://example.com/audio/cucci.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-10T18:00:00.000Z",
+        "durationSec": 3312
+      }
+    },
+    {
+      "id": "demoSHT0005",
+      "slug": "la-methode-espagnole-en-1-minute",
+      "title": "La méthode espagnole en 1 minute",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-10T16:00:00Z",
+      "durationSec": 60,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0005/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0005/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0005/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0005/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "formation"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoKITF001",
+      "slug": "methode-espagnole-pourquoi-certains-educateurs-pensent-la-faire-deja-sylvain",
+      "title": "Méthode espagnole : pourquoi certains éducateurs pensent la faire déjà ? (Sylvain répond)",
+      "description": "[Démo] Description d'exemple. Cette semaine dans Kick in the Foot, on parle de la méthode espagnole de formation et de ce qu'elle change pour les éducateurs. Éducateurs, présidents et joueurs du foot amateur réagissent et débattent autour de la table.\n\nPour participer à l'émission : https://unifoottv.fr/participer/\n\n00:00 Introduction\n02:15 Le sujet de la semaine\n14:40 Le débat\n31:05 Vos questions\n44:20 Le mot de la fin\n\n#footamateur #football",
+      "publishedAt": "2026-10-09T16:00:00Z",
+      "durationSec": 1105,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF001/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF001/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF001/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF001/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Introduction"
+        },
+        {
+          "start": 135,
+          "label": "Le sujet de la semaine"
+        },
+        {
+          "start": 880,
+          "label": "Le débat"
+        }
+      ],
+      "themes": [
+        "formation",
+        "educateurs"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "podcast": {
+        "guid": "ep-7-2026-10-09T18:00:00Z",
+        "title": "Méthode espagnole : pourquoi certains éducateurs pensent la faire déjà ? (Sylvain répond)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/esp",
+        "audioUrl": "https://example.com/audio/esp.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-09T18:00:00.000Z",
+        "durationSec": 1105
+      }
+    },
+    {
+      "id": "demoKITF000",
+      "slug": "cours-particuliers-a-l-ecole-normal-specifique-foot-en-dehors-du-club-mal-vu",
+      "title": "Cours particuliers à l'école : normal. Spécifique foot en dehors du club : mal vu. Est-ce juste ?",
+      "description": "[Démo] Description d'exemple. Cette semaine dans Kick in the Foot, on parle de l'entraînement spécifique en dehors du club et de la formation des jeunes. Éducateurs, présidents et joueurs du foot amateur réagissent et débattent autour de la table.\n\nPour participer à l'émission : https://unifoottv.fr/participer/\n\n00:00 Introduction\n02:15 Le sujet de la semaine\n14:40 Le débat\n31:05 Vos questions\n44:20 Le mot de la fin\n\n#footamateur #football",
+      "publishedAt": "2026-10-08T16:00:00Z",
+      "durationSec": 1605,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF000/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF000/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF000/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoKITF000/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PL2RJrkbFf1Hy3MptZKDzQCg2pZDP-eZn-"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Introduction"
+        },
+        {
+          "start": 135,
+          "label": "Le sujet de la semaine"
+        },
+        {
+          "start": 880,
+          "label": "Le débat"
+        }
+      ],
+      "themes": [
+        "formation",
+        "vie-des-clubs",
+        "educateurs"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "podcast": {
+        "guid": "ep-8-2026-10-08T18:00:00Z",
+        "title": "Cours particuliers à l'école : normal. Spécifique foot en dehors du club : mal vu. Est-ce juste ?",
+        "url": "https://creators.spotify.com/pod/demo/episodes/cours",
+        "audioUrl": "https://example.com/audio/cours.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-08T18:00:00.000Z",
+        "durationSec": 1605
+      }
+    },
+    {
+      "id": "demoSHT0006",
+      "slug": "refuser-une-offre-pour-son-fils",
+      "title": "Refuser une offre pour son fils",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-10-04T16:00:00Z",
+      "durationSec": 125,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0006/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0006/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0006/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0006/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "parents"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoENT0002",
+      "slug": "il-a-dit-non-a-une-offre-a-6-chiffres-pour-son-fils-sambou-tati-president-du",
+      "title": "Il a dit non à une offre à 6 chiffres pour son fils 😱 ( Sambou Tati, président du Roissy FC)",
+      "description": "[Démo] Description d'exemple. Un père et président de club raconte comment il a refusé une offre pour son fils, et pourquoi le projet sportif passe avant l'argent pour les parents.",
+      "publishedAt": "2026-10-03T16:00:00Z",
+      "durationSec": 2490,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0002/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0002/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0002/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoENT0002/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "entre-2",
+      "playlists": [
+        "PL2RJrkbFf1HyAYoJuMypsDBILoTa0OR1n"
+      ],
+      "chapters": [],
+      "themes": [
+        "parents",
+        "vie-des-clubs"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Sambou Tati",
+      "podcast": {
+        "guid": "ep-9-2026-10-03T18:00:00Z",
+        "title": "Il a dit non à une offre à 6 chiffres pour son fils 😱 ( Sambou Tati, président du Roissy FC)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/tati",
+        "audioUrl": "https://example.com/audio/tati.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-03T18:00:00.000Z",
+        "durationSec": 2490
+      }
+    },
+    {
+      "id": "demoSHT0003",
+      "slug": "pourquoi-les-clubs-manquent-de-benevoles",
+      "title": "Pourquoi les clubs manquent de bénévoles",
+      "description": "[Démo] Extrait de Kick in the Foot. #shorts #footamateur",
+      "publishedAt": "2026-09-28T16:00:00Z",
+      "durationSec": 55,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0003/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0003/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0003/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSHT0003/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "short",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "benevoles",
+        "vie-des-clubs"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "7OTcr_ng22o",
+      "slug": "l-entre-2-avec-nasser-larguet",
+      "title": "L'entre 2 avec Nasser Larguet",
+      "description": "[Démo] Description d'exemple. Un entretien en tête-à-tête sur la formation des jeunes joueurs, les centres de formation et le rôle des éducateurs dans le développement des talents.",
+      "publishedAt": "2026-09-20T16:00:00Z",
+      "durationSec": 2940,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/7OTcr_ng22o/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7OTcr_ng22o/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7OTcr_ng22o/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/7OTcr_ng22o/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "entre-2",
+      "playlists": [
+        "PL2RJrkbFf1HyAYoJuMypsDBILoTa0OR1n"
+      ],
+      "chapters": [],
+      "themes": [
+        "formation"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234,
+      "guest": "Nasser Larguet"
+    },
+    {
+      "id": "demoSEA0001",
+      "slug": "au-coeur-d-une-seance-les-u11-travaillent-la-conservation",
+      "title": "Au cœur d'une séance : les U11 travaillent la conservation",
+      "description": "[Démo] Description d'exemple. Une séance U11 filmée de l'intérieur : échauffement, jeu réduit de conservation, consignes de l'éducateur et retour au calme.",
+      "publishedAt": "2026-09-14T16:00:00Z",
+      "durationSec": 850,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoSEA0001/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSEA0001/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSEA0001/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoSEA0001/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "au-coeur-d-une-seance",
+      "playlists": [
+        "PL2RJrkbFf1HwoYU4VTX1v93odpqBvWqid"
+      ],
+      "chapters": [],
+      "themes": [
+        "educateurs",
+        "formation"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    },
+    {
+      "id": "demoHS00001",
+      "slug": "rencontre-avec-les-benevoles-du-tournoi-de-paques",
+      "title": "Rencontre avec les bénévoles du tournoi de Pâques",
+      "description": "[Démo] Bénévoles.",
+      "publishedAt": "2026-09-02T16:00:00Z",
+      "durationSec": 660,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/demoHS00001/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoHS00001/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoHS00001/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/demoHS00001/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "hors-serie",
+      "playlists": [],
+      "chapters": [],
+      "themes": [
+        "benevoles"
+      ],
+      "tags": [],
+      "thin": true,
+      "refreshedAt": "2026-11-06T02:16:46.752Z",
+      "viewCount": 1234
+    }
+  ],
+  "removed": [],
+  "podcast": {
+    "title": "Kick in the Foot",
+    "fetchedAt": "2026-11-06T02:16:46.752Z",
+    "items": [
+      {
+        "guid": "ep-0-2026-10-24T18:00:00Z",
+        "title": "Wilo Footix : arbitre à 16 ans, 950 000 abonnés, les coulisses de Ground et du format VS",
+        "url": "https://creators.spotify.com/pod/demo/episodes/wilo",
+        "audioUrl": "https://example.com/audio/wilo.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T18:00:00.000Z",
+        "durationSec": 3130
+      },
+      {
+        "guid": "ep-1-2026-10-24T18:30:00Z",
+        "title": "Comment lancer un pôle foot adapté dans ton club amateur ? (L'astuce du jour)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/pole",
+        "audioUrl": "https://example.com/audio/pole.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T18:30:00.000Z",
+        "durationSec": 520
+      },
+      {
+        "guid": "ep-2-2026-10-22T18:00:00Z",
+        "title": "Qui mérite vraiment le Ballon d'Or ? Débat VS avec Wilo Footix !",
+        "url": "https://creators.spotify.com/pod/demo/episodes/bo",
+        "audioUrl": "https://example.com/audio/bo.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-22T18:00:00.000Z",
+        "durationSec": 1290
+      },
+      {
+        "guid": "ep-3-2026-10-18T09:00:00Z",
+        "title": "Ancien pro passé par Watford, il ramène des joueurs amateurs vers le pro : Gauthier Diafutua",
+        "url": "https://creators.spotify.com/pod/demo/episodes/gd",
+        "audioUrl": "https://example.com/audio/gd.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-18T09:00:00.000Z",
+        "durationSec": 2285
+      },
+      {
+        "guid": "ep-4-2026-10-16T18:00:00Z",
+        "title": "Éducateurs abandonnés ? Les responsables techniques sont-ils en cause ?",
+        "url": "https://creators.spotify.com/pod/demo/episodes/edu",
+        "audioUrl": "https://example.com/audio/edu.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-16T18:00:00.000Z",
+        "durationSec": 2870
+      },
+      {
+        "guid": "ep-5-2026-10-15T18:00:00Z",
+        "title": "Un parent menace un éducateur bénévole de 21 ans (Le tour de l'actu)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/actu",
+        "audioUrl": "https://example.com/audio/actu.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-15T18:00:00.000Z",
+        "durationSec": 1920
+      },
+      {
+        "guid": "ep-6-2026-10-10T18:00:00Z",
+        "title": "Santiago Cucci, Président Aviron Bayonnais FC, ex-OL : rachat Girondins raté, business vs foot.",
+        "url": "https://creators.spotify.com/pod/demo/episodes/cucci",
+        "audioUrl": "https://example.com/audio/cucci.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-10T18:00:00.000Z",
+        "durationSec": 3312
+      },
+      {
+        "guid": "ep-7-2026-10-09T18:00:00Z",
+        "title": "Méthode espagnole : pourquoi certains éducateurs pensent la faire déjà ? (Sylvain répond)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/esp",
+        "audioUrl": "https://example.com/audio/esp.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-09T18:00:00.000Z",
+        "durationSec": 1105
+      },
+      {
+        "guid": "ep-8-2026-10-08T18:00:00Z",
+        "title": "Cours particuliers à l'école : normal. Spécifique foot en dehors du club : mal vu. Est-ce juste ?",
+        "url": "https://creators.spotify.com/pod/demo/episodes/cours",
+        "audioUrl": "https://example.com/audio/cours.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-08T18:00:00.000Z",
+        "durationSec": 1605
+      },
+      {
+        "guid": "ep-9-2026-10-03T18:00:00Z",
+        "title": "Il a dit non à une offre à 6 chiffres pour son fils 😱 ( Sambou Tati, président du Roissy FC)",
+        "url": "https://creators.spotify.com/pod/demo/episodes/tati",
+        "audioUrl": "https://example.com/audio/tati.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-03T18:00:00.000Z",
+        "durationSec": 2490
+      }
+    ]
+  }
+}

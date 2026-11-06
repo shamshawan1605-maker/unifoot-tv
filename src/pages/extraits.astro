@@ -1,0 +1,60 @@
+---
+import Base from '~/layouts/Base.astro';
+import ShortCard from '~/components/ShortCard.astro';
+import ShortsDialog from '~/components/ShortsDialog.astro';
+import Icon from '~/components/Icon.astro';
+import { shorts, themeBySlug } from '~/lib/content';
+import { links } from '@config/site';
+const used = [...new Set(shorts.flatMap((s) => s.themes))].map((t) => themeBySlug.get(t)!).filter(Boolean);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Extraits' }];
+---
+<Base title="Les meilleurs extraits en vidéo courte" description="Les meilleurs moments de Kick in the Foot et des émissions UNIFOOT TV en format court : débats, coups de gueule et témoignages du foot amateur." breadcrumbs={crumbs} noindex={shorts.length === 0}>
+  <header class="wrap page-head">
+    <h1>Les extraits</h1>
+    <p>Les moments forts des émissions, en moins de 3 minutes.</p>
+  </header>
+  <section class="wrap section" style="padding-top:0" aria-label="Extraits">
+    {shorts.length === 0 ? (
+      <p>Les extraits sont publiés chaque semaine sur nos réseaux. <a href={links.tiktok} rel="noopener" target="_blank">Voir sur TikTok</a></p>
+    ) : (
+      <>
+        {used.length > 1 && (
+          <div class="filters" role="group" aria-label="Filtrer par thème">
+            <button class="chip" type="button" aria-pressed="true" data-filter="">Tous</button>
+            {used.map((t) => <button class="chip" type="button" aria-pressed="false" data-filter={t.slug}>{t.name}</button>)}
+          </div>
+        )}
+        <p class="sr-only" aria-live="polite" id="filter-status"></p>
+        <ul class="grid-9x16 shorts-grid">
+          {shorts.map((v) => <li data-themes={v.themes.join(' ')}><ShortCard video={v} /></li>)}
+        </ul>
+        <p class="follow"><a class="btn btn--ghost" href={links.tiktok} rel="noopener" target="_blank"><Icon name="tiktok" size={18} />Suivre sur TikTok</a></p>
+      </>
+    )}
+  </section>
+  <ShortsDialog />
+</Base>
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .shorts-grid { list-style: none; margin: 0; padding: 0; }
+  .shorts-grid li[hidden] { display: none; }
+  .follow { margin-top: 2rem; }
+</style>
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const items = document.querySelectorAll<HTMLElement>('.shorts-grid li');
+  const status = document.getElementById('filter-status')!;
+  btns.forEach((b) =>
+    b.addEventListener('click', () => {
+      const f = b.dataset.filter!;
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      let n = 0;
+      items.forEach((li) => {
+        const show = !f || (li.dataset.themes || '').split(' ').includes(f);
+        li.hidden = !show;
+        if (show) n++;
+      });
+      status.textContent = `${n} extrait${n > 1 ? 's' : ''} affiché${n > 1 ? 's' : ''}`;
+    }),
+  );
+</script>

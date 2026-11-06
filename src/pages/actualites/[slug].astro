@@ -1,0 +1,118 @@
+---
+import Base from '~/layouts/Base.astro';
+import NewsCard from '~/components/NewsCard.astro';
+import EpisodeCard from '~/components/EpisodeCard.astro';
+import ShortCard from '~/components/ShortCard.astro';
+import ShortsDialog from '~/components/ShortsDialog.astro';
+import Icon from '~/components/Icon.astro';
+import { render } from 'astro:content';
+import { getNews, newsPath } from '~/lib/news';
+import { themeBySlug, videos, episodes, formatDate, fr } from '~/lib/content';
+import { abs } from '~/lib/seo';
+import { site } from '@config/site';
+import SponsorSlot from '~/components/SponsorSlot.astro';
+import { placements } from '@config/sponsors';
+
+export async function getStaticPaths() {
+  const all = await getNews();
+  return all.map((news) => ({ params: { slug: news.id }, props: { news, all } }));
+}
+const { news, all } = Astro.props;
+const d = news.data;
+const { Content } = await render(news);
+const nThemes = d.themes.map((t) => themeBySlug.get(t)).filter(Boolean);
+const linkedVideo = d.video ? videos.find((v) => v.id === d.video) : undefined;
+const relatedEpisodes = episodes.filter((e) => e.themes.some((t) => d.themes.includes(t))).slice(0, 4);
+const relatedNews = all
+  .filter((n) => n.id !== news.id)
+  .map((n) => ({ n, s: n.data.themes.filter((t) => d.themes.includes(t)).length }))
+  .sort((a, b) => b.s - a.s || b.n.data.date.getTime() - a.n.data.date.getTime())
+  .slice(0, 3)
+  .map((x) => x.n);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: d.titre }];
+const ld = {
+  '@type': 'NewsArticle',
+  headline: d.titre.slice(0, 110),
+  description: d.chapo,
+  datePublished: d.date.toISOString(),
+  dateModified: d.date.toISOString(),
+  inLanguage: 'fr-FR',
+  mainEntityOfPage: abs(newsPath(news)),
+  image: [abs(d.image || site.ogImage)],
+  author: { '@type': 'Organization', name: site.name, url: abs('/') },
+  publisher: { '@id': `${abs('/').replace(/\/$/, '')}/#organization` },
+  ...(d.themes.length ? { articleSection: nThemes.map((t) => t!.name).join(', ') } : {}),
+};
+---
+<Base title={d.titre} description={d.chapo.slice(0, 160)} path={newsPath(news)} image={d.image} imageAlt={d.imageAlt} ogType="article" breadcrumbs={crumbs} jsonLd={[ld]}>
+  <article class="wrap art">
+    <header class="art__head">
+      <p class="meta">
+        {nThemes[0] && <a href={`/themes/${nThemes[0]!.slug}/`}>{nThemes[0]!.name}</a>}
+        <time datetime={d.date.toISOString()}>{formatDate(d.date.toISOString())}</time>
+      </p>
+      <h1>{fr(d.titre)}</h1>
+      <p class="art__chapo">{fr(d.chapo)}</p>
+    </header>
+    {d.image && (
+      <figure class="art__fig">
+        <img src={d.image} alt={d.imageAlt || ''} width="1200" height="675" fetchpriority="high" />
+        {d.credit && <figcaption>Photo : {d.credit}</figcaption>}
+      </figure>
+    )}
+    <div class="prose art__text"><Content /></div>
+    {d.source && (
+      <p class="art__source">Source : {d.source.url ? <a href={d.source.url} rel="noopener nofollow" target="_blank">{d.source.nom}</a> : d.source.nom}</p>
+    )}
+    <SponsorSlot sponsor={placements.contenus} variant="inline" seed={news.id.length} />
+    {linkedVideo && (
+      <aside class="art__video" aria-labelledby="av">
+        <h2 id="av" class="art__h2">On en parle dans l'émission</h2>
+        <div class="art__videobox">{linkedVideo.kind === 'short' ? <div class="art__short"><ShortCard video={linkedVideo} /></div> : <EpisodeCard video={linkedVideo} />}</div>
+      </aside>
+    )}
+    {nThemes.length > 0 && (
+      <ul class="chips art__themes">{nThemes.map((t) => <li><a class="chip" href={`/themes/${t!.slug}/`}>{t!.name}</a></li>)}</ul>
+    )}
+    <p class="art__cta"><Icon name="mic" size={18} />Tu as vécu une situation similaire ? <a href="/participer/?type=temoignage">Raconte-la nous</a>.</p>
+  </article>
+
+  {relatedNews.length > 0 && (
+    <section class="section alt" aria-labelledby="ra">
+      <div class="wrap">
+        <div class="section-head"><h2 id="ra">Autres actus</h2><a class="more" href="/actualites/">Toute l'actu</a></div>
+        <div class="grid3">{relatedNews.map((n) => <NewsCard news={n} />)}</div>
+      </div>
+    </section>
+  )}
+  {relatedEpisodes.length > 0 && (
+    <section class="section" aria-labelledby="re">
+      <div class="wrap">
+        <div class="section-head"><h2 id="re">Les émissions sur le sujet</h2></div>
+        <div class="rail rail--16x9">{relatedEpisodes.map((v) => <EpisodeCard video={v} />)}</div>
+      </div>
+    </section>
+  )}
+  <ShortsDialog />
+</Base>
+<style>
+  .art { max-width: 48rem; padding-block: 1rem 3rem; }
+  .art .meta a { color: var(--accent); text-decoration: none; }
+  .art h1 { font-size: var(--t-xxl); margin-top: 0.6rem; }
+  .art__chapo { font: 600 var(--t-l)/1.45 var(--f-texte); margin-top: 1.1rem; }
+  .art__fig { margin: 2rem 0 0; }
+  .art__fig img { width: 100%; border-radius: var(--r-m); aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface); }
+  .art__fig figcaption { margin-top: 0.5rem; font: 700 0.875rem/1.3 var(--f-info); color: var(--texte-2); }
+  .art__text { margin-top: 2rem; }
+  .art__source { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--trait); font: 700 1rem/1.3 var(--f-info); color: var(--texte-2); }
+  .art__source a { color: var(--accent); }
+  .art__video { margin-top: 2.5rem; }
+  .art__h2 { font: 700 1.125rem/1.2 var(--f-info); color: var(--texte-2); margin-bottom: 0.9rem; }
+  .art__videobox { max-width: 24rem; }
+  .art__short { max-width: 12rem; }
+  .art__themes { margin-top: 2rem; }
+  .art__cta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
+  .art__cta a { color: var(--accent); font-weight: 700; }
+  .alt { background: var(--fond-2); }
+  .grid3 { display: grid; gap: 2rem 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+</style>

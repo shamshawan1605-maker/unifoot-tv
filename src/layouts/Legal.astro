@@ -1,0 +1,20 @@
+---
+import Base from './Base.astro';
+import { legal } from '@config/site';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: title }];
+const d = new Intl.DateTimeFormat('fr-FR', { dateStyle: 'long' }).format(new Date(legal.updatedAt));
+---
+<Base title={title} description={description} breadcrumbs={crumbs}>
+  <header class="wrap page-head"><h1>{title}</h1><p>Mise à jour : {d}</p></header>
+  <div class="wrap prose legal"><slot /></div>
+</Base>
+<style>
+  .legal { padding-bottom: 4rem; }
+  .legal :global(mark) { background: #ffd23f; color: #1a1a1a; padding: 0 0.3em; border-radius: 2px; }
+  .legal :global(dl) { display: grid; grid-template-columns: max-content 1fr; gap: 0.4rem 1.5rem; max-width: 50rem; }
+  .legal :global(dt) { font-weight: 700; }
+  .legal :global(dd) { margin: 0; }
+  @media (max-width: 40rem) { .legal :global(dl) { grid-template-columns: 1fr; } .legal :global(dd) { margin-bottom: 0.6rem; } }
+</style>

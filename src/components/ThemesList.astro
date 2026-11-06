@@ -1,0 +1,26 @@
+---
+import { activeThemes } from '~/lib/content';
+interface Props { headingLevel?: 'h2' | 'h3' }
+const { headingLevel = 'h3' } = Astro.props;
+const H = headingLevel;
+---
+<ul class="tl">
+  {activeThemes.map((t) => (
+    <li>
+      <a href={`/themes/${t.slug}/`}>
+        <H class="tl__name">{t.name}</H>
+        <span class="tl__count">{t.count} {t.count > 1 ? 'vidéos' : 'vidéo'}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+<style>
+  .tl { list-style: none; margin: 0; padding: 0; border-top: var(--ligne); }
+  @media (min-width: 48rem) { .tl { columns: 2; column-gap: 3rem; border-top: 0; } .tl li { break-inside: avoid; } .tl li:first-child, .tl li:nth-child(2) {} }
+  .tl li { border-bottom: var(--ligne); }
+  @media (min-width: 48rem) { .tl li { border-top: var(--ligne); border-bottom: 0; margin-bottom: -2px; } }
+  .tl a { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; text-decoration: none; }
+  .tl__name { font: 800 clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem)/1.2 var(--f-titre) !important; letter-spacing: -0.02em; transition: transform .2s ease; }
+  .tl a:hover .tl__name { transform: translateX(0.4rem); color: var(--accent); }
+  .tl__count { font: 600 var(--t-s)/1 var(--f-info); color: var(--texte-2); white-space: nowrap; }
+</style>

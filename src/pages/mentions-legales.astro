@@ -1,0 +1,24 @@
+---
+import Legal from '~/layouts/Legal.astro';
+import Val from '~/components/Val.astro';
+import { legal, site } from '@config/site';
+---
+<Legal title="Mentions légales" description="Mentions légales du site UNIFOOT TV : éditeur, directeur de la publication, hébergeur et propriété intellectuelle.">
+  <h2>Éditeur du site</h2>
+  <dl>
+    <dt>Société</dt><dd>{legal.company}, {legal.form} au capital de <Val v={legal.capital} /></dd>
+    <dt>Siège social</dt><dd>{legal.address}</dd>
+    <dt>SIRET</dt><dd>{legal.siret}</dd>
+    <dt>RCS</dt><dd><Val v={legal.rcs} /></dd>
+    <dt>TVA intracommunautaire</dt><dd><Val v={legal.vat} /></dd>
+    <dt>Directeur de la publication</dt><dd>{legal.publicationDirector}</dd>
+    <dt>Contact</dt><dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+  </dl>
+  <h2>Hébergement</h2>
+  <p>{legal.host.name}, {legal.host.address}. <a href={legal.host.url} rel="noopener">{legal.host.url.replace('https://', '')}</a></p>
+  <h2>Propriété intellectuelle</h2>
+  <p>Les émissions, vidéos, textes, logos et éléments graphiques d'UNIFOOT TV sont protégés par le droit d'auteur. Toute reproduction ou diffusion, totale ou partielle, sans autorisation écrite est interdite. Le partage des liens vers nos contenus est libre.</p>
+  <p>Les vidéos sont hébergées sur YouTube et les épisodes audio sur les plateformes de podcast. Leurs miniatures et descriptions sont celles publiées par UNIFOOT TV sur ces plateformes.</p>
+  <h2>Signaler un contenu</h2>
+  <p>Pour signaler un contenu ou exercer un droit de réponse, écris à <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Legal>

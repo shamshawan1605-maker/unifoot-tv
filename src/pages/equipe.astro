@@ -1,0 +1,60 @@
+---
+import Base from '~/layouts/Base.astro';
+import { team, story } from '@config/team';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: "L'équipe" }];
+const founders = team.filter((m) => m.group === 'fondateur');
+const others = team.filter((m) => m.group !== 'fondateur');
+const initials = (n: string) => n.split(/[\s-]+/).map((w) => w[0]).slice(0, 2).join('');
+---
+<Base title="L'équipe et l'histoire du média" description="Qui fait UNIFOOT TV ? L'équipe, les chroniqueurs de Kick in the Foot et l'histoire d'un média indépendant né pour donner la parole au foot amateur." breadcrumbs={crumbs}>
+  <header class="wrap page-head">
+    <h1>L'équipe</h1>
+    <p>Des gens du terrain, autour d'une même table, chaque semaine.</p>
+  </header>
+
+  <section class="wrap story" aria-labelledby="histoire">
+    <h2 id="histoire">Notre histoire</h2>
+    <div class="prose">{story.map((p) => <p>{p}</p>)}</div>
+  </section>
+
+  <section class="papier section" aria-labelledby="team">
+    <div class="wrap">
+      <h2 id="team" class="team__h">Autour de la table</h2>
+      <ul class="team">
+        {[...founders, ...others].map((m) => (
+          <li class:list={['member', { 'member--lead': m.group === 'fondateur' }]}>
+            <div class="member__photo">
+              {m.photo ? <img src={m.photo} alt={`Portrait de ${m.name}`} width="600" height="600" loading="lazy" decoding="async" /> : <span aria-hidden="true">{initials(m.name)}</span>}
+            </div>
+            <div>
+              <h3>{m.name}</h3>
+              <p class="member__role">{m.role}</p>
+              {m.bio && <p class="member__bio">{m.bio}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p class="join">Tu veux rejoindre la table ? <a href="/participer/?type=chroniqueur">Candidate comme chroniqueur</a>.</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .story { display: grid; gap: 1.5rem; padding-bottom: 3.5rem; }
+  @media (min-width: 56rem) { .story { grid-template-columns: 1fr 2fr; } }
+  .story h2, .team__h { font-size: var(--t-xl); }
+  .team__h { margin-bottom: 2rem; }
+  .team { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(44%, 11rem), 1fr)); }
+  .member { display: grid; gap: 0.8rem; align-content: start; }
+  .member--lead { grid-column: 1 / -1; }
+  @media (min-width: 40rem) { .member--lead { grid-template-columns: 16rem 1fr; gap: 2rem; align-items: center; } }
+  .member__photo { aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: var(--texte); display: grid; place-items: center; }
+  .member__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .member__photo span { font: 800 2.5rem/1 var(--f-titre); color: var(--menthe); }
+  .member--lead .member__photo span { font-size: 5rem; }
+  .member h3 { font: 800 var(--t-l)/1.2 var(--f-titre); letter-spacing: -0.01em; }
+  .member--lead h3 { font-size: var(--t-xl); }
+  .member__role { font: 600 1rem/1.2 var(--f-info); color: var(--accent); margin: 0.3rem 0 0; }
+  .member__bio { margin-top: 0.8rem; }
+  .join { margin-top: 3rem; font-size: var(--t-l); }
+  .join a { font-weight: 700; }
+</style>

@@ -1,0 +1,34 @@
+---
+import Base from '~/layouts/Base.astro';
+import NewsCard from '~/components/NewsCard.astro';
+import NewsGrid from '~/components/NewsGrid.astro';
+import Icon from '~/components/Icon.astro';
+import { getNews } from '~/lib/news';
+import { paginate } from '~/lib/content';
+import { links } from '@config/site';
+export const PER_PAGE = 18;
+const news = await getNews();
+const [first] = paginate(news, PER_PAGE);
+const [lead, ...rest] = first.items;
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités' }];
+---
+<Base title="L'actu du football amateur" description="Les actualités du football amateur décryptées par UNIFOOT TV : clubs, formation, éducateurs, arbitrage, bénévoles et parents." breadcrumbs={crumbs} noindex={news.length === 0}>
+  <header class="wrap page-head">
+    <h1>L'actu du foot amateur</h1>
+    <p>Ce qui se passe dans les clubs, et ce que ça change sur le terrain.</p>
+  </header>
+  <section class="wrap section" style="padding-top:0" aria-label="Actualités">
+    {lead ? (
+      <>
+        <div class="lead"><NewsCard news={lead} lead headingLevel="h2" /></div>
+        {rest.length > 0 && <NewsGrid items={rest} page={1} pages={first.pages} />}
+      </>
+    ) : (
+      <p class="empty">Les actus du jour sont sur nos réseaux. <a class="btn btn--ghost" href={links.instagram} rel="noopener" target="_blank"><Icon name="instagram" size={18} />Suivre sur Instagram</a></p>
+    )}
+  </section>
+</Base>
+<style>
+  .lead { padding-bottom: 2.5rem; margin-bottom: 2.5rem; border-bottom: var(--ligne); }
+  .empty { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+</style>

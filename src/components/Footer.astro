@@ -1,0 +1,70 @@
+---
+import Logo from './Logo.astro';
+import Bands from './Bands.astro';
+import Icon from './Icon.astro';
+import { site, socials, links, legal } from '@config/site';
+---
+<footer class="ft sombre">
+  <Bands compact />
+    <div class="wrap ft__grid">
+    <div class="ft__brand">
+      <Logo chip={false} />
+      <p>{site.promise}</p>
+      <ul class="ft__socials" aria-label="UNIFOOT TV sur les réseaux">
+        {socials.map((s) => (
+          <li><a href={s.url} rel="noopener" target="_blank"><Icon name={s.icon} size={22} label={s.name} /></a></li>
+        ))}
+      </ul>
+    </div>
+    <nav aria-label="Le média">
+      <h2 class="ft__h">Le média</h2>
+      <ul>
+        <li><a href="/emissions/">Émissions</a></li>
+        <li><a href="/extraits/">Extraits</a></li>
+        <li><a href="/actualites/">Actualités</a></li>
+        <li><a href="/themes/">Thèmes</a></li>
+        <li><a href="/equipe/">L'équipe</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Agir">
+      <h2 class="ft__h">Agir</h2>
+      <ul>
+        <li><a href="/participer/">Témoigner ou proposer un sujet</a></li>
+        <li><a href="/partenaires/">Devenir partenaire</a></li>
+        <li><a href={links.tipeee} rel="noopener" target="_blank">Soutenir sur Tipeee</a></li>
+        <li><a href="/contact/">Contact et FAQ</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h2 class="ft__h">Contact</h2>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a><br />{legal.address}</p>
+    </div>
+  </div>
+  <div class="wrap ft__legal">
+    <p>© {new Date().getFullYear()} {legal.company}. Média indépendant du football amateur.</p>
+    <ul>
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+      <li><a href="/confidentialite/">Confidentialité</a></li>
+      <li><a href="/cookies/">Cookies</a></li>
+    </ul>
+  </div>
+</footer>
+<style>
+  .ft { padding-bottom: 2rem; color: var(--texte-2); font-size: var(--t-s); overflow: hidden; margin-top: 2rem; }
+  .ft :global(.bands) { margin-top: -1.5rem; }
+  .ft :global(.logo img) { width: 140px; }
+  .ft__grid { display: grid; gap: 2rem; padding-block: 3rem 2rem; grid-template-columns: 1fr; }
+  @media (min-width: 48rem) { .ft__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr; } }
+  .ft__brand p { margin-top: 0.9rem; color: var(--texte); max-width: 30ch; }
+  .ft__h { font: 700 0.9375rem/1 var(--f-info); letter-spacing: 0; color: var(--texte); margin-bottom: 0.9rem; font-stretch: 100%; }
+  .ft ul { list-style: none; margin: 0; padding: 0; }
+  .ft nav li + li { margin-top: 0.15rem; }
+  .ft nav a, .ft__legal a { display: inline-block; padding: 0.35rem 0; text-decoration: none; }
+  .ft a:hover { text-decoration: underline; }
+  .ft__socials { display: flex; gap: 0.25rem; margin-top: 1rem !important; }
+  .ft__socials a { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; color: var(--texte); border-radius: 50%; }
+  .ft__socials a:hover { background: var(--surface); color: var(--accent); }
+  .ft__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; border-top: 1px solid var(--surface); padding-top: 1.25rem; }
+  .ft__legal p { margin: 0; }
+  .ft__legal ul { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+</style>

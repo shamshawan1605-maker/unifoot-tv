@@ -1,0 +1,77 @@
+name: Synchronisation des contenus
+
+on:
+  schedule:
+    # Toutes les heures
+    - cron: '7 * * * *'
+    # Toutes les 10 minutes du mercredi au samedi de 16h à 19h59 UTC ; le script ne garde que 18h-20h heure de Paris (été comme hiver)
+    - cron: '*/10 16-19 * * 3-6'
+  workflow_dispatch:
+    inputs:
+      full:
+        description: 'Forcer un scan complet de la chaîne'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      # État technique (compteur d'échecs, quota, date du dernier scan complet) : conservé entre deux passages
+      - name: Restaurer l'état de synchronisation
+        uses: actions/cache/restore@v4
+        with:
+          path: data/.tmp
+          key: sync-state-${{ github.run_id }}
+          restore-keys: sync-state-
+
+      - name: Synchroniser YouTube et le podcast
+        id: sync
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+          PODCAST_RSS_URL: ${{ vars.PODCAST_RSS_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          ALERT_EMAIL_TO: ${{ vars.ALERT_EMAIL_TO }}
+          ALERT_EMAIL_FROM: ${{ vars.ALERT_EMAIL_FROM }}
+          SYNC_WINDOW: ${{ github.event.schedule == '*/10 16-19 * * 3-6' && 'rush' || '' }}
+          SYNC_FULL: ${{ inputs.full && '1' || '' }}
+        run: npm run sync
+
+      - name: Sauvegarder l'état de synchronisation
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/.tmp
+          key: sync-state-${{ github.run_id }}
+
+      # Vérifie que le site se construit avant de publier les nouveaux contenus
+      - name: Vérifier la construction du site
+        if: steps.sync.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Publier les nouveaux contenus
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "unifoot-sync"
+          git config user.email "unifoot-sync@users.noreply.github.com"
+          git add data/content.json
+          git commit -m "Synchronisation des contenus $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push

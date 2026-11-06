@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { links } from '@config/site';
+import { partners } from '@config/partners';
+---
+<section class="section support" aria-labelledby="support-title">
+  <div class="wrap support__grid">
+    <div class="support__tipeee">
+      <h2 id="support-title">Le foot amateur mérite son média</h2>
+      <p>UNIFOOT TV est indépendant. Chaque soutien sur Tipeee aide à tourner l'émission chaque semaine et à aller chercher de nouvelles voix.</p>
+      <a class="btn" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={18} />Soutenir sur Tipeee</a>
+    </div>
+    <div class="support__partners">
+      <h2 class="support__h3">Ils nous accompagnent</h2>
+      {partners.length > 0 && (
+        <ul>
+          {partners.map((p) => (
+            <li>
+              <a href={p.url} rel="noopener sponsored" target="_blank">
+                {p.logo ? <img src={p.logo} alt={p.name} width="160" height="60" loading="lazy" /> : <span class="support__name">{p.name}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      <a class="more" href="/partenaires/">Devenir partenaire</a>
+    </div>
+  </div>
+</section>
+<style>
+  .support__grid { display: grid; gap: 2.5rem; }
+  @media (min-width: 56rem) { .support__grid { grid-template-columns: 1.4fr 1fr; align-items: end; } }
+  .support h2 { font-size: var(--t-xl); margin-bottom: 0.8rem; }
+  .support__tipeee p { color: var(--texte-2); }
+  .support__h3 { font: 700 0.9375rem/1.2 var(--f-info) !important; letter-spacing: 0 !important; color: var(--texte-2); margin-bottom: 0.8rem; }
+  .support__partners ul { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .support__partners a { text-decoration: none; }
+  .support__name { display: inline-flex; min-height: 3.5rem; align-items: center; padding: 0 1.1rem; border: 1.5px solid var(--trait); border-radius: var(--r-s); font: 800 1.125rem/1 var(--f-titre); }
+  .support__partners img { height: 3.5rem; width: auto; }
+</style>

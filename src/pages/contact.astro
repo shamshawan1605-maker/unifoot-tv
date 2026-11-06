@@ -1,0 +1,73 @@
+---
+import Base from '~/layouts/Base.astro';
+import FormEnhance from '~/components/FormEnhance.astro';
+import Icon from '~/components/Icon.astro';
+import { faq } from '@config/faq';
+import { site, socials, legal } from '@config/site';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Contact' }];
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: faq.slice(0, 5).map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<Base title="Contact et questions fréquentes" description="Contacter UNIFOOT TV : e-mail, réseaux sociaux, formulaire et réponses aux questions fréquentes sur l'émission Kick in the Foot." breadcrumbs={crumbs} jsonLd={[faqLd]}>
+  <header class="wrap page-head">
+    <h1>Contact</h1>
+    <p>Une question, une idée, un problème ? Écris-nous.</p>
+  </header>
+  <div class="wrap ct">
+    <section aria-labelledby="ecrire">
+      <h2 id="ecrire" class="h2">Nous écrire</h2>
+      <p><a class="mail" href={`mailto:${site.email}`}><Icon name="mail" size={22} />{site.email}</a></p>
+      <p class="addr">{legal.company}<br />{legal.address}</p>
+      <ul class="soc">{socials.map((s) => <li><a href={s.url} rel="noopener" target="_blank"><Icon name={s.icon} size={20} />{s.name}</a></li>)}</ul>
+      <p class="hint">Pour témoigner ou proposer un sujet, passe par la page <a href="/participer/">Participer</a>. Pour un partenariat, par la page <a href="/partenaires/">Partenaires</a>.</p>
+    </section>
+    <section class="papier ct__form" aria-labelledby="form-contact">
+      <h2 id="form-contact" class="h2">Formulaire</h2>
+      <form class="form" name="contact" method="POST" action="/merci/" data-netlify="true" netlify-honeypot="bot-field" data-enhance data-success="Merci, ton message est bien arrivé. On te répond au plus vite.">
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <div class="form-body form">
+          <div class="field"><label for="c-nom">Nom</label><input id="c-nom" name="nom" autocomplete="name" required /></div>
+          <div class="field"><label for="c-email">E-mail</label><input id="c-email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message" required minlength="10"></textarea></div>
+          <label class="check"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte qu'UNIFOOT TV utilise ces informations pour me répondre. Voir la <a href="/confidentialite/">politique de confidentialité</a>.</span></label>
+          <div><button class="btn btn--ink" type="submit">Envoyer le message</button></div>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+  <section class="wrap section" aria-labelledby="faq">
+    <h2 id="faq" class="h2">Questions fréquentes</h2>
+    <div class="faq">
+      {faq.slice(0, 5).map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+  <FormEnhance />
+</Base>
+<style>
+  .h2 { font-size: var(--t-xl); margin-bottom: 1rem; }
+  .ct { display: grid; gap: 2.5rem; }
+  @media (min-width: 56rem) { .ct { grid-template-columns: 1fr 1.3fr; } }
+  .mail { display: inline-flex; gap: 0.6rem; align-items: center; font: 700 var(--t-l)/1.2 var(--f-info); color: var(--accent); }
+  .addr { color: var(--texte-2); }
+  .soc { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .soc a { display: inline-flex; gap: 0.45rem; align-items: center; min-height: 2.75rem; padding: 0 0.8rem; border: 1.5px solid var(--trait); border-radius: var(--r-s); text-decoration: none; font: 600 0.95rem/1 var(--f-info); }
+  .hint { color: var(--texte-2); font-size: var(--t-s); }
+  .hint a { color: var(--accent); }
+  .ct__form { padding: clamp(1.25rem, 1rem + 2vw, 2.25rem); border-radius: var(--r-m); }
+  .faq { max-width: 50rem; border-top: var(--ligne); }
+  .faq details { border-bottom: var(--ligne); }
+  .faq summary { cursor: pointer; padding: 1.1rem 2.5rem 1.1rem 0; font: 700 var(--t-l)/1.25 var(--f-texte); list-style: none; position: relative; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 0.25rem; top: 0.8rem; font: 600 1.75rem/1 var(--f-titre); color: var(--bleu); }
+  .faq details[open] summary::after { content: '–'; }
+  .faq p { color: var(--texte-2); padding-bottom: 1rem; }
+</style>

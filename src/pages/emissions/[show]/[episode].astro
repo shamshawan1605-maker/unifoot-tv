@@ -1,0 +1,154 @@
+---
+import Base from '~/layouts/Base.astro';
+import YouTubePlayer from '~/components/YouTubePlayer.astro';
+import ListenLinks from '~/components/ListenLinks.astro';
+import EpisodeCard from '~/components/EpisodeCard.astro';
+import Icon from '~/components/Icon.astro';
+import { episodes, showOf, videoPath, watchUrl, related, neighbours, themeBySlug, formatDate, durationLabel, formatDuration, metaDescription, descriptionHtml, excerpt, thumbSrcset, fr } from '~/lib/content';
+import { videoLd, podcastEpisodeLd, podcastSeriesLd } from '~/lib/seo';
+import { links } from '@config/site';
+import SponsorSlot from '~/components/SponsorSlot.astro';
+import { placements } from '@config/sponsors';
+
+export function getStaticPaths() {
+  return episodes.map((video) => ({ params: { show: video.show, episode: video.slug }, props: { video } }));
+}
+const { video } = Astro.props;
+const show = showOf(video);
+const rel = related(video, 8);
+const { newer, older } = neighbours(video);
+const vThemes = video.themes.map((t) => themeBySlug.get(t)).filter(Boolean);
+const crumbs = [
+  { name: 'Accueil', href: '/' },
+  { name: 'Émissions', href: '/emissions/' },
+  { name: show.name, href: `/emissions/${show.slug}/` },
+  { name: video.title },
+];
+const desc = metaDescription(video);
+const ld: Record<string, unknown>[] = [videoLd(video, excerpt(video, 500))];
+if (video.podcast) ld.push(podcastSeriesLd(), podcastEpisodeLd(video));
+const titleTag = video.title.length > 58 ? video.title : `${video.title} (${show.name})`;
+---
+<Base
+  title={titleTag}
+  description={desc}
+  path={videoPath(video)}
+  image={thumbSrcset(video).largest}
+  imageAlt={`Miniature : ${video.title}`}
+  ogType="video.episode"
+  noindex={video.thin}
+  breadcrumbs={crumbs}
+  jsonLd={ld}
+  preloadImage={{ srcset: thumbSrcset(video).srcset, sizes: '(min-width: 64rem) 60vw, 100vw' }}
+>
+  <article class="ep">
+    <div class="wrap ep__player" id="lecteur">
+      <YouTubePlayer video={video} />
+    </div>
+
+    <div class="wrap ep__grid">
+      <div class="ep__main">
+        <p class="meta">
+          <a href={`/emissions/${show.slug}/`}>{show.name}</a>
+          <time datetime={video.publishedAt}>{formatDate(video.publishedAt)}</time>
+          <span>{durationLabel(video.durationSec)}</span>
+        </p>
+        <h1 class="ep__title">{fr(video.title)}</h1>
+        {video.guest && <p class="ep__guest">Invité : {video.guest}</p>}
+
+        <div class="ep__actions">
+          <a class="btn" href={watchUrl(video)} data-play={video.id}><Icon name="play" size={20} />Regarder</a>
+          <a class="btn btn--ghost" href={links.youtubeSubscribe} rel="noopener" target="_blank"><Icon name="bell" size={20} />S'abonner</a>
+        </div>
+
+        {(video.podcast || show.hasPodcast) && (
+          <section class="ep__block" aria-labelledby="ecouter">
+            <h2 id="ecouter" class="ep__h2">Écouter</h2>
+            <ListenLinks video={video} />
+          </section>
+        )}
+
+        {video.chapters.length > 0 && (
+          <section class="ep__block" aria-labelledby="chapitres">
+            <h2 id="chapitres" class="ep__h2">Chapitres</h2>
+            <ol class="chapters">
+              {video.chapters.map((c) => (
+                <li>
+                  <button type="button" data-seek={c.start} data-target={video.id}>
+                    <span class="chapters__t">{formatDuration(c.start)}</span>
+                    <span>{c.label}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {video.description.trim() && (
+          <section class="ep__block" aria-labelledby="description">
+            <h2 id="description" class="ep__h2">Description</h2>
+            <div class="prose ep__desc" set:html={descriptionHtml(video)} />
+          </section>
+        )}
+      </div>
+
+      <aside class="ep__aside" aria-label="Pour aller plus loin">
+        {vThemes.length > 0 && (
+          <section aria-labelledby="themes">
+            <h2 id="themes" class="ep__h2">Thèmes</h2>
+            <ul class="chips">
+              {vThemes.map((t) => <li><a class="chip" href={`/themes/${t!.slug}/`}>{t!.name}</a></li>)}
+            </ul>
+          </section>
+        )}
+        {(newer || older) && (
+          <nav class="ep__nav" aria-label={`Autres épisodes de ${show.name}`}>
+            {older && <a href={videoPath(older)}><span class="meta">Épisode précédent</span><span class="ep__navt">{older.title}</span></a>}
+            {newer && <a href={videoPath(newer)}><span class="meta">Épisode suivant</span><span class="ep__navt">{newer.title}</span></a>}
+          </nav>
+        )}
+        <SponsorSlot sponsor={placements.contenus} variant="inline" seed={video.id.charCodeAt(0)} />
+        <p class="ep__cta">Un avis sur ce sujet ? <a href="/participer/?type=temoignage">Envoie ton témoignage</a>, il pourra être lu dans l'émission.</p>
+      </aside>
+    </div>
+  </article>
+
+  {rel.length > 0 && (
+    <section class="section related" aria-labelledby="related">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="related">À voir aussi</h2>
+          <a class="more" href={`/emissions/${show.slug}/`}>Tous les épisodes de {show.name}</a>
+        </div>
+        <div class="rail rail--16x9">{rel.map((v) => <EpisodeCard video={v} />)}</div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .ep__player { padding-top: 1rem; max-width: 64rem; }
+  @media (max-width: 47.99rem) { .ep__player { padding-inline: 0; } .ep__player :global(.yt) { border-radius: 0; } }
+  .ep__grid { display: grid; gap: 2.5rem; padding-block: 1.5rem 3rem; max-width: 64rem; }
+  @media (min-width: 64rem) { .ep__grid { grid-template-columns: minmax(0, 1fr) 18rem; max-width: var(--max); } .ep__player { max-width: var(--max); } }
+  .ep .meta a { color: var(--accent); text-decoration: none; }
+  .ep__title { font-size: var(--t-xxl); margin-top: 0.5rem; max-width: 24ch; }
+  .ep__guest { font: 700 var(--t-l)/1.2 var(--f-info); color: var(--accent); margin: 0.8rem 0 0; }
+  .ep__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .ep__block { margin-top: 2.5rem; }
+  .ep__h2 { font: 700 1.125rem/1.2 var(--f-info); color: var(--texte-2); margin-bottom: 0.9rem; letter-spacing: 0.01em; }
+  .ep__desc { color: var(--texte); }
+  .chapters { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--trait); max-width: 44rem; }
+  .chapters li { border-bottom: 1px solid var(--trait); }
+  .chapters button { display: flex; gap: 1rem; width: 100%; padding: 0.75rem 0.25rem; background: none; border: 0; text-align: left; cursor: pointer; font-weight: 600; min-height: 2.75rem; }
+  .chapters button:hover { color: var(--accent); }
+  .chapters__t { font: 700 1rem/1.5 var(--f-info); color: var(--accent); min-width: 3.5rem; font-variant-numeric: tabular-nums; }
+  .ep__aside { display: grid; gap: 2rem; align-content: start; }
+  .ep__nav { display: grid; gap: 0.75rem; }
+  .ep__nav a { display: grid; gap: 0.25rem; padding: 0.9rem 1rem; border: 1.5px solid var(--trait); border-radius: var(--r-s); text-decoration: none; }
+  .ep__nav a:hover { border-color: var(--accent); }
+  .ep__navt { font-weight: 700; line-height: 1.3; }
+  .ep__cta { padding: 1rem; background: var(--surface); border-radius: var(--r-s); font-size: var(--t-s); }
+  .ep__cta a { color: var(--accent); font-weight: 700; }
+  .related { background: var(--fond-2); }
+</style>

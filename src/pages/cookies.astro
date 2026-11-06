@@ -1,0 +1,18 @@
+---
+import Legal from '~/layouts/Legal.astro';
+const analytics = Boolean(import.meta.env.PUBLIC_ANALYTICS_SRC);
+---
+<Legal title="Cookies" description="Les cookies et traceurs utilisés sur le site UNIFOOT TV et comment gérer vos choix.">
+  <p>Par défaut, le site ne dépose aucun cookie publicitaire ni traceur.</p>
+  <h2>Ce qui est utilisé</h2>
+  <ul>
+    <li><strong>Ton choix de consentement</strong> : enregistré dans ton navigateur (stockage local) pour ne pas te redemander à chaque page. Exempté de consentement.</li>
+    <li><strong>Lecteur YouTube</strong> : chargé uniquement si tu cliques sur Lecture. YouTube peut alors déposer ses propres cookies.</li>
+    {analytics
+      ? <li><strong>Mesure d'audience</strong> : activée seulement si tu l'acceptes, pour savoir quelles pages et émissions sont consultées. Durée : 13 mois maximum.</li>
+      : <li><strong>Mesure d'audience</strong> : aucune pour le moment. Si elle est activée, elle ne fonctionnera qu'avec ton accord.</li>}
+  </ul>
+  <h2>Gérer tes choix</h2>
+  <p>Tu peux revenir sur ton choix à tout moment.</p>
+  <p><button class="btn btn--ghost" type="button" data-consent-reset>Modifier mes choix</button></p>
+</Legal>

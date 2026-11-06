@@ -1,0 +1,86 @@
+---
+import '~/styles/global.css';
+import Header from '~/components/Header.astro';
+import Footer from '~/components/Footer.astro';
+import ConsentBanner from '~/components/ConsentBanner.astro';
+import { site } from '@config/site';
+import { abs, organization, website, breadcrumbLd } from '~/lib/seo';
+import { isDemo } from '~/lib/content';
+import Breadcrumbs from '~/components/Breadcrumbs.astro';
+import fontUrl from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  /** chemin canonique (par défaut : URL courante) */
+  path?: string;
+  image?: string;
+  imageAlt?: string;
+  noindex?: boolean;
+  ogType?: string;
+  jsonLd?: Record<string, unknown>[];
+  breadcrumbs?: { name: string; href?: string }[];
+  /** titre complet sans suffixe " | UNIFOOT TV" */
+  rawTitle?: boolean;
+  preloadImage?: { srcset: string; sizes: string };
+  /** 'gris' : la page commence par un fond gris, le fil d'Ariane prend le même fond */
+  fond?: 'blanc' | 'gris';
+}
+const { title, description, path = Astro.url.pathname, image = site.ogImage, imageAlt, noindex = false, ogType = 'website', jsonLd = [], breadcrumbs, rawTitle = false, preloadImage, fond = 'blanc' } = Astro.props;
+const fullTitle = rawTitle ? title : `${title} | ${site.name}`;
+const canonical = abs(path);
+const ogImage = abs(image);
+const graph = [organization, website, ...(breadcrumbs ? [breadcrumbLd(breadcrumbs)] : []), ...jsonLd];
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
+const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {(noindex || isDemo) && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/brand/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    {preloadImage && <link rel="preload" as="image" imagesrcset={preloadImage.srcset} imagesizes={preloadImage.sizes} fetchpriority="high" />}
+    <link rel="preload" as="font" type="font/woff2" href={fontUrl} crossorigin />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@unifoottv" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={ld} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#contenu">Aller au contenu</a>
+    {isDemo && <p class="demo-flag">Aperçu : vidéos et descriptions de démonstration. Le site réel se remplit automatiquement depuis YouTube.</p>}
+    <Header />
+    {breadcrumbs && <div class:list={{ papier: fond === 'gris' }}><Breadcrumbs items={breadcrumbs} /></div>}
+    <main id="contenu" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <ConsentBanner enabled={Boolean(analyticsSrc)} />
+  </body>
+</html>
+<style is:global>
+  .demo-flag { margin: 0; max-width: none; padding: 0.45rem var(--gouttiere); background: var(--jaune); color: var(--marine); font: 700 0.8125rem/1.3 var(--f-info); text-align: center; }
+  main:focus { outline: none; }
+</style>

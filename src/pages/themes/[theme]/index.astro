@@ -1,0 +1,61 @@
+---
+import Base from '~/layouts/Base.astro';
+import Listing from '~/components/Listing.astro';
+import ShortCard from '~/components/ShortCard.astro';
+import ShortsDialog from '~/components/ShortsDialog.astro';
+import { activeThemes, contentOfTheme, paginate } from '~/lib/content';
+import NewsCard from '~/components/NewsCard.astro';
+import { getNews } from '~/lib/news';
+import SponsorSlot from '~/components/SponsorSlot.astro';
+import { placements } from '@config/sponsors';
+export function getStaticPaths() {
+  return activeThemes.map((theme) => ({ params: { theme: theme.slug }, props: { theme } }));
+}
+const { theme } = Astro.props;
+const c = contentOfTheme(theme.slug);
+const [first] = paginate(c.episodes, 24);
+const others = activeThemes.filter((t) => t.slug !== theme.slug);
+const themeNews = (await getNews()).filter((n) => n.data.themes.includes(theme.slug)).slice(0, 6);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Thèmes', href: '/themes/' }, { name: theme.name }];
+---
+<Base title={`${theme.heading} : émissions et extraits`} description={theme.intro.slice(0, 158)} breadcrumbs={crumbs} noindex={c.episodes.length + c.shorts.length < 2}>
+  <header class="wrap page-head">
+    <h1>{theme.heading}</h1>
+    <p>{theme.intro}</p>
+    <div class="tsp"><SponsorSlot sponsor={placements.themes[theme.slug] ?? null} variant="banner" where={`la rubrique ${theme.name}`} seed={0} /></div>
+  </header>
+  {c.shorts.length > 0 && (
+    <section class="section" style="padding-top:0" aria-labelledby="t-shorts">
+      <div class="wrap">
+        <div class="section-head"><h2 id="t-shorts">Les extraits</h2><a class="more" href="/extraits/">Tous les extraits</a></div>
+        <div class="rail rail--9x16">{c.shorts.slice(0, 12).map((v) => <ShortCard video={v} />)}</div>
+      </div>
+    </section>
+  )}
+  {themeNews.length > 0 && (
+    <section class="section" style="padding-top:0" aria-labelledby="t-news">
+      <div class="wrap">
+        <div class="section-head"><h2 id="t-news">L'actu</h2><a class="more" href="/actualites/">Toute l'actu</a></div>
+        <div class="tn">{themeNews.map((n) => <NewsCard news={n} />)}</div>
+      </div>
+    </section>
+  )}
+  {first.items.length > 0 && (
+    <section class="section" style="padding-top:0" aria-labelledby="t-eps">
+      <div class="wrap">
+        <div class="section-head"><h2 id="t-eps">Les épisodes</h2></div>
+        <Listing items={first.items} page={1} pages={first.pages} base={`/themes/${theme.slug}/`} label={theme.name} />
+      </div>
+    </section>
+  )}
+  {others.length > 0 && (
+    <nav class="wrap section" style="padding-top:0" aria-labelledby="t-others">
+      <h2 id="t-others" class="others">Autres thèmes</h2>
+      <ul class="chips">{others.map((t) => <li><a class="chip" href={`/themes/${t.slug}/`}>{t.name}</a></li>)}</ul>
+    </nav>
+  )}
+  <ShortsDialog />
+</Base>
+<style>.tsp { margin-top: 1.5rem; max-width: 56rem; }
+.tn { display: grid; gap: 2rem 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.others { font: 700 1.125rem/1.2 var(--f-info); color: var(--texte-2); margin-bottom: 0.9rem; }</style>
