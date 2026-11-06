@@ -56,6 +56,7 @@ export const invites: Invite[] = [
   { name: 'Frédéric Advice-Desruisseaux', role: 'Ex-coach du Paris 13 Atletico (N2)', video: 'jfatOAWbNZ4', photo: '/invites/frederic-advice-desruisseaux.webp', link: 'https://www.youtube.com/watch?v=jfatOAWbNZ4&t=5874s' },
   { name: 'Angelo Michaud', role: 'Recruteur de l’En Avant Guingamp', video: 'RX7X2JazkpQ', photo: '/invites/angelo-michaud.webp', link: 'https://www.youtube.com/watch?v=RX7X2JazkpQ&t=1s' },
   { name: 'Samy Mandessi-Bell', role: 'Coach U17 National de Montrouge FC 92', video: 'TYzv5Ka2Wd8', photo: '/invites/samy-mandessi-bell.webp', link: 'https://www.youtube.com/watch?v=TYzv5Ka2Wd8&t=2024s' },
+  { name: 'Laurent Édriat', role: 'Coach mental', video: 'IZB_6o68dNc', photo: '/invites/laurent-edriat.webp', link: 'https://www.youtube.com/watch?v=IZB_6o68dNc&t=200s' },
   { name: 'Eduardo Moreira', role: 'US Créteil Lusitanos', video: 'hXtk6iq_ZX4' },
   { name: 'Emmanuel Trégoat', video: 'ipWYwxavW8w' },
   { name: 'Himed Hamma', role: 'Entraîneur et recruteur du DFCO', video: '01NRbe6cioA' },
