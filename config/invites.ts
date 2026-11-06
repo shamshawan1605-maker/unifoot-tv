@@ -32,6 +32,7 @@ export const invites: Invite[] = [
   { name: 'Patrice Ribaton', role: 'Institut international Sadio Mané', video: 'HGKzHbZ3dVU' },
   { name: 'Hassan Baillon', role: 'Président de club', video: '8vg0jnjg3JE' },
   { name: 'Jasmine Cherchali', role: 'Football ghanéen', video: 'aN87fPkn5FA' },
+  { name: 'Ousmane Diaby', role: 'Directeur technique de l’ES Nanterre', video: 'sRCapZvROEM', photo: '/invites/ousmane-diaby.webp', link: 'https://www.youtube.com/watch?v=sRCapZvROEM&t=4033s' },
   { name: 'Bakary Sylla', role: 'Coach U17 National de Montfermeil', video: 'v-D0tKlJeJ4', photo: '/invites/bakary-sylla.webp', link: 'https://www.youtube.com/watch?v=v-D0tKlJeJ4&t=5418s' },
   { name: 'Rafik Masmoudi', role: 'Santé du sportif', video: 'LEnUyKq5yEg' },
   { name: 'Samy Guenfoud', role: 'FC Montreuil', video: 'ACqtc0FIJiY' },
