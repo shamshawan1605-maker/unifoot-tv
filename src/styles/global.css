@@ -16,11 +16,11 @@
   --marine-2: #151b48;
 
   /* blocs de couleur */
-  --menthe: #4fffbe;
+  --menthe: #22c3d3;      /* turquoise du micro UNIFOOT TV */
   --sarcelle: #2a9499;
-  --jaune: #ffd23f;
-  --bleu: #2f4bff;
-  --corail: #ff6b4a;
+  --jaune: #8fe6ef;       /* turquoise clair */
+  --bleu: #0b7a87;        /* turquoise foncé (texte sur blanc) */
+  --corail: #13a7b8;      /* turquoise moyen */
 
   --f-texte: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --f-titre: var(--f-texte);
@@ -54,8 +54,8 @@
   --trait: #2a3370;
   --texte: #ffffff;
   --texte-2: #b9bedb;
-  --accent: #4fffbe;
-  --focus: 0 0 0 3px #0a0c2c, 0 0 0 6px #4fffbe;
+  --accent: #22c3d3;
+  --focus: 0 0 0 3px #0a0c2c, 0 0 0 6px #22c3d3;
   background: var(--fond);
   color: var(--texte);
   color-scheme: dark;

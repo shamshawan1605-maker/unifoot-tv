@@ -289,7 +289,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .une__badge { position: absolute; z-index: 4; left: 1rem; top: 1rem; }
   /* bouton lecture dans le coin, pour ne pas cacher les visages */
   .une__play { position: absolute; z-index: 4; inset: auto 1rem 1rem auto; margin: 0; width: 3.5rem; height: 3.5rem; border-radius: 50%; border: 0; display: grid; place-items: center;
-    background: var(--menthe); color: var(--marine); cursor: pointer; padding-left: 4px; box-shadow: 0 0 0 10px rgb(79 255 190 / 0.25); transition: transform .15s ease; }
+    background: var(--menthe); color: var(--marine); cursor: pointer; padding-left: 4px; box-shadow: 0 0 0 10px rgb(34 195 211 / 0.25); transition: transform .15s ease; }
   .une__play:hover { transform: scale(1.06); }
   .une__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.8rem; margin: 0; font: 600 var(--t-xs)/1.3 var(--f-info); color: var(--texte-2); }
   .une__title { font-size: var(--t-hero); margin-top: 0.6rem; max-width: 26ch; }
@@ -322,10 +322,10 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .fil { list-style: none; margin: 0.6rem 0 0; padding: 0; position: relative; }
   .fil li { position: relative; display: grid; grid-template-columns: 2.75rem 1fr; gap: 0.85rem; padding-bottom: 1rem; }
   .fil li:last-child { padding-bottom: 0; }
-  .fil li:not(:last-child)::before { content: ''; position: absolute; left: calc(1.375rem - 1px); top: 2.75rem; bottom: 0; width: 2px; background: linear-gradient(var(--menthe), rgb(79 255 190 / 0.25)); }
+  .fil li:not(:last-child)::before { content: ''; position: absolute; left: calc(1.375rem - 1px); top: 2.75rem; bottom: 0; width: 2px; background: linear-gradient(var(--menthe), rgb(34 195 211 / 0.25)); }
   .fil__off:not(:last-child)::before, .fil li:has(+ .fil__off)::before { background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.3) 0 4px, transparent 4px 8px) !important; }
   .fil__min { width: 2.75rem; height: 2.75rem; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--menthe); color: var(--menthe); font: 800 0.8125rem/1 var(--f-info); font-variant-numeric: tabular-nums; background: var(--marine); }
-  .fil__now .fil__min { background: var(--menthe); color: var(--marine); box-shadow: 0 0 0 5px rgb(79 255 190 / 0.2); }
+  .fil__now .fil__min { background: var(--menthe); color: var(--marine); box-shadow: 0 0 0 5px rgb(34 195 211 / 0.2); }
   .fil__off .fil__min { border-style: dashed; border-color: rgb(255 255 255 / 0.35); color: rgb(255 255 255 / 0.5); }
   .fil__txt { display: grid; gap: 0.2rem; align-content: center; min-height: 2.75rem; text-decoration: none; justify-items: start; }
   .fil__part { font: 800 0.6875rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.06em; color: var(--menthe); }
@@ -338,7 +338,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .fil__min { position: relative; overflow: visible; }
   .fil__num, .fil__sifflet { transition: opacity .18s ease, transform .18s ease; }
   .fil__sifflet { position: absolute; inset: 0; margin: auto; opacity: 0; transform: scale(.4) rotate(-20deg); }
-  .fil li:has(a:hover, a:focus-visible) .fil__min { background: var(--jaune); border-color: var(--jaune); color: var(--marine); box-shadow: 0 0 0 5px rgb(255 210 63 / 0.25); }
+  .fil li:has(a:hover, a:focus-visible) .fil__min { background: var(--jaune); border-color: var(--jaune); color: var(--marine); box-shadow: 0 0 0 5px rgb(143 230 239 / 0.25); }
   .fil li:has(a:hover, a:focus-visible) .fil__num { opacity: 0; transform: scale(.4); }
   .fil li:has(a:hover, a:focus-visible) .fil__sifflet { opacity: 1; transform: none; animation: siffle .5s ease-in-out .1s 2; }
   .fil li:has(a:hover, a:focus-visible) .fil__ondes { animation: ondes .5s ease-out .1s 2; }
@@ -408,7 +408,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .cta p { color: var(--texte-2); font-size: var(--t-m); margin-top: 0.8rem; line-height: 1.55; }
   .cta__choices { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .cta__art { position: relative; min-height: 12rem; display: grid; place-items: center; }
-  .cta__sun { position: absolute; width: min(18rem, 70vw); aspect-ratio: 1; border-radius: 50%; background: var(--jaune); }
+  .cta__sun { position: absolute; width: min(18rem, 70vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b3f63, var(--marine-2) 70%); box-shadow: 0 0 0 2px rgb(34 195 211 / 0.5), 0 0 60px rgb(34 195 211 / 0.25); }
   .cta__mic { position: relative; width: min(13rem, 60%); height: auto; transform: rotate(-8deg); filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35)); transition: transform .3s ease; }
   .cta:hover .cta__mic { transform: rotate(-2deg) translateY(-6px); }
   @media (prefers-reduced-motion: reduce) { .cta__mic { transition: none; } }
