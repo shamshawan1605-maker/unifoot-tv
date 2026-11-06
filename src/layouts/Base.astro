@@ -78,6 +78,30 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     </main>
     <Footer />
     <ConsentBanner enabled={Boolean(analyticsSrc)} />
+    <script>
+      // Rails horizontaux : flèches gauche/droite au survol (la barre de défilement est masquée)
+      const svg = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+      document.querySelectorAll<HTMLElement>('.rail').forEach((rail) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'rail-wrap';
+        rail.before(wrap); wrap.append(rail);
+        const mk = (dir: -1 | 1) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = `rail-arrow rail-arrow--${dir < 0 ? 'prev' : 'next'}`;
+          b.setAttribute('aria-label', dir < 0 ? 'Voir les précédents' : 'Voir les suivants');
+          b.innerHTML = svg(dir < 0 ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7');
+          b.addEventListener('click', () => rail.scrollBy({ left: dir * rail.clientWidth * 0.85, behavior: 'smooth' }));
+          wrap.append(b);
+          return b;
+        };
+        const prev = mk(-1), next = mk(1);
+        const upd = () => { prev.disabled = rail.scrollLeft < 8; next.disabled = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 8; };
+        rail.addEventListener('scroll', upd, { passive: true });
+        addEventListener('resize', upd);
+        upd();
+      });
+    </script>
   </body>
 </html>
 <style is:global>
