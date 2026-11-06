@@ -21,7 +21,6 @@ export const invites: Invite[] = [
   { name: 'Emmanuel Dorado', role: 'Sainte-Geneviève FC', video: 'X4dpWkIbFJA', photo: '/invites/emmanuel-dorado.webp', link: 'https://www.youtube.com/watch?v=X4dpWkIbFJA&t=2777s' },
   { name: 'Boulaya', video: 'O5Zbz6sV52c', photo: '/invites/boulaya.webp', link: 'https://www.youtube.com/watch?v=O5Zbz6sV52c&t=26s' },
   { name: 'Romain', role: 'Bontaz Academy Coaching', video: 'v4QIAYF9hV4', photo: '/invites/romain-bontaz.webp', link: 'https://www.youtube.com/watch?v=v4QIAYF9hV4' },
-  { name: 'Gessime Yassine', video: '5rjiPyLH4lU' },
   { name: 'Alexis Lefebvre', video: '6wa0xC6JVqI' },
   { name: 'Oussama Moueddene', role: 'Coach U17 National de Montrouge', video: 'lG51nKqw8Aw', photo: '/invites/oussama-moueddene.webp', link: 'https://www.youtube.com/watch?v=lG51nKqw8Aw&t=1427s' },
   { name: 'Fabio Frasconi', role: 'U19 National', video: 'sUAM1QH1wFU', photo: '/invites/fabio-frasconi.webp' },
