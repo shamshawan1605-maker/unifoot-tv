@@ -151,14 +151,7 @@ export async function runSync(): Promise<SyncResult> {
     const uploads = await yt.playlistItems(channel.uploads, fullScan ? undefined : allKnown);
     const uploadIds = new Set(uploads.map((u) => u.videoId));
 
-    // Shorts : playlist système "UUSH…" (Shorts de la chaîne). Repli sur la durée si indisponible.
-    let shortIds: Set<string> | null = null;
-    try {
-      const shorts = await yt.playlistItems(`UUSH${channel.id.slice(2)}`, fullScan ? undefined : allKnown);
-      shortIds = new Set(shorts.map((s) => s.videoId));
-    } catch (e) {
-      log('playlist des Shorts indisponible, repli sur la durée :', (e as Error).message);
-    }
+    // Extraits (Shorts) : toute vidéo de 3 min ou moins, voir plus bas
 
     if (fullScan) {
       try {
@@ -253,9 +246,6 @@ export async function runSync(): Promise<SyncResult> {
       const durationSec = parseIsoDuration(d.contentDetails.duration);
       if (!durationSec) continue;
       const existing = byId.get(d.id);
-      const isShort = shortIds
-        ? shortIds.has(d.id) || (existing?.kind === 'short' && !fullScan)
-        : durationSec <= syncConfig.shortMaxDurationFallback || /#shorts?\b/i.test(d.snippet.title + d.snippet.description);
       const base: Video = existing
         ? { ...existing }
         : {
@@ -281,7 +271,9 @@ export async function runSync(): Promise<SyncResult> {
       base.publishedAt = d.snippet.publishedAt;
       base.durationSec = durationSec;
       base.thumbnails = pickThumbnails(d.snippet.thumbnails);
-      base.kind = isShort && durationSec <= 180 ? 'short' : 'episode';
+      // Une vidéo de 3 min ou moins est un extrait, même si YouTube ne l'a pas (encore) rangée dans les Shorts
+      // 3 min ou moins = extrait (Short), même si YouTube ne l'a pas encore rangée dans les Shorts
+      base.kind = durationSec <= 180 ? 'short' : 'episode';
       base.tags = d.snippet.tags || [];
       base.viewCount = d.statistics?.viewCount ? Number(d.statistics.viewCount) : undefined;
       base.refreshedAt = now.toISOString();

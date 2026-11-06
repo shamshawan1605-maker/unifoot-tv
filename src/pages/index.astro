@@ -45,7 +45,8 @@ if (hero && hero.show === allShows[0].slug) {
 }
 const weekIds = new Set(week.map((w) => w.video?.id).filter(Boolean));
 const others = episodes.filter((v) => v.id !== hero?.id && !weekIds.has(v.id));
-const dontMiss = others.slice(0, 5);
+// À ne pas manquer : uniquement de vraies émissions (10 min et plus), pas des reels
+const dontMiss = others.filter((v) => v.durationSec >= 600).slice(0, 5);
 const news = await getNews();
 const ranked = news.length
   ? news.slice(0, 5).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: formatShortDate(n.data.date.toISOString()), img: newsImage(n) }))
