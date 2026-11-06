@@ -24,12 +24,14 @@ export const team: Member[] = [
     bio: "Ancien joueur et éducateur, il a créé UNIFOOT TV pour donner la parole aux acteurs du foot amateur. Il anime Kick in the Foot et réalise les émissions.",
   },
   // Chroniqueurs : liste à vérifier avant mise en ligne (ajoute photo et rôle exact).
+  { name: 'François-Xavier', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/francois-xavier.webp' },
+  { name: 'Kokou', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/kokou.webp' },
+  { name: 'Mathieu', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/mathieu.webp' },
+  { name: 'Benoît', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/benoit.webp' },
   { name: 'Lass', role: 'Chroniqueur', group: 'chroniqueur' },
   { name: 'Alexis', role: 'Chroniqueur', group: 'chroniqueur' },
   { name: 'Soufiane', role: 'Chroniqueur', group: 'chroniqueur' },
   { name: 'Saïd', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'François-Xavier', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'Mathieu', role: 'Chroniqueur', group: 'chroniqueur' },
   { name: 'Habib Bellaïd', role: 'Chroniqueur', group: 'chroniqueur' },
 ];
 
