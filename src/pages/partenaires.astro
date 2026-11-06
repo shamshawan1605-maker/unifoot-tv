@@ -9,7 +9,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Partenaires' }];
 const [y, m] = audienceUpdatedAt.split('-');
 const updated = new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(new Date(Number(y), Number(m) - 1, 1));
 const num = (v: string) => parseFloat(v.replace(',', '.').replace(/[^\d.]/g, ''));
-const maxNet = Math.max(...audienceByNetwork.map((a) => num(a.value)));
+const maxNet = Math.max(1, ...audienceByNetwork.map((a) => num(a.value)));
 const netIcon: Record<string, string> = { TikTok: 'tiktok', Facebook: 'facebook', Instagram: 'instagram', YouTube: 'youtube' };
 const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10) * 10}+`, label: 'invités reçus sur le plateau' }];
 const slots = [
@@ -39,7 +39,7 @@ const slots = [
 
   <!-- Audience -->
   <section class="section wrap aud" aria-labelledby="audience">
-    <div class="aud__grid">
+    <div class:list={["aud__grid", { "aud__grid--solo": audienceByNetwork.length === 0 }]}>
       <div>
         <p class="kick">L'audience</p>
         <h2 id="audience" class="h2b">Une communauté qui regarde, commente et partage.</h2>
@@ -47,7 +47,7 @@ const slots = [
           {stats.map((a) => <div><dd data-count>{a.value}</dd><dt>{a.label}</dt></div>)}
         </dl>
       </div>
-      <div class="nets">
+      {audienceByNetwork.length > 0 && <div class="nets">
         <p class="nets__t">Abonnés par réseau</p>
         <ul>
           {audienceByNetwork.map((a) => (
@@ -59,7 +59,7 @@ const slots = [
           ))}
         </ul>
         <p class="meta">Chiffres de {updated}.</p>
-      </div>
+      </div>}
     </div>
   </section>
 
@@ -258,6 +258,7 @@ const slots = [
   /* Audience */
   .aud__grid { display: grid; gap: 2.5rem; align-items: center; }
   @media (min-width: 60rem) { .aud__grid { grid-template-columns: 1.15fr 1fr; gap: 4rem; } }
+  .aud__grid--solo { grid-template-columns: 1fr !important; }
   .aud__big { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin: 2rem 0 0; }
   .aud__big div { padding-top: 1rem; border-top: 3px solid var(--menthe); }
   .aud__big dd { margin: 0; font: 800 clamp(2rem, 1.4rem + 2.4vw, 3.4rem)/1 var(--f-titre); letter-spacing: -0.03em; color: var(--bleu); white-space: nowrap; }

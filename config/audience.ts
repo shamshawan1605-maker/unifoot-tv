@@ -8,9 +8,5 @@ export const audienceHighlights = [
   { value: '200 K', label: 'abonnés cumulés sur 9 plateformes' },
 ];
 
-export const audienceByNetwork = [
-  { network: 'TikTok', value: '111 K' },
-  { network: 'Facebook', value: '47 K' },
-  { network: 'Instagram', value: '21 K' },
-  { network: 'YouTube', value: '16 K' },
-];
+// Abonnés par réseau : à remplir avec les vrais chiffres (laisse vide pour masquer le bloc)
+export const audienceByNetwork: { network: string; value: string }[] = [];
