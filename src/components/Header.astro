@@ -2,13 +2,11 @@
 import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import { links, socials } from '@config/site';
-import { getNews } from '~/lib/news';
 import { latestEpisode, videoPath, fr } from '~/lib/content';
-const hasNews = (await getNews()).length > 0;
 const nav = [
+  { href: '/actualites/', label: 'Actualités' },
   { href: '/emissions/', label: 'Émissions' },
   { href: '/extraits/', label: 'Extraits' },
-  ...(hasNews ? [{ href: '/actualites/', label: 'Actualités' }] : []),
   { href: '/themes/', label: 'Thèmes' },
   { href: '/participer/', label: 'Participer' },
   { href: '/equipe/', label: "L'équipe" },
