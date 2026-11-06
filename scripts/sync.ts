@@ -158,6 +158,16 @@ export async function runSync(): Promise<SyncResult> {
       log('playlist des Shorts indisponible, repli sur la durée :', (e as Error).message);
     }
 
+    if (fullScan) {
+      try {
+        const pls = await yt.channelPlaylists(channel.id);
+        log(`playlists de la chaîne (${pls.length}) :`);
+        for (const p of pls) log(`  ${p.id}  ${p.count} vidéos  ${p.title}`);
+      } catch (e) {
+        log('liste des playlists indisponible :', (e as Error).message);
+      }
+    }
+
     // Appartenance aux playlists d'émissions (scan complet, ces playlists ne sont pas triées par date)
     const { shows } = await import('../config/shows.ts');
     const membership = new Map<string, string[]>();

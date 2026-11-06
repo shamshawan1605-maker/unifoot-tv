@@ -129,6 +129,20 @@ export class YouTubeClient {
     return out;
   }
 
+  /** Playlists publiques de la chaîne (pour aider à configurer config/shows.ts) */
+  async channelPlaylists(channelId: string): Promise<{ id: string; title: string; count: number }[]> {
+    type R = { nextPageToken?: string; items?: { id: string; snippet: { title: string }; contentDetails?: { itemCount?: number } }[] };
+    const out: { id: string; title: string; count: number }[] = [];
+    let pageToken: string | undefined;
+    let guard = 0;
+    do {
+      const r = await this.get<R>('playlists', { part: 'snippet,contentDetails', channelId, maxResults: '50', ...(pageToken ? { pageToken } : {}) });
+      for (const p of r.items || []) out.push({ id: p.id, title: p.snippet.title, count: p.contentDetails?.itemCount ?? 0 });
+      pageToken = r.nextPageToken;
+    } while (pageToken && ++guard < 20);
+    return out;
+  }
+
   /** Détails de vidéos par lots de 50. Les vidéos supprimées n'apparaissent pas dans la réponse. */
   async videos(ids: string[]): Promise<YtVideo[]> {
     const out: YtVideo[] = [];

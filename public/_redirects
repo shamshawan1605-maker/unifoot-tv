@@ -26,5 +26,9 @@
 /politique-de-confidentialite/  /confidentialite/  301
 
 # Épisodes déplacés vers une autre émission
+/emissions/hors-serie/rencontre-avec-les-benevoles-du-tournoi-de-paques/  /emissions/kick-in-the-foot/rencontre-avec-les-benevoles-du-tournoi-de-paques/  301
+/emissions/hors-serie/rencontre-avec-les-benevoles-du-tournoi-de-paques  /emissions/kick-in-the-foot/rencontre-avec-les-benevoles-du-tournoi-de-paques/  301
 
 # Épisodes supprimés ou passés en privé : redirigés vers leur émission
+/emissions/entre-2/santiago-cucci-president-aviron-bayonnais-fc-ex-ol-rachat-girondins-rate/  /emissions/entre-2/  301
+/emissions/entre-2/santiago-cucci-president-aviron-bayonnais-fc-ex-ol-rachat-girondins-rate  /emissions/entre-2/  301
