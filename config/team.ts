@@ -18,7 +18,7 @@ export interface Member {
 export const team: Member[] = [
   {
     name: 'Shamsh',
-    fullName: 'Khalid Shamsh Awan',
+    fullName: 'Shamsh Awan',
     role: 'Fondateur, animateur et producteur',
     group: 'fondateur',
     photo: '/equipe/shamsh.webp',
