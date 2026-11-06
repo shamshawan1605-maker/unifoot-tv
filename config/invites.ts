@@ -49,6 +49,7 @@ export const invites: Invite[] = [
   { name: 'Petrus Florian', role: 'Fondateur de l’association Petrus Flo', video: 'HxIGzyNN4O0', photo: '/invites/petrus-florian.webp', link: 'https://www.youtube.com/watch?v=HxIGzyNN4O0&t=2796s' },
   { name: 'Ludo da Silva', role: 'Fondateur de la Football School Academy', video: '3Wx8kGq6HcE', photo: '/invites/ludo-da-silva.webp', link: 'https://www.youtube.com/watch?v=3Wx8kGq6HcE&t=3268s' },
   { name: 'Nicolas Khamsopha', role: 'Réalisateur de « Projet 2036 »', video: 'mUrtBPnCuw0', photo: '/invites/nicolas-khamsopha.webp', link: 'https://www.youtube.com/watch?v=mUrtBPnCuw0&t=1270s' },
+  { name: 'Mamadou Diakité', role: 'Ancien pro, formé à Caen', video: '1VOrpNQUb-4', photo: '/invites/mamadou-diakite.webp', link: 'https://www.youtube.com/watch?v=1VOrpNQUb-4&t=2201s' },
   { name: 'Kevin Goba', role: 'Ancien pro (Châteauroux)', video: 'suw6AzjvoXE', photo: '/invites/kevin-goba.webp', link: 'https://www.youtube.com/watch?v=suw6AzjvoXE&t=4114s' },
   { name: 'Benjamin Morel', role: 'Coach N2 de l’AS Villers-Houlgate', video: 'nrbWDuq4zws', photo: '/invites/benjamin-morel.webp', link: 'https://www.youtube.com/watch?v=nrbWDuq4zws&t=66s' },
   { name: 'Yacoub Yassine', role: 'Entraîneur de l’US Chantilly', video: 'glIkdFI_Jdo', photo: '/invites/yacoub-yassine.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
