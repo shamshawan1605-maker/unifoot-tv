@@ -411,8 +411,14 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .cta__choices { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .cta__art { position: relative; min-height: 12rem; display: grid; place-items: center; }
   .cta__sun { position: absolute; width: min(18rem, 70vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #1b3f63, var(--marine-2) 70%); box-shadow: 0 0 0 2px rgb(34 195 211 / 0.5), 0 0 60px rgb(34 195 211 / 0.25); }
-  .cta__mic { position: relative; width: min(13rem, 60%); height: auto; transform: rotate(-8deg); filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35)); transition: transform .3s ease; }
-  .cta:hover .cta__mic { transform: rotate(-2deg) translateY(-6px); }
-  @media (prefers-reduced-motion: reduce) { .cta__mic { transition: none; } }
-  @media (max-width: 55.99rem) { .cta__art { display: none; } }
+  /* Le micro flotte doucement (ordinateur et téléphone) */
+  .cta__mic { position: relative; width: min(13rem, 60%); height: auto; filter: drop-shadow(0 18px 24px rgb(0 0 0 / 0.35)); animation: mic-float 5s ease-in-out infinite; }
+  @keyframes mic-float { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-10px) rotate(-3deg); } }
+  @media (prefers-reduced-motion: reduce) { .cta__mic { animation: none; transform: rotate(-8deg); } }
+  /* Téléphone : le micro passe au-dessus du texte, en plus petit */
+  @media (max-width: 55.99rem) {
+    .cta__art { order: -1; min-height: 10rem; margin-bottom: -0.5rem; }
+    .cta__sun { width: 10rem; }
+    .cta__mic { width: 6.5rem; }
+  }
 </style>
