@@ -44,6 +44,7 @@ export const invites: Invite[] = [
   { name: 'Mohamed Segueni', role: 'Agent FFF', video: 'TdWJqqwuCpU', photo: '/invites/mohamed-segueni.webp', link: 'https://www.youtube.com/watch?v=TdWJqqwuCpU&t=5606s' },
   { name: 'Fanny Roussel', role: 'Nutrition et hygiène de vie des jeunes', video: 'eJBT5pYwDDY', photo: '/invites/fanny-roussel.webp', link: 'https://www.youtube.com/watch?v=eJBT5pYwDDY&t=9298s' },
   { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0', photo: '/invites/hassoun-camara.webp', link: 'https://www.youtube.com/watch?v=9YIkfAuQaQ0&t=44s' },
+  { name: 'Marinos Papageorgopoulos', role: 'Directeur technique de l’Académie du CF Montréal', video: 'aXXdX76j0OA', photo: '/invites/marinos-papageorgopoulos.webp', link: 'https://www.youtube.com/watch?v=aXXdX76j0OA&t=45s' },
   { name: 'Ludovic Baal', role: 'Ancien pro (Lens, Rennes, Brest)', video: '3SYbuYS-zq4', photo: '/invites/ludovic-baal.webp', link: 'https://www.youtube.com/watch?v=3SYbuYS-zq4&t=300s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
   { name: 'Mohamed Tazamoucht', role: 'Entraîneur en Île-de-France', video: 'N_mH0lAhhM0', photo: '/invites/mohamed-tazamoucht.webp', link: 'https://www.youtube.com/watch?v=N_mH0lAhhM0&t=5191s' },
