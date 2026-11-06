@@ -45,6 +45,7 @@ export const invites: Invite[] = [
   { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0', photo: '/invites/hassoun-camara.webp', link: 'https://www.youtube.com/watch?v=9YIkfAuQaQ0&t=44s' },
   { name: 'Ludovic Baal', role: 'Ancien pro (Lens, Rennes, Brest)', video: '3SYbuYS-zq4', photo: '/invites/ludovic-baal.webp', link: 'https://www.youtube.com/watch?v=3SYbuYS-zq4&t=300s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
+  { name: 'Mohamed Tazamoucht', role: 'Entraîneur en Île-de-France', video: 'N_mH0lAhhM0', photo: '/invites/mohamed-tazamoucht.webp', link: 'https://www.youtube.com/watch?v=N_mH0lAhhM0&t=5191s' },
   { name: 'Petrus Florian', role: 'Fondateur de l’association Petrus Flo', video: 'HxIGzyNN4O0', photo: '/invites/petrus-florian.webp', link: 'https://www.youtube.com/watch?v=HxIGzyNN4O0&t=2796s' },
   { name: 'Nicolas Khamsopha', role: 'Réalisateur de « Projet 2036 »', video: 'mUrtBPnCuw0', photo: '/invites/nicolas-khamsopha.webp', link: 'https://www.youtube.com/watch?v=mUrtBPnCuw0&t=1270s' },
   { name: 'Kevin Goba', role: 'Ancien pro (Châteauroux)', video: 'suw6AzjvoXE', photo: '/invites/kevin-goba.webp', link: 'https://www.youtube.com/watch?v=suw6AzjvoXE&t=4114s' },
