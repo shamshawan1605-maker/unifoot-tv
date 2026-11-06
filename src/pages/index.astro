@@ -143,7 +143,6 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
                     <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.day]}</span></span>
                     <span class="fil__t">{fr(w.video.title)}</span>
                     {w.video.id === hero?.id && <span class="fil__badge">À la une</span>}
-                    <span class="fil__go" aria-hidden="true">Coup d'envoi !</span>
                   </a>
                 ) : (
                   <div class="fil__txt">
@@ -345,8 +344,6 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .fil__ondes { opacity: 0; }
   @keyframes siffle { 0%, 100% { transform: rotate(0) } 25% { transform: rotate(-12deg) } 75% { transform: rotate(8deg) } }
   @keyframes ondes { 0% { opacity: 0; transform: translate(-2px, 2px) } 50% { opacity: 1 } 100% { opacity: 0; transform: translate(2px, -2px) } }
-  .fil__go { max-height: 0; opacity: 0; overflow: hidden; font: 800 0.6875rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.06em; color: var(--jaune); transition: max-height .2s ease, opacity .2s ease; }
-  .fil a:hover .fil__go, .fil a:focus-visible .fil__go { max-height: 1.2em; opacity: 1; }
   @media (prefers-reduced-motion: reduce) { .fil__sifflet, .fil__ondes { animation: none !important; } }
   .fil__badge { margin-top: 0.15rem; padding: 0.15rem 0.45rem; border-radius: 4px; background: var(--jaune); color: var(--marine); font: 800 0.625rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.05em; }
 
