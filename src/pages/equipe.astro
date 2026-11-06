@@ -1,60 +1,160 @@
 ---
 import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
 import { team, story } from '@config/team';
+import { audienceHighlights } from '@config/audience';
+import { invites } from '@config/invites';
+import { links } from '@config/site';
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: "L'équipe" }];
-const founders = team.filter((m) => m.group === 'fondateur');
+const founder = team.find((m) => m.group === 'fondateur');
 const others = team.filter((m) => m.group !== 'fondateur');
 const initials = (n: string) => n.split(/[\s-]+/).map((w) => w[0]).slice(0, 2).join('');
+const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10) * 10}+`, label: 'invités reçus sur le plateau' }];
 ---
 <Base title="L'équipe et l'histoire du média" description="Qui fait UNIFOOT TV ? L'équipe, les chroniqueurs de Kick in the Foot et l'histoire d'un média indépendant né pour donner la parole au foot amateur." breadcrumbs={crumbs}>
-  <header class="wrap page-head">
-    <h1>L'équipe</h1>
-    <p>Des gens du terrain, autour d'une même table, chaque semaine.</p>
+  <!-- Bandeau -->
+  <header class="wrap eq-hero">
+    <p class="eq-kicker"><span class="eq-dot"></span>Autour de la table</p>
+    <h1>Des gens du terrain,<br />une même table.</h1>
+    <p class="eq-lead">Éducateurs, joueurs, dirigeants : chaque semaine, ils se retrouvent pour parler du foot amateur tel qu'il est vraiment.</p>
   </header>
 
-  <section class="wrap story" aria-labelledby="histoire">
-    <h2 id="histoire">Notre histoire</h2>
-    <div class="prose">{story.map((p) => <p>{p}</p>)}</div>
+  <!-- Fondateur -->
+  {founder && (
+    <section class="wrap" aria-labelledby="fondateur">
+      <article class="lead sombre">
+        <div class="lead__photo">
+          {founder.photo ? <img src={founder.photo} alt={`Portrait de ${founder.name}`} width="600" height="800" decoding="async" /> : <span aria-hidden="true">{initials(founder.name)}</span>}
+        </div>
+        <div class="lead__txt">
+          <p class="lead__tag">Fondateur</p>
+          <h2 id="fondateur" class="lead__name">{founder.name}</h2>
+          {founder.fullName && <p class="lead__full">{founder.fullName}</p>}
+          <p class="lead__role">{founder.role}</p>
+          {founder.bio && <p class="lead__bio">{founder.bio}</p>}
+          <blockquote class="lead__quote">« On donne la parole à ceux qui font vivre le foot amateur. »</blockquote>
+          <div class="lead__ctas">
+            <a class="btn btn--menthe" href={links.youtube} rel="noopener" target="_blank"><Icon name="youtube" size={18} />Voir l'émission</a>
+            <a class="btn btn--ghost" href="/participer/">Participer</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  )}
+
+  <!-- Chroniqueurs -->
+  <section class="wrap section" aria-labelledby="chroniqueurs">
+    <div class="section-head"><h2 id="chroniqueurs">Les chroniqueurs</h2></div>
+    <ul class="crew">
+      {others.map((m) => (
+        <li class="crew__card">
+          <div class="crew__photo">
+            {m.photo ? <img src={m.photo} alt="" width="300" height="400" loading="lazy" decoding="async" /> : <span class="crew__ini" aria-hidden="true">{initials(m.name)}</span>}
+          </div>
+          <div class="crew__txt">
+            <h3 class="crew__name">{m.name}</h3>
+            <p class="crew__role">{m.role}</p>
+          </div>
+        </li>
+      ))}
+      <li class="crew__card crew__join">
+        <a href="/participer/?type=chroniqueur">
+          <span class="crew__plus" aria-hidden="true">+</span>
+          <span class="crew__name">Ta place est ici ?</span>
+          <span class="crew__role">Rejoins la table</span>
+        </a>
+      </li>
+    </ul>
   </section>
 
-  <section class="papier section" aria-labelledby="team">
-    <div class="wrap">
-      <h2 id="team" class="team__h">Autour de la table</h2>
-      <ul class="team">
-        {[...founders, ...others].map((m) => (
-          <li class:list={['member', { 'member--lead': m.group === 'fondateur' }]}>
-            <div class="member__photo">
-              {m.photo ? <img src={m.photo} alt={`Portrait de ${m.name}`} width="600" height="600" loading="lazy" decoding="async" /> : <span aria-hidden="true">{initials(m.name)}</span>}
-            </div>
-            <div>
-              <h3>{m.name}</h3>
-              <p class="member__role">{m.role}</p>
-              {m.bio && <p class="member__bio">{m.bio}</p>}
-            </div>
-          </li>
-        ))}
-      </ul>
-      <p class="join">Tu veux rejoindre la table ? <a href="/participer/?type=chroniqueur">Candidate comme chroniqueur</a>.</p>
+  <!-- Histoire + chiffres -->
+  <section class="papier section" aria-labelledby="histoire">
+    <div class="wrap story">
+      <div>
+        <h2 id="histoire">Notre histoire</h2>
+        <dl class="story__nums">
+          {stats.map((s) => <div><dd data-count>{s.value}</dd><dt>{s.label}</dt></div>)}
+        </dl>
+      </div>
+      <div class="prose story__txt">{story.map((p) => <p>{p}</p>)}</div>
     </div>
   </section>
 </Base>
 <style>
-  .story { display: grid; gap: 1.5rem; padding-bottom: 3.5rem; }
-  @media (min-width: 56rem) { .story { grid-template-columns: 1fr 2fr; } }
-  .story h2, .team__h { font-size: var(--t-xl); }
-  .team__h { margin-bottom: 2rem; }
-  .team { list-style: none; margin: 0; padding: 0; display: grid; gap: 2rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(44%, 11rem), 1fr)); }
-  .member { display: grid; gap: 0.8rem; align-content: start; }
-  .member--lead { grid-column: 1 / -1; }
-  @media (min-width: 40rem) { .member--lead { grid-template-columns: 16rem 1fr; gap: 2rem; align-items: center; } }
-  .member__photo { aspect-ratio: 1; border-radius: var(--r-s); overflow: hidden; background: var(--texte); display: grid; place-items: center; }
-  .member__photo img { width: 100%; height: 100%; object-fit: cover; }
-  .member__photo span { font: 800 2.5rem/1 var(--f-titre); color: var(--menthe); }
-  .member--lead .member__photo span { font-size: 5rem; }
-  .member h3 { font: 800 var(--t-l)/1.2 var(--f-titre); letter-spacing: -0.01em; }
-  .member--lead h3 { font-size: var(--t-xl); }
-  .member__role { font: 600 1rem/1.2 var(--f-info); color: var(--accent); margin: 0.3rem 0 0; }
-  .member__bio { margin-top: 0.8rem; }
-  .join { margin-top: 3rem; font-size: var(--t-l); }
-  .join a { font-weight: 700; }
+  .eq-hero { padding-block: 1rem 2.5rem; }
+  .eq-kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .eq-dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #ff4d6d; animation: eqdot 1.4s ease-in-out infinite; }
+  @keyframes eqdot { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 77 109 / 0.55); } 50% { box-shadow: 0 0 0 7px rgb(255 77 109 / 0); } }
+  .eq-hero h1 { font-size: clamp(2.3rem, 1.5rem + 3.4vw, 4rem); line-height: 1.02; }
+  .eq-lead { font-size: var(--t-l); color: var(--texte-2); max-width: 46ch; margin: 1rem 0 0; line-height: 1.5; }
+
+  /* Fondateur */
+  .lead { display: grid; gap: 0; border-radius: 24px; overflow: hidden; background: radial-gradient(110% 90% at 100% 0%, rgb(34 195 211 / 0.2), transparent 55%), var(--marine); box-shadow: 0 30px 60px -24px rgb(10 12 44 / 0.5); }
+  @media (min-width: 52rem) { .lead { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); } }
+  .lead__photo { position: relative; aspect-ratio: 3 / 4; background: var(--marine-2); display: grid; place-items: center; overflow: hidden; }
+  @media (max-width: 51.99rem) { .lead__photo { aspect-ratio: 4 / 3; } }
+  .lead__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+  .lead__photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 45%, rgb(10 12 44 / 0.6) 80%, var(--marine)); pointer-events: none; }
+  @media (max-width: 51.99rem) { .lead__photo::after { background: linear-gradient(180deg, transparent 65%, var(--marine)); } }
+  .lead__photo span { font: 800 6rem/1 var(--f-titre); color: var(--menthe); }
+  .lead__txt { padding: clamp(1.5rem, 1rem + 3vw, 3.5rem); display: grid; align-content: center; gap: 0.6rem; color: #fff; }
+  .lead__tag { justify-self: start; margin: 0; padding: 0.3rem 0.65rem; border-radius: 999px; background: var(--menthe); color: var(--marine); font: 800 0.7rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; }
+  .lead__name { font-size: clamp(2.6rem, 1.8rem + 3vw, 4.4rem); line-height: 1; color: #fff; margin-top: 0.3rem; }
+  .lead__full { margin: 0; font: 600 0.9375rem/1.2 var(--f-info); color: #8a8fb0; }
+  .lead__role { margin: 0.2rem 0 0; font: 800 1.125rem/1.3 var(--f-info); color: var(--menthe); }
+  .lead__bio { margin: 0.6rem 0 0; color: #c9cde3; font-size: var(--t-m); line-height: 1.6; max-width: 46ch; }
+  .lead__quote { margin: 0.8rem 0 0; padding-left: 1rem; border-left: 3px solid var(--menthe); font: 700 1.125rem/1.4 var(--f-titre); color: #fff; }
+  .lead__ctas { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.2rem; }
+
+  /* Chroniqueurs */
+  .crew { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(45%, 11.5rem), 1fr)); }
+  .crew__card { position: relative; aspect-ratio: 3 / 4; border-radius: 16px; overflow: hidden; background: radial-gradient(90% 70% at 50% 30%, #1b2b5a, var(--marine)); }
+  .crew__photo { position: absolute; inset: 0; display: grid; place-items: center; }
+  .crew__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform .35s ease; }
+  .crew__card:hover .crew__photo img { transform: scale(1.05); }
+  .crew__ini { width: 5.5rem; height: 5.5rem; border-radius: 50%; display: grid; place-items: center; margin-bottom: 2.5rem; font: 800 2rem/1 var(--f-titre); color: var(--marine); background: var(--menthe); box-shadow: 0 0 0 6px rgb(34 195 211 / 0.2); }
+  .crew__card::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(to top, rgb(10 12 44 / 0.95), transparent); pointer-events: none; }
+  .crew__txt { position: absolute; z-index: 2; left: 0.75rem; right: 0.75rem; bottom: 0.8rem; text-align: center; }
+  .crew__name { display: block; font: 800 1.0625rem/1.2 var(--f-titre); color: #fff; }
+  .crew__role { display: block; margin: 0.2rem 0 0; font: 600 0.8125rem/1.25 var(--f-info); color: var(--menthe); }
+  .crew__join { background: transparent; border: 2px dashed rgb(34 195 211 / 0.6); }
+  .crew__join::after { display: none; }
+  .crew__join a { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.35rem; text-decoration: none; text-align: center; padding: 1rem; }
+  .crew__join .crew__name { color: var(--texte); }
+  .crew__join .crew__role { color: var(--accent); }
+  .crew__plus { width: 3.5rem; height: 3.5rem; border-radius: 50%; display: grid; place-items: center; margin-bottom: 0.4rem; background: var(--marine); color: var(--menthe); font: 800 2rem/1 var(--f-titre); transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+  .crew__join:hover { border-color: var(--menthe); background: rgb(34 195 211 / 0.06); }
+  .crew__join:hover .crew__plus { transform: rotate(90deg); }
+
+  /* Histoire */
+  .story { display: grid; gap: 2rem; }
+  @media (min-width: 56rem) { .story { grid-template-columns: 1fr 1.6fr; gap: 3.5rem; } }
+  .story h2 { font-size: var(--t-xl); }
+  .story__nums { display: grid; gap: 1.1rem; margin: 1.5rem 0 0; }
+  .story__nums div { display: grid; }
+  .story__nums dd { margin: 0; font: 800 clamp(2rem, 1.6rem + 1.5vw, 2.8rem)/1 var(--f-titre); letter-spacing: -0.02em; color: var(--marine); }
+  .story__nums dt { font: 600 0.875rem/1.3 var(--f-info); color: var(--texte-2); margin-top: 0.25rem; }
+  .story__txt p { font-size: var(--t-m); line-height: 1.7; }
+  .story__txt p:first-child { font: 700 var(--t-l)/1.5 var(--f-texte); color: var(--texte); }
+  @media (prefers-reduced-motion: reduce) { .eq-dot { animation: none; } }
 </style>
+<script>
+  const nums = document.querySelectorAll<HTMLElement>('[data-count]');
+  if (nums.length && !matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const run = (el: HTMLElement) => {
+      const final = el.textContent || '';
+      const m = final.match(/^(\d+)(?:,(\d+))?(.*)$/);
+      if (!m) return;
+      const dec = m[2] ? m[2].length : 0, target = Number(m[1] + (m[2] ? '.' + m[2] : '')), rest = m[3];
+      const t0 = performance.now();
+      const step = (t: number) => {
+        const k = Math.min(1, (t - t0) / 1600), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = (target * e).toFixed(dec).replace('.', ',') + rest;
+        if (k < 1) requestAnimationFrame(step); else el.textContent = final;
+      };
+      requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((es) => es.forEach((en) => { if (en.isIntersecting) { io.unobserve(en.target); run(en.target as HTMLElement); } }), { threshold: 0.6 });
+    nums.forEach((n) => io.observe(n));
+  }
+</script>

@@ -4,6 +4,8 @@
 
 export interface Member {
   name: string;
+  /** Nom complet (affiché en petit sous le nom) */
+  fullName?: string;
   role: string;
   /** 'fondateur' | 'chroniqueur' | 'production' */
   group: 'fondateur' | 'chroniqueur' | 'production';
@@ -14,11 +16,12 @@ export interface Member {
 
 export const team: Member[] = [
   {
-    name: 'Khalid Shamsh Awan',
+    name: 'Shamsh',
+    fullName: 'Khalid Shamsh Awan',
     role: 'Fondateur, animateur et producteur',
     group: 'fondateur',
+    photo: '/equipe/shamsh.webp',
     bio: "Ancien joueur et éducateur, il a créé UNIFOOT TV pour donner la parole aux acteurs du foot amateur. Il anime Kick in the Foot et réalise les émissions.",
-    // photo: '/equipe/awan.jpg',
   },
   // Chroniqueurs : liste à vérifier avant mise en ligne (ajoute photo et rôle exact).
   { name: 'Lass', role: 'Chroniqueur', group: 'chroniqueur' },
