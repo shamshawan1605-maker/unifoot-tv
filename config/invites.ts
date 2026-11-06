@@ -14,7 +14,7 @@ export interface Invite {
 }
 
 export const invites: Invite[] = [
-  { name: 'Wilo Footix', role: 'Arbitre et créateur de contenu', video: 'p9Acoe81iAE', photo: '/invites/wilo-footix.webp' },
+  { name: 'Wilo Footix', role: 'Arbitre et créateur de contenu', video: 'p9Acoe81iAE', photo: '/invites/wilo-footix.webp', link: 'https://www.youtube.com/watch?v=p9Acoe81iAE' },
   { name: 'Gauthier Diafutua', role: 'Ancien pro passé par Watford', video: 'Oun_cmc9KhY' },
   { name: 'Santiago Cucci', role: 'Président de l’Aviron Bayonnais FC', video: 'hsDgxLIhlmw' },
   { name: 'Sambou Tati', role: 'Président du Roissy FC', video: '5Eg9G9zh3XE' },
