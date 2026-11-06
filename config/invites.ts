@@ -43,7 +43,7 @@ export const invites: Invite[] = [
   { name: 'Yacoub Yassine', role: 'Entraîneur de l’US Chantilly', video: 'glIkdFI_Jdo', photo: '/invites/yacoub-yassine.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Chardel Makaya', role: 'Formé au Havre AC', video: 'glIkdFI_Jdo', photo: '/invites/chardel-makaya.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Marc Bascol-Munuera', video: 'Xg4dipLTXbo', photo: '/invites/marc-bascol-munuera.webp', link: 'https://www.youtube.com/watch?v=Xg4dipLTXbo&t=1s' },
-  { name: 'Raymond Domenech', video: '08uQBnGleeU' },
+  { name: 'Raymond Domenech', role: 'Ancien sélectionneur de l’équipe de France', video: '08uQBnGleeU', photo: '/invites/raymond-domenech.webp', link: 'https://www.youtube.com/watch?v=08uQBnGleeU&t=1401s' },
   { name: 'Florentin Pogba', role: 'Footballeur professionnel', video: '4VV1qqZP0SA', photo: '/invites/florentin-pogba.webp', link: 'https://www.youtube.com/watch?v=4VV1qqZP0SA&t=5360s' },
   { name: 'Cyrille Dolce', role: 'Éducateur U15 de l’OL', video: 'baE7JyC3O3E', photo: '/invites/cyrille-dolce.webp', link: 'https://www.youtube.com/watch?v=baE7JyC3O3E&t=2235s' },
   { name: 'Nasser Larguet', role: 'Invité de L’Entre 2', video: '7OTcr_ng22o', photo: '/invites/nasser-larguet.webp', link: 'https://www.youtube.com/watch?v=7OTcr_ng22o&t=6s' },
