@@ -45,6 +45,7 @@ export const invites: Invite[] = [
   { name: 'Ludovic Baal', role: 'Ancien pro (Lens, Rennes, Brest)', video: '3SYbuYS-zq4', photo: '/invites/ludovic-baal.webp', link: 'https://www.youtube.com/watch?v=3SYbuYS-zq4&t=300s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
   { name: 'Nicolas Khamsopha', role: 'Réalisateur de « Projet 2036 »', video: 'mUrtBPnCuw0', photo: '/invites/nicolas-khamsopha.webp', link: 'https://www.youtube.com/watch?v=mUrtBPnCuw0&t=1270s' },
+  { name: 'Kevin Goba', role: 'Ancien pro (Châteauroux)', video: 'suw6AzjvoXE', photo: '/invites/kevin-goba.webp', link: 'https://www.youtube.com/watch?v=suw6AzjvoXE&t=4114s' },
   { name: 'Yacoub Yassine', role: 'Entraîneur de l’US Chantilly', video: 'glIkdFI_Jdo', photo: '/invites/yacoub-yassine.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Chardel Makaya', role: 'Formé au Havre AC', video: 'glIkdFI_Jdo', photo: '/invites/chardel-makaya.webp', link: 'https://www.youtube.com/watch?v=glIkdFI_Jdo&t=578s' },
   { name: 'Marc Bascol-Munuera', video: 'Xg4dipLTXbo', photo: '/invites/marc-bascol-munuera.webp', link: 'https://www.youtube.com/watch?v=Xg4dipLTXbo&t=1s' },
