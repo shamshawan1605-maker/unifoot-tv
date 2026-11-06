@@ -1,80 +1,614 @@
 ---
+// Participer : un parcours en étapes, une question à la fois, pensé pour le téléphone.
+// 5 parcours (sujet, témoignage, top but, invité, chroniqueur), possibilité d'enregistrer un vocal,
+// envoi direct (sans appli mail) vers /api/form.php, qui transmet à contact@unifoottv.fr.
 import Base from '~/layouts/Base.astro';
-import FormEnhance from '~/components/FormEnhance.astro';
+import Icon from '~/components/Icon.astro';
+import { site } from '@config/site';
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Participer' }];
-const types = [
-  { v: 'temoignage', l: 'Témoigner' },
-  { v: 'sujet', l: 'Proposer un sujet' },
-  { v: 'invite', l: 'Venir sur le plateau' },
-  { v: 'chroniqueur', l: 'Devenir chroniqueur' },
+
+const parcours = [
+  { v: 'sujet', emoji: '💡', t: "J'ai un sujet", d: 'Une idée de débat, un problème dans ton club' },
+  { v: 'temoignage', emoji: '🎙', t: 'Je veux témoigner', d: "Une situation vécue ou dont tu as été témoin" },
+  { v: 'topbut', emoji: '⚽', t: "J'ai un top but", d: 'Une action de ton équipe à passer à l’antenne' },
+  { v: 'invite', emoji: '🙋', t: 'Je propose un invité', d: 'Toi ou quelqu’un qui a des choses à dire' },
+  { v: 'chroniqueur', emoji: '🤝', t: "Je veux rejoindre l'équipe", d: 'Devenir chroniqueur régulier' },
 ];
-const roles = ['Joueur ou joueuse', 'Éducateur ou éducatrice', 'Parent', 'Arbitre', 'Dirigeant ou bénévole', 'Supporter', 'Autre'];
+const roles = ['Joueur', 'Parent', 'Éducateur', 'Entraîneur', 'Arbitre', 'Dirigeant', 'Président de club', 'Ancien joueur', 'Autre'];
+const categories = ['U6-U9', 'U10-U13', 'U14-U15', 'U16-U19', 'Seniors', 'Vétérans', 'Féminines'];
+const roleInvite = ['Joueur', 'Éducateur', 'Dirigeant', 'Président de club', 'Arbitre', 'Ancien pro', 'Journaliste ou créateur', 'Autre'];
+const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant', 'Arbitre', 'Journaliste', 'Créateur de contenu', 'Autre'];
 ---
-<Base title="Participer : témoigne ou propose un sujet" description="Éducateur, arbitre, parent, bénévole ou joueur : envoie ton témoignage ou propose un sujet pour Kick in the Foot, l'émission du foot amateur." breadcrumbs={crumbs} fond="gris">
-  <div class="papier pp">
-    <header class="wrap page-head">
-      <h1>C'est votre émission aussi</h1>
-      <p>Une situation vécue au club, un coup de gueule, une belle histoire ou un sujet qu'on n'aborde jamais : écris-nous. On lit tout, et si ta proposition est retenue, on te recontacte.</p>
-    </header>
-    <section class="wrap pp__body" aria-label="Formulaire de participation">
-      <form class="form" name="participer" method="POST" action="/api/form.php" data-enhance
-        data-success="Merci, ton message est bien arrivé. On le lit avant la prochaine émission et on te recontacte si on le retient.">
-        <input type="hidden" name="form-name" value="participer" />
-        <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-        <div class="form-body form">
-          <fieldset class="choices field">
-            <legend>Tu veux…</legend>
-            {types.map((t, i) => (
-              <label class="choice"><input type="radio" name="type" value={t.v} required checked={i === 0} /><span>{t.l}</span></label>
-            ))}
-          </fieldset>
-          <div class="row">
-            <div class="field"><label for="p-nom">Prénom et nom</label><input id="p-nom" name="nom" autocomplete="name" required /></div>
-            <div class="field"><label for="p-email">E-mail</label><input id="p-email" name="email" type="email" autocomplete="email" required /></div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="p-role">Tu es</label>
-              <select id="p-role" name="role" required>
-                <option value="">Choisir</option>
-                {roles.map((r) => <option>{r}</option>)}
-              </select>
-            </div>
-            <div class="field"><label for="p-club">Club et ville <span class="opt">(facultatif)</span></label><input id="p-club" name="club" autocomplete="organization" /></div>
-          </div>
-          <div class="field">
-            <label for="p-msg">Ton message</label>
-            <p class="hint" id="p-msg-hint">Raconte les faits, le contexte et ce que tu en penses. Quelques lignes suffisent.</p>
-            <textarea id="p-msg" name="message" required minlength="20" aria-describedby="p-msg-hint"></textarea>
-          </div>
-          <div class="field">
-            <label for="p-lien">Lien vers une vidéo ou un article <span class="opt">(facultatif)</span></label>
-            <input id="p-lien" name="lien" type="url" inputmode="url" placeholder="https://" />
-          </div>
-          <fieldset class="field">
-            <legend>Si ton message est lu dans l'émission</legend>
-            <label class="check"><input type="radio" name="anonymat" value="nom" checked /><span>On peut citer mon prénom et mon club</span></label>
-            <label class="check"><input type="radio" name="anonymat" value="anonyme" /><span>Je préfère rester anonyme</span></label>
-          </fieldset>
-          <label class="check"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte qu'UNIFOOT TV utilise ces informations pour traiter ma demande et me recontacter. Voir la <a href="/confidentialite/">politique de confidentialité</a>.</span></label>
-          <div><button class="btn btn--ink" type="submit">Envoyer ma proposition</button></div>
+<Base title="Participer : raconte, propose, rejoins l'émission" description="Un sujet, un témoignage, un top but, un invité à proposer ou l'envie de rejoindre l'équipe : participe à Kick in the Foot en 2 minutes, même en vocal." breadcrumbs={crumbs} fond="gris">
+  <div class="papier pa">
+    <section class="wrap pa__wrap">
+      <div class="pa__intro">
+        <p class="pa__kicker"><span class="pa__dot"></span>On t'écoute</p>
+        <h1>C'est votre émission aussi.</h1>
+        <p class="pa__lead">Un sujet, une histoire, un but de folie ou l'envie de prendre le micro : raconte-nous en 2 minutes. Même en vocal.</p>
+        <ul class="pa__trust">
+          <li><span>🔒</span><div><strong>Confidentiel</strong>Ce que tu nous envoies reste entre nous. Rien n'est publié sans ton accord.</div></li>
+          <li><span>🎭</span><div><strong>Anonyme si tu veux</strong>Un pseudo suffit. On ne cite ni ton nom ni ton club si tu préfères.</div></li>
+          <li><span>⚡</span><div><strong>On lit tout</strong>Chaque semaine. Si on retient ta proposition, on te recontacte.</div></li>
+        </ul>
+        <p class="pa__sched"><Icon name="mic" size={18} />{site.rendezVous.label}, dans Kick in the Foot</p>
+      </div>
+
+      <div class="pa__card sombre">
+        <div class="pa__top">
+          <button type="button" class="pa__back" hidden aria-label="Étape précédente"><Icon name="arrow-left" size={20} /></button>
+          <div class="pa__bar" role="progressbar" aria-label="Avancement" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+          <span class="pa__count" aria-live="polite"></span>
         </div>
-        <p class="form-status" role="status" aria-live="polite"></p>
-      </form>
+
+        <form class="pa__form" name="participer" method="POST" action="/api/form.php" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="form-name" value="participer" />
+          <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+          <!-- Étape 1 : le choix -->
+          <section class="st is-on" data-step="choix">
+            <h2 class="st__q">Qu'est-ce que tu veux nous envoyer ?</h2>
+            <div class="cards">
+              {parcours.map((p) => (
+                <label class="card">
+                  <input type="radio" name="type" value={p.v} required />
+                  <span class="card__e" aria-hidden="true">{p.emoji}</span>
+                  <span class="card__t">{p.t}</span>
+                  <span class="card__d">{p.d}</span>
+                  <span class="card__go" aria-hidden="true"><Icon name="arrow-right" size={18} /></span>
+                </label>
+              ))}
+            </div>
+          </section>
+
+          <!-- ===== Sujet ===== -->
+          <section class="st" data-step="sujet-role" data-path="sujet">
+            <h2 class="st__q">Tu es…</h2>
+            <div class="chips">{roles.map((r) => <label class="pchip"><input type="radio" name="role" value={r} required /><span>{r}</span></label>)}</div>
+          </section>
+          <section class="st" data-step="sujet-idee" data-path="sujet">
+            <h2 class="st__q">Ton sujet, en une phrase</h2>
+            <input class="big" name="sujet" required maxlength="160" placeholder="Ex. : les parents qui coachent depuis la touche" />
+            <p class="st__h">Tu veux en dire plus ? Écris ou enregistre un vocal.</p>
+            <textarea name="message" rows="4" placeholder="Le contexte, ce qui se passe dans ton club, ce que tu en penses…"></textarea>
+            <div class="rec-slot"></div>
+          </section>
+          <section class="st" data-step="sujet-part" data-path="sujet">
+            <h2 class="st__q">Tu veux en parler avec nous ?</h2>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="participation" value="Oui, en direct (téléphone ou visio)" required /><span><strong>Oui, en direct</strong>Par téléphone ou en visio pendant l'émission</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" /><span><strong>Oui, sur le plateau</strong>Je peux venir au studio</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Traité sans moi" /><span><strong>Non, traitez-le sans moi</strong>Je propose juste le sujet</span></label>
+            </div>
+          </section>
+
+          <!-- ===== Témoignage ===== -->
+          <section class="st" data-step="tem-qui" data-path="temoignage">
+            <h2 class="st__q">Ton témoignage concerne…</h2>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="concerne" value="Moi" required /><span><strong>Moi</strong>Je l'ai vécu directement</span></label>
+              <label class="opt"><input type="radio" name="concerne" value="Mon club" /><span><strong>Mon club</strong>Une situation dans mon club</span></label>
+              <label class="opt"><input type="radio" name="concerne" value="J'en ai été témoin" /><span><strong>J'en ai été témoin</strong>Au bord d'un terrain, dans une compétition</span></label>
+            </div>
+          </section>
+          <section class="st" data-step="tem-recit" data-path="temoignage">
+            <h2 class="st__q">Raconte-nous</h2>
+            <p class="st__h">Écris ou enregistre un vocal, comme tu préfères. Prends ton temps.</p>
+            <div class="rec-slot"></div>
+            <textarea name="message" rows="5" placeholder="Ce qui s'est passé, quand, ce que tu as ressenti…"></textarea>
+            <p class="st__alert">En cas de violence ou de danger, appelle le <strong>17</strong>. Violences faites aux femmes : <strong>3919</strong>. Enfance en danger : <strong>119</strong>.</p>
+          </section>
+          <section class="st" data-step="tem-part" data-path="temoignage">
+            <h2 class="st__q">Tu veux venir en parler ?</h2>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" required /><span><strong>Oui, sur le plateau</strong>Je viens raconter mon histoire</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Par téléphone ou en visio" /><span><strong>Oui, à distance</strong>Par téléphone ou en visio</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Traité sans moi" /><span><strong>Non</strong>Lisez-le ou parlez-en sans moi</span></label>
+            </div>
+          </section>
+
+          <!-- ===== Top but ===== -->
+          <section class="st" data-step="but-cat" data-path="topbut">
+            <h2 class="st__q">C'est dans quelle catégorie ?</h2>
+            <div class="chips">{categories.map((c) => <label class="pchip"><input type="radio" name="categorie" value={c} required /><span>{c}</span></label>)}</div>
+            <div class="duo">
+              <label class="fld"><span>Ton club</span><input name="club" required placeholder="Ex. : FC Asnières" /></label>
+              <label class="fld"><span>Niveau <em>(facultatif)</em></span><input name="niveau" placeholder="Ex. : D2, R1…" /></label>
+            </div>
+          </section>
+          <section class="st" data-step="but-video" data-path="topbut">
+            <h2 class="st__q">Envoie-nous la vidéo</h2>
+            <label class="fld"><span>Lien de la vidéo</span><input name="lien" type="url" inputmode="url" required placeholder="Lien Google Drive, WeTransfer, Instagram, YouTube…" /></label>
+            <p class="st__h">📎 La vidéo est trop lourde pour le site : dépose-la sur Google Drive ou WeTransfer et colle le lien ici.</p>
+            <div class="duo">
+              <label class="fld"><span>Adversaire <em>(facultatif)</em></span><input name="adversaire" /></label>
+              <label class="fld"><span>Date du match <em>(facultatif)</em></span><input name="date_match" type="date" /></label>
+            </div>
+            <label class="tick"><input type="checkbox" name="accord_diffusion" value="oui" required /><span>J'ai l'accord des personnes filmées pour la diffusion, et celui des parents pour les mineurs.</span></label>
+          </section>
+
+          <!-- ===== Invité ===== -->
+          <section class="st" data-step="inv-qui" data-path="invite">
+            <h2 class="st__q">Tu proposes…</h2>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="propose" value="Moi-même" required /><span><strong>Moi-même</strong>J'ai des choses à dire</span></label>
+              <label class="opt"><input type="radio" name="propose" value="Une autre personne" /><span><strong>Quelqu'un d'autre</strong>Une personne qu'on devrait recevoir</span></label>
+            </div>
+            <label class="fld only-other"><span>Son nom et comment le joindre</span><input name="invite_contact" placeholder="Nom, Instagram, téléphone…" /></label>
+          </section>
+          <section class="st" data-step="inv-role" data-path="invite">
+            <h2 class="st__q">Son rôle dans le foot</h2>
+            <div class="chips">{roleInvite.map((r) => <label class="pchip"><input type="radio" name="role" value={r} required /><span>{r}</span></label>)}</div>
+            <label class="fld"><span>Club, niveau, poste</span><input name="club" required placeholder="Ex. : coach U17 National à Montrouge" /></label>
+          </section>
+          <section class="st" data-step="inv-why" data-path="invite">
+            <h2 class="st__q">Pourquoi cette personne ?</h2>
+            <p class="st__h">Son parcours, les sujets qu'elle pourrait aborder. Écris ou enregistre un vocal.</p>
+            <textarea name="message" rows="4" placeholder="Ce qui rend son histoire intéressante…"></textarea>
+            <div class="rec-slot"></div>
+          </section>
+
+          <!-- ===== Chroniqueur ===== -->
+          <section class="st" data-step="chr-profil" data-path="chroniqueur">
+            <h2 class="st__q">Ton profil</h2>
+            <p class="st__h">Plusieurs choix possibles.</p>
+            <div class="chips">{profils.map((r) => <label class="pchip"><input type="checkbox" name="profil" value={r} data-group="profil" /><span>{r}</span></label>)}</div>
+            <label class="fld"><span>Clubs, niveau, depuis combien de temps</span><input name="club" required placeholder="Ex. : éducateur U13 depuis 8 ans, district 92" /></label>
+          </section>
+          <section class="st" data-step="chr-why" data-path="chroniqueur">
+            <h2 class="st__q">Qu'est-ce que tu apporterais à la table ?</h2>
+            <p class="st__h">Ton regard, tes sujets, ce qui te différencie. Écris ou enregistre un vocal.</p>
+            <div class="rec-slot"></div>
+            <textarea name="message" rows="4" placeholder="Pourquoi UNIFOOT TV, ce que tu veux apporter chaque semaine…"></textarea>
+          </section>
+
+          <!-- ===== Commun : toi ===== -->
+          <section class="st" data-step="toi">
+            <h2 class="st__q">Comment on te recontacte ?</h2>
+            <label class="switch"><input type="checkbox" name="anonyme" value="oui" /><span class="switch__ui" aria-hidden="true"></span><span>Je veux rester anonyme à l'antenne</span></label>
+            <div class="duo">
+              <label class="fld"><span>Prénom ou pseudo <em>(facultatif)</em></span><input name="nom" autocomplete="given-name" /></label>
+              <label class="fld"><span>Ville <em>(facultatif)</em></span><input name="ville" autocomplete="address-level2" /></label>
+            </div>
+            <div class="duo">
+              <label class="fld"><span>Téléphone</span><input name="telephone" type="tel" inputmode="tel" autocomplete="tel" /></label>
+              <label class="fld"><span>E-mail</span><input name="email" type="email" inputmode="email" autocomplete="email" /></label>
+            </div>
+            <p class="st__h contact-hint">Un des deux suffit. Il ne sera jamais publié.</p>
+          </section>
+
+          <!-- ===== Commun : envoyer ===== -->
+          <section class="st" data-step="fin">
+            <h2 class="st__q">Tout est bon ?</h2>
+            <dl class="recap"></dl>
+            <label class="tick"><input type="checkbox" name="consentement" value="oui" required /><span>J'accepte qu'UNIFOOT TV utilise ces informations pour traiter ma demande et me recontacter (<a href="/confidentialite/" target="_blank">confidentialité</a>).</span></label>
+            <button class="btn btn--menthe pa__send" type="submit"><Icon name="arrow-right" size={20} />Envoyer</button>
+            <p class="pa__err" role="alert" hidden></p>
+          </section>
+
+          <!-- ===== Merci ===== -->
+          <section class="st st--merci" data-step="merci" tabindex="-1">
+            <div class="merci__burst" aria-hidden="true">⚽</div>
+            <h2 class="st__q">Bien reçu, merci&nbsp;!</h2>
+            <p class="merci__p">On lit toutes les propositions chaque semaine. Si la tienne est retenue, on te recontacte sous 7&nbsp;jours.</p>
+            <div class="merci__ctas">
+              <a class="btn btn--menthe" href="/extraits/">Voir les extraits</a>
+              <button type="button" class="btn btn--ghost pa__again">Envoyer autre chose</button>
+            </div>
+          </section>
+
+          <div class="pa__nav">
+            <button type="button" class="btn btn--menthe pa__next" hidden>Continuer<Icon name="arrow-right" size={20} /></button>
+            <span class="pa__enter" hidden>ou appuie sur <kbd>Entrée</kbd></span>
+          </div>
+        </form>
+        <noscript><p class="pa__nojs">Active JavaScript pour utiliser le formulaire, ou écris-nous à <a href={`mailto:${site.email}`}>{site.email}</a>.</p></noscript>
+      </div>
     </section>
   </div>
-  <FormEnhance />
+
+  <!-- Modèle de l'enregistreur vocal, copié dans chaque .rec-slot -->
+  <template id="rec-tpl">
+    <div class="rec">
+      <button type="button" class="rec__btn" aria-label="Enregistrer un vocal"><span class="rec__ico"><Icon name="mic" size={22} /></span></button>
+      <div class="rec__info">
+        <strong class="rec__t">Enregistrer un vocal</strong>
+        <span class="rec__s">Jusqu'à 3 minutes</span>
+      </div>
+      <div class="rec__wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <audio class="rec__audio" controls hidden></audio>
+      <button type="button" class="rec__del" hidden aria-label="Supprimer le vocal"><Icon name="close" size={18} /></button>
+    </div>
+  </template>
 </Base>
+
 <style>
-  .pp { padding-bottom: 4rem; }
-  .pp :global(.crumbs) { color: var(--texte-2); }
-  .opt { font-weight: 400; color: var(--texte-2); }
-  .form-body { max-width: none; }
+  .pa { padding-bottom: clamp(3rem, 2rem + 4vw, 5rem); }
+  .pa :global(.crumbs) { color: var(--texte-2); }
+  .pa__wrap { display: grid; gap: 2rem; padding-top: 1rem; }
+  @media (min-width: 64rem) { .pa__wrap { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); gap: 3.5rem; align-items: start; } }
+
+  /* Colonne de gauche */
+  .pa__kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .pa__dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #ff4d6d; animation: dot 1.4s ease-in-out infinite; }
+  @keyframes dot { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 77 109 / 0.55); } 50% { box-shadow: 0 0 0 7px rgb(255 77 109 / 0); } }
+  .pa__intro h1 { font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem); line-height: 1.02; max-width: 12ch; }
+  .pa__lead { font-size: var(--t-l); color: var(--texte-2); margin: 1rem 0 0; max-width: 36ch; line-height: 1.5; }
+  .pa__trust { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; gap: 1rem; }
+  .pa__trust li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: start; }
+  .pa__trust li > span { width: 2.5rem; height: 2.5rem; border-radius: 12px; display: grid; place-items: center; background: var(--fond); box-shadow: 0 1px 3px rgb(10 12 44 / 0.08); font-size: 1.2rem; }
+  .pa__trust strong { display: block; font: 800 0.9375rem/1.2 var(--f-info); margin-bottom: 0.15rem; }
+  .pa__trust div { font-size: 0.9rem; color: var(--texte-2); line-height: 1.45; }
+  .pa__sched { display: inline-flex; align-items: center; gap: 0.5rem; margin: 1.75rem 0 0; padding: 0.6rem 0.9rem; border-radius: 999px; background: var(--marine); color: #fff; font: 700 0.875rem/1 var(--f-info); }
+  .pa__sched :global(svg) { color: var(--menthe); }
+  @media (max-width: 63.99rem) { .pa__trust, .pa__sched { display: none; } .pa__lead { margin-bottom: 0; } }
+
+  /* Carte du formulaire */
+  .pa__card { position: relative; border-radius: 24px; padding: clamp(1.25rem, 0.8rem + 2vw, 2.25rem); min-height: 34rem; overflow: hidden; box-shadow: 0 30px 60px -20px rgb(10 12 44 / 0.45); background:
+    radial-gradient(120% 80% at 100% 0%, rgb(34 195 211 / 0.18), transparent 55%),
+    radial-gradient(90% 60% at 0% 100%, rgb(34 195 211 / 0.08), transparent 60%), var(--marine); }
+  .pa__card::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.035;
+    background-image: linear-gradient(transparent 49.5%, #fff 49.5%, #fff 50.5%, transparent 50.5%), radial-gradient(circle at 50% 50%, transparent 17%, #fff 17.4%, #fff 18%, transparent 18.4%); }
+  .pa__top { position: relative; display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.75rem; min-height: 2.5rem; }
+  .pa__back { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 0; background: rgb(255 255 255 / 0.1); color: #fff; display: grid; place-items: center; cursor: pointer; flex: none; }
+  .pa__back:hover { background: rgb(255 255 255 / 0.2); }
+  .pa__bar { flex: 1; height: 6px; border-radius: 999px; background: rgb(255 255 255 / 0.12); overflow: hidden; }
+  .pa__bar span { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--sarcelle), var(--menthe)); transition: width .45s cubic-bezier(.4,0,.2,1); }
+  .pa__count { font: 700 0.8125rem/1 var(--f-info); color: #9aa0c3; font-variant-numeric: tabular-nums; min-width: 2.5rem; text-align: right; }
+
+  .pa__card [hidden] { display: none !important; }
+  .pa__form { position: relative; }
+  .hp { position: absolute; left: -9999px; }
+  .st { display: none; }
+  .st.is-on { display: grid; gap: 1rem; animation: st-in .45s cubic-bezier(.2,.8,.2,1); }
+  .st.is-back { animation-name: st-back; }
+  @keyframes st-in { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+  @keyframes st-back { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+  .st__q { font: 800 clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem)/1.15 var(--f-titre); letter-spacing: -0.02em; color: #fff; margin: 0 0 0.25rem; }
+  .st__h { margin: 0; font-size: 0.9rem; color: #b6bbd8; }
+  .st__alert { margin: 0.25rem 0 0; padding: 0.75rem 0.9rem; border-radius: 12px; background: rgb(255 77 109 / 0.1); border: 1px solid rgb(255 77 109 / 0.3); font-size: 0.85rem; color: #ffd3dc; line-height: 1.45; }
+
+  /* Cartes de choix */
+  .cards { display: grid; gap: 0.7rem; }
+  .card { position: relative; display: grid; grid-template-columns: 3rem 1fr 1.5rem; grid-template-rows: auto auto; column-gap: 0.9rem; align-items: center; padding: 0.95rem 1rem; border-radius: 16px; background: rgb(255 255 255 / 0.05); border: 1.5px solid rgb(255 255 255 / 0.09); cursor: pointer; transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+  .card:hover { transform: translateY(-2px); border-color: rgb(34 195 211 / 0.7); background: rgb(34 195 211 / 0.08); }
+  .card:has(input:checked) { border-color: var(--menthe); background: rgb(34 195 211 / 0.14); }
+  .card:has(input:focus-visible) { box-shadow: var(--focus); }
+  .card input { position: absolute; opacity: 0; pointer-events: none; }
+  .card__e { grid-row: span 2; width: 3rem; height: 3rem; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem; background: rgb(255 255 255 / 0.08); transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+  .card:hover .card__e { transform: rotate(-8deg) scale(1.08); }
+  .card__t { font: 800 1.0625rem/1.2 var(--f-titre); color: #fff; }
+  .card__d { grid-column: 2; font-size: 0.85rem; color: #aab0d0; }
+  .card__go { grid-row: 1 / span 2; grid-column: 3; color: var(--menthe); opacity: 0; transform: translateX(-6px); transition: .2s ease; }
+  .card:hover .card__go, .card:has(input:checked) .card__go { opacity: 1; transform: none; }
+
+  /* Pastilles */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .pchip input { position: absolute; opacity: 0; pointer-events: none; }
+  .pchip span { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.5rem 1.05rem; border-radius: 999px; border: 1.5px solid rgb(255 255 255 / 0.16); color: #fff; font: 700 0.9375rem/1 var(--f-info); cursor: pointer; transition: .15s ease; }
+  .pchip span:hover { border-color: var(--menthe); }
+  .pchip input:checked + span { background: var(--menthe); border-color: var(--menthe); color: var(--marine); transform: scale(1.03); }
+  .pchip input:focus-visible + span { box-shadow: var(--focus); }
+
+  /* Options larges */
+  .opts { display: grid; gap: 0.6rem; }
+  .opt { position: relative; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt > span { display: grid; gap: 0.2rem; padding: 0.9rem 1rem 0.9rem 3rem; border-radius: 14px; border: 1.5px solid rgb(255 255 255 / 0.12); color: #aab0d0; font-size: 0.875rem; transition: .15s ease; position: relative; }
+  .opt > span::before { content: ''; position: absolute; left: 1rem; top: 50%; width: 1.15rem; height: 1.15rem; margin-top: -0.575rem; border-radius: 50%; border: 2px solid rgb(255 255 255 / 0.35); transition: .15s ease; }
+  .opt strong { color: #fff; font: 800 1rem/1.2 var(--f-info); }
+  .opt:hover > span { border-color: rgb(34 195 211 / 0.7); }
+  .opt input:checked + span { border-color: var(--menthe); background: rgb(34 195 211 / 0.12); }
+  .opt input:checked + span::before { border-color: var(--menthe); background: var(--menthe); box-shadow: inset 0 0 0 3px var(--marine); }
+  .opt input:focus-visible + span { box-shadow: var(--focus); }
+
+  /* Champs */
+  .fld { display: grid; gap: 0.4rem; }
+  .fld > span { font: 700 0.8125rem/1.2 var(--f-info); color: #c9cde3; }
+  .fld em { font-style: normal; font-weight: 500; color: #8a8fb0; }
+  .pa__form input:not([type='radio']):not([type='checkbox']), .pa__form textarea {
+    width: 100%; padding: 0.85rem 1rem; border-radius: 12px; border: 1.5px solid rgb(255 255 255 / 0.14); background: rgb(255 255 255 / 0.06); color: #fff; font: 500 1rem/1.4 var(--f-texte); transition: border-color .15s ease, background .15s ease; }
+  .pa__form textarea { resize: vertical; min-height: 6.5rem; }
+  .pa__form input::placeholder, .pa__form textarea::placeholder { color: #7d82a6; }
+  .pa__form input:focus, .pa__form textarea:focus { outline: none; border-color: var(--menthe); background: rgb(255 255 255 / 0.09); box-shadow: 0 0 0 4px rgb(34 195 211 / 0.18); }
+  .pa__form .big { font: 700 clamp(1.1rem, 1rem + 0.5vw, 1.3rem)/1.3 var(--f-texte) !important; padding: 1rem 1.1rem !important; }
+  .pa__form [aria-invalid='true'] { border-color: #ff6b8a !important; }
+  .pa__form input[type='date'] { color-scheme: dark; }
+  .duo { display: grid; gap: 0.75rem; }
+  @media (min-width: 36rem) { .duo { grid-template-columns: 1fr 1fr; } }
+  .only-other { display: none; }
+  .st:has(input[name='propose'][value='Une autre personne']:checked) .only-other { display: grid; }
+
+  /* Cases et interrupteur */
+  .tick { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.7rem; align-items: start; font-size: 0.875rem; color: #c9cde3; cursor: pointer; line-height: 1.45; }
+  .tick input { width: 1.25rem; height: 1.25rem; margin: 0.1rem 0 0; accent-color: var(--menthe); }
+  .tick a { color: var(--menthe); }
+  .switch { display: flex; align-items: center; gap: 0.8rem; padding: 0.85rem 1rem; border-radius: 14px; background: rgb(255 255 255 / 0.05); color: #fff; font: 700 0.9375rem/1.2 var(--f-info); cursor: pointer; }
+  .switch input { position: absolute; opacity: 0; pointer-events: none; }
+  .switch__ui { position: relative; flex: none; width: 2.9rem; height: 1.65rem; border-radius: 999px; background: rgb(255 255 255 / 0.2); transition: background .2s ease; }
+  .switch__ui::after { content: ''; position: absolute; top: 0.2rem; left: 0.2rem; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: #fff; transition: transform .2s cubic-bezier(.3,1.4,.5,1); }
+  .switch input:checked + .switch__ui { background: var(--menthe); }
+  .switch input:checked + .switch__ui::after { transform: translateX(1.25rem); }
+  .switch input:focus-visible + .switch__ui { box-shadow: var(--focus); }
+  .contact-hint.is-err { color: #ff8fa6; font-weight: 700; }
+
+  /* Enregistreur vocal */
+  .rec { display: grid; grid-template-columns: auto 1fr auto auto; gap: 0.85rem; align-items: center; padding: 0.7rem 0.85rem; border-radius: 16px; background: rgb(34 195 211 / 0.08); border: 1.5px dashed rgb(34 195 211 / 0.45); }
+  .rec__btn { width: 3.25rem; height: 3.25rem; border-radius: 50%; border: 0; background: var(--menthe); color: var(--marine); display: grid; place-items: center; cursor: pointer; transition: transform .15s ease; }
+  .rec__btn:hover { transform: scale(1.06); }
+  .rec__ico { display: grid; }
+  .rec__t { display: block; color: #fff; font: 800 0.9375rem/1.2 var(--f-info); }
+  .rec__s { font-size: 0.8rem; color: #aab0d0; font-variant-numeric: tabular-nums; }
+  .rec__wave { display: none; gap: 3px; align-items: center; height: 1.6rem; }
+  .rec__wave i { width: 4px; border-radius: 2px; background: var(--menthe); animation: wave 0.9s ease-in-out infinite; }
+  .rec__wave i:nth-child(2) { animation-delay: .1s } .rec__wave i:nth-child(3) { animation-delay: .2s } .rec__wave i:nth-child(4) { animation-delay: .3s }
+  .rec__wave i:nth-child(5) { animation-delay: .4s } .rec__wave i:nth-child(6) { animation-delay: .5s } .rec__wave i:nth-child(7) { animation-delay: .6s }
+  @keyframes wave { 0%, 100% { height: 20%; } 50% { height: 100%; } }
+  .rec.is-rec { border-style: solid; border-color: #ff4d6d; background: rgb(255 77 109 / 0.1); }
+  .rec.is-rec .rec__btn { background: #ff4d6d; color: #fff; animation: pulse 1.2s ease-in-out infinite; }
+  .rec.is-rec .rec__wave { display: flex; }
+  .rec.is-rec .rec__wave i { background: #ff4d6d; }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 77 109 / 0.5); } 50% { box-shadow: 0 0 0 10px rgb(255 77 109 / 0); } }
+  .rec.is-done { grid-template-columns: 1fr auto; border-style: solid; }
+  .rec.is-done .rec__btn, .rec.is-done .rec__info, .rec.is-done .rec__wave { display: none; }
+  .rec__audio { width: 100%; height: 2.5rem; }
+  .rec__del { width: 2.25rem; height: 2.25rem; border-radius: 50%; border: 0; background: rgb(255 255 255 / 0.1); color: #fff; display: grid; place-items: center; cursor: pointer; }
+
+  /* Récap */
+  .recap { margin: 0; padding: 0.9rem 1rem; border-radius: 14px; background: rgb(255 255 255 / 0.05); display: grid; gap: 0.55rem; }
+  .recap :global(div) { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.75rem; font-size: 0.875rem; }
+  .recap :global(dt) { color: #8a8fb0; font-weight: 600; }
+  .recap :global(dd) { margin: 0; color: #fff; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* Navigation */
+  .pa__nav { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+  .pa__next, .pa__send { min-height: 3.25rem; padding-inline: 1.5rem; gap: 0.5rem; }
+  .pa__next :global(svg), .pa__send :global(svg) { order: 2; transition: transform .15s ease; }
+  .pa__next:hover :global(svg) { transform: translateX(3px); }
+  .pa__send { justify-self: start; }
+  .pa__enter { font-size: 0.8rem; color: #8a8fb0; }
+  .pa__enter kbd { font: 700 0.75rem/1 var(--f-info); padding: 0.2rem 0.4rem; border-radius: 5px; border: 1px solid rgb(255 255 255 / 0.25); color: #c9cde3; }
+  @media (hover: none) { .pa__enter { display: none !important; } }
+  .pa__err { margin: 0; color: #ff8fa6; font-weight: 700; }
+  .pa__nojs { color: #fff; }
+  .pa__nojs a { color: var(--menthe); }
+
+  /* Merci */
+  .st--merci { text-align: center; justify-items: center; padding-top: 2rem; }
+  .merci__burst { font-size: 4rem; animation: burst .9s cubic-bezier(.3,1.6,.5,1); }
+  @keyframes burst { 0% { transform: scale(0) rotate(-180deg); } 100% { transform: none; } }
+  .merci__p { color: #c9cde3; max-width: 32ch; margin: 0; line-height: 1.5; }
+  .merci__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; margin-top: 1rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .st.is-on, .merci__burst, .pa__dot, .rec__wave i, .rec.is-rec .rec__btn { animation: none; }
+  }
 </style>
+
 <script>
-  const t = new URLSearchParams(location.search).get('type');
-  if (t) {
-    const r = document.querySelector<HTMLInputElement>(`input[name="type"][value="${CSS.escape(t)}"]`);
-    if (r) r.checked = true;
+  const form = document.querySelector<HTMLFormElement>('.pa__form');
+  if (form) {
+    const started = Date.now();
+    const steps = [...form.querySelectorAll<HTMLElement>('.st')];
+    const byName = (n: string) => steps.find((s) => s.dataset.step === n)!;
+    const card = form.closest('.pa__card') as HTMLElement;
+    const bar = card.querySelector<HTMLElement>('.pa__bar span')!;
+    const barWrap = card.querySelector<HTMLElement>('.pa__bar')!;
+    const count = card.querySelector<HTMLElement>('.pa__count')!;
+    const back = card.querySelector<HTMLButtonElement>('.pa__back')!;
+    const next = form.querySelector<HTMLButtonElement>('.pa__next')!;
+    const enterHint = form.querySelector<HTMLElement>('.pa__enter')!;
+    const err = form.querySelector<HTMLElement>('.pa__err')!;
+    const sendBtn = form.querySelector<HTMLButtonElement>('.pa__send')!;
+    const labels: Record<string, string> = { sujet: 'Sujet', temoignage: 'Témoignage', topbut: 'Top but', invite: 'Invité', chroniqueur: 'Chroniqueur' };
+
+    let path: string[] = ['choix'];
+    let cur = 0;
+
+    const pathFor = (type: string) => ['choix', ...steps.filter((s) => s.dataset.path === type).map((s) => s.dataset.step!), 'toi', 'fin'];
+
+    // Les champs d'une étape qui ne fait pas partie du parcours ne sont pas envoyés
+    const syncDisabled = () => {
+      const on = new Set(path);
+      for (const s of steps) {
+        const active = on.has(s.dataset.step!) || s.dataset.step === 'merci';
+        s.querySelectorAll<HTMLInputElement>('input, textarea, select').forEach((el) => {
+          if (el.name === 'type') return;
+          el.disabled = !active;
+        });
+      }
+    };
+
+    const render = (dir = 1) => {
+      steps.forEach((s) => s.classList.remove('is-on', 'is-back'));
+      const s = byName(path[cur]);
+      s.classList.add('is-on');
+      if (dir < 0) s.classList.add('is-back');
+      const isChoice = cur === 0, isEnd = path[cur] === 'fin', isMerci = path[cur] === 'merci';
+      back.hidden = isChoice || isMerci;
+      next.hidden = isChoice || isEnd || isMerci;
+      enterHint.hidden = next.hidden || !!s.querySelector('textarea');
+      const total = path.length - 1;
+      const pct = isMerci ? 100 : Math.round((cur / total) * 100);
+      bar.style.width = `${pct}%`;
+      barWrap.setAttribute('aria-valuenow', String(pct));
+      count.textContent = isChoice || isMerci ? '' : `${cur} / ${total}`;
+      if (isEnd) buildRecap();
+      // focus sur la première chose à remplir (sans faire sauter la page sur téléphone)
+      const first = s.querySelector<HTMLElement>('input:not([type=hidden]):not([disabled]), textarea');
+      if (first && !isChoice && matchMedia('(hover: hover)').matches) first.focus({ preventScroll: true });
+      if (card.getBoundingClientRect().top < 0) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    const fieldsOf = (s: HTMLElement) => [...s.querySelectorAll<HTMLInputElement>('input:not([type=hidden]):not([disabled]), textarea:not([disabled])')];
+
+    const validate = (s: HTMLElement) => {
+      let ok = true;
+      s.querySelectorAll('[aria-invalid]').forEach((e) => e.removeAttribute('aria-invalid'));
+      const radios = new Set<string>();
+      for (const f of fieldsOf(s)) {
+        if (f.type === 'radio') { if (f.required) radios.add(f.name); continue; }
+        if (!f.checkValidity()) { f.setAttribute('aria-invalid', 'true'); ok = false; }
+      }
+      for (const n of radios) if (!s.querySelector(`input[name="${n}"]:checked`)) { ok = false; s.querySelector('.chips, .opts')?.animate([{ transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'none' }], { duration: 250 }); }
+      // texte ou vocal : au moins l'un des deux quand l'étape propose les deux
+      const ta = s.querySelector<HTMLTextAreaElement>('textarea:not([disabled])');
+      if (ta && s.querySelector('.rec-slot') && ['tem-recit', 'chr-why'].includes(s.dataset.step!) && !ta.value.trim() && !s.querySelector('.rec.is-done')) {
+        ta.setAttribute('aria-invalid', 'true'); ok = false;
+      }
+      if (s.dataset.step === 'chr-profil' && !s.querySelector('input[name=profil]:checked')) { ok = false; s.querySelector('.chips')?.animate([{ transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'none' }], { duration: 250 }); }
+      if (s.dataset.step === 'toi') {
+        const tel = form.querySelector<HTMLInputElement>('input[name=telephone]')!, mail = form.querySelector<HTMLInputElement>('input[name=email]')!;
+        const hint = s.querySelector<HTMLElement>('.contact-hint')!;
+        if (!tel.value.trim() && !mail.value.trim()) { ok = false; tel.setAttribute('aria-invalid', 'true'); mail.setAttribute('aria-invalid', 'true'); hint.classList.add('is-err'); hint.textContent = 'Laisse-nous au moins un téléphone ou un e-mail.'; }
+        else if (mail.value.trim() && !mail.checkValidity()) { ok = false; mail.setAttribute('aria-invalid', 'true'); }
+        else { hint.classList.remove('is-err'); hint.textContent = 'Un des deux suffit. Il ne sera jamais publié.'; }
+      }
+      if (!ok) s.querySelector<HTMLElement>('[aria-invalid]')?.focus({ preventScroll: true });
+      return ok;
+    };
+
+    const go = (d: number) => {
+      if (d > 0 && !validate(byName(path[cur]))) return;
+      cur = Math.max(0, Math.min(path.length - 1, cur + d));
+      render(d);
+    };
+
+    // Choix du parcours : on avance tout de suite
+    const pick = (type: string, animate = true) => {
+      path = pathFor(type);
+      syncDisabled();
+      cur = 1;
+      render(animate ? 1 : 0);
+    };
+    form.querySelectorAll<HTMLInputElement>('input[name=type]').forEach((r) => r.addEventListener('change', () => setTimeout(() => pick(r.value), 180)));
+    // Un clic sur une pastille ou une option à choix unique fait avancer, comme une conversation
+    form.addEventListener('change', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.type !== 'radio' || t.name === 'type') return;
+      const s = t.closest<HTMLElement>('.st')!;
+      const others = fieldsOf(s).filter((f) => f.type !== 'radio');
+      if (others.length === 0) setTimeout(() => go(1), 260);
+    });
+    next.addEventListener('click', () => go(1));
+    back.addEventListener('click', () => go(-1));
+    form.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !(e.target instanceof HTMLTextAreaElement) && !(e.target as HTMLElement).closest('.pa__send')) {
+        e.preventDefault();
+        if (path[cur] !== 'fin' && cur > 0) go(1);
+      }
+    });
+
+    // Récapitulatif
+    const buildRecap = () => {
+      const dl = form.querySelector<HTMLElement>('.recap')!;
+      dl.replaceChildren();
+      const fd = new FormData(form);
+      const add = (k: string, v: string) => { if (!v) return; const d = document.createElement('div'); d.append(Object.assign(document.createElement('dt'), { textContent: k }), Object.assign(document.createElement('dd'), { textContent: v })); dl.append(d); };
+      add('Demande', labels[String(fd.get('type'))] || '');
+      add('Sujet', String(fd.get('sujet') || ''));
+      add('Rôle', String(fd.get('role') || ''));
+      add('Profil', fd.getAll('profil').join(', '));
+      add('Catégorie', String(fd.get('categorie') || ''));
+      add('Club', String(fd.get('club') || ''));
+      add('Message', String(fd.get('message') || ''));
+      if (form.querySelector('.rec.is-done:not([hidden])')) add('Vocal', '🎤 Enregistré');
+      add('Lien', String(fd.get('lien') || ''));
+      add('Participation', String(fd.get('participation') || ''));
+      add('À l’antenne', fd.get('anonyme') ? 'Anonyme' : String(fd.get('nom') || '') || 'Prénom non précisé');
+      add('Contact', [fd.get('telephone'), fd.get('email')].filter(Boolean).join(' / '));
+    };
+
+    // ===== Enregistreur vocal =====
+    const tpl = document.getElementById('rec-tpl') as HTMLTemplateElement;
+    let vocal: Blob | null = null;
+    let vocalStep = '';
+    const canRec = typeof navigator.mediaDevices?.getUserMedia === 'function' && 'MediaRecorder' in window;
+    form.querySelectorAll<HTMLElement>('.rec-slot').forEach((slot) => {
+      if (!canRec) return;
+      const node = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement;
+      slot.append(node);
+      const btn = node.querySelector<HTMLButtonElement>('.rec__btn')!;
+      const t = node.querySelector<HTMLElement>('.rec__t')!;
+      const sub = node.querySelector<HTMLElement>('.rec__s')!;
+      const audio = node.querySelector<HTMLAudioElement>('.rec__audio')!;
+      const del = node.querySelector<HTMLButtonElement>('.rec__del')!;
+      let rec: MediaRecorder | null = null, chunks: Blob[] = [], timer = 0, t0 = 0, stream: MediaStream | null = null;
+      const stop = () => { if (rec && rec.state !== 'inactive') rec.stop(); };
+      btn.addEventListener('click', async () => {
+        if (rec && rec.state === 'recording') return stop();
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch { sub.textContent = "Micro non autorisé. Tu peux écrire à la place."; return; }
+        const type = ['audio/webm;codecs=opus', 'audio/mp4', 'audio/webm', 'audio/ogg'].find((x) => MediaRecorder.isTypeSupported(x)) || '';
+        rec = new MediaRecorder(stream, type ? { mimeType: type, audioBitsPerSecond: 48000 } : undefined);
+        chunks = [];
+        rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+        rec.onstop = () => {
+          clearInterval(timer);
+          stream?.getTracks().forEach((tr) => tr.stop());
+          vocal = new Blob(chunks, { type: rec!.mimeType || 'audio/webm' });
+          vocalStep = slot.closest<HTMLElement>('.st')!.dataset.step!;
+          audio.src = URL.createObjectURL(vocal);
+          audio.hidden = false; del.hidden = false;
+          node.classList.remove('is-rec'); node.classList.add('is-done');
+          slot.closest('.st')?.querySelector('textarea')?.removeAttribute('aria-invalid');
+        };
+        rec.start();
+        t0 = Date.now();
+        node.classList.add('is-rec');
+        t.textContent = 'Enregistrement…';
+        btn.setAttribute('aria-label', "Arrêter l'enregistrement");
+        timer = window.setInterval(() => {
+          const s = Math.floor((Date.now() - t0) / 1000);
+          sub.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')} / 3:00 · touche pour arrêter`;
+          if (s >= 180) stop();
+        }, 250);
+      });
+      del.addEventListener('click', () => {
+        vocal = null; vocalStep = '';
+        audio.hidden = true; del.hidden = true; audio.removeAttribute('src');
+        node.classList.remove('is-done');
+        t.textContent = 'Enregistrer un vocal'; sub.textContent = "Jusqu'à 3 minutes";
+        btn.setAttribute('aria-label', 'Enregistrer un vocal');
+      });
+    });
+
+    // ===== Envoi =====
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate(byName('fin'))) return;
+      err.hidden = true;
+      sendBtn.disabled = true;
+      const label = sendBtn.innerHTML;
+      sendBtn.textContent = 'Envoi…';
+      const fd = new FormData(form);
+      fd.set('_t', String(Math.round((Date.now() - started) / 1000)));
+      fd.set('profil', fd.getAll('profil').join(', '));
+      if (vocal && path.includes(vocalStep)) fd.set('vocal', vocal, `vocal.${vocal.type.includes('mp4') ? 'm4a' : vocal.type.includes('ogg') ? 'ogg' : 'webm'}`);
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({ ok: false, message: '' }));
+        if (!res.ok || !data.ok) throw new Error(data.message || 'Envoi impossible');
+        path = [...path, 'merci'];
+        cur = path.length - 1;
+        render(1);
+        byName('merci').focus({ preventScroll: true });
+      } catch (x) {
+        err.textContent = `${(x as Error).message}. Réessaie, ou écris-nous à contact@unifoottv.fr.`;
+        err.hidden = false;
+      } finally {
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = label;
+      }
+    });
+    form.querySelector('.pa__again')!.addEventListener('click', () => location.assign('/participer/'));
+
+    // Arrivée depuis un bouton du site (?type=temoignage…)
+    const q = new URLSearchParams(location.search).get('type');
+    const alias: Record<string, string> = { plateau: 'invite', video: 'topbut' };
+    const pre = q ? alias[q] || q : '';
+    const radio = pre ? form.querySelector<HTMLInputElement>(`input[name=type][value="${CSS.escape(pre)}"]`) : null;
+    if (radio) { radio.checked = true; pick(pre, false); } else { syncDisabled(); render(0); }
   }
 </script>
