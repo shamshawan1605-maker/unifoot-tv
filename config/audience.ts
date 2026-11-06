@@ -1,12 +1,12 @@
-// Chiffres d'audience. Modifier seulement quand les chiffres changent (pense à mettre à jour la date).
+// Chiffres d'audience. Mis à jour automatiquement chaque jour depuis Metricool (scripts/update-audience.mjs).
 // Ces chiffres sont affichés tels quels : n'y mets que des données vérifiées.
 
 export const audienceUpdatedAt = '2026-11';
 
-// Vues : Instagram + Facebook + YouTube sur 30 jours (8 oct. au 5 nov. 2026, Metricool), sans TikTok
+// Vues : Instagram + Facebook + YouTube sur les 30 derniers jours (Metricool, 5 nov. 2026)
 export const audienceHighlights = [
   { value: '9,5 M', label: 'vues par mois sur nos réseaux' },
-  { value: '216 K', label: 'abonnés sur nos réseaux' },
+  { value: '217 K', label: 'abonnés sur nos réseaux' },
 ];
 
 // Abonnés par réseau (source : Metricool, 5 nov. 2026)
