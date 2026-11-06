@@ -37,6 +37,7 @@ export const invites: Invite[] = [
   { name: 'Alexandre Lafitte', role: 'Entraîneur champion à 28 ans', video: 'aecg1tCuiCw' },
   { name: 'Siné', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/sine-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
   { name: 'Kevin', role: 'FC 93', video: '8fwOMO2Auko', photo: '/invites/kevin-fc93.webp', link: 'https://www.youtube.com/watch?v=8fwOMO2Auko&t=6881s' },
+  { name: 'Stevens', role: 'Coach U17 National de Brétigny', video: '-7Q6hEi2hiE', photo: '/invites/stevens-bretigny.webp', link: 'https://www.youtube.com/watch?v=-7Q6hEi2hiE&t=14s' },
   { name: 'Mohamed Segueni', role: 'Agent FFF', video: 'TdWJqqwuCpU', photo: '/invites/mohamed-segueni.webp', link: 'https://www.youtube.com/watch?v=TdWJqqwuCpU&t=5606s' },
   { name: 'Hassoun Camara', role: 'CF Montréal', video: '9YIkfAuQaQ0', photo: '/invites/hassoun-camara.webp', link: 'https://www.youtube.com/watch?v=9YIkfAuQaQ0&t=44s' },
   { name: 'Ismaël Bamba', role: 'Du Paris FC à Villejuif', video: 'GHIhYpBtXKs', photo: '/invites/ismael-bamba.webp', link: 'https://www.youtube.com/watch?v=GHIhYpBtXKs&t=3481s' },
