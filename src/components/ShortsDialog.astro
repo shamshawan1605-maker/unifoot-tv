@@ -48,6 +48,13 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
   .sd__com-h { margin: 0; font: 800 1rem/1 var(--f-titre); }
   .sd__com-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; overflow-y: auto; align-content: start; overscroll-behavior: contain; max-height: 40vh; }
   @media (min-width: 52rem) { .sd__com-list { max-height: none; } }
+  /* Barre de défilement discrète, aux couleurs du site */
+  .sd__com-list { scrollbar-width: thin; scrollbar-color: rgb(34 195 211 / 0.55) transparent; padding-right: 0.35rem; }
+  .sd__com-list::-webkit-scrollbar { width: 6px; }
+  .sd__com-list::-webkit-scrollbar-track { background: transparent; }
+  .sd__com-list::-webkit-scrollbar-thumb { background: rgb(34 195 211 / 0.55); border-radius: 999px; }
+  .sd__com-list::-webkit-scrollbar-thumb:hover { background: var(--menthe); }
+  .sd__com-list::-webkit-scrollbar-button { display: none; height: 0; }
   /* Les commentaires arrivent un par un, comme un fil en direct */
   .sd__com-list :global(li) { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.65rem; align-items: start; opacity: 0; transform: translateY(14px) scale(0.98); animation: com-in .45s cubic-bezier(.2,.8,.2,1) forwards; animation-delay: calc(var(--i) * 0.35s + 0.15s); }
   @keyframes com-in { to { opacity: 1; transform: none; } }
