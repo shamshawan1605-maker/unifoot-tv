@@ -17,66 +17,58 @@ const items = invites
   .map((i) => ({ ...i, v: videos.find((x) => x.id === i.video) }))
   .filter((i) => i.v && (i.photo || hasCustomPhoto(i.v))) // seuls les invités avec une vraie photo s'affichent
   .map((i) => ({ ...i, img: i.photo ? versioned(i.photo) : (thumbSrcset(i.v!).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
+// 3 rangées qui défilent en continu (1re et 3e vers la gauche, 2e vers la droite)
+const rows = [0, 1, 2].map((r) => items.filter((_, i) => i % 3 === r));
 ---
-{items.length >= 4 && (
-  <section class="wrap section inv" aria-labelledby="inv-title">
-    <div class="section-head">
+{items.length >= 6 && (
+  <section class="section inv" aria-labelledby="inv-title">
+    <div class="wrap section-head">
       <h2 id="inv-title">Ils sont passés chez UNIFOOT TV</h2>
-      <div class="inv__nav">
-        <button type="button" class="inv__btn" data-dir="-1" aria-label="Invités précédents"><Icon name="arrow-left" size={20} /></button>
-        <button type="button" class="inv__btn" data-dir="1" aria-label="Invités suivants"><Icon name="arrow-right" size={20} /></button>
-      </div>
+      <a class="more" href={links.youtube} target="_blank" rel="noopener">Tous les invités sur YouTube</a>
     </div>
-    <ul class="inv__list">
-      {items.map((i) => (
-        <li>
-          <a href={i.href} class="inv__card" {...(i.ext ? { target: '_blank', rel: 'noopener' } : {})}>
-            <img src={i.img} alt="" width="300" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'" />
-            <span class="inv__txt">
-              <span class="inv__name">{i.name}</span>
-              {i.role && <span class="inv__role">{i.role}</span>}
-            </span>
-          </a>
-        </li>
+    <div class="inv__rows">
+      {rows.map((row, r) => (
+        <div class:list={['inv__row', { 'inv__row--rev': r === 1 }]} style={`--n:${row.length};--dur:${row.length * 5}s`}>
+          <ul class="inv__track">
+            {[...row, ...row].map((i, k) => (
+              <li aria-hidden={k >= row.length ? 'true' : undefined}>
+                <a href={i.href} class="inv__card" tabindex={k >= row.length ? -1 : undefined} {...(i.ext ? { target: '_blank', rel: 'noopener' } : {})}>
+                  <img src={i.img} alt="" width="300" height="400" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'" />
+                  <span class="inv__txt">
+                    <span class="inv__name">{i.name}</span>
+                    {i.role && <span class="inv__role">{i.role}</span>}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ))}
-      <li>
-        <a href={links.youtube} class="inv__card inv__more" target="_blank" rel="noopener">
-          <span class="inv__more-txt">Et bien d'autres invités<br /><strong>sur notre chaîne YouTube</strong></span>
-          <span class="inv__more-btn"><Icon name="youtube" size={20} />Voir la chaîne</span>
-        </a>
-      </li>
-    </ul>
+    </div>
   </section>
 )}
 <style>
-  .inv__nav { display: none; gap: 0.5rem; }
-  @media (min-width: 48rem) { .inv__nav { display: flex; } }
-  .inv__btn { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--trait); background: var(--fond); color: var(--texte); display: grid; place-items: center; cursor: pointer; }
-  .inv__btn:hover { background: var(--marine); color: #fff; border-color: var(--marine); }
-  .inv__list { list-style: none; margin: 0; padding: 0 0 0.5rem; display: grid; grid-auto-flow: column; grid-auto-columns: 10.5rem; gap: 0.9rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
-  .inv__list::-webkit-scrollbar { display: none; }
-  @media (min-width: 48rem) { .inv__list { grid-auto-columns: 12rem; } }
-  .inv__list li { scroll-snap-align: start; }
+  .inv__rows { display: grid; gap: 0.9rem; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+  .inv__row { overflow: hidden; }
+  .inv__track { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.9rem; width: max-content; animation: inv-left var(--dur) linear infinite; }
+  .inv__row--rev .inv__track { animation-name: inv-right; }
+  .inv__rows:hover .inv__track, .inv__rows:focus-within .inv__track { animation-play-state: paused; }
+  @keyframes inv-left { from { transform: translateX(0); } to { transform: translateX(calc(-50% - 0.45rem)); } }
+  @keyframes inv-right { from { transform: translateX(calc(-50% - 0.45rem)); } to { transform: translateX(0); } }
+  .inv__track li { flex: none; width: 9.5rem; }
+  @media (min-width: 48rem) { .inv__track li { width: 11rem; } }
   .inv__card { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: var(--marine); text-decoration: none; }
   .inv__card img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform .3s ease; }
   .inv__card::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(to top, rgb(10 12 44 / 0.95), transparent); }
   .inv__card:hover img { transform: scale(1.05); }
-  .inv__txt { position: absolute; z-index: 2; left: 0.75rem; right: 0.75rem; bottom: 0.75rem; display: grid; gap: 0.15rem; text-align: center; }
+  .inv__txt { position: absolute; z-index: 2; left: 0.6rem; right: 0.6rem; bottom: 0.65rem; display: grid; gap: 0.15rem; text-align: center; }
   .inv__name { font: 800 0.9375rem/1.2 var(--f-texte); color: #fff; }
   .inv__role { font: 600 0.75rem/1.25 var(--f-info); color: var(--menthe); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .inv__more { display: grid; align-content: center; justify-items: center; gap: 1rem; padding: 1rem; text-align: center; background: var(--marine-2); border: 2px solid var(--menthe); }
-  .inv__more::after { display: none; }
-  .inv__more-txt { font: 600 0.9375rem/1.35 var(--f-texte); color: #fff; }
-  .inv__more-txt strong { font-weight: 800; color: var(--menthe); }
-  .inv__more-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.9rem; border-radius: 999px; background: var(--menthe); color: var(--marine); font: 800 0.8125rem/1 var(--f-info); }
-  .inv__more:hover .inv__more-btn { background: #fff; }
   .inv__card:focus-visible { box-shadow: var(--focus); }
+  /* Animations réduites : rangées défilables à la main */
+  @media (prefers-reduced-motion: reduce) {
+    .inv__track { animation: none; }
+    .inv__row { overflow-x: auto; }
+    .inv__track li[aria-hidden='true'] { display: none; }
+  }
 </style>
-<script>
-  document.querySelectorAll<HTMLElement>('.inv').forEach((sec) => {
-    const list = sec.querySelector<HTMLElement>('.inv__list')!;
-    sec.querySelectorAll<HTMLButtonElement>('.inv__btn').forEach((b) =>
-      b.addEventListener('click', () => list.scrollBy({ left: Number(b.dataset.dir) * list.clientWidth * 0.8, behavior: 'smooth' })),
-    );
-  });
-</script>
