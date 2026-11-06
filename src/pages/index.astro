@@ -51,12 +51,12 @@ const news = await getNews();
 const ranked = news.length
   ? news.slice(0, 5).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: formatShortDate(n.data.date.toISOString()), img: newsImage(n) }))
   : [...episodes].filter((v) => v.viewCount !== undefined).sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0)).slice(0, 5)
-      .map((v) => ({ href: videoPath(v), title: v.title, meta: showOf(v).name, img: thumbSrcset(v).src as string | undefined }));
+      .map((v) => ({ href: videoPath(v), title: v.title, meta: showOf(v).name, img: thumbSrcset(v, true).src as string | undefined }));
 const rankTitle = news.length ? "L'actu" : 'Les plus regardés';
 const topShorts = shorts.slice(0, 12);
 const topRow = [
   ...news.slice(0, 4).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: `Actu / ${formatShortDate(n.data.date.toISOString())}`, img: newsImage(n), short: '' })),
-  ...shorts.map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v).src as string | undefined, short: v.id })),
+  ...shorts.map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v, true).src as string | undefined, short: v.id })),
 ].slice(0, 4);
 const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i % 5];
 ---
@@ -66,7 +66,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   description={site.description}
   path="/"
   jsonLd={[podcastSeriesLd()]}
-  preloadImage={hero ? { srcset: thumbSrcset(hero).srcset, sizes: '(min-width: 64rem) 66vw, 100vw' } : undefined}
+  preloadImage={hero ? { srcset: thumbSrcset(hero, true).srcset, sizes: '(min-width: 64rem) 66vw, 100vw' } : undefined}
 >
   <h1 class="sr-only">UNIFOOT TV, le média du football amateur</h1>
 
@@ -90,7 +90,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
     {hero ? (
       <article class="une__main">
         <div class="yt une__media" data-yt={hero.id} data-title={hero.title}>
-          <Thumb video={hero} eager showTime={false} sizes="(min-width: 64rem) 66vw, 100vw" />
+          <Thumb video={hero} eager showTime={false} custom sizes="(min-width: 64rem) 66vw, 100vw" />
           <button class="yt__play une__play" type="button"><Icon name="play" size={30} /><span class="sr-only">Lire : {hero.title}</span></button>
           <span class="badge une__badge">{heroShow!.name}</span>
         </div>

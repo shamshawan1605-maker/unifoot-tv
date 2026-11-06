@@ -1,9 +1,9 @@
 ---
 import type { Video } from '~/types';
 import { thumbSrcset, formatDuration } from '~/lib/content';
-interface Props { video: Video; ratio?: '16x9' | '9x16'; sizes?: string; eager?: boolean; showTime?: boolean; alt?: string; fallbackLabel?: string }
-const { video, ratio = '16x9', sizes = '(min-width: 64rem) 22vw, (min-width: 40rem) 40vw, 78vw', eager = false, showTime = true, alt = '', fallbackLabel } = Astro.props;
-const t = thumbSrcset(video);
+interface Props { custom?: boolean; video: Video; ratio?: '16x9' | '9x16'; sizes?: string; eager?: boolean; showTime?: boolean; alt?: string; fallbackLabel?: string }
+const { custom = false, video, ratio = '16x9', sizes = '(min-width: 64rem) 22vw, (min-width: 40rem) 40vw, 78vw', eager = false, showTime = true, alt = '', fallbackLabel } = Astro.props;
+const t = thumbSrcset(video, custom);
 // Extraits verticaux : miniature verticale HD de YouTube (oar2), sinon la plus grande miniature 16:9 recadrée au centre
 const vertical = ratio === '9x16' && t.src.startsWith('https://i.ytimg.com/');
 const src = vertical ? `https://i.ytimg.com/vi/${video.id}/oar2.jpg` : t.src;

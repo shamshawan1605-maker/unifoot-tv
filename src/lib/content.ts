@@ -136,8 +136,9 @@ const customPhotos: Map<string, string> = (() => {
 })();
 export const hasCustomPhoto = (v: Video) => customPhotos.has(v.id);
 
-export function thumbSrcset(v: Video) {
-  const photo = customPhotos.get(v.id);
+/** custom = true : utiliser la photo personnalisée (accueil uniquement). Ailleurs, la miniature YouTube. */
+export function thumbSrcset(v: Video, custom = false) {
+  const photo = custom ? customPhotos.get(v.id) : undefined;
   if (photo) return { src: photo, srcset: `${photo} 1280w`, largest: new URL(photo, import.meta.env.SITE).href };
   if (isDemo && v.id.startsWith('demo')) return { src: '/demo-sans-miniature.jpg', srcset: '/demo-sans-miniature.jpg 480w', largest: '/brand/og-default.png' };
   const t = v.thumbnails.length

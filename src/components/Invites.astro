@@ -15,7 +15,7 @@ const versioned = (p: string) => {
 const items = invites
   .map((i) => ({ ...i, v: videos.find((x) => x.id === i.video) }))
   .filter((i) => i.v && (i.photo || hasCustomPhoto(i.v))) // seuls les invités avec une vraie photo s'affichent
-  .map((i) => ({ ...i, img: i.photo ? versioned(i.photo) : (thumbSrcset(i.v!).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
+  .map((i) => ({ ...i, img: i.photo ? versioned(i.photo) : (thumbSrcset(i.v!, true).src as string), href: i.link ?? videoPath(i.v!), ext: !!i.link }));
 // 3 rangées qui défilent en continu (1re et 3e vers la gauche, 2e vers la droite)
 const rows = [0, 1, 2].map((r) => items.filter((_, i) => i % 3 === r));
 ---

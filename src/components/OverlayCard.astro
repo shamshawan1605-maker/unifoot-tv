@@ -7,7 +7,7 @@ interface Props { video: Video; size?: 'big' | 'small'; badge?: string; badgeCol
 const { video, size = 'small', badge, badgeColor = '', sizes = '(min-width: 64rem) 25vw, 100vw' } = Astro.props;
 ---
 <article class:list={['oc', `oc--${size}`]}>
-  <Thumb video={video} sizes={sizes} showTime={false} />
+  <Thumb video={video} sizes={sizes} showTime={false} custom />
   <span class:list={['badge', badgeColor && `badge--${badgeColor}`]}>{badge ?? showOf(video).name}</span>
   <div class="oc__txt">
     <h3><a href={videoPath(video)} title={video.title}>{fr(video.title)}</a></h3>
