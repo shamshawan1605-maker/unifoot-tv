@@ -1,4 +1,5 @@
-import { readdirSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join } from 'node:path';
 // Accès aux contenus synchronisés (data/content.json) pour la construction du site.
 import type { ContentStore, Video } from '~/types';
@@ -124,7 +125,11 @@ const customPhotos: Map<string, string> = (() => {
   try {
     for (const f of readdirSync(join(process.cwd(), 'public', 'photos'))) {
       const match = f.match(/^(.+)\.(jpe?g|webp|png)$/i);
-      if (match) m.set(match[1], `/photos/${f}`);
+      // ?v=… change à chaque nouvelle version de la photo : les navigateurs ne gardent pas l'ancienne en mémoire
+      if (match) {
+        const v = createHash('md5').update(readFileSync(join(process.cwd(), 'public', 'photos', f))).digest('hex').slice(0, 8);
+        m.set(match[1], `/photos/${f}?v=${v}`);
+      }
     }
   } catch { /* pas de dossier photos */ }
   return m;
