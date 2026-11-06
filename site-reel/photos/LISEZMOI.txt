@@ -1,0 +1,7 @@
+Photos personnalisées des vidéos
+================================
+Mets ici une photo nommée avec l'identifiant de la vidéo YouTube
+(ce qui suit "v=" ou "youtu.be/" dans le lien), par exemple :
+  Fp6M0y4CHzA.jpg
+Elle remplacera la miniature YouTube partout sur le site.
+Format conseillé : JPG ou WebP, 1280 x 720 (16:9), moins de 300 Ko.

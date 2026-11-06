@@ -28,11 +28,6 @@ export const team: Member[] = [
   { name: 'Kokou', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/kokou.webp' },
   { name: 'Mathieu', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/mathieu.webp' },
   { name: 'Benoît', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/benoit.webp' },
-  { name: 'Lass', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'Alexis', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'Soufiane', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'Saïd', role: 'Chroniqueur', group: 'chroniqueur' },
-  { name: 'Habib Bellaïd', role: 'Chroniqueur', group: 'chroniqueur' },
 ];
 
 /** Histoire du média (page L'équipe). Texte à relire et compléter. */
