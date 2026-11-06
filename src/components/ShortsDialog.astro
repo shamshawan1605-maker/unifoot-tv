@@ -16,11 +16,11 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
     <div class="sd__body">
       <div class="sd__player">
         <div class="sd__stage">
-          <div class="sd__frame"></div>
+          <div class="sd__frame"><div class="sd__catch" aria-hidden="true"></div></div>
           <div class="sd__nav">
-            <button type="button" class="sd__arrow" data-step="-1" aria-label="Extrait précédent"><Icon name="arrow-left" size={22} /></button>
+            <button type="button" class="sd__arrow" data-step="-1" aria-label="Extrait précédent"><Icon name="arrow-up" size={24} /></button>
             <span class="sd__pos" aria-live="polite"></span>
-            <button type="button" class="sd__arrow" data-step="1" aria-label="Extrait suivant"><Icon name="arrow-right" size={22} /></button>
+            <button type="button" class="sd__arrow" data-step="1" aria-label="Extrait suivant"><Icon name="arrow-down" size={24} /></button>
           </div>
         </div>
         <p class="sd__note">Lecture via YouTube. <a class="sd__yt" href="#" rel="noopener" target="_blank">Ouvrir sur YouTube</a></p>
@@ -44,17 +44,27 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
   .sd__title { font: 700 1.0625rem/1.3 var(--f-texte); flex: 1; color: #fff; }
   .sd__close { background: var(--surface); color: var(--texte); border: 0; border-radius: 50%; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; cursor: pointer; flex: none; }
   .sd__body { display: grid; gap: 1rem; }
-  @media (min-width: 52rem) { .sd__body { grid-template-columns: 22rem 1fr; align-items: start; } }
+  @media (min-width: 52rem) { .sd__body { grid-template-columns: 26rem 1fr; align-items: start; } }
+  /* Vidéo + flèches verticales sur le côté, comme TikTok */
+  .sd__stage { display: grid; grid-template-columns: 1fr auto; gap: 0.75rem; align-items: center; }
   .sd__frame { position: relative; aspect-ratio: 9 / 16; max-height: 78vh; background: #000; border-radius: var(--r-m); overflow: hidden; }
+  /* Couche transparente sur la vidéo : capte la molette (vidéo suivante) et le clic (pause / lecture).
+     Le bas reste libre pour les commandes du lecteur (son, avance). */
+  .sd__catch { position: absolute; z-index: 2; inset: 0 0 16% 0; cursor: pointer; }
   .sd__frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   /* Navigation entre les extraits : flèches, clavier, molette, glisser */
-  .sd__nav { display: flex; align-items: center; justify-content: center; gap: 0.9rem; margin-top: 0.7rem; }
-  .sd__arrow { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 2px solid rgb(34 195 211 / 0.6); background: var(--marine-2); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .15s ease, transform .15s ease; }
-  .sd__arrow:hover:not(:disabled) { background: var(--menthe); color: var(--marine); transform: scale(1.06); }
-  .sd__arrow:disabled { opacity: 0.3; cursor: default; }
-  .sd__pos { min-width: 4.5rem; text-align: center; font: 700 0.8125rem/1 var(--f-info); color: #c9cbe0; font-variant-numeric: tabular-nums; }
-  .sd__frame { transition: opacity .2s ease; }
-  .sd__frame.is-switching { opacity: 0.25; }
+  .sd__nav { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+  .sd__arrow { width: 3rem; height: 3rem; border-radius: 50%; border: 0; background: rgb(255 255 255 / 0.14); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background .15s ease, transform .15s ease; backdrop-filter: blur(4px); }
+  .sd__arrow:hover:not(:disabled) { background: var(--menthe); color: var(--marine); transform: scale(1.08); }
+  .sd__arrow:disabled { opacity: 0.25; cursor: default; }
+  .sd__pos { font: 700 0.75rem/1 var(--f-info); color: #c9cbe0; font-variant-numeric: tabular-nums; writing-mode: horizontal-tb; }
+  /* Défilement de bas en haut entre deux extraits */
+  .sd__frame { transition: transform .28s cubic-bezier(.4,0,.2,1), opacity .28s ease; }
+  .sd__frame.is-out-up { transform: translateY(-14%); opacity: 0; }
+  .sd__frame.is-out-down { transform: translateY(14%); opacity: 0; }
+  .sd__frame.is-in-up { transform: translateY(14%); opacity: 0; transition: none; }
+  .sd__frame.is-in-down { transform: translateY(-14%); opacity: 0; transition: none; }
+  @media (prefers-reduced-motion: reduce) { .sd__frame { transition: none; } }
   .sd__note { margin: 0.6rem 0 0; font-size: 0.8125rem; color: #c9cbe0; text-align: center; }
   .sd__note a { color: var(--menthe); }
 
@@ -158,8 +168,15 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       const n = index + step;
       if (n < 0 || n >= items.length) return;
       index = n;
-      frame.classList.add('is-switching');
-      setTimeout(() => { show(items[index]); frame.classList.remove('is-switching'); }, 150);
+      const dir = step > 0 ? 'up' : 'down';
+      frame.classList.add(`is-out-${dir}`);
+      setTimeout(() => {
+        show(items[index]);
+        frame.classList.remove(`is-out-${dir}`);
+        frame.classList.add(`is-in-${dir}`);
+        void frame.offsetWidth;
+        frame.classList.remove(`is-in-${dir}`);
+      }, 280);
     };
     prevBtn.addEventListener('click', () => go(-1));
     nextBtn.addEventListener('click', () => go(1));
@@ -186,6 +203,15 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       else if (Math.abs(dy) > 70) go(dy < 0 ? 1 : -1);
     }, { passive: true });
 
+    // Clic sur la vidéo : pause / lecture (via l'API du lecteur YouTube)
+    let playing = true;
+    dlg.querySelector('.sd__catch')!.addEventListener('click', () => {
+      const f = frame.querySelector('iframe');
+      if (!f?.contentWindow) return;
+      playing = !playing;
+      f.contentWindow.postMessage(JSON.stringify({ event: 'command', func: playing ? 'playVideo' : 'pauseVideo', args: [] }), '*');
+    });
+
     function show(a: HTMLAnchorElement) {
       const id = a.dataset.short!;
       title.textContent = a.dataset.title || '';
@@ -194,7 +220,8 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       renderComments(id);
       frame.querySelector('iframe')?.remove();
       const f = document.createElement('iframe');
-      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
+      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0&enablejsapi=1`;
+      playing = true;
       f.title = title.textContent || 'Extrait vidéo';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; web-share';
       f.allowFullscreen = true;
