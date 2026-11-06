@@ -19,7 +19,7 @@ Au bord du terrain, une petite tribune et une buvette. Rien de plus. Pourtant, l
 
 Le club est jeune. Il est né à l'été 2016 de la fusion entre Saint-Brandan et Quintin. Dès sa première saison, il passe directement de la D1 au Régional 3. Puis il grimpe marche après marche jusqu'au R1. Alexis Thomas, capitaine et milieu de terrain, est là depuis le début. Il a même été co-président du club.
 
-Le problème, c'est que les installations n'ont pas suivi. Sans terrain synthétique, le club doit s'adapter, en particulier l'hiver, quand la pelouse souffre et que les séances deviennent compliquées à organiser.
+Le problème, c'est que les installations n'ont pas suivi. Le club n'a pas de terrain synthétique, un manque qui pèse lourd pour durer à ce niveau, et même en R2, selon les acteurs du club. Alors Saint-Brandan-Quintin s'adapte, avec l'envie de continuer à grandir.
 
 ## Ce que ça dit du foot amateur
 
