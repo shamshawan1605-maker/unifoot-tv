@@ -20,7 +20,10 @@ jobs:
     env:
       FTP_SERVER: ${{ secrets.FTP_SERVER }}
     steps:
+      # Toujours la dernière version de main (y compris les contenus enregistrés entre-temps par la synchronisation)
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-node@v4
         with:
           node-version: 22
