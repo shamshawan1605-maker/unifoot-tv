@@ -1,6 +1,11 @@
 ---
-// Lecture des Shorts dans une fenêtre, sans quitter le site. Le clic sur l'extrait lance directement la vidéo (lecteur YouTube sans cookies publicitaires).
+// Lecture des Shorts dans une fenêtre, sans quitter le site. Le clic sur l'extrait lance directement la vidéo
+// (lecteur YouTube sans cookies publicitaires). À droite : les commentaires YouTube, et un bouton pour commenter sur YouTube.
 import Icon from './Icon.astro';
+import { shorts } from '~/lib/content';
+// Commentaires récupérés par la synchronisation (extraits récents uniquement)
+const commentsById: Record<string, { n: number; c: NonNullable<(typeof shorts)[number]['comments']> }> = {};
+for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.commentCount ?? v.comments.length, c: v.comments };
 ---
 <dialog class="sd" aria-labelledby="sd-title">
   <div class="sd__box">
@@ -8,22 +13,50 @@ import Icon from './Icon.astro';
       <h2 id="sd-title" class="sd__title"></h2>
       <button class="sd__close" type="button" aria-label="Fermer"><Icon name="close" size={24} /></button>
     </div>
-    <div class="sd__frame">
+    <div class="sd__body">
+      <div class="sd__player">
+        <div class="sd__frame"></div>
+        <p class="sd__note">Lecture via YouTube. <a class="sd__yt" href="#" rel="noopener" target="_blank">Ouvrir sur YouTube</a></p>
+      </div>
+      <aside class="sd__com" aria-labelledby="sd-com-title">
+        <p class="sd__com-h" id="sd-com-title">Commentaires <span class="sd__com-n"></span></p>
+        <ol class="sd__com-list"></ol>
+        <p class="sd__com-empty" hidden>Pas encore de commentaire. Lance le débat !</p>
+        <a class="btn btn--menthe sd__com-btn" href="#" rel="noopener" target="_blank"><Icon name="youtube" size={18} />Commenter sur YouTube</a>
+      </aside>
     </div>
-    <p class="sd__note">Lecture via YouTube. <a class="sd__yt" href="#" rel="noopener" target="_blank">Ouvrir sur YouTube</a></p>
   </div>
 </dialog>
+<script type="application/json" id="sd-comments" set:html={JSON.stringify(commentsById).replace(/</g, '\\u003c')} />
 <style>
   .sd { padding: 0; border: 0; background: transparent; color: var(--texte); max-width: none; max-height: none; }
   .sd::backdrop { background: rgb(4 5 22 / 0.88); }
   .sd__box { width: min(24rem, 92vw); }
+  @media (min-width: 52rem) { .sd__box { width: min(48rem, 94vw); } }
   .sd__head { display: flex; align-items: start; gap: 1rem; margin-bottom: 0.6rem; }
   .sd__title { font: 700 1.0625rem/1.3 var(--f-texte); flex: 1; color: #fff; }
   .sd__close { background: var(--surface); color: var(--texte); border: 0; border-radius: 50%; width: 2.75rem; height: 2.75rem; display: grid; place-items: center; cursor: pointer; flex: none; }
-  .sd__frame { position: relative; aspect-ratio: 9 / 16; max-height: 80vh; background: #000; border-radius: var(--r-m); overflow: hidden; }
+  .sd__body { display: grid; gap: 1rem; }
+  @media (min-width: 52rem) { .sd__body { grid-template-columns: 22rem 1fr; align-items: start; } }
+  .sd__frame { position: relative; aspect-ratio: 9 / 16; max-height: 78vh; background: #000; border-radius: var(--r-m); overflow: hidden; }
   .sd__frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .sd__note { margin: 0.6rem 0 0; font-size: 0.8125rem; color: #c9cbe0; text-align: center; }
   .sd__note a { color: var(--menthe); }
+
+  .sd__com { background: var(--marine-2); border-radius: var(--r-m); padding: 1rem; display: grid; gap: 0.85rem; color: #fff; }
+  @media (min-width: 52rem) { .sd__com { max-height: 78vh; grid-template-rows: auto 1fr auto auto; } }
+  .sd__com-h { margin: 0; font: 800 1rem/1 var(--f-titre); }
+  .sd__com-n { color: var(--menthe); }
+  .sd__com-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.9rem; overflow-y: auto; align-content: start; overscroll-behavior: contain; max-height: 40vh; }
+  @media (min-width: 52rem) { .sd__com-list { max-height: none; } }
+  .sd__com-list :global(li) { display: grid; grid-template-columns: 2rem 1fr; gap: 0.6rem; }
+  .sd__com-list :global(img), .sd__com-list :global(.sd__av) { width: 2rem; height: 2rem; border-radius: 50%; background: var(--sarcelle); display: grid; place-items: center; font: 800 0.8rem/1 var(--f-info); color: var(--marine); object-fit: cover; }
+  .sd__com-list :global(.sd__who) { font: 700 0.8125rem/1.2 var(--f-info); color: #c9cbe0; }
+  .sd__com-list :global(.sd__who time) { font-weight: 500; color: #8a8fb0; margin-left: 0.35rem; }
+  .sd__com-list :global(.sd__txt) { margin: 0.2rem 0 0; font: 500 0.875rem/1.45 var(--f-texte); color: #fff; white-space: pre-line; overflow-wrap: anywhere; }
+  .sd__com-list :global(.sd__likes) { margin-top: 0.25rem; font: 600 0.75rem/1 var(--f-info); color: #8a8fb0; }
+  .sd__com-empty { margin: 0; color: #c9cbe0; font-size: 0.875rem; }
+  .sd__com-btn { justify-content: center; }
 </style>
 <script>
   const dlg = document.querySelector<HTMLDialogElement>('.sd');
@@ -31,18 +64,60 @@ import Icon from './Icon.astro';
     const frame = dlg.querySelector<HTMLElement>('.sd__frame')!;
     const title = dlg.querySelector<HTMLElement>('.sd__title')!;
     const yt = dlg.querySelector<HTMLAnchorElement>('.sd__yt')!;
-    let current = '';
+    const list = dlg.querySelector<HTMLOListElement>('.sd__com-list')!;
+    const count = dlg.querySelector<HTMLElement>('.sd__com-n')!;
+    const empty = dlg.querySelector<HTMLElement>('.sd__com-empty')!;
+    const comBtn = dlg.querySelector<HTMLAnchorElement>('.sd__com-btn')!;
+    type C = { author: string; avatar?: string; text: string; likes: number; date: string };
+    let data: Record<string, { n: number; c: C[] }> = {};
+    try { data = JSON.parse(document.getElementById('sd-comments')?.textContent || '{}'); } catch {}
+    const ago = (iso: string) => {
+      const d = (Date.now() - new Date(iso).getTime()) / 86400e3;
+      if (d < 1) return "aujourd'hui";
+      if (d < 30) return `il y a ${Math.floor(d)} j`;
+      if (d < 365) return `il y a ${Math.floor(d / 30)} mois`;
+      return `il y a ${Math.floor(d / 365)} an${d >= 730 ? 's' : ''}`;
+    };
+    const renderComments = (id: string) => {
+      const entry = data[id];
+      list.replaceChildren();
+      count.textContent = entry ? `(${entry.n})` : '';
+      empty.hidden = !!entry?.c.length;
+      for (const c of entry?.c || []) {
+        const li = document.createElement('li');
+        let av: HTMLElement;
+        if (c.avatar) {
+          const img = document.createElement('img');
+          img.src = c.avatar; img.alt = ''; img.loading = 'lazy'; img.referrerPolicy = 'no-referrer';
+          img.onerror = () => img.replaceWith(Object.assign(document.createElement('span'), { className: 'sd__av', textContent: (c.author.replace('@', '')[0] || '?').toUpperCase() }));
+          av = img;
+        } else {
+          av = Object.assign(document.createElement('span'), { className: 'sd__av', textContent: (c.author.replace('@', '')[0] || '?').toUpperCase() });
+        }
+        const body = document.createElement('div');
+        const who = Object.assign(document.createElement('p'), { className: 'sd__who', textContent: c.author });
+        who.style.margin = '0';
+        const time = document.createElement('time'); time.dateTime = c.date; time.textContent = ago(c.date); who.append(time);
+        const txt = Object.assign(document.createElement('p'), { className: 'sd__txt', textContent: c.text });
+        body.append(who, txt);
+        if (c.likes > 0) body.append(Object.assign(document.createElement('p'), { className: 'sd__likes', textContent: `♥ ${c.likes}` }));
+        li.append(av, body);
+        list.append(li);
+      }
+    };
     const close = () => { frame.querySelector('iframe')?.remove(); dlg.close(); };
     document.addEventListener('click', (e) => {
       const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-short]');
       if (!a || e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
-      current = a.dataset.short!;
+      const id = a.dataset.short!;
       title.textContent = a.dataset.title || '';
       yt.href = a.href;
+      comBtn.href = `https://www.youtube.com/watch?v=${id}`;
+      renderComments(id);
       frame.querySelector('iframe')?.remove();
       const f = document.createElement('iframe');
-      f.src = `https://www.youtube-nocookie.com/embed/${current}?autoplay=1&playsinline=1&rel=0`;
+      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
       f.title = title.textContent || 'Extrait vidéo';
       f.allow = 'autoplay; encrypted-media; picture-in-picture; web-share';
       f.allowFullscreen = true;

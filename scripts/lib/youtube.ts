@@ -30,6 +30,8 @@ export interface YtVideo {
   statistics?: { viewCount?: string; commentCount?: string };
 }
 
+export interface YtComment { author: string; avatar?: string; text: string; likes: number; date: string }
+
 export class YouTubeClient {
   public unitsUsed = 0;
   constructor(private key: string, private fetchImpl: typeof fetch = fetch) {
@@ -141,6 +143,22 @@ export class YouTubeClient {
       pageToken = r.nextPageToken;
     } while (pageToken && ++guard < 20);
     return out;
+  }
+
+  /** Commentaires principaux d'une vidéo (1 unité de quota). Commentaires désactivés : liste vide. */
+  async comments(videoId: string, max = 12): Promise<YtComment[]> {
+    try {
+      const r = await this.get<{ items?: { snippet: { topLevelComment: { snippet: { authorDisplayName: string; authorProfileImageUrl?: string; textOriginal: string; likeCount?: number; publishedAt: string } } } }[] }>('commentThreads', {
+        part: 'snippet', videoId, order: 'relevance', textFormat: 'plainText', maxResults: String(max),
+      });
+      return (r.items || []).map((i) => {
+        const s = i.snippet.topLevelComment.snippet;
+        return { author: s.authorDisplayName, avatar: s.authorProfileImageUrl, text: s.textOriginal.slice(0, 600), likes: s.likeCount ?? 0, date: s.publishedAt };
+      });
+    } catch (e) {
+      if ((e as YouTubeError).status === 403 || (e as YouTubeError).status === 404) return [];
+      throw e;
+    }
   }
 
   /** Détails de vidéos par lots de 50. Les vidéos supprimées n'apparaissent pas dans la réponse. */

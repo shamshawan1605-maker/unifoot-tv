@@ -305,6 +305,22 @@ export async function runSync(): Promise<SyncResult> {
     // Une URL revenue en ligne n'est plus redirigée
     const livePaths = new Set(all.map((v) => videoPath(v)));
     store.removed = store.removed.filter((r) => !livePaths.has(videoPath(r)));
+    // Commentaires des extraits récents (affichés à côté de la vidéo) : récupérés seulement quand leur nombre change
+    const commentsSince = now.getTime() - 60 * 86_400_000;
+    const needComments = all
+      .filter((v) => v.kind === 'short' && (v.commentCount ?? 0) > 0 && new Date(v.publishedAt).getTime() >= commentsSince && v.commentsFor !== v.commentCount)
+      .sort((a, b) => (b.commentCount ?? 0) - (a.commentCount ?? 0))
+      .slice(0, 40);
+    for (const v of needComments) {
+      try {
+        v.comments = await yt.comments(v.id);
+        v.commentsFor = v.commentCount;
+      } catch (e) {
+        log(`commentaires de ${v.id} indisponibles :`, (e as Error).message);
+      }
+    }
+    if (needComments.length) log(`Commentaires mis à jour : ${needComments.length} extraits.`);
+
     if (fullScan) state.lastFullScanAt = now.toISOString();
     log(`YouTube OK : ${all.length} vidéos (${fullScan ? 'scan complet' : 'scan incrémental'}), ${yt.unitsUsed} unités de quota.`);
   } catch (e) {

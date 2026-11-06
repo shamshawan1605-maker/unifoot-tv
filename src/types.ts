@@ -41,6 +41,10 @@ export interface Video {
   viewCount?: number;
   /** Nombre de commentaires YouTube */
   commentCount?: number;
+  /** Commentaires YouTube les plus pertinents (extraits récents uniquement) */
+  comments?: { author: string; avatar?: string; text: string; likes: number; date: string }[];
+  /** commentCount au moment où les commentaires ont été récupérés */
+  commentsFor?: number;
   /** vrai si la description est trop pauvre : page en noindex */
   thin: boolean;
   /** date de la dernière mise à jour des détails via l'API */
