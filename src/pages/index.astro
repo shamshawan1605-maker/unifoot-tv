@@ -129,12 +129,22 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
           <ol class="fil">
             {week.map((w) => (
               <li class:list={{ 'fil__now': w.video?.id === hero?.id, 'fil__off': !w.video }}>
-                <span class="fil__min" aria-hidden="true">{partMinutes[w.day]}</span>
+                <span class="fil__min" aria-hidden="true">
+                  <span class="fil__num">{partMinutes[w.day]}</span>
+                  {w.video && (
+                    <svg class="fil__sifflet" viewBox="0 0 32 32" width="26" height="26">
+                      <g class="fil__ondes" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 7.5 20.5 3.5" /><path d="M23.5 9 27 6" /><path d="M25 13.5h4" /></g>
+                      <path d="M11 11h14.5a2 2 0 0 1 2 2v2.6a2 2 0 0 1-2 2h-5.1A8 8 0 1 1 11 11Z" fill="currentColor" />
+                      <circle cx="11.5" cy="19" r="2.6" fill="var(--marine)" />
+                    </svg>
+                  )}
+                </span>
                 {w.video ? (
                   <a class="fil__txt" href={videoPath(w.video)}>
                     <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.day]}</span></span>
                     <span class="fil__t">{fr(w.video.title)}</span>
                     {w.video.id === hero?.id && <span class="fil__badge">À la une</span>}
+                    <span class="fil__go" aria-hidden="true">Coup d'envoi !</span>
                   </a>
                 ) : (
                   <div class="fil__txt">
@@ -354,6 +364,20 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .fil__t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font: 700 0.875rem/1.3 var(--f-texte); color: var(--texte); }
   .fil__off .fil__t { font-weight: 500; color: var(--texte-2); }
   .fil a:hover .fil__t { color: var(--menthe); }
+  /* Survol : l'arbitre siffle le coup d'envoi */
+  .fil__min { position: relative; overflow: visible; }
+  .fil__num, .fil__sifflet { transition: opacity .18s ease, transform .18s ease; }
+  .fil__sifflet { position: absolute; inset: 0; margin: auto; opacity: 0; transform: scale(.4) rotate(-20deg); }
+  .fil li:has(a:hover, a:focus-visible) .fil__min { background: var(--jaune); border-color: var(--jaune); color: var(--marine); box-shadow: 0 0 0 5px rgb(255 210 63 / 0.25); }
+  .fil li:has(a:hover, a:focus-visible) .fil__num { opacity: 0; transform: scale(.4); }
+  .fil li:has(a:hover, a:focus-visible) .fil__sifflet { opacity: 1; transform: none; animation: siffle .5s ease-in-out .1s 2; }
+  .fil li:has(a:hover, a:focus-visible) .fil__ondes { animation: ondes .5s ease-out .1s 2; }
+  .fil__ondes { opacity: 0; }
+  @keyframes siffle { 0%, 100% { transform: rotate(0) } 25% { transform: rotate(-12deg) } 75% { transform: rotate(8deg) } }
+  @keyframes ondes { 0% { opacity: 0; transform: translate(-2px, 2px) } 50% { opacity: 1 } 100% { opacity: 0; transform: translate(2px, -2px) } }
+  .fil__go { max-height: 0; opacity: 0; overflow: hidden; font: 800 0.6875rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.06em; color: var(--jaune); transition: max-height .2s ease, opacity .2s ease; }
+  .fil a:hover .fil__go, .fil a:focus-visible .fil__go { max-height: 1.2em; opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .fil__sifflet, .fil__ondes { animation: none !important; } }
   .fil__badge { margin-top: 0.15rem; padding: 0.15rem 0.45rem; border-radius: 4px; background: var(--jaune); color: var(--marine); font: 800 0.625rem/1.2 var(--f-info); text-transform: uppercase; letter-spacing: 0.05em; }
 
   /* ---- À ne pas manquer ---- */
