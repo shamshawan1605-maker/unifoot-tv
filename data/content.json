@@ -1,8 +1,1147 @@
 {
   "version": 1,
-  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "generatedAt": "2026-11-06T03:48:14.649Z",
   "channel": null,
   "videos": [],
   "removed": [],
-  "podcast": null
+  "podcast": {
+    "title": "Kick in the Foot",
+    "fetchedAt": "2026-11-06T03:48:14.649Z",
+    "items": [
+      {
+        "guid": "d4b5b72e-582b-4ec0-b07e-2706a68c0050",
+        "title": "Wilo Footix : arbitre à 16 ans, 950 000 abonnés, les coulisses de Ground et du format VS",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Wilo-Footix--arbitre--16-ans--950-000-abonns--les-coulisses-de-Ground-et-du-format-VS-e3qu2r6",
+        "audioUrl": "https://traffic.megaphone.fm/APO4458061641.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T16:00:00.000Z",
+        "durationSec": 5143
+      },
+      {
+        "guid": "346269db-1370-49a8-90bd-66b3dc91dba4",
+        "title": "Comment lancer un pôle foot adapté dans ton club amateur ? (L’astuce du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Comment-lancer-un-ple-foot-adapt-dans-ton-club-amateur---Lastuce-du-jour-e3r0tc5",
+        "audioUrl": "https://traffic.megaphone.fm/APO7466240279.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-24T14:19:01.000Z",
+        "durationSec": 2431
+      },
+      {
+        "guid": "b9774c99-09d1-4406-8e3b-53a601b8d136",
+        "title": "Qui mérite vraiment le Ballon d’Or ? Débat VS avec Wilo Footix !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Qui-mrite-vraiment-le-Ballon-dOr---Dbat-VS-avec-Wilo-Footix-e3qsiuk",
+        "audioUrl": "https://traffic.megaphone.fm/APO1873236450.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-22T16:00:01.000Z",
+        "durationSec": 1924
+      },
+      {
+        "guid": "b3f8bc59-7b9b-4f2b-8bb9-fcf78e5e6ff4",
+        "title": "Ancien pro passé par Watford, il ramène des joueurs amateurs vers le pro : Gauthier Diafutua",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Ancien-pro-pass-par-Watford--il-ramne-des-joueurs-amateurs-vers-le-pro--Gauthier-Diafutua-e3qlpla",
+        "audioUrl": "https://traffic.megaphone.fm/APO5998356285.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-18T09:00:00.000Z",
+        "durationSec": 4888
+      },
+      {
+        "guid": "088512b0-87db-4a32-a69a-44fcda824bd0",
+        "title": "Éducateurs abandonnés ? Les responsables techniques sont-ils en cause ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/ducateurs-abandonns---Les-responsables-techniques-sont-ils-en-cause-e3qilmf",
+        "audioUrl": "https://traffic.megaphone.fm/APO4617486585.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-16T16:00:00.000Z",
+        "durationSec": 3172
+      },
+      {
+        "guid": "0431cda9-7cee-4f0c-9d47-eea0beef4cd0",
+        "title": "Un parent menace un éducateur bénévole de 21 ans (Le tour de l’actu)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Un-parent-menace-un-ducateur-bnvole-de-21-ans-Le-tour-de-lactu-e3qi0bs",
+        "audioUrl": "https://traffic.megaphone.fm/APO1142055586.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-15T16:00:01.000Z",
+        "durationSec": 3172
+      },
+      {
+        "guid": "39d7e5ba-4dfd-4d0b-97aa-3cab2a8a6294",
+        "title": "Santiago Cucci, Président Aviron Bayonnais FC, ex-OL : rachat Girondins raté, business vs foot.",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Santiago-Cucci--Prsident-Aviron-Bayonnais-FC--ex-OL--rachat-Girondins-rat--business-vs-foot-e3q6ej3",
+        "audioUrl": "https://traffic.megaphone.fm/APO5527363703.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-10T16:00:00.000Z",
+        "durationSec": 5020
+      },
+      {
+        "guid": "112c410b-d75d-4d37-bd3b-376d312122aa",
+        "title": "Méthode espagnole : pourquoi certains éducateurs pensent la faire déjà ? (Sylvain répond)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Mthode-espagnole--pourquoi-certains-ducateurs-pensent-la-faire-dj---Sylvain-rpond-e3q4fl1",
+        "audioUrl": "https://traffic.megaphone.fm/APO7178780344.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-09T16:00:00.000Z",
+        "durationSec": 3911
+      },
+      {
+        "guid": "4742fe8b-8851-48b4-90e5-966d7e630989",
+        "title": "Cours particuliers à l'école : normal. Spécifique foot en dehors du club : mal vu. Est-ce juste ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Cours-particuliers--lcole--normal--Spcifique-foot-en-dehors-du-club--mal-vu--Est-ce-juste-e3q4f9k",
+        "audioUrl": "https://traffic.megaphone.fm/APO9104994451.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-08T16:00:00.000Z",
+        "durationSec": 3959
+      },
+      {
+        "guid": "08358e9b-24e0-4a29-8d9e-2d21a9586be1",
+        "title": "Il a dit non à une offre à 6 chiffres pour son fils 😱 ( Sambou Tati, président du Roissy FC)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Il-a-dit-non--une-offre--6-chiffres-pour-son-fils---Sambou-Tati--prsident-du-Roissy-FC-e3pls3h",
+        "audioUrl": "https://traffic.megaphone.fm/APO7600860293.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-03T16:00:00.000Z",
+        "durationSec": 3984
+      },
+      {
+        "guid": "72163382-f676-4f83-b0e2-0f93e3969e87",
+        "title": "C'est quoi un modèle de jeu ? (personne n'est d'accord)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Cest-quoi-un-modle-de-jeu---personne-nest-daccord-e3pldq1",
+        "audioUrl": "https://traffic.megaphone.fm/APO8283468014.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-02T16:00:00.000Z",
+        "durationSec": 3385
+      },
+      {
+        "guid": "1539ed09-2844-443c-ba03-04dd16baa181",
+        "title": "Maillots interdits à l'école, caméras 360 interdites par la FFF... (KITF05)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Maillots-interdits--lcole--camras-360-interdites-par-la-FFF----KITF05-e3pjmmp",
+        "audioUrl": "https://traffic.megaphone.fm/APO6750986612.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-10-01T16:00:00.000Z",
+        "durationSec": 4038
+      },
+      {
+        "guid": "953bc30a-5fc2-4fd4-ae69-8c3b6422bfb8",
+        "title": "Emmanuel Dorado, du PSG à Sainte-Geneviève FC : 18 ans de fidélité en National 2",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Emmanuel-Dorado--du-PSG--Sainte-Genevive-FC--18-ans-de-fidlit-en-National-2-e3pc4bq",
+        "audioUrl": "https://traffic.megaphone.fm/APO7178961929.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-26T16:00:00.000Z",
+        "durationSec": 5472
+      },
+      {
+        "guid": "2cf37e1c-149f-433d-9eb4-8e0e69cb63fb",
+        "title": "Identité, ADN : ce que votre club doit absolument avoir ! (KITF03)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Identit--ADN--ce-que-votre-club-doit-absolument-avoir---KITF03-e3pc38b",
+        "audioUrl": "https://traffic.megaphone.fm/APO4361266587.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-25T16:00:00.000Z",
+        "durationSec": 2588
+      },
+      {
+        "guid": "327128ba-da86-4811-a43c-ca3f5cb6ee08",
+        "title": "Coup de cœur, coup de gueule ! Carton noir, texto de la honte, protège-tibias... (KITF 03)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Coup-de-cur--coup-de-gueule---Carton-noir--texto-de-la-honte--protge-tibias----KITF-03-e3pagkj",
+        "audioUrl": "https://traffic.megaphone.fm/APO3243150385.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-24T16:00:00.000Z",
+        "durationSec": 3437
+      },
+      {
+        "guid": "7239b3b3-8e01-4390-b814-68051ea2ab72",
+        "title": "Comment on choisit qui va en A, B, C ou D et comment l'expliquer aux parents et à l'enfant ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Comment-on-choisit-qui-va-en-A--B--C-ou-D-et-comment-lexpliquer-aux-parents-et--lenfant-e3p136a",
+        "audioUrl": "https://traffic.megaphone.fm/APO5513383187.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-19T16:00:00.000Z",
+        "durationSec": 2966
+      },
+      {
+        "guid": "9ce5c48f-56c3-4db0-a278-e508ff110e48",
+        "title": "C'est quoi un bon éducateur en école de foot ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Cest-quoi-un-bon-ducateur-en-cole-de-foot-e3p11n9",
+        "audioUrl": "https://traffic.megaphone.fm/APO1521666874.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-18T16:00:00.000Z",
+        "durationSec": 2537
+      },
+      {
+        "guid": "5cf7a48c-21f3-4f61-81ca-06c004d30118",
+        "title": "Votre licence de foot coûte trop cher... voici pourquoi (KITF02)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Votre-licence-de-foot-cote-trop-cher----voici-pourquoi-KITF02-e3p0aj6",
+        "audioUrl": "https://traffic.megaphone.fm/APO4291080879.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-17T18:00:01.000Z",
+        "durationSec": 2857
+      },
+      {
+        "guid": "256c3e97-8369-4772-b10e-6ba2f6723d49",
+        "title": "QUI MÉRITE LE BALLON D'OR ? ON VOUS DIT TOUT ! (KITF02)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/QUI-MRITE-LE-BALLON-DOR---ON-VOUS-DIT-TOUT---KITF02-e3otbho",
+        "audioUrl": "https://traffic.megaphone.fm/APO7162656853.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-16T16:00:00.000Z",
+        "durationSec": 2716
+      },
+      {
+        "guid": "57d4ece1-7c29-4e36-ab7c-2f245f839d3d",
+        "title": "20 ans dans le football espagnol : il révèle la méthode qui forme les joueurs",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/20-ans-dans-le-football-espagnol--il-rvle-la-mthode-qui-forme-les-joueurs-e3onruc",
+        "audioUrl": "https://traffic.megaphone.fm/APO6277084742.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-12T16:00:00.000Z",
+        "durationSec": 5134
+      },
+      {
+        "guid": "32ee74ea-2464-41b3-a25a-8ca9d3fd7fb4",
+        "title": "La France privilégie-t-elle trop le physique ? (React 48H AVEC GESSIME YASSINE)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/La-France-privilgie-t-elle-trop-le-physique---React-48H-AVEC-GESSIME-YASSINE-e3onmhg",
+        "audioUrl": "https://traffic.megaphone.fm/APO1233028419.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-11T18:45:00.000Z",
+        "durationSec": 3999
+      },
+      {
+        "guid": "d25cf329-49a7-45a0-aa39-6528b5a771ea",
+        "title": "Une bagarre générale éclate au Paris World Games : il raconte ce qu’il s’est passé",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Une-bagarre-gnrale-clate-au-Paris-World-Games--il-raconte-ce-quil-sest-pass-e3ojt6k",
+        "audioUrl": "https://traffic.megaphone.fm/APO9748113763.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-10T16:00:00.000Z",
+        "durationSec": 4060
+      },
+      {
+        "guid": "c68100ca-df81-4d34-8a9f-8ede424805e7",
+        "title": "Il voulait un terrain de foot pour son club et finit par être menacé de mort !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Il-voulait-un-terrain-de-foot-pour-son-club-et-finit-par-tre-menac-de-mort-e3oi8jv",
+        "audioUrl": "https://traffic.megaphone.fm/APO1324475259.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-09-09T16:00:00.000Z",
+        "durationSec": 3056
+      },
+      {
+        "guid": "12aee14e-a18c-4099-ab87-28a15023f7bb",
+        "title": "Le grand débrief de la saison : bilan, classement et grandes annonces ! - KITF #35",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-grand-dbrief-de-la-saison--bilan--classement-et-grandes-annonces-----KITF-35-e3lgd9g",
+        "audioUrl": "https://traffic.megaphone.fm/APO3054234410.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-07-01T16:00:00.000Z",
+        "durationSec": 6553
+      },
+      {
+        "guid": "9d3f8476-1325-4c42-9ec1-d26efa8cf061",
+        "title": "Coupe du Monde 2026, Jérémy Doku, coup de gueule de Pierre Sage avec Alexis Lefebvre - KITF #34",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Coupe-du-Monde-2026--Jrmy-Doku--coup-de-gueule-de-Pierre-Sage-avec-Alexis-Lefebvre---KITF-34-e3l6d5t",
+        "audioUrl": "https://traffic.megaphone.fm/APO5431978305.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-06-24T16:00:00.000Z",
+        "durationSec": 9034
+      },
+      {
+        "guid": "3719f9ea-4419-448e-ab0d-589124f34dce",
+        "title": "Le parcours d'Habib Bellaïd : Clairefontaine, Bundesliga, Coupe du Monde 2010... KITF #33",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-parcours-dHabib-Bellad--Clairefontaine--Bundesliga--Coupe-du-Monde-2010----KITF-33-e3kr6uq",
+        "audioUrl": "https://traffic.megaphone.fm/APO8590621369.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-06-17T16:00:00.000Z",
+        "durationSec": 12527
+      },
+      {
+        "guid": "6cc947c8-fe1a-4894-aee2-edd46fd21677",
+        "title": "D'adjoint à coach U17 Nat de Montrouge, il bat le PSG avec Oussama Moueddene - KITF #32",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Dadjoint--coach-U17-Nat-de-Montrouge--il-bat-le-PSG-avec-Oussama-Moueddene---KITF-32-e3kj6in",
+        "audioUrl": "https://traffic.megaphone.fm/APO9180700402.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-06-10T16:00:00.000Z",
+        "durationSec": 8938
+      },
+      {
+        "guid": "af48ffed-1618-4d1b-9b99-21666413875b",
+        "title": "Le vrai niveau du football en U19 National avec Fabio Frasconi - KITF #31",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-vrai-niveau-du-football-en-U19-National-avec-Fabio-Frasconi---KITF-31-e3juh2j",
+        "audioUrl": "https://traffic.megaphone.fm/APO1792793112.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-05-27T16:00:00.000Z",
+        "durationSec": 10835
+      },
+      {
+        "guid": "c68cbea6-c823-45ce-88bd-37b1dbefb807",
+        "title": "La vérité brutale dans les centres de formation avec Baptiste Monveneur - KITF #30",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/La-vrit-brutale-dans-les-centres-de-formation-avec-Baptiste-Monveneur---KITF-30-e3jjkhs",
+        "audioUrl": "https://traffic.megaphone.fm/APO4884786769.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-05-20T16:00:00.000Z",
+        "durationSec": 11423
+      },
+      {
+        "guid": "5990a8e7-3a24-4906-9127-1a640611c64f",
+        "title": "16 ans à former les meilleurs au PSG avec Kaou Diallo responsable préfo et coach U13 - KITF #29",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/16-ans--former-les-meilleurs-au-PSG-avec-Kaou-Diallo-responsable-prfo-et-coach-U13---KITF-29-e3j9835",
+        "audioUrl": "https://traffic.megaphone.fm/APO9707763963.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-05-13T16:00:00.000Z",
+        "durationSec": 12476
+      },
+      {
+        "guid": "64f01df2-5928-48bf-9ad2-27a1c239542d",
+        "title": "Il a avoué avoir arrangé des matchs, doit-il être viré ? - KITF #28",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Il-a-avou-avoir-arrang-des-matchs--doit-il-tre-vir-----KITF-28-e3ik7ij",
+        "audioUrl": "https://traffic.megaphone.fm/APO6902403954.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-04-29T16:00:00.000Z",
+        "durationSec": 9818
+      },
+      {
+        "guid": "6801506d-2f98-49e6-9803-e6ac60ba5ac2",
+        "title": "De la JA Drancy à gardien titulaire en Ligue 2 avec Teddy Bartouche-Selbonne - KITF #27",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/De-la-JA-Drancy--gardien-titulaire-en-Ligue-2-avec-Teddy-Bartouche-Selbonne---KITF-27-e3i6squ",
+        "audioUrl": "https://traffic.megaphone.fm/APO3991477931.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-04-22T16:00:00.000Z",
+        "durationSec": 9243
+      },
+      {
+        "guid": "79c98bd8-af35-436c-9aba-f3d235d35d08",
+        "title": "Mort de son fils de 15 ans sur un terrain : sa famille menacée de mort, son père témoigne - KITF #26",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Mort-de-son-fils-de-15-ans-sur-un-terrain--sa-famille-menace-de-mort--son-pre-tmoigne---KITF-26-e3hrrie",
+        "audioUrl": "https://traffic.megaphone.fm/APO3420706832.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-04-15T16:00:00.000Z",
+        "durationSec": 10203
+      },
+      {
+        "guid": "9f13be61-925d-4ed1-a0a5-8a7cd9f056c3",
+        "title": "L’homme derrière la stratégie de l'Institut international Sadio Mané avec Patrice Ribaton - KITF #25",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Lhomme-derrire-la-stratgie-de-lInstitut-international-Sadio-Man-avec-Patrice-Ribaton---KITF-25-e3hjkda",
+        "audioUrl": "https://traffic.megaphone.fm/APO1547203069.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-04-08T16:00:00.000Z",
+        "durationSec": 9554
+      },
+      {
+        "guid": "11f8ad1d-ecfa-46e7-95a1-15d3e404f297",
+        "title": "De Clairefontaine à la Ligue 2 : Nadim Saïd raconte la réalité du foot pro - KITF #24",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/De-Clairefontaine--la-Ligue-2--Nadim-Sad-raconte-la-ralit-du-foot-pro---KITF-24-e3h8137",
+        "audioUrl": "https://traffic.megaphone.fm/APO6663299314.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-04-01T16:00:00.000Z",
+        "durationSec": 10335
+      },
+      {
+        "guid": "0bed42e3-7c4b-423d-b88f-38db01fff836",
+        "title": "Harcèlement, Morsure et Racisme: Le football est-il en train de mourir ? - KITF #23",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Harclement--Morsure-et-Racisme-Le-football-est-il-en-train-de-mourir-----KITF-23-e3guo5a",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/117448298/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-2-25%2F420729554-44100-2-8da5edc610d27.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-03-25T17:00:00.000Z",
+        "durationSec": 7741
+      },
+      {
+        "guid": "02b592c6-98f8-420f-89fc-03822fc96fef",
+        "title": "Comment la formation espagnole façonne des joueurs d’exception - KITF #22",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Comment-la-formation-espagnole-faonne-des-joueurs-dexception---KITF-22-e3gikog",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/117051600/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-2-17%2F420190588-44100-2-a14270a4ad42.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-03-18T17:00:00.000Z",
+        "durationSec": 11590
+      },
+      {
+        "guid": "4a8d758f-fffb-41f5-8671-ba25de40c074",
+        "title": "\"TU SERAS PRO MON FILS\" : Raymond Tsimba (Papa de Lukeny) répond cash aux critiques ! – KITF #21",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/TU-SERAS-PRO-MON-FILS--Raymond-Tsimba-Papa-de-Lukeny-rpond-cash-aux-critiques----KITF-21-e3g6u2h",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/116667921/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-2-10%2F419670003-44100-2-0a0b05804164.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-03-11T17:00:00.000Z",
+        "durationSec": 8365
+      },
+      {
+        "guid": "f144b277-2422-4eb8-bc8d-50a7e0acf888",
+        "title": "Le président TikTok qui a secoué le football amateur avec Hassan Baillon – KITF #20",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-prsident-TikTok-qui-a-secou-le-football-amateur-avec-Hassan-Baillon--KITF-20-e3fi7rf",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/115989807/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-1-24%2F418752641-44100-2-8d6434d04d34a.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-02-25T17:00:00.000Z",
+        "durationSec": 9643
+      },
+      {
+        "guid": "0d1336a9-4cb5-445d-9fd7-6351a13047f9",
+        "title": "Dans les coulisses du football ghanéen avec Jasmine Cherchali – KITF #19",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Dans-les-coulisses-du-football-ghanen-avec-Jasmine-Cherchali--KITF-19-e3f83df",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/115657583/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-1-17%2F418306506-44100-2-8ff7fd2c055e4.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-02-18T17:00:00.000Z",
+        "durationSec": 7596
+      },
+      {
+        "guid": "c9a56d65-5ecd-482e-9cad-fabe17486263",
+        "title": "De l’enfant du club à directeur technique : le parcours et la vision d’Ousman Diaby – KITF #18",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/De-lenfant-du-club--directeur-technique--le-parcours-et-la-vision-dOusman-Diaby--KITF-18-e3estj7",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/115291175/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-1-10%2F417817223-44100-2-532797705fac2.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-02-11T17:00:00.000Z",
+        "durationSec": 7722
+      },
+      {
+        "guid": "8d8039b2-6755-46bb-8127-8252d94eb8ec",
+        "title": "La méthode et l’organisation pour former les U17 Nat de Montfermeil avec Bakary Sylla – KITF #17",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/La-mthode-et-lorganisation-pour-former-les-U17-Nat-de-Montfermeil-avec-Bakary-Sylla--KITF-17-e3e9qpj",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/114665715/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-0-28%2F416982612-44100-2-d641aa19f8c0d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-01-28T17:00:00.000Z",
+        "durationSec": 9937
+      },
+      {
+        "guid": "eb25f7fb-c3b6-470c-a3f8-59fa370434fa",
+        "title": "Ce que personne ne dit sur les blessures et la santé sportive avec Rafik Masmoudi - KITF #16",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Ce-que-personne-ne-dit-sur-les-blessures-et-la-sant-sportive-avec-Rafik-Masmoudi---KITF-16-e3e0ge6",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/114360198/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-0-21%2F416583549-44100-2-fdb3f7bd0ab7f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-01-20T23:40:00.000Z",
+        "durationSec": 8393
+      },
+      {
+        "guid": "10e7b702-2d22-4e29-b509-80e439367401",
+        "title": "Le parcours historique du FC Montreuil en Coupe de France avec Samy Guenfoud - KITF #15",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-parcours-historique-du-FC-Montreuil-en-Coupe-de-France-avec-Samy-Guenfoud---KITF-15-e3diucq",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/113915738/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-0-13%2F416015119-44100-2-2e25fa8ea9f4d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-01-14T17:00:00.000Z",
+        "durationSec": 9198
+      },
+      {
+        "guid": "3e0a6d75-d444-4613-8d20-7b6ef3717836",
+        "title": "Le plus jeune coach de l’histoire devient champion à 28 ans avec Alexandre Lafitte - KITF #14",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-plus-jeune-coach-de-lhistoire-devient-champion--28-ans-avec-Alexandre-Lafitte---KITF-14-e3d9u56",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/113620582/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2026-0-7%2F415639447-44100-2-01ddb2baefadd.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-01-07T17:00:00.000Z",
+        "durationSec": 8536
+      },
+      {
+        "guid": "e233d445-e3a5-4c5a-a6aa-6706cb5d7051",
+        "title": "Du district de Seine-Saint-Denis à la National 2 : l’ascension de Karim Mazeghrane - KITF #13",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Du-district-de-Seine-Saint-Denis--la-National-2--lascension-de-Karim-Mazeghrane---KITF-13-e3cpi99",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/113084137/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-24%2F414962182-44100-2-140b3e6c3eb6f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-12-24T17:00:00.000Z",
+        "durationSec": 7612
+      },
+      {
+        "guid": "2a7cf4fc-8b62-42c1-9a8d-18d9617ba564",
+        "title": "Former un joueur moderne avec Stevens coach des U17 Nationaux de Brétigny - KITF #12",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Former-un-joueur-moderne-avec-Stevens-coach-des-U17-Nationaux-de-Brtigny---KITF-12-e3cekq4",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/112726276/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-16%2F414502810-44100-2-5520285b9bd2d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-12-17T17:00:00.000Z",
+        "durationSec": 5434
+      },
+      {
+        "guid": "ce855590-19a2-4434-8f55-b737df6260dc",
+        "title": "Les Débuts d’un Agent FFF Avec Mohamed Segueni - KITF #11",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Les-Dbuts-dun-Agent-FFF-Avec-Mohamed-Segueni---KITF-11-e3bstce",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/112145230/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-11-4%2F413758843-44100-2-55c9b3a4bf872.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-12-04T18:55:00.000Z",
+        "durationSec": 8563
+      },
+      {
+        "guid": "2c54db81-1806-4a1e-b850-f0f35ad6de21",
+        "title": "Le combat de Kamel Saouchi pour le Sport Inclusif - KITF #10",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-combat-de-Kamel-Saouchi-pour-le-Sport-Inclusif---KITF-10-e3bfd05",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/111702469/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-10-25%2F413160620-44100-2-5ea964cea6f7b.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-11-26T17:00:00.000Z",
+        "durationSec": 7649
+      },
+      {
+        "guid": "2d1e90bf-4858-464e-8a15-25ae48e3c598",
+        "title": "KICK IN THE FOOT S4E09 - Mirnes Hajdarevic entraineur de l’équipe U23 du Racing Club Luxembourg !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E09---Mirnes-Hajdarevic-entraineur-de-lquipe-U23-du-Racing-Club-Luxembourg-e3b6ou0",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/111419776/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-10-19%2F412790092-44100-2-0a33e4528f5dd.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-11-19T18:10:00.000Z",
+        "durationSec": 9407
+      },
+      {
+        "guid": "ae2e575b-c146-45f8-9791-62fbd8a4a98f",
+        "title": "KICK IN THE FOOT S4E08 – Nicolas Maurice-Belay : de la Ligue 1 à la formation des jeunes !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E08--Nicolas-Maurice-Belay--de-la-Ligue-1--la-formation-des-jeunes-e3a7lj7",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/110400551/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-29%2F410215961-44100-2-0d57ced47f08f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-10-29T18:50:01.000Z",
+        "durationSec": 6453
+      },
+      {
+        "guid": "22e8e3a6-beb1-4185-a817-1a359321d5d0",
+        "title": "KICK IN THE FOOT S4E07 – L’IA au service du développement des jeunes ! (Predixball)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E07--LIA-au-service-du-dveloppement-des-jeunes---Predixball-e39r795",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/109992677/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-21%2F409679692-44100-2-875ed1743949b.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-10-22T16:00:00.000Z",
+        "durationSec": 10437
+      },
+      {
+        "guid": "7c338132-d139-49da-9d07-f117b4e438ee",
+        "title": "KICK IN THE FOOT S4E06 – Les éducateurs veulent trop gagner et oublient la mission formatrice ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E06--Les-ducateurs-veulent-trop-gagner-et-oublient-la-mission-formatrice-e39jcau",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/109735710/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-15%2F409345397-44100-2-cbb07165a1ccb.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-10-15T22:42:05.000Z",
+        "durationSec": 10530
+      },
+      {
+        "guid": "3db450d4-5053-474a-a6a1-e8e7319e14e3",
+        "title": "KICK IN THE FOOT S4E05 – Un joueur convoqué pour 30 secondes pour un match sans toucher le ballon !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E05--Un-joueur-convoqu-pour-30-secondes-pour-un-match-sans-toucher-le-ballon-e398ufv",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/109393855/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-8%2F408898173-44100-2-fac47e7d55b85.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-10-08T17:44:33.000Z",
+        "durationSec": 8707
+      },
+      {
+        "guid": "b5b17275-148f-4614-8239-1a5812786f1e",
+        "title": "KICK IN THE FOOT S4E04 – Le Ballon d’Or, la polémique au FC Versailles, score controversé de 31-0...",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E04--Le-Ballon-dOr--la-polmique-au-FC-Versailles--score-controvers-de-31-0-e390oiv",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/109125663/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-9-2%2F408549911-44100-2-ee2ec8009bc33.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-10-03T16:00:00.000Z",
+        "durationSec": 8959
+      },
+      {
+        "guid": "86b059f9-cb26-469c-8d3c-d16fcf6643e8",
+        "title": "KICK IN THE FOOT S4E03 – Africa Foot : le projet footballistique pour les jeunes au Sénégal",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E03--Africa-Foot--le-projet-footballistique-pour-les-jeunes-au-Sngal-e38n223",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108807683/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-25%2F408137230-44100-2-825252f51dc24.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-26T16:00:00.000Z",
+        "durationSec": 8462
+      },
+      {
+        "guid": "4a71adca-35f9-4c32-926f-5862d24abcc1",
+        "title": "KICK IN THE FOOT S4E02 – Ajaccio rétrogradé, Boom du foot féminin, violences sur mineurs...",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E02--Ajaccio-rtrograd--Boom-du-foot-fminin--violences-sur-mineurs-e38c7lp",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108452985/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-17%2F407678160-44100-2-f946564a2287f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-19T16:00:00.000Z",
+        "durationSec": 8050
+      },
+      {
+        "guid": "a5b4a06f-5bba-41a6-9eea-dc758dd58eee",
+        "title": "Choc : Monter en D1 ? OUI… mais seulement si tu crées une école de foot 😱",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Choc--Monter-en-D1---OUI-mais-seulement-si-tu-cres-une-cole-de-foot-e3897tn",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108354935/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-15%2F407551417-44100-2-647a269fef05.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-16T15:59:00.000Z",
+        "durationSec": 1106
+      },
+      {
+        "guid": "8cb45d18-2e5b-470d-8752-2d1b4d4c60ae",
+        "title": "Pourquoi certaines licences de club coûtent 100€, 150€ ou même 300€ ? (le débat du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Pourquoi-certaines-licences-de-club-cotent-100--150-ou-mme-300---le-dbat-du-jour-e382gao",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108134168/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407270733-44100-2-492be87debd0a.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-12T16:00:00.000Z",
+        "durationSec": 1356
+      },
+      {
+        "guid": "69e3519f-9cb5-4cc9-9f76-02f8d7d93542",
+        "title": "Le short trop bas de Calvin Bassey (les actus du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-short-trop-bas-de-Calvin-Bassey-les-actus-du-jour-e382g8d",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108134093/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407270542-44100-2-993fc332748dc.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-11T19:00:00.000Z",
+        "durationSec": 238
+      },
+      {
+        "guid": "ec66fcfa-4462-4bda-9a28-6bc1c0f03c2c",
+        "title": "Stade Rennais : un espoir interpellé avec de la cocaïne (les actus du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Stade-Rennais--un-espoir-interpell-avec-de-la-cocane-les-actus-du-jour-e382g6m",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108134038/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407270468-44100-2-84c3c507d2e86.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-11T16:00:00.000Z",
+        "durationSec": 323
+      },
+      {
+        "guid": "f3c8120e-916f-46dd-9932-1680cdff396b",
+        "title": "Des caméras embarquées pour protéger les arbitres (les actus du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Des-camras-embarques-pour-protger-les-arbitres-les-actus-du-jour-e382g5b",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108133995/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407270403-44100-2-da3fdfe2db133.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-11T13:00:00.000Z",
+        "durationSec": 363
+      },
+      {
+        "guid": "5a295b64-0053-4d41-bc3b-f08659258604",
+        "title": "Doit-on continuer le sport si on est nul ? (les actus du jour)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Doit-on-continuer-le-sport-si-on-est-nul---les-actus-du-jour-e382g21",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108133889/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407270276-44100-2-49b18ea83c76a.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-11T10:00:00.000Z",
+        "durationSec": 639
+      },
+      {
+        "guid": "b1545758-5df2-428c-87ab-61493bfc9e57",
+        "title": "KICK IN THE FOOT S4E01 – Surclassement forcé, prix des licences, propos choc Pierre Ménès…",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/KICK-IN-THE-FOOT-S4E01--Surclassement-forc--prix-des-licences--propos-choc-Pierre-Mns-e3826b3",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108123939/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-10%2F407257845-44100-2-d153808b96c87.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-10T17:30:00.000Z",
+        "durationSec": 7149
+      },
+      {
+        "guid": "d5b733d8-dfbd-4542-b93f-43b5fab507c3",
+        "title": "UN ÉDUCATEUR DE TORCY RÉPOND À PIERRE MÉNÈS APRÈS SES PROPOS POLÉMIQUES !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/UN-DUCATEUR-DE-TORCY-RPOND--PIERRE-MNS-APRS-SES-PROPOS-POLMIQUES-e37v85m",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/108027510/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-8-8%2F407135080-44100-2-6d36c639b6bb8.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-09-08T19:13:43.000Z",
+        "durationSec": 413
+      },
+      {
+        "guid": "7d793088-c5ff-4c8f-9e9e-8ae2fff11633",
+        "title": "Entraîner au plus haut niveau amateur : Fabio Frasconi, coach des U19 Nationaux de Montfermeil !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Entraner-au-plus-haut-niveau-amateur--Fabio-Frasconi--coach-des-U19-Nationaux-de-Montfermeil-e355arr",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/105081147/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-6-6%2F403376222-44100-2-820ac7a76aac3.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-07-06T16:00:01.000Z",
+        "durationSec": 9148
+      },
+      {
+        "guid": "8a0a3e1d-a0e8-4b4f-89c3-6fccfdd4cbb5",
+        "title": "L’intelligence de jeu la clé pour passer au niveau supérieur avec Marc Bascol-Munuera !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Lintelligence-de-jeu-la-cl-pour-passer-au-niveau-suprieur-avec-Marc-Bascol-Munuera-e33b084",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/103169732/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-4-25%2F400957002-44100-2-746ad7f4bf40e.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-05-25T16:00:00.000Z",
+        "durationSec": 9456
+      },
+      {
+        "guid": "e8b88ad9-5344-4d62-98d5-98d36ec7a543",
+        "title": "Polémiques et Débat à l'US Orléans, Arbitres Aggressés, Paris FC en Ligue 1 et Témoignage !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Polmiques-et-Dbat--lUS-Orlans--Arbitres-Aggresss--Paris-FC-en-Ligue-1-et-Tmoignage-e32mccg",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/102494032/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-4-11%2F400027638-44100-2-2f202a9b981a1.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-05-11T16:00:00.000Z",
+        "durationSec": 8850
+      },
+      {
+        "guid": "1993f72e-bbda-4a2f-a283-5c97e71d194c",
+        "title": "Réussir dans le football : détections, mental, agents, formation et les vraies réalités du terrain !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Russir-dans-le-football--dtections--mental--agents--formation-et-les-vraies-ralits-du-terrain-e321v70",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/101825184/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-3-26%2F399140694-44100-2-61ed6b7fcb2a1.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-04-27T16:00:00.000Z",
+        "durationSec": 10533
+      },
+      {
+        "guid": "4fade3bf-37e5-4f90-9b0e-cdd75dba2290",
+        "title": "La Nutrition, La Rémunération des Éducateurs et Impact de la Kings League dans le Football Amateur !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/La-Nutrition--La-Rmunration-des-ducateurs-et-Impact-de-la-Kings-League-dans-le-Football-Amateur-e31g7pp",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/101244153/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-3-13%2F398339698-44100-2-0ef205377dc5.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-04-13T22:06:43.000Z",
+        "durationSec": 9607
+      },
+      {
+        "guid": "fa699588-6f7b-4831-bda2-11028e529816",
+        "title": "Violence, Stress et Polémiques dans le Football : Gérer la Pression des Jeunes Footballeurs !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Violence--Stress-et-Polmiques-dans-le-Football--Grer-la-Pression-des-Jeunes-Footballeurs-e30s5pi",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100586738/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397501072-44100-2-19739deb6ae2.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-03-30T16:29:07.000Z",
+        "durationSec": 5699
+      },
+      {
+        "guid": "67b142568fcb786175cd4ad4",
+        "title": "FC 93 : Histoire, Ambitions, Coupe de France et Défis du Football Amateur avec Siné et Kevin !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/FC-93--Histoire--Ambitions--Coupe-de-France-et-Dfis-du-Football-Amateur-avec-Sin-et-Kevin-e30rjoc",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568268/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397479148-44100-2-c28c2df9de7df.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-02-16T17:00:00.000Z",
+        "durationSec": 7841
+      },
+      {
+        "guid": "679edabec4b7d8845bb2202b",
+        "title": "Raymond Domenech : Son Parcours et Son Regard sur le Football Amateur !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Raymond-Domenech--Son-Parcours-et-Son-Regard-sur-le-Football-Amateur-e30rjon",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568279/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397479772-44100-2-ac1fe0461a28d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-02-02T17:00:00.000Z",
+        "durationSec": 6352
+      },
+      {
+        "guid": "678d32815dd9c67f17cd5644",
+        "title": "Florentin Pogba : L'Épopée Inspirante d'un Footballeur Professionnel !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Florentin-Pogba--Lpope-Inspirante-dun-Footballeur-Professionnel-e30rjq0",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568320/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478478-44100-2-edd6a5f266c97c2d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-01-19T17:20:00.000Z",
+        "durationSec": 10396
+      },
+      {
+        "guid": "677a9cac779c00deb18552ff",
+        "title": "Les Confessions Choc de Ludovic Baal sur la Vie d’un Footballeur Pro !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Les-Confessions-Choc-de-Ludovic-Baal-sur-la-Vie-dun-Footballeur-Pro-e30rjor",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568283/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478450-44100-2-4c26869b7e836853.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2025-01-05T14:52:29.000Z",
+        "durationSec": 8000
+      },
+      {
+        "guid": "6755d2707205a5bc6839c7b5",
+        "title": "De Paris FC à Villejuif : L'Ascension d'Ismaël Bamba dans le Football Amateur !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/De-Paris-FC--Villejuif--LAscension-dIsmal-Bamba-dans-le-Football-Amateur-e30rjp0",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568288/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478477-44100-2-bd8e547df5958bed.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-12-08T17:10:55.000Z",
+        "durationSec": 7014
+      },
+      {
+        "guid": "674fb2295c72a52fddfe6558",
+        "title": "LE PROJET MBAPPÉ REMIS EN QUESTION ! LA MONTÉE DES VIOLENCES DANS LE FOOTBALL AMATEUR...",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-PROJET-MBAPP-REMIS-EN-QUESTION---LA-MONTE-DES-VIOLENCES-DANS-LE-FOOTBALL-AMATEUR-e30rjo0",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568256/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478432-44100-2-4abeacfabdd310d6.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-12-04T14:00:30.000Z",
+        "durationSec": 5412
+      },
+      {
+        "guid": "674fb07d5c72a52fddfd54ee",
+        "title": "Football amateur : Donnons enfin la parole aux parents ! (PART 1)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Football-amateur--Donnons-enfin-la-parole-aux-parents---PART-1-e30rjpn",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568311/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478435-44100-2-e7b50d26debaef6f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-12-04T11:01:15.000Z",
+        "durationSec": 5115
+      },
+      {
+        "guid": "66fa3486380a74ab15673deb",
+        "title": "Football Amateur : On Répond à Vos 6 Problématiques de Début de Saison !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Football-Amateur--On-Rpond--Vos-6-Problmatiques-de-Dbut-de-Saison-e30rjom",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568278/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478433-44100-2-acb3263014a52da1.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-09-30T05:17:57.000Z",
+        "durationSec": 8084
+      },
+      {
+        "guid": "8a60f215b124c13ba63c44e046f4ba02e437f2cd",
+        "title": "CONSEIL ET FORMATION FOOTBALLISTIQUE AVEC ROMAIN DE LA BONTAZ ACADEMY COACHING !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/CONSEIL-ET-FORMATION-FOOTBALLISTIQUE-AVEC-ROMAIN-DE-LA-BONTAZ-ACADEMY-COACHING-e30rjo8",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568264/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478427-44100-2-f22dcb259418a5c3.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-06-30T20:14:40.000Z",
+        "durationSec": 7250
+      },
+      {
+        "guid": "ce5423b3ffafbf830ac455263b0e0314ea930f81",
+        "title": "LA FORMATION AU HAVRE AC : ANECDOTES ET TÉMOIGNAGES D'ANCIENS JOUEURS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LA-FORMATION-AU-HAVRE-AC--ANECDOTES-ET-TMOIGNAGES-DANCIENS-JOUEURS-e30rjol",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568277/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478434-44100-2-4e69a53c549e2139.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-06-16T16:08:39.000Z",
+        "durationSec": 7971
+      },
+      {
+        "guid": "e6016497f75507913c2be9e25a976e07614d31bf",
+        "title": "L'ascension : Du District à la National 2 ! Avec Benjamin Morel, coach de l’AS Villers Houlgate !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Lascension--Du-District--la-National-2---Avec-Benjamin-Morel--coach-de-lAS-Villers-Houlgate-e30rjov",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568287/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478468-44100-2-292d971345bbcf4b.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-06-12T06:48:26.000Z",
+        "durationSec": 7700
+      },
+      {
+        "guid": "473de158ade78dc602d282441cb397a7e5f802ac",
+        "title": "Surmonter la Dépression dans le Sport : Le Parcours inspirant de Mamadou Diakité",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Surmonter-la-Dpression-dans-le-Sport--Le-Parcours-inspirant-de-Mamadou-Diakit-e30rjrd",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568365/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478549-44100-2-95cfd9e2280793ed.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:46:51.000Z",
+        "durationSec": 5848
+      },
+      {
+        "guid": "247fa63f97eeb45fc97f5672f1759d39bce4c639",
+        "title": "COMMENT DEVENIR JOUEUR PROFESSIONNEL SANS PASSER PAR UN CENTRE DE FORMATION AVEC KEVIN GOBA !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/COMMENT-DEVENIR-JOUEUR-PROFESSIONNEL-SANS-PASSER-PAR-UN-CENTRE-DE-FORMATION-AVEC-KEVIN-GOBA-e30rjr4",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568356/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478543-44100-2-bc907605cfac6bd6.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:45:58.000Z",
+        "durationSec": 6160
+      },
+      {
+        "guid": "1c80c6c2bca43b5403dfdd2ba54d4b3b3bfd3860",
+        "title": "FLORENT DUPARCHY, VICTIME D'UNE COMMOTION CÉRÉBRALE, PORTE PLAINTE CONTRE LE STADE DE REIMS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/FLORENT-DUPARCHY--VICTIME-DUNE-COMMOTION-CRBRALE--PORTE-PLAINTE-CONTRE-LE-STADE-DE-REIMS-e30rjog",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568272/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478461-44100-2-adfa290abb22a1d7.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:44:42.000Z",
+        "durationSec": 5520
+      },
+      {
+        "guid": "d9e4ec3566fa51d551d1d2129c7a115c775e5547",
+        "title": "LE METIER D'AVOCAT MANDATAIRE SPORTIF AVEC LAURENT FELLOUS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-METIER-DAVOCAT-MANDATAIRE-SPORTIF-AVEC-LAURENT-FELLOUS-e30rjp6",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568294/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478474-44100-2-d1cac3c8dbac5ad1.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:43:52.000Z",
+        "durationSec": 8305
+      },
+      {
+        "guid": "a2aa42c7c52c2b742f33ac6a95cd2d846eb5bec4",
+        "title": "ÊTRE UN TRÈS BON GARDIEN DE BUT AVEC LE COACH DES GARDIENNES DE BUT D1 FÉMININES DU PARIS FC !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/TRE-UN-TRS-BON-GARDIEN-DE-BUT-AVEC-LE-COACH-DES-GARDIENNES-DE-BUT-D1-FMININES-DU-PARIS-FC-e30rjop",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568281/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478469-44100-2-0e3a192654a2b376.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:42:58.000Z",
+        "durationSec": 6073
+      },
+      {
+        "guid": "1b3a7facda934a1403aeb9257ea415766a271f1a",
+        "title": "CONSTRUIRE UN PROJET DE JEU AVEC FRÉDÉRIC ADVICE-DESRUISSEAUX, EX COACH DU PARIS 13 ATLETICO EN N2 !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/CONSTRUIRE-UN-PROJET-DE-JEU-AVEC-FRDRIC-ADVICE-DESRUISSEAUX--EX-COACH-DU-PARIS-13-ATLETICO-EN-N2-e30rjoj",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568275/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478431-44100-2-1cd205b81b757f7d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-05-31T15:41:18.000Z",
+        "durationSec": 7702
+      },
+      {
+        "guid": "52cac3094bc10eefe889850e0c5e2697268a0ea2",
+        "title": "FOOTBALL ET POLITIQUE : QUAND LE SPORT DEVIENT UN BUSINESS POLITIQUE !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/FOOTBALL-ET-POLITIQUE--QUAND-LE-SPORT-DEVIENT-UN-BUSINESS-POLITIQUE-e30rjpc",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568300/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478470-44100-2-83de36011d88ad17.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-03-25T15:56:12.000Z",
+        "durationSec": 6720
+      },
+      {
+        "guid": "0205e2453b34a86cc98a61f61c32b935d237eeff",
+        "title": "LE FOOTBALL SÉNÉGALAIS : ENTRE PROBLÉMATIQUES ET ENJEUX AVEC CHÉRIF SADIO ET FRANÇOIS DIATTA !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-FOOTBALL-SNGALAIS--ENTRE-PROBLMATIQUES-ET-ENJEUX-AVEC-CHRIF-SADIO-ET-FRANOIS-DIATTA-e30rjpa",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568298/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478480-44100-2-051f5d6e13fbd3be.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-03-06T18:00:00.000Z",
+        "durationSec": 8206
+      },
+      {
+        "guid": "dfddaa6b32236fd5afd6d466f458023c77324dc2",
+        "title": "Le départ de Mbappé, l'arrivée du carton bleu, suspension d'un arbitre et l'agression d'éducateurs !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Le-dpart-de-Mbapp--larrive-du-carton-bleu--suspension-dun-arbitre-et-lagression-dducateurs-e30rjob",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568267/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478453-44100-2-95c4b331b02e590e.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-03-06T03:17:49.000Z",
+        "durationSec": 5902
+      },
+      {
+        "guid": "9b95febfedf88cd5472a71e86de949905cdea14b",
+        "title": "Les Vérités des Parents aux Éducateurs ! | Avec Kalvin Winson et Said papa d’un joueur",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Les-Vrits-des-Parents-aux-ducateurs----Avec-Kalvin-Winson-et-Said-papa-dun-joueur-e30rjou",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568286/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478459-44100-2-47f815744d2d6e99.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-02-12T12:00:00.000Z",
+        "durationSec": 8810
+      },
+      {
+        "guid": "56d840690fa9adceb0018eb8d97eaab8a998b285",
+        "title": "LES INÉGALITÉS ENTRE LE FOOTBALL FÉMININ ET MASCULIN AVEC COACH MAMAD",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LES-INGALITS-ENTRE-LE-FOOTBALL-FMININ-ET-MASCULIN-AVEC-COACH-MAMAD-e30rjnu",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568254/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478429-44100-2-bf131b85697c1d20.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-02-08T21:10:46.000Z",
+        "durationSec": 5596
+      },
+      {
+        "guid": "3f990a27a4e17bba91695e84188aefaa3f319db2",
+        "title": "BÂTIR UNE ÉQUIPE COMPÉTITIVE AFIN DE JOUER LES PREMIERS RÔLES DANS SON CHAMPIONNAT !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/BTIR-UNE-QUIPE-COMPTITIVE-AFIN-DE-JOUER-LES-PREMIERS-RLES-DANS-SON-CHAMPIONNAT-e30rjof",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568271/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478465-44100-2-8ecf0118c6aa24e5.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-02-06T02:55:29.000Z",
+        "durationSec": 4922
+      },
+      {
+        "guid": "e60acd4dcdd366da9853a1bb4f7f7915c0e7dacf",
+        "title": "LE FUTUR DU RECRUTEMENT DANS LE FOOTBALL AVEC FOOTSIDER",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-FUTUR-DU-RECRUTEMENT-DANS-LE-FOOTBALL-AVEC-FOOTSIDER-e30rjoa",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568266/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478446-44100-2-16455543621d40b0.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-29T03:10:42.000Z",
+        "durationSec": 5882
+      },
+      {
+        "guid": "1a5856805fddc4b36b0693c0f4ba4b1ea6994adf",
+        "title": "JE RENTRE À 10 ANS DANS UN CLUB PRO | WESLEY NGO BAHENG ANCIEN FOOTBALLEUR PRO À NEWCASTLE !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/JE-RENTRE--10-ANS-DANS-UN-CLUB-PRO--WESLEY-NGO-BAHENG-ANCIEN-FOOTBALLEUR-PRO--NEWCASTLE-e30rjp8",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568296/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478476-44100-2-1d5311e758d9d42f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-26T22:20:56.000Z",
+        "durationSec": 8317
+      },
+      {
+        "guid": "cb9fef6796fb0fefd5c04b889f8c71f67c28eedb",
+        "title": "FENO : METTRE EN LUMIÈRE LES FUTURS PEPITES DU FOOTBALL AMATEUR !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/FENO--METTRE-EN-LUMIRE-LES-FUTURS-PEPITES-DU-FOOTBALL-AMATEUR-e30rjoe",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568270/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478442-44100-2-f6486fce3b227301.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-26T22:16:12.000Z",
+        "durationSec": 7122
+      },
+      {
+        "guid": "69c9dec0ebccb201b316d1495325d89a7f271fb3",
+        "title": "INÉGALITÉS, RACISMES ET AGRESSION AU COUTEAU DANS LE FOOTBALL AMATEUR",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/INGALITS--RACISMES-ET-AGRESSION-AU-COUTEAU-DANS-LE-FOOTBALL-AMATEUR-e30rjp1",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568289/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478449-44100-2-1bb3173b2e52f1c4.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T19:23:47.000Z",
+        "durationSec": 6347
+      },
+      {
+        "guid": "e142b09c575071356114af9ee5d1244b6279cbd4",
+        "title": "LES VIOLENCES PARENTALES ENVERS LES ÉDUCATEURS ENTRAÎNENT L'ANNULATION DES ENTRAÎNEMENTS DE FOOT !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LES-VIOLENCES-PARENTALES-ENVERS-LES-DUCATEURS-ENTRANENT-LANNULATION-DES-ENTRANEMENTS-DE-FOOT-e30rjr2",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568354/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478537-44100-2-d6937ab7ad84f979.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T19:18:35.000Z",
+        "durationSec": 7675
+      },
+      {
+        "guid": "2531fe4ac8264b720ae19f4d247295b83e601fb9",
+        "title": "LES ACADEMIES DE FOOTBALL : ENTRE VISION, PHILOSOPHIE, ET ENJEUX PROBLÉMATIQUES AVEC LUDO DA SILVA",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LES-ACADEMIES-DE-FOOTBALL--ENTRE-VISION--PHILOSOPHIE--ET-ENJEUX-PROBLMATIQUES-AVEC-LUDO-DA-SILVA-e30rjpj",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568307/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478426-44100-2-250ab45208a8517e.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T19:08:51.000Z",
+        "durationSec": 6621
+      },
+      {
+        "guid": "d0952f04564bc0d0daa7fae16dd2f7232917cf65",
+        "title": "PROJET 2036 : Tout faire pour que mon fils devienne comme Mbappé !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/PROJET-2036--Tout-faire-pour-que-mon-fils-devienne-comme-Mbapp-e30rjo5",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568261/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478438-44100-2-071fb89f902fb6f4.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T18:59:48.000Z",
+        "durationSec": 5864
+      },
+      {
+        "guid": "7e77250eeaa7461cecd49a879f72378c818634c5",
+        "title": "Hamza Bounkit : Kiné de l'Équipe de France U20, son parcours et ses conseils.",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Hamza-Bounkit--Kin-de-lquipe-de-France-U20--son-parcours-et-ses-conseils-e30rjnv",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568255/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478430-44100-2-4935f58e3ba98f34.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T18:51:15.000Z",
+        "durationSec": 5630
+      },
+      {
+        "guid": "fd260ad91899857bab08d644fcdfdf31f9ee111b",
+        "title": "Découvrez le Monde Méconnu du Football : SNAS, Agents Sportifs, Examen FFF et Scouts !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Dcouvrez-le-Monde-Mconnu-du-Football--SNAS--Agents-Sportifs--Examen-FFF-et-Scouts-e30rjpo",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568312/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478441-44100-2-0f4de50f370ad906.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T18:45:29.000Z",
+        "durationSec": 6788
+      },
+      {
+        "guid": "69df5575e044f1ca55e11de713bdcfad7eaf466e",
+        "title": "LES PROBLÉMATIQUES DU DÉBUT DE SAISON DANS NOS CLUBS AMATEURS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LES-PROBLMATIQUES-DU-DBUT-DE-SAISON-DANS-NOS-CLUBS-AMATEURS-e30rjns",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568252/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478425-44100-2-f7068f960e223f17.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2024-01-02T18:17:05.000Z",
+        "durationSec": 3744
+      },
+      {
+        "guid": "64e1789d90c09670a2adae191dabf7361e33da0d",
+        "title": "MESSI BALLON D'OR 2023 : Un Huitième Sacré Mérité ? | Kick in the Foot Pro",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/MESSI-BALLON-DOR-2023--Un-Huitime-Sacr-Mrit----Kick-in-the-Foot-Pro-e30rjo3",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568259/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478447-44100-2-2432017e599ee125.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-10-31T01:12:27.000Z",
+        "durationSec": 4568
+      },
+      {
+        "guid": "cbde470f4d2932782e97728146e11d33bd2a996f",
+        "title": "NICOLAS DUCTEIL ET MADY SAMASSA : LE RÔLE DE L'ENTRAÎNEUR ADJOINT (U17 NAT/ PARIS 13 ATLETICO)",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/NICOLAS-DUCTEIL-ET-MADY-SAMASSA--LE-RLE-DE-LENTRANEUR-ADJOINT-U17-NAT-PARIS-13-ATLETICO-e30rjot",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568285/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478467-44100-2-4d42db98af2e82dc.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-08-28T02:53:24.000Z",
+        "durationSec": 6897
+      },
+      {
+        "guid": "cdce077866b2477711fff64e86a337d65c7a1ad0",
+        "title": "COMMENT PARTIR JOUER AUX ÉTATS-UNIS ? : LE PARCOURS INSPIRANT DE TAMMAR CHÉRIF !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/COMMENT-PARTIR-JOUER-AUX-TATS-UNIS----LE-PARCOURS-INSPIRANT-DE-TAMMAR-CHRIF-e30rjo1",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568257/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478448-44100-2-aba56844d7191701.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-08-11T02:01:23.000Z",
+        "durationSec": 4465
+      },
+      {
+        "guid": "972b42cde5fa5bd800037a0e3042688c01be23d3",
+        "title": "DÉBAT SUR LE FOOTBALL AMATEUR : LICENCES, ÉDUCATEURS... - RÉPONSES AUX VIDÉOS DE CERTAINS ABONNÉS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/DBAT-SUR-LE-FOOTBALL-AMATEUR--LICENCES--DUCATEURS------RPONSES-AUX-VIDOS-DE-CERTAINS-ABONNS-e30rjo2",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568258/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478440-44100-2-1c4085927401b0dc.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T01:20:55.000Z",
+        "durationSec": 5264
+      },
+      {
+        "guid": "900a029b9de4acbfd611e1f673062e9a1133043e",
+        "title": "SAMY MANDESSI-BELL ENTRAÎNEUR DES U17 NAT ET RESPONSABLE FORMATION AU CLUB DE MONROUGE FC 92 !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/SAMY-MANDESSI-BELL-ENTRANEUR-DES-U17-NAT-ET-RESPONSABLE-FORMATION-AU-CLUB-DE-MONROUGE-FC-92-e30rjo7",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568263/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478443-44100-2-e8248a9658e1abb3.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T01:18:23.000Z",
+        "durationSec": 5908
+      },
+      {
+        "guid": "2ee60d6248473eb5b4245c19dd08c3bc5ddd6bf5",
+        "title": "🔥🏆 ÉMISSION SPÉCIALE LIGUE DES CHAMPIONS : MAN CITY VS. INTER MILAN : QUI REMPORTERA LA FINALE ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/MISSION-SPCIALE-LIGUE-DES-CHAMPIONS--MAN-CITY-VS--INTER-MILAN--QUI-REMPORTERA-LA-FINALE-e30rjoo",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568280/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478471-44100-2-575cc5372b42bc1f.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T01:16:06.000Z",
+        "durationSec": 4754
+      },
+      {
+        "guid": "9860fa730387ea31d1c260ba174ca1773b625a99",
+        "title": "LE PARCOURS DE FABIEN VALERI, ENTRAINEUR DU FC CHAMBLY !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-PARCOURS-DE-FABIEN-VALERI--ENTRAINEUR-DU-FC-CHAMBLY-e30rjr6",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568358/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478545-44100-2-30cfea67f9de8415.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T00:32:41.000Z",
+        "durationSec": 7334
+      },
+      {
+        "guid": "66f00615cff37ee83265b6993ce259be3fa383df",
+        "title": "RÉVÉLATIONS CHOC DE BOULAYA : CLASH AVEC SON ANCIEN CLUB, ÉDUCATEURS ET DIRECTION !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/RVLATIONS-CHOC-DE-BOULAYA--CLASH-AVEC-SON-ANCIEN-CLUB--DUCATEURS-ET-DIRECTION-e30rjrg",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568368/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478556-44100-2-2c62fc15e3e70f7e.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T00:30:12.000Z",
+        "durationSec": 4485
+      },
+      {
+        "guid": "918ce0c38add51a0a4dab5dc0f188c6107d70b5f",
+        "title": "FAUT-IL INCLURE DES CELLULES DE PRÉPARATION MENTALE DANS NOS CLUBS AMATEURS ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/FAUT-IL-INCLURE-DES-CELLULES-DE-PRPARATION-MENTALE-DANS-NOS-CLUBS-AMATEURS-e30rjoi",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568274/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478464-44100-2-a9db66984c2cd868.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T00:10:33.000Z",
+        "durationSec": 5723
+      },
+      {
+        "guid": "5a96d6af6ac24415eda6af13fde512050c3d12a5",
+        "title": "DOIT-ON DEMANDER LE CASIER JUDICIAIRE DES ENTRAÎNEURS ? AVEC VETCHOO LES BACONNETS",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/DOIT-ON-DEMANDER-LE-CASIER-JUDICIAIRE-DES-ENTRANEURS---AVEC-VETCHOO-LES-BACONNETS-e30rjra",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568362/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478547-44100-2-a15d8ece64c9b45d.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-07-30T00:02:56.000Z",
+        "durationSec": 5419
+      },
+      {
+        "guid": "a5e2e03763886663ca3410b86a721dfb49deef17",
+        "title": "RENCONTRE AVEC ANGELO MICHAUD, RESPONSABLE DU RECRUTEMENT POUR L'EN AVANT GUINGAMP À PARIS",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/RENCONTRE-AVEC-ANGELO-MICHAUD--RESPONSABLE-DU-RECRUTEMENT-POUR-LEN-AVANT-GUINGAMP--PARIS-e30rjo6",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568262/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478437-44100-2-12de50a354ed9459.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-05-09T01:47:43.000Z",
+        "durationSec": 5973
+      },
+      {
+        "guid": "e607d4022c1510a977b7f7223795eb156b858917",
+        "title": "A LA DECOUVERTE DU PROJET \"93 MONDIAL\" | LE RACISME DANS NOS CLUBS AMATEURS | LE FOOTBALL DE RUE !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/A-LA-DECOUVERTE-DU-PROJET-93-MONDIAL--LE-RACISME-DANS-NOS-CLUBS-AMATEURS--LE-FOOTBALL-DE-RUE-e30rjpb",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568299/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478466-44100-2-69a3ab0fbc1bed67.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-23T22:27:50.000Z",
+        "durationSec": 4250
+      },
+      {
+        "guid": "f9510aa8baf72f3d10412935688a4cf9c42902c4",
+        "title": "RÉVÉLATION D'UN ARBITRE AMATEUR (MEHDI BAHRIA) :  NOS ARBITRES SONT-ILS EN SÉCURITÉ ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/RVLATION-DUN-ARBITRE-AMATEUR-MEHDI-BAHRIA---NOS-ARBITRES-SONT-ILS-EN-SCURIT-e30rjo9",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568265/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478452-44100-2-fb16793014ff604b.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T03:37:23.000Z",
+        "durationSec": 5399
+      },
+      {
+        "guid": "dbc561f0d58976dfdf2300257d26c10ba63b8a88",
+        "title": "LE MÉTIER D'AGENT SPORTIF : DÉCOUVERTE ET DÉBAT !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-MTIER-DAGENT-SPORTIF--DCOUVERTE-ET-DBAT-e30rjpt",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568317/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478451-44100-2-d28f1244450ec569.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T03:27:30.000Z",
+        "durationSec": 6850
+      },
+      {
+        "guid": "c625c0cc8d878e33a3c5a20eba1f4e4ebc35ae94",
+        "title": "LE COTÉ SOMBRE DES PARIS SPORTIFS : LES JEUNES JOUEURS SONT-ILS À RISQUE ?",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/LE-COT-SOMBRE-DES-PARIS-SPORTIFS--LES-JEUNES-JOUEURS-SONT-ILS--RISQUE-e30rjoq",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568282/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478472-44100-2-2b8242db3c4dd3bc.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T03:19:37.000Z",
+        "durationSec": 5188
+      },
+      {
+        "guid": "466076551021db81d228e2da113d92eed0b6c2f2",
+        "title": "EDUARDO MOREIRA partage sa VISION de la philosophie portugaise.",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/EDUARDO-MOREIRA-partage-sa-VISION-de-la-philosophie-portugaise-e30rjoh",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568273/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478479-44100-2-86e830e351426ccf.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T03:08:38.000Z",
+        "durationSec": 3410
+      },
+      {
+        "guid": "b27b33308e42f7288a09a7104b34d49a29a59567",
+        "title": "RENCONTRE avec EDUARDO MOREIRA (US CRETEIL LUSITANOS) : Découvrez son parcours et ses expériences !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/RENCONTRE-avec-EDUARDO-MOREIRA-US-CRETEIL-LUSITANOS--Dcouvrez-son-parcours-et-ses-expriences-e30rjp2",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568290/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478436-44100-2-fdcf33522bcaa159.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T02:55:45.000Z",
+        "durationSec": 3128
+      },
+      {
+        "guid": "3d2e551623f6d562035e34fcc2314d26aa49c942",
+        "title": "UN SPORT EN PLEINE EXPANSION : TOUT SAVOIR SUR LE FUTSAL !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/UN-SPORT-EN-PLEINE-EXPANSION--TOUT-SAVOIR-SUR-LE-FUTSAL-e30rjrb",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568363/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478552-44100-2-d5436cc69a2a3f1c.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T01:31:24.000Z",
+        "durationSec": 2987
+      },
+      {
+        "guid": "85803e2456e1e8c1d6cf2845a08a94c95ef9d5b8",
+        "title": "15 ANS ET DÉJA PROFESSIONNEL : LE PARCOURS INSPIRANT DE TAREK SAKALI AU BLACKBURN ROVERS !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/15-ANS-ET-DJA-PROFESSIONNEL--LE-PARCOURS-INSPIRANT-DE-TAREK-SAKALI-AU-BLACKBURN-ROVERS-e30rjre",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568366/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478555-44100-2-ae29cf775354b2f2.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T01:23:54.000Z",
+        "durationSec": 2500
+      },
+      {
+        "guid": "623b8a607fb87d1f0f921ba6dba3fe4c66708d85",
+        "title": "YOUSSEF CHIBHI, LE COACH (FC VERSAILLES 78) QUI À FILMÉ DES FEMMES ET MINEUR DE 15 ANS À LEUR INSU !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/YOUSSEF-CHIBHI--LE-COACH-FC-VERSAILLES-78-QUI--FILM-DES-FEMMES-ET-MINEUR-DE-15-ANS--LEUR-INSU-e30rjnr",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568251/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478445-44100-2-cc5a1249c33163ac.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T01:10:23.000Z",
+        "durationSec": 1064
+      },
+      {
+        "guid": "cefd0b070649fe2702c2c30ec620033e8c6d76d1",
+        "title": "RETOUR SUR LE TÉMOIGNAGE POIGNANT DE KOFS DANS LE PODCAST : DOUBLE CONTACT SUR RMC SPORT !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/RETOUR-SUR-LE-TMOIGNAGE-POIGNANT-DE-KOFS-DANS-LE-PODCAST--DOUBLE-CONTACT-SUR-RMC-SPORT-e30rjr9",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568361/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478553-44100-2-0705d6bbc8db405c.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T00:52:17.000Z",
+        "durationSec": 1863
+      },
+      {
+        "guid": "0d020d6d6a285b13493c34314973d617098133d2",
+        "title": "DÉCOUVREZ LE MÉTIER DE JOURNALISTE SPORTIF AVEC ALEXANDRE JAQUIN JOURNALISTE CHEZ RMC SPORT",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/DCOUVREZ-LE-MTIER-DE-JOURNALISTE-SPORTIF-AVEC-ALEXANDRE-JAQUIN-JOURNALISTE-CHEZ-RMC-SPORT-e30rjnt",
+        "audioUrl": "https://anchor.fm/s/103114550/podcast/play/100568253/https%3A%2F%2Fd3ctxlq1ktw2nl.cloudfront.net%2Fstaging%2F2025-2-30%2F397478462-44100-2-3ac2681cb4dafb7b.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2023-04-20T00:42:06.000Z",
+        "durationSec": 2238
+      }
+    ]
+  }
 }
