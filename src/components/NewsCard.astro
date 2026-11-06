@@ -1,16 +1,17 @@
 ---
 import type { News } from '~/lib/news';
-import { newsPath } from '~/lib/news';
+import { newsPath, newsImage } from '~/lib/news';
 import { formatShortDate, fr, themeBySlug } from '~/lib/content';
 interface Props { news: News; lead?: boolean; headingLevel?: 'h2' | 'h3' }
 const { news, lead = false, headingLevel = 'h3' } = Astro.props;
 const d = news.data;
 const H = headingLevel;
+const img = newsImage(news);
 const theme = d.themes[0] ? themeBySlug.get(d.themes[0]) : undefined;
 ---
-<article class:list={['nc', { 'nc--lead': lead, 'nc--noimg': !d.image }]}>
-  {d.image
-    ? <div class="nc__img"><img src={d.image} alt="" width="800" height="450" loading="lazy" decoding="async" /></div>
+<article class:list={['nc', { 'nc--lead': lead, 'nc--noimg': !img }]}>
+  {img
+    ? <div class="nc__img"><img src={img} alt="" width="800" height="450" loading="lazy" decoding="async" referrerpolicy="no-referrer" /></div>
     : <div class="nc__img nc__img--txt" aria-hidden="true"><span>{theme?.name ?? 'Actu'}</span></div>}
   <div class="nc__body">
     <p class="meta">

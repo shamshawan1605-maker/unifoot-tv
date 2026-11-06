@@ -17,7 +17,7 @@ import { audienceHighlights } from '@config/audience';
 import { latestEpisode, episodes, shorts, episodesOfShow, videoPath, showOf, formatDate, formatShortDate, durationLabel, thumbSrcset, fr, watchUrl } from '~/lib/content';
 import { podcastSeriesLd } from '~/lib/seo';
 import { allShows } from '@config/shows';
-import { getNews, newsPath } from '~/lib/news';
+import { getNews, newsPath, newsImage } from '~/lib/news';
 
 const hero = latestEpisode;
 const heroShow = hero ? showOf(hero) : undefined;
@@ -46,14 +46,15 @@ const others = episodes.filter((v) => v.id !== hero?.id && !weekIds.has(v.id));
 const dontMiss = others.slice(0, 5);
 const news = await getNews();
 const ranked = news.length
-  ? news.slice(0, 5).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: formatShortDate(n.data.date.toISOString()), img: n.data.image }))
+  ? news.slice(0, 5).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: formatShortDate(n.data.date.toISOString()), img: newsImage(n) }))
   : [...episodes].filter((v) => v.viewCount !== undefined).sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0)).slice(0, 5)
       .map((v) => ({ href: videoPath(v), title: v.title, meta: showOf(v).name, img: thumbSrcset(v).src as string | undefined }));
 const rankTitle = news.length ? "L'actu" : 'Les plus regardés';
 const topShorts = shorts.slice(0, 12);
-const topRow = (news.length
-  ? news.slice(0, 4).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: `Actu / ${formatShortDate(n.data.date.toISOString())}`, img: n.data.image, short: '' }))
-  : shorts.slice(0, 4).map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v).src, short: v.id })));
+const topRow = [
+  ...news.slice(0, 4).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: `Actu / ${formatShortDate(n.data.date.toISOString())}`, img: newsImage(n), short: '' })),
+  ...shorts.map((v) => ({ href: watchUrl(v), title: v.title, meta: `Extrait / ${formatShortDate(v.publishedAt)}`, img: thumbSrcset(v).src as string | undefined, short: v.id })),
+].slice(0, 4);
 // Les plus regardées : uniquement des vidéos qui ne sont pas déjà plus haut sur la page
 const shownIds = new Set([hero?.id, ...weekIds, ...dontMiss.map((v) => v.id)]);
 const popular = others.filter((v) => !shownIds.has(v.id)).sort((a, b) => (b.viewCount ?? 0) - (a.viewCount ?? 0) || b.publishedAt.localeCompare(a.publishedAt)).slice(0, 4);
