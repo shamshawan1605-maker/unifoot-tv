@@ -17,7 +17,7 @@ export const site = {
     reprise: '2026-11-11',
   },
   /** Image de partage par défaut (dans /public) */
-  ogImage: '/brand/og-default.png',
+  ogImage: '/brand/og-unifoot.jpg',
   /**
    * Logo officiel (PNG transparent, lettres blanches pour fond sombre) : /public/brand/logo-240.png (+ versions 480 et WebP).
    * Pour le changer, remplace ces fichiers. Si src est vide, un logo texte de secours s'affiche.
