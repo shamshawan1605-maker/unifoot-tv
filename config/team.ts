@@ -28,6 +28,7 @@ export const team: Member[] = [
   { name: 'Kokou', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/kokou.webp' },
   { name: 'Mathieu', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/mathieu.webp' },
   { name: 'Benoît', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/benoit.webp' },
+  { name: 'Soufiane', role: 'Chroniqueur', group: 'chroniqueur', photo: '/equipe/soufiane.webp' },
 ];
 
 /** Histoire du média (page L'équipe). Texte à relire et compléter. */
