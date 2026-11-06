@@ -98,7 +98,7 @@ function comparable(store: ContentStore) {
   const copy = JSON.parse(JSON.stringify(rest));
   if (copy.podcast) delete copy.podcast.fetchedAt;
   // Les compteurs de vues bougent sans cesse : ils ne déclenchent pas à eux seuls une republication
-  for (const v of copy.videos) { delete v.refreshedAt; delete v.viewCount; delete v.commentCount; }
+  for (const v of copy.videos) { delete v.refreshedAt; delete v.viewCount; v.commentCount = v.commentCount === undefined ? undefined : 1; }
   if (copy.channel) delete copy.channel.subscriberCount;
   return JSON.stringify(copy);
 }
