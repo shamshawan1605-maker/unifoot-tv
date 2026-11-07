@@ -74,7 +74,7 @@ const ld = {
     {nThemes.length > 0 && (
       <ul class="chips art__themes">{nThemes.map((t) => <li><a class="chip" href={`/themes/${t!.slug}/`}>{t!.name}</a></li>)}</ul>
     )}
-    <p class="art__cta"><Icon name="mic" size={18} />Tu as vécu une situation similaire ? <a href="/participer/?type=temoignage">Raconte-la nous</a>.</p>
+    <p class="art__cta"><Icon name="mic" size={18} /><span>Tu as vécu une situation similaire&nbsp;? <a href="/participer/?type=temoignage">Raconte-la-nous</a>.</span></p>
   </article>
 
   {relatedNews.length > 0 && (
@@ -96,7 +96,7 @@ const ld = {
   <ShortsDialog />
 </Base>
 <style>
-  .art { max-width: 48rem; padding-block: 1rem 3rem; }
+  .art { max-width: 48rem; padding-block: 2rem 3rem; }
   .art .meta a { color: var(--accent); text-decoration: none; }
   .art h1 { font-size: var(--t-xxl); margin-top: 0.6rem; }
   .art__chapo { font: 600 var(--t-l)/1.45 var(--f-texte); margin-top: 1.1rem; }
@@ -111,7 +111,7 @@ const ld = {
   .art__videobox { max-width: 24rem; }
   .art__short { max-width: 12rem; }
   .art__themes { margin-top: 2rem; }
-  .art__cta { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
+  .art__cta { display: flex; gap: 0.6rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
   .art__cta a { color: var(--accent); font-weight: 700; }
   .alt { background: var(--fond-2); }
   .grid3 { display: grid; gap: 2rem 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }

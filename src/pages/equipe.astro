@@ -88,7 +88,7 @@ const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10
   </section>
 </Base>
 <style>
-  .eq-hero { padding-block: 1rem 2.5rem; }
+  .eq-hero { padding-block: 1.25rem clamp(2.25rem, 1.8rem + 2.2vw, 3.6rem); }
   .eq-kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
   .eq-dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #ff4d6d; animation: eqdot 1.4s ease-in-out infinite; }
   @keyframes eqdot { 0%, 100% { box-shadow: 0 0 0 0 rgb(255 77 109 / 0.55); } 50% { box-shadow: 0 0 0 7px rgb(255 77 109 / 0); } }
@@ -128,6 +128,8 @@ const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10
   .crew__txt { position: absolute; z-index: 2; left: 0.75rem; right: 0.75rem; bottom: 0.8rem; text-align: center; }
   .crew__name { display: block; font: 800 1.0625rem/1.2 var(--f-titre); color: #fff; }
   .crew__role { display: block; margin: 0.2rem 0 0; font: 600 0.8125rem/1.25 var(--f-info); color: var(--menthe); }
+  /* Petits écrans : le rôle prend toujours 3 lignes, pour que les noms restent alignés d’une carte à l’autre */
+  @media (max-width: 56rem) { .crew__card .crew__role { min-height: 3.75em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; } }
   .crew__join { background: transparent; border: 2px dashed rgb(34 195 211 / 0.6); }
   .crew__join::after { display: none; }
   .crew__join a { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 0.35rem; text-decoration: none; text-align: center; padding: 1rem; }

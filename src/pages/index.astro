@@ -386,6 +386,8 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
   .dm { display: grid; gap: 2.5rem; }
   @media (min-width: 64rem) { .dm { grid-template-columns: minmax(0, 2.1fr) minmax(19rem, 1fr); } }
   .dm__main { min-width: 0; }
+  /* Grand écran : la grille prend toute la hauteur du bloc « L'actu » pour que les deux colonnes finissent au même niveau */
+  @media (min-width: 64rem) { .dm__main { display: flex; flex-direction: column; } .dm__grid { flex: 1; grid-auto-rows: minmax(0, 1fr); } .dm__grid > :global(*) { aspect-ratio: auto !important; height: 100%; } .rank { align-self: stretch; } }
   .dm__grid { display: grid; gap: 1rem; grid-template-columns: 1fr 1fr; }
   .dm__grid > :global(:first-child) { grid-column: 1 / -1; aspect-ratio: 16 / 10; }
   @media (min-width: 48rem) {
