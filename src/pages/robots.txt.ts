@@ -5,6 +5,6 @@ export const GET: APIRoute = () =>
   new Response(
     isDemo
       ? 'User-agent: *\nDisallow: /\n'
-      : `User-agent: *\nAllow: /\nDisallow: /merci/\n\nSitemap: ${abs('/sitemap.xml')}\n`,
+      : `User-agent: *\nAllow: /\nDisallow: /merci/\nDisallow: /api/\n\nSitemap: ${abs('/sitemap.xml')}\nSitemap: ${abs('/news-sitemap.xml')}\n`,
     { headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
   );

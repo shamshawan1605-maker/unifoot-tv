@@ -29,7 +29,9 @@ interface Props {
   fond?: 'blanc' | 'gris';
 }
 const { title, description, path = Astro.url.pathname, image = site.ogImage, imageAlt, noindex = false, ogType = 'website', jsonLd = [], breadcrumbs, rawTitle = false, preloadImage, fond = 'blanc' } = Astro.props;
-const fullTitle = rawTitle ? title : `${title} | ${site.name}`;
+const t0 = title;
+// Au-delà de ~60 caractères Google coupe : on retire alors « | UNIFOOT TV »
+const fullTitle = rawTitle ? t0 : t0.length > 50 ? t0 : `${t0} | ${site.name}`;
 const canonical = abs(path);
 const ogImage = abs(image);
 const graph = [organization, website, ...(breadcrumbs ? [breadcrumbLd(breadcrumbs)] : []), ...jsonLd];
@@ -44,8 +46,10 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {(noindex || isDemo) && <meta name="robots" content="noindex, follow" />}
-    <meta name="theme-color" content="#ffffff" />
+    {(noindex || isDemo) ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="max-image-preview:large, max-snippet:-1, max-video-preview:-1" />}
+    <meta name="theme-color" content="#0a0c2c" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title="UNIFOOT TV : l'actu du foot amateur" href="/actualites/rss.xml" />
     <link rel="icon" href="/brand/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />

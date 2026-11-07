@@ -5,6 +5,7 @@ import { team, story } from '@config/team';
 import { audienceHighlights } from '@config/audience';
 import { invites } from '@config/invites';
 import { links } from '@config/site';
+import { abs } from '~/lib/seo';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { join } from 'node:path';
@@ -12,11 +13,19 @@ import { join } from 'node:path';
 const ver = (p: string) => { try { return `${p}?v=${createHash('md5').update(readFileSync(join(process.cwd(), 'public', p))).digest('hex').slice(0, 8)}`; } catch { return p; } };
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: "L'équipe" }];
 const founder = team.find((m) => m.group === 'fondateur');
+// Données structurées : fondateur et chroniqueurs (Google relie les noms au média)
+const personLd = (m: (typeof team)[number], id?: string) => ({
+  '@type': 'Person', ...(id ? { '@id': id } : {}), name: m.fullName ?? m.name, ...(m.fullName ? { alternateName: m.name } : {}), jobTitle: m.role,
+  ...(m.photo ? { image: abs(m.photo) } : {}), worksFor: { '@id': `${abs('/')}#organization` },
+  ...([m.instagram, m.linkedin].filter(Boolean).length ? { sameAs: [m.instagram, m.linkedin].filter(Boolean) } : {}),
+});
+const teamLd = { '@type': 'AboutPage', name: "L'équipe UNIFOOT TV", url: abs('/equipe/'), about: { '@id': `${abs('/')}#organization` },
+  mainEntity: [...(founder ? [personLd(founder, abs('/equipe/') + '#shamsh')] : []), ...team.filter((m) => m.group !== 'fondateur').map((m) => personLd(m))] };
 const others = team.filter((m) => m.group !== 'fondateur');
 const initials = (n: string) => n.split(/[\s-]+/).map((w) => w[0]).slice(0, 2).join('');
 const stats = [...audienceHighlights, { value: `${Math.floor(invites.length / 10) * 10}+`, label: 'invités reçus sur le plateau' }];
 ---
-<Base title="L'équipe et l'histoire du média" description="Qui fait UNIFOOT TV ? L'équipe, les chroniqueurs de Kick in the Foot et l'histoire d'un média indépendant né pour donner la parole au foot amateur." breadcrumbs={crumbs}>
+<Base title="L'équipe et l'histoire du média" description="Qui fait UNIFOOT TV ? Shamsh Awan, fondateur, et l'équipe, les chroniqueurs de Kick in the Foot et l'histoire d'un média indépendant né pour donner la parole au foot amateur." breadcrumbs={crumbs} jsonLd={[teamLd]}>
   <!-- Bandeau -->
   <header class="wrap eq-hero">
     <p class="eq-kicker"><span class="eq-dot"></span>Autour de la table</p>

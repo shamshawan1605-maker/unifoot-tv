@@ -16,6 +16,8 @@ export const organization = {
   sameAs: [links.youtube, links.instagram, links.tiktok, links.facebook, links.x, links.linkedin, links.tipeee],
   address: { '@type': 'PostalAddress', streetAddress: '9 rue des Colonnes', postalCode: '75002', addressLocality: 'Paris', addressCountry: 'FR' },
   legalName: legal.company,
+  founder: { '@type': 'Person', '@id': `${SITE}/equipe/#shamsh`, name: 'Shamsh Awan', url: `${SITE}/equipe/` },
+  slogan: 'Le média du football amateur',
 };
 
 export const website = {
@@ -25,6 +27,7 @@ export const website = {
   url: `${SITE}/`,
   inLanguage: 'fr-FR',
   publisher: { '@id': `${SITE}/#organization` },
+  potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: `${SITE}/?q={search_term_string}` }, 'query-input': 'required name=search_term_string' },
 };
 
 export function breadcrumbLd(items: { name: string; href?: string }[]) {

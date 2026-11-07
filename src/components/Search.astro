@@ -133,5 +133,8 @@ const suggestions = ['Arbitrage', 'Formation', 'Parents', 'Ballon d’Or', 'Édu
       n < 0 ? input.focus() : links[n].focus();
     }
   });
+  // Lien direct /?q=… (Google peut afficher une barre de recherche vers le site)
+  const q0 = new URLSearchParams(location.search).get('q');
+  if (q0) { input.value = q0; open(); }
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const a = res.querySelector<HTMLAnchorElement>('a'); if (a) location.href = a.href; } });
 </script>
