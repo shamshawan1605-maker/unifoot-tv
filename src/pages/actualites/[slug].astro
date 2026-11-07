@@ -81,7 +81,7 @@ const ld = {
     <section class="section alt" aria-labelledby="ra">
       <div class="wrap">
         <div class="section-head"><h2 id="ra">Autres actus</h2><a class="more" href="/actualites/">Toute l'actu</a></div>
-        <div class="grid3">{relatedNews.map((n) => <NewsCard news={n} />)}</div>
+        <div class="grid3 rel-news">{relatedNews.map((n) => <NewsCard news={n} />)}</div>
       </div>
     </section>
   )}
@@ -111,8 +111,15 @@ const ld = {
   .art__videobox { max-width: 24rem; }
   .art__short { max-width: 12rem; }
   .art__themes { margin-top: 2rem; }
+  @media (max-width: 40rem) {
+    .rel-news { gap: 0 !important; }
+    .rel-news > :global(.nc) { grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: start; padding-block: 1.1rem; border-bottom: 1px solid var(--trait); }
+    .rel-news > :global(.nc:first-child) { padding-top: 0; }
+    .rel-news > :global(.nc .nc__title) { font-size: 0.9375rem; }
+  }
   .art__cta { display: flex; gap: 0.6rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
   .art__cta a { color: var(--accent); font-weight: 700; }
+  .art__cta :global(svg) { flex: none; }
   .alt { background: var(--fond-2); }
   .grid3 { display: grid; gap: 2rem 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
 </style>

@@ -162,7 +162,7 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       items = [...scope.querySelectorAll<HTMLAnchorElement>('a[data-short]')].filter((x) => {
         const id = x.dataset.short!;
         if (seen.has(id) || x.closest('[aria-hidden="true"], [hidden]')) return false;
-        seen.add(id); return x.offsetParent !== null;
+        seen.add(id); return x.offsetParent !== null || !!x.closest('.is-more');
       });
       index = Math.max(0, items.findIndex((x) => x.dataset.short === from.dataset.short));
     };

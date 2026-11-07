@@ -3,6 +3,7 @@ import Base from '~/layouts/Base.astro';
 import FormEnhance from '~/components/FormEnhance.astro';
 import Icon from '~/components/Icon.astro';
 import { faq } from '@config/faq';
+import { fr } from '~/lib/content';
 import { site, socials, legal } from '@config/site';
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Contact' }];
 const faqLd = {
@@ -13,7 +14,7 @@ const faqLd = {
 <Base title="Contact et questions fréquentes" description="Contacter UNIFOOT TV : e-mail, réseaux sociaux, formulaire et réponses aux questions fréquentes sur l'émission Kick in the Foot." breadcrumbs={crumbs} jsonLd={[faqLd]}>
   <header class="wrap page-head">
     <h1>Contact</h1>
-    <p>Une question, une idée, un problème ? Écris-nous.</p>
+    <p>Une question, une idée, un problème&nbsp;? Écris&#8209;nous.</p>
   </header>
   <div class="wrap ct">
     <section aria-labelledby="ecrire">
@@ -44,8 +45,8 @@ const faqLd = {
     <div class="faq">
       {faq.slice(0, 5).map((f) => (
         <details>
-          <summary>{f.q}</summary>
-          <p>{f.a}</p>
+          <summary>{fr(f.q)}</summary>
+          <p>{fr(f.a)}</p>
         </details>
       ))}
     </div>
@@ -59,6 +60,7 @@ const faqLd = {
   .mail { display: inline-flex; gap: 0.6rem; align-items: center; font: 700 var(--t-l)/1.2 var(--f-info); color: var(--accent); }
   .addr { color: var(--texte-2); }
   .soc { list-style: none; padding: 0; margin: 1rem 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  @media (max-width: 40rem) { .soc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); } .soc a { justify-content: center; padding: 0 0.4rem; font-size: 0.875rem; } }
   .soc a { display: inline-flex; gap: 0.45rem; align-items: center; min-height: 2.75rem; padding: 0 0.8rem; border: 1.5px solid var(--trait); border-radius: var(--r-s); text-decoration: none; font: 600 0.95rem/1 var(--f-info); }
   .hint { color: var(--texte-2); font-size: var(--t-s); }
   .hint a { color: var(--accent); }

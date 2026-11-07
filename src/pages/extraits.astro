@@ -28,6 +28,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Extraits' }];
         <ul class="grid-9x16 shorts-grid">
           {shorts.map((v) => <li data-themes={v.themes.join(' ')}><ShortCard video={v} /></li>)}
         </ul>
+        <p class="more-wrap"><button class="btn btn--ink" type="button" id="more-shorts" hidden>Voir plus d'extraits</button></p>
         <p class="follow"><a class="btn btn--ghost" href={links.tiktok} rel="noopener" target="_blank"><Icon name="tiktok" size={18} />Suivre sur TikTok</a></p>
       </>
     )}
@@ -37,24 +38,49 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Extraits' }];
 <style>
   .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
   .shorts-grid { list-style: none; margin: 0; padding: 0; }
-  .shorts-grid li[hidden] { display: none; }
-  .follow { margin-top: 2rem; }
+  .shorts-grid li[hidden], .shorts-grid li.is-more { display: none; }
+  .follow { margin-top: 1.5rem; text-align: center; }
+  .more-wrap { margin-top: 2rem; text-align: center; }
+  /* Téléphone : les filtres sur une seule ligne qui défile */
+  @media (max-width: 47.99rem) {
+    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gouttiere) * -1); padding-inline: var(--gouttiere); }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters .chip { flex: none; }
+  }
 </style>
 <script>
+  // Les extraits s'affichent par paquets : la page reste légère, « Voir plus » charge la suite
+  const STEP = 24;
+  let limit = STEP;
+  let current = '';
+  const more = document.getElementById('more-shorts') as HTMLButtonElement | null;
   const btns = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
   const items = document.querySelectorAll<HTMLElement>('.shorts-grid li');
   const status = document.getElementById('filter-status')!;
   btns.forEach((b) =>
     b.addEventListener('click', () => {
-      const f = b.dataset.filter!;
+      current = b.dataset.filter!;
+      limit = STEP;
       btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      let n = 0;
-      items.forEach((li) => {
-        const show = !f || (li.dataset.themes || '').split(' ').includes(f);
-        li.hidden = !show;
-        if (show) n++;
-      });
-      status.textContent = `${n} extrait${n > 1 ? 's' : ''} affiché${n > 1 ? 's' : ''}`;
+      const n = apply();
+      status.textContent = `${n} extrait${n > 1 ? 's' : ''}`;
     }),
   );
+  function apply() {
+    let n = 0;
+    items.forEach((li) => {
+      const match = !current || (li.dataset.themes || '').split(' ').includes(current);
+      if (match) n++;
+      li.hidden = !match;
+      li.classList.toggle('is-more', match && n > limit); // masqué en attendant « Voir plus », mais reste accessible en faisant défiler dans le lecteur
+    });
+    if (more) {
+      const left = n - limit;
+      more.hidden = left <= 0;
+      more.textContent = `Voir plus d'extraits (${left} restants)`;
+    }
+    return n;
+  }
+  more?.addEventListener('click', () => { limit += STEP; apply(); });
+  apply();
 </script>

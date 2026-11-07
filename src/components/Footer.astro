@@ -53,6 +53,8 @@ import { site, socials, links, legal } from '@config/site';
   .ft :global(.bands) { margin-top: -1.5rem; }
   .ft :global(.logo img) { width: 140px; }
   .ft__grid { display: grid; gap: 2rem; padding-block: 3rem 2rem; grid-template-columns: 1fr; }
+  /* Téléphone : « Le média » et « Agir » côte à côte, le reste en pleine largeur */
+  @media (max-width: 47.99rem) { .ft__grid { grid-template-columns: 1fr 1fr; column-gap: 1.25rem; } .ft__grid > :first-child, .ft__grid > :last-child { grid-column: 1 / -1; } }
   @media (min-width: 48rem) { .ft__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.2fr; } }
   .ft__brand p { margin-top: 0.9rem; color: var(--texte); max-width: 30ch; }
   .ft__h { font: 700 0.9375rem/1 var(--f-info); letter-spacing: 0; color: var(--texte); margin-bottom: 0.9rem; font-stretch: 100%; }

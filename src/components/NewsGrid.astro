@@ -15,4 +15,11 @@ const href = (n: number) => (n === 1 ? '/actualites/' : `/actualites/page/${n}/`
 )}
 <style>
   .ng { display: grid; gap: 2rem 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
+  /* Téléphone : liste compacte, vignette à gauche */
+  @media (max-width: 40rem) {
+    .ng { gap: 0; }
+    .ng > :global(.nc) { grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: start; padding-block: 1.1rem; border-bottom: 1px solid var(--trait); }
+    .ng > :global(.nc:first-child) { padding-top: 0; }
+    .ng > :global(.nc .nc__title) { font-size: 0.9375rem; }
+  }
 </style>

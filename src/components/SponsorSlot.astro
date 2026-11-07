@@ -18,7 +18,7 @@ const house = seed % 2 === 0
       {sponsor.logo ? <img src={sponsor.logo} alt={sponsor.nom} height="28" loading="lazy" /> : <strong>{sponsor.nom}</strong>}
     </a>
   ) : (
-    <a class="sp-pres sp-pres--libre" href="/partenaires/"><span class="sp-pres__l">Cette émission peut être présentée par votre marque</span></a>
+    <a class="sp-pres sp-pres--libre" href="/partenaires/"><span class="sp-pres__l">Votre marque pour présenter cette émission ?</span></a>
   )
 ) : (
   <aside class:list={['sp', `sp--${variant}`, { 'sp--maison': !sponsor }]} aria-label={sponsor ? `Partenaire : ${sponsor.nom}` : 'Annonce UNIFOOT TV'}>
@@ -51,7 +51,8 @@ const house = seed % 2 === 0
   .sp__txt strong { display: block; font: 800 1rem/1.3 var(--f-titre); margin-bottom: 0.15rem; }
   .sp__txt span { color: var(--texte-2); }
   .sp .btn { justify-self: start; }
-  .sp-pres { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1rem; padding: 0.45rem 0.8rem; border: 1px solid var(--trait); border-radius: 999px; text-decoration: none; }
+  .sp-pres { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1rem; padding: 0.45rem 0.8rem; border: 1px solid var(--trait); border-radius: 999px; text-decoration: none; max-width: 100%; }
+  .sp-pres__l { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sp-pres img { height: 1.6rem; width: auto; }
   .sp-pres__l { font: 600 0.8125rem/1.2 var(--f-info); color: var(--texte-2); }
   .sp-pres--libre:hover { border-color: var(--texte); }
