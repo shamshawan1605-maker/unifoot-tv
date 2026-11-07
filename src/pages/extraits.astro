@@ -83,4 +83,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Extraits' }];
   }
   more?.addEventListener('click', () => { limit += STEP; apply(); });
   apply();
+  // Lien direct vers un extrait (depuis la recherche) : /extraits/?v=ID ouvre le lecteur
+  const vid = new URLSearchParams(location.search).get('v');
+  if (vid) addEventListener('load', () => document.querySelector<HTMLAnchorElement>(`a[data-short="${CSS.escape(vid)}"]`)?.click());
 </script>

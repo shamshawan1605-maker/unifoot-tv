@@ -7,6 +7,8 @@ import { site } from '@config/site';
 import { abs, organization, website, breadcrumbLd } from '~/lib/seo';
 import { isDemo } from '~/lib/content';
 import Breadcrumbs from '~/components/Breadcrumbs.astro';
+import TabBar from '~/components/TabBar.astro';
+import Search from '~/components/Search.astro';
 import fontUrl from '@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url';
 
 interface Props {
@@ -78,6 +80,8 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
       <slot />
     </main>
     <Footer />
+    <TabBar />
+    <Search />
     <ConsentBanner enabled={Boolean(analyticsSrc)} />
     <script>
       // Rails horizontaux : flèches gauche/droite au survol (la barre de défilement est masquée)

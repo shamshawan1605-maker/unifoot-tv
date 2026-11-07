@@ -34,7 +34,8 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
         ))}
       </ul>
     </nav>
-    <a class="btn btn--small hd__support" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={16} />Soutenir</a>
+    <button class="hd__search" type="button" data-search-open aria-label="Rechercher"><Icon name="search" size={22} /></button>
+    <a class="btn btn--small hd__support" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={16} /><span class="hd__sl">Soutenir</span></a>
     <button class="hd__toggle" type="button" aria-expanded="false" aria-controls="menu">
       <Icon name="menu" size={26} class="i-open" /><Icon name="close" size={26} class="i-close" />
       <span class="sr-only">Menu</span>
@@ -53,7 +54,7 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
   .top__soc a:hover { background: var(--surface); }
   @media (min-width: 48rem) { .top__soc { display: flex; } }
 
-  .hd { position: sticky; top: 0; z-index: 50; background: rgb(10 12 44 / 0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--trait); }
+  .hd { position: sticky; top: 0; z-index: 50; transition: transform .28s ease; background: rgb(10 12 44 / 0.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--trait); }
   .hd__bar { display: flex; align-items: center; gap: 1rem; min-height: 4.25rem; }
   .hd__logo { text-decoration: none; margin-right: auto; display: inline-flex; padding: 0.3rem 0; }
   .hd__logo :global(.logo img) { width: 92px; }
@@ -61,6 +62,12 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
   .hd__nav a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.6rem; text-decoration: none;
     font: 700 0.8125rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.03em; border-radius: var(--r-s); }
   .hd__nav a[aria-current] { color: var(--menthe); box-shadow: inset 0 -3px 0 var(--menthe); border-radius: 0; }
+  .hd__search { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: rgb(255 255 255 / 0.08); color: #fff; cursor: pointer; transition: background .2s, color .2s; }
+  .hd__search:hover { background: var(--menthe); color: var(--marine); }
+  .hd__search:focus-visible { box-shadow: var(--focus); }
+  /* Téléphone : l'en-tête se cache quand on descend, revient quand on remonte */
+  @media (max-width: 47.99rem) { .hd[data-hide]:not([data-open]) { transform: translateY(-100%); } .hd__support { padding-inline: 0.9rem; } }
+  @media (max-width: 24rem) { .hd__sl { display: none; } .hd__support { padding-inline: 0.75rem; } }
   .hd__toggle { display: none; background: none; border: 0; padding: 0.5rem; margin-right: -0.5rem; cursor: pointer; color: var(--texte); }
   .hd__toggle :global(.i-close) { display: none; }
   @media (max-width: 71.99rem) {
@@ -86,4 +93,11 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && hd.hasAttribute('data-open')) { set(false); btn.focus(); }
   });
+  let lastY = scrollY;
+  addEventListener('scroll', () => {
+    const y = scrollY;
+    if (Math.abs(y - lastY) < 6) return;
+    if (y > lastY && y > 160) hd.setAttribute('data-hide', ''); else hd.removeAttribute('data-hide');
+    lastY = y;
+  }, { passive: true });
 </script>

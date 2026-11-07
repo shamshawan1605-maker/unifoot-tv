@@ -1,0 +1,38 @@
+---
+// Barre d'onglets en bas de l'écran, sur téléphone uniquement (comme une appli)
+import Icon from './Icon.astro';
+const tabs = [
+  { href: '/', label: 'Accueil', icon: 'home' },
+  { href: '/emissions/kick-in-the-foot/', label: 'Émissions', icon: 'tv' },
+  { href: '/extraits/', label: 'Extraits', icon: 'shorts' },
+  { href: '/actualites/', label: 'Actus', icon: 'news' },
+  { href: '/participer/', label: 'Participer', icon: 'mic' },
+];
+const path = Astro.url.pathname;
+const active = (h: string) => (h === '/' ? path === '/' : h.startsWith('/emissions/') ? path.startsWith('/emissions/') : path.startsWith(h));
+---
+<nav class="tabs" aria-label="Navigation rapide">
+  {tabs.map((t) => (
+    <a href={t.href} aria-current={active(t.href) ? 'page' : undefined} class:list={{ 'tabs__mic': t.icon === 'mic' }}>
+      <span class="tabs__ic"><Icon name={t.icon} size={22} /></span>
+      <span class="tabs__l">{t.label}</span>
+    </a>
+  ))}
+</nav>
+<style>
+  .tabs { display: none; }
+  @media (max-width: 47.99rem) {
+    .tabs { position: fixed; z-index: 55; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr);
+      padding: 0.35rem 0.25rem calc(0.35rem + env(safe-area-inset-bottom)); background: rgb(7 9 32 / 0.96); backdrop-filter: blur(12px);
+      border-top: 1px solid rgb(255 255 255 / 0.08); box-shadow: 0 -8px 24px rgb(10 12 44 / 0.25); }
+    .tabs a { display: grid; justify-items: center; gap: 0.2rem; padding: 0.3rem 0; color: #9aa0c4; text-decoration: none; font: 700 0.6875rem/1 var(--f-info); -webkit-tap-highlight-color: transparent; }
+    .tabs__ic { display: grid; place-items: center; width: 2.6rem; height: 1.9rem; border-radius: 99px; transition: background .2s, color .2s; }
+    .tabs a[aria-current] { color: #fff; }
+    .tabs a[aria-current] .tabs__ic { background: rgb(34 195 211 / 0.18); color: var(--menthe); }
+    .tabs__mic .tabs__ic { background: var(--menthe); color: var(--marine); }
+    .tabs__mic[aria-current] .tabs__ic { background: var(--menthe); color: var(--marine); box-shadow: 0 0 0 3px rgb(34 195 211 / 0.3); }
+    .tabs a:active .tabs__ic { transform: scale(0.92); }
+    :global(body) { padding-bottom: calc(4.1rem + env(safe-area-inset-bottom)); }
+    :global(.consent) { bottom: calc(5rem + env(safe-area-inset-bottom)) !important; }
+  }
+</style>

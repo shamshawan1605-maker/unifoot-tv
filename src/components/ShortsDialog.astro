@@ -2,6 +2,8 @@
 // Lecture des Shorts dans une fenêtre, sans quitter le site. Le clic sur l'extrait lance directement la vidéo
 // (lecteur YouTube sans cookies publicitaires). À droite : les commentaires YouTube, et un bouton pour commenter sur YouTube.
 import Icon from './Icon.astro';
+import Share from './Share.astro';
+import { abs } from '~/lib/seo';
 import { shorts } from '~/lib/content';
 // Commentaires récupérés par la synchronisation (extraits récents uniquement)
 const commentsById: Record<string, { n: number; c: NonNullable<(typeof shorts)[number]['comments']> }> = {};
@@ -30,12 +32,16 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
         <ol class="sd__com-list"></ol>
         <p class="sd__com-empty" hidden>Pas encore de commentaire. Lance le débat !</p>
         <a class="btn btn--menthe sd__com-btn" href="#" rel="noopener" target="_blank"><Icon name="youtube" size={18} />Commenter sur YouTube</a>
+        <div class="sd__share"><Share url={abs('/extraits/')} title="UNIFOOT TV" dark /></div>
       </aside>
     </div>
   </div>
 </dialog>
 <script type="application/json" id="sd-comments" set:html={JSON.stringify(commentsById).replace(/</g, '\\u003c')} />
 <style>
+  .sd__share { margin-top: 1rem; }
+  .sd__share :global(.share__b[data-k="li"]) { display: none; }
+  .sd__share :global(.share) { flex-wrap: nowrap; }
   .sd { padding: 0; border: 0; background: transparent; color: var(--texte); max-width: none; max-height: none; }
   .sd { overscroll-behavior: contain; max-height: 100dvh; overflow-y: auto; scrollbar-width: none; }
   .sd::-webkit-scrollbar { display: none; }
@@ -218,6 +224,7 @@ for (const v of shorts) if (v.comments?.length) commentsById[v.id] = { n: v.comm
       const id = a.dataset.short!;
       title.textContent = a.dataset.title || '';
       yt.href = a.href;
+      dlg!.querySelector('.share')?.dispatchEvent(new CustomEvent('share:update', { detail: { url: `${location.origin}/extraits/?v=${a.dataset.short}`, title: a.dataset.title || 'UNIFOOT TV' } }));
       comBtn.href = `https://www.youtube.com/watch?v=${id}`;
       renderComments(id);
       frame.querySelector('iframe')?.remove();

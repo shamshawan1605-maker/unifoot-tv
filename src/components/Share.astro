@@ -1,0 +1,59 @@
+---
+// Boutons de partage : sur téléphone, « Partager » ouvre le menu du téléphone (WhatsApp, Insta, SMS…)
+import Icon from './Icon.astro';
+interface Props { url: string; title: string; dark?: boolean }
+const { url, title, dark = false } = Astro.props;
+const u = encodeURIComponent(url);
+const t = encodeURIComponent(title);
+---
+<div class:list={['share', { 'share--dark': dark }]} data-share-url={url} data-share-title={title}>
+  <span class="share__l">Partager</span>
+  <button type="button" class="share__b share__native" hidden aria-label="Partager"><Icon name="share" size={18} /></button>
+  <a class="share__b share__wa" data-k="wa" href={`https://wa.me/?text=${t}%20${u}`} target="_blank" rel="noopener" aria-label="Partager sur WhatsApp"><Icon name="whatsapp" size={18} /></a>
+  <a class="share__b" data-k="x" href={`https://x.com/intent/post?text=${t}&url=${u}&via=UNIFOOTTV`} target="_blank" rel="noopener" aria-label="Partager sur X"><Icon name="x" size={16} /></a>
+  <a class="share__b" data-k="fb" href={`https://www.facebook.com/sharer/sharer.php?u=${u}`} target="_blank" rel="noopener" aria-label="Partager sur Facebook"><Icon name="facebook" size={18} /></a>
+  <a class="share__b" data-k="li" href={`https://www.linkedin.com/sharing/share-offsite/?url=${u}`} target="_blank" rel="noopener" aria-label="Partager sur LinkedIn"><Icon name="linkedin" size={17} /></a>
+  <button type="button" class="share__b share__copy" aria-label="Copier le lien"><Icon name="link" size={18} /><span class="share__ok" aria-live="polite"></span></button>
+</div>
+<style>
+  .share { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; }
+  .share__l { font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--texte-2); margin-right: 0.25rem; }
+  .share__b { position: relative; display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; border: 1px solid var(--trait); background: var(--fond); color: var(--texte); cursor: pointer; text-decoration: none; transition: background .2s, color .2s, border-color .2s, transform .15s; }
+  .share__b:hover { background: var(--marine); border-color: var(--marine); color: var(--menthe); transform: translateY(-2px); }
+  .share__wa:hover { background: #25d366; border-color: #25d366; color: #fff; }
+  .share__native { background: var(--menthe); border-color: var(--menthe); color: var(--marine); }
+  .share__b:focus-visible { box-shadow: var(--focus); }
+  .share__ok:not(:empty) { position: absolute; bottom: calc(100% + 0.4rem); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 0.3rem 0.55rem; border-radius: 6px; background: var(--marine); color: #fff; font: 700 0.75rem/1 var(--f-info); }
+  /* Téléphone : « Partager » du téléphone + WhatsApp en premier, le reste plus compact */
+  @media (max-width: 30rem) { .share { gap: 0.35rem; } .share__b { width: 2.4rem; height: 2.4rem; } .share__b[data-k="li"] { display: none; } }
+  .share--dark .share__l { color: #b9bedb; }
+  .share--dark .share__b { background: rgb(255 255 255 / 0.08); border-color: rgb(255 255 255 / 0.16); color: #fff; }
+  .share--dark .share__b:hover { background: var(--menthe); border-color: var(--menthe); color: var(--marine); }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('.share').forEach((box) => {
+    const native = box.querySelector<HTMLButtonElement>('.share__native')!;
+    const copy = box.querySelector<HTMLButtonElement>('.share__copy')!;
+    const ok = copy.querySelector<HTMLElement>('.share__ok')!;
+    const url = () => box.dataset.shareUrl!;
+    const title = () => box.dataset.shareTitle!;
+    if ('share' in navigator && matchMedia('(pointer: coarse)').matches) native.hidden = false;
+    native.addEventListener('click', () => navigator.share({ title: title(), url: url() }).catch(() => {}));
+    // Mise à jour du lien partagé (ex. lecteur d'extraits qui change de vidéo)
+    box.addEventListener('share:update', ((e: CustomEvent<{ url: string; title: string }>) => {
+      box.dataset.shareUrl = e.detail.url; box.dataset.shareTitle = e.detail.title;
+      const u = encodeURIComponent(e.detail.url), t = encodeURIComponent(e.detail.title);
+      const hrefs: Record<string, string> = {
+        wa: `https://wa.me/?text=${t}%20${u}`,
+        x: `https://x.com/intent/post?text=${t}&url=${u}&via=UNIFOOTTV`,
+        fb: `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+        li: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`,
+      };
+      box.querySelectorAll<HTMLAnchorElement>('[data-k]').forEach((l) => (l.href = hrefs[l.dataset.k!]));
+    }) as EventListener);
+    copy.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(url()); ok.textContent = 'Lien copié'; } catch { ok.textContent = url(); }
+      setTimeout(() => (ok.textContent = ''), 1800);
+    });
+  });
+</script>

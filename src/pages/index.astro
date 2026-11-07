@@ -168,6 +168,24 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
 
   <Bands />
 
+  <!-- Extraits -->
+  {topShorts.length > 0 && (
+    <section class="section shorts" aria-labelledby="extraits-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2 id="extraits-title">Les extraits qui font parler</h2>
+            <p>Les moments forts de l'émission, en format court.</p>
+          </div>
+          <a class="more" href="/extraits/">Tous les extraits</a>
+        </div>
+        <div class="rail rail--9x16">
+          {topShorts.map((v) => <ShortCard video={v} />)}
+        </div>
+      </div>
+    </section>
+  )}
+
   <!-- À ne pas manquer + classement -->
   {dontMiss.length >= 3 && (
     <section class="section wrap dm" aria-labelledby="dm-title">
@@ -213,24 +231,6 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
 
   <!-- Les invités passés sur UNIFOOT TV -->
   <Invites />
-
-  <!-- Extraits -->
-  {topShorts.length > 0 && (
-    <section class="section shorts" aria-labelledby="extraits-title">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <h2 id="extraits-title">Les extraits qui font parler</h2>
-            <p>Les moments forts de l'émission, en format court.</p>
-          </div>
-          <a class="more" href="/extraits/">Tous les extraits</a>
-        </div>
-        <div class="rail rail--9x16">
-          {topShorts.map((v) => <ShortCard video={v} />)}
-        </div>
-      </div>
-    </section>
-  )}
 
   <!-- Audience + plateformes -->
   <section class="wrap stats" aria-label="Où nous suivre">

@@ -5,6 +5,7 @@ import EpisodeCard from '~/components/EpisodeCard.astro';
 import ShortCard from '~/components/ShortCard.astro';
 import ShortsDialog from '~/components/ShortsDialog.astro';
 import Icon from '~/components/Icon.astro';
+import Share from '~/components/Share.astro';
 import { render } from 'astro:content';
 import { getNews, newsPath } from '~/lib/news';
 import { themeBySlug, videos, episodes, formatDate, fr } from '~/lib/content';
@@ -53,6 +54,7 @@ const ld = {
       </p>
       <h1>{fr(d.titre)}</h1>
       <p class="art__chapo">{fr(d.chapo)}</p>
+      <div class="art__share"><Share url={abs(newsPath(news))} title={d.titre} /></div>
     </header>
     {d.image && (
       <figure class="art__fig">
@@ -99,6 +101,7 @@ const ld = {
   .art { max-width: 48rem; padding-block: 2rem 3rem; }
   .art .meta a { color: var(--accent); text-decoration: none; }
   .art h1 { font-size: var(--t-xxl); margin-top: 0.6rem; }
+  .art__share { margin-top: 1.25rem; }
   .art__chapo { font: 600 var(--t-l)/1.45 var(--f-texte); margin-top: 1.1rem; }
   .art__fig { margin: 2rem 0 0; }
   .art__fig img { width: 100%; border-radius: var(--r-m); aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface); }

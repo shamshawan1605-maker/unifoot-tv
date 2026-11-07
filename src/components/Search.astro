@@ -1,0 +1,137 @@
+---
+// Recherche plein écran : invités, émissions, extraits et actus. L'index n'est chargé qu'à l'ouverture.
+import Icon from './Icon.astro';
+const suggestions = ['Arbitrage', 'Formation', 'Parents', 'Ballon d’Or', 'Éducateur', 'PSG', 'Futsal'];
+---
+<dialog class="srch" aria-label="Rechercher sur UNIFOOT TV">
+  <div class="srch__box">
+    <form class="srch__bar" role="search" onsubmit="return false">
+      <Icon name="search" size={22} />
+      <input type="search" name="q" placeholder="Un invité, un club, un sujet…" autocomplete="off" enterkeyhint="search" aria-label="Rechercher" />
+      <button type="button" class="srch__close" data-search-close aria-label="Fermer"><Icon name="close" size={22} /></button>
+    </form>
+    <div class="srch__body">
+      <div class="srch__hint">
+        <p class="srch__h">Recherches populaires</p>
+        <ul class="srch__sugg">{suggestions.map((q) => <li><button type="button" data-q={q}>{q}</button></li>)}</ul>
+      </div>
+      <p class="srch__status" aria-live="polite"></p>
+      <div class="srch__res"></div>
+    </div>
+  </div>
+</dialog>
+<style>
+  .srch { position: fixed; inset: 0; z-index: 80; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: rgb(7 9 32 / 0.7); backdrop-filter: blur(6px); color: var(--texte); }
+  .srch::backdrop { background: transparent; }
+  .srch[open] { display: grid; align-items: start; justify-items: center; animation: srch-in .2s ease; }
+  @keyframes srch-in { from { opacity: 0; } }
+  .srch__box { width: min(100%, 46rem); max-height: 100dvh; display: grid; grid-template-rows: auto 1fr; background: var(--fond); overflow: hidden; }
+  @media (min-width: 48rem) { .srch__box { margin-top: 8vh; max-height: 80vh; border-radius: 20px; box-shadow: 0 30px 80px rgb(0 0 0 / 0.45); } }
+  @media (max-width: 47.99rem) { .srch__box { height: 100dvh; } }
+  .srch__bar:focus-within { box-shadow: inset 0 -2px 0 var(--menthe); }
+  .srch__bar { display: flex; align-items: center; gap: 0.7rem; padding: 0.9rem 1rem 0.9rem 1.2rem; border-bottom: 1px solid var(--trait); color: var(--texte-2); }
+  .srch__bar input { flex: 1; min-width: 0; border: 0 !important; outline: 0; box-shadow: none !important; min-height: 0; background: none; font: 600 1.125rem/1.3 var(--f-texte); color: var(--texte); padding: 0.4rem 0; }
+  .srch__bar input::-webkit-search-cancel-button { display: none; }
+  .srch__close { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border: 0; border-radius: 50%; background: var(--fond-2); color: var(--texte); cursor: pointer; }
+  .srch__close:hover { background: var(--surface); }
+  .srch__body { overflow-y: auto; overscroll-behavior: contain; padding: 1rem 1.2rem 1.5rem; scrollbar-width: thin; }
+  .srch__h { font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--texte-2); margin: 0.4rem 0 0.8rem; }
+  .srch__sugg { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .srch__sugg button { border: 1px solid var(--trait); background: var(--fond); border-radius: 99px; padding: 0.5rem 0.9rem; font: 700 0.875rem/1 var(--f-info); color: var(--texte); cursor: pointer; }
+  .srch__sugg button:hover { border-color: var(--menthe); background: var(--fond-2); }
+  .srch__status { margin: 0; font: 600 0.8125rem/1.3 var(--f-info); color: var(--texte-2); }
+  .srch__status:empty { display: none; }
+  .srch__res :global(section) { margin-top: 1.2rem; }
+  .srch__res :global(h3) { font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin: 0 0 0.5rem; }
+  .srch__res :global(ul) { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25rem; }
+  .srch__res :global(a) { display: grid; grid-template-columns: 4.6rem 1fr; gap: 0.8rem; align-items: center; padding: 0.45rem; border-radius: 12px; text-decoration: none; color: var(--texte); }
+  .srch__res :global(a:hover), .srch__res :global(a:focus-visible), .srch__res :global(a.is-sel) { background: var(--fond-2); outline: none; }
+  .srch__res :global(img) { width: 4.6rem; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 8px; background: var(--marine); }
+  .srch__res :global(.r-g img) { aspect-ratio: 1; width: 3rem; border-radius: 50%; justify-self: center; object-position: 50% 25%; }
+  .srch__res :global(.r-s img) { aspect-ratio: 9 / 16; width: 2.6rem; justify-self: center; }
+  .srch__res :global(b) { display: block; font: 700 0.9375rem/1.3 var(--f-texte); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .srch__res :global(small) { display: block; margin-top: 0.15rem; font: 600 0.75rem/1.2 var(--f-info); color: var(--texte-2); }
+  .srch__res :global(mark) { background: rgb(34 195 211 / 0.25); color: inherit; border-radius: 3px; }
+  .srch__res :global(.more) { margin-top: 0.4rem; border: 0; background: none; color: var(--accent); font: 700 0.875rem/1 var(--f-info); cursor: pointer; padding: 0.5rem; }
+</style>
+<script>
+  type Item = { t: 'a' | 'e' | 'g' | 's'; ti: string; s: string; u: string; i: string; d: string; k: string };
+  const dlg = document.querySelector<HTMLDialogElement>('.srch')!;
+  const input = dlg.querySelector<HTMLInputElement>('input')!;
+  const res = dlg.querySelector<HTMLElement>('.srch__res')!;
+  const hint = dlg.querySelector<HTMLElement>('.srch__hint')!;
+  const status = dlg.querySelector<HTMLElement>('.srch__status')!;
+  let data: (Item & { n: string })[] | null = null;
+  const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[’']/g, ' ');
+  const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+  const groups: [Item['t'], string][] = [['g', 'Invités'], ['e', 'Émissions'], ['s', 'Extraits'], ['a', 'Actus']];
+  const limits: Record<string, number> = {};
+
+  async function load() {
+    if (data) return;
+    status.textContent = 'Chargement…';
+    try {
+      const r = await fetch('/recherche.json');
+      const items: Item[] = await r.json();
+      data = items.map((x) => ({ ...x, n: norm(`${x.ti} ${x.s} ${x.k}`) }));
+      status.textContent = '';
+    } catch { status.textContent = 'La recherche est indisponible pour le moment.'; }
+  }
+  function highlight(text: string, words: string[]) {
+    let out = esc(text);
+    const n = norm(text);
+    // surligne le premier mot trouvé (positions identiques car norm garde la longueur pour les lettres latines)
+    const w = words.find((w) => n.includes(w));
+    if (w && n.length === text.length) { const i = n.indexOf(w); out = esc(text.slice(0, i)) + '<mark>' + esc(text.slice(i, i + w.length)) + '</mark>' + esc(text.slice(i + w.length)); }
+    return out;
+  }
+  function render() {
+    const q = norm(input.value.trim());
+    hint.hidden = q.length > 0;
+    if (!q || !data) { res.innerHTML = ''; status.textContent = ''; return; }
+    const words = q.split(/\s+/).filter(Boolean);
+    const found = data.filter((x) => words.every((w) => x.n.includes(w)))
+      .map((x) => ({ x, score: (norm(x.ti).startsWith(words[0]) ? 3 : 0) + (norm(x.ti).includes(q) ? 2 : 0) + (x.d ? Number(x.d.slice(0, 4)) / 10000 : 0) }))
+      .sort((a, b) => b.score - a.score).map((r) => r.x);
+    status.textContent = found.length ? `${found.length} résultat${found.length > 1 ? 's' : ''}` : 'Aucun résultat. Essaie un autre mot (nom, club, sujet).';
+    res.innerHTML = groups.map(([t, label]) => {
+      const list = found.filter((x) => x.t === t);
+      if (!list.length) return '';
+      const lim = limits[t] ?? (t === 'g' ? 4 : 5);
+      const li = list.slice(0, lim).map((x) => `<li><a class="r-${x.t}" href="${esc(x.u)}"><img src="${esc(x.i)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'"><span><b>${highlight(x.ti, words)}</b><small>${esc(x.s)}${x.d ? ' · ' + new Date(x.d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}</small></span></a></li>`).join('');
+      const more = list.length > lim ? `<button type="button" class="more" data-more="${t}">Voir les ${list.length - lim} autres</button>` : '';
+      return `<section><h3>${label} · ${list.length}</h3><ul>${li}</ul>${more}</section>`;
+    }).join('');
+  }
+  let timer = 0;
+  input.addEventListener('input', () => { Object.keys(limits).forEach((k) => delete limits[k]); clearTimeout(timer); timer = window.setTimeout(render, 90); });
+  res.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-more]');
+    if (b) { const t = b.dataset.more!; limits[t] = (limits[t] ?? 5) + 20; render(); }
+  });
+  dlg.querySelectorAll<HTMLButtonElement>('[data-q]').forEach((b) => b.addEventListener('click', () => { input.value = b.dataset.q!; render(); input.focus(); }));
+  const open = async () => {
+    if (!dlg.open) dlg.showModal();
+    document.documentElement.style.overflow = 'hidden';
+    input.focus(); input.select();
+    await load(); render();
+  };
+  const close = () => { dlg.close(); };
+  dlg.addEventListener('close', () => { document.documentElement.style.overflow = ''; });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  dlg.querySelector('[data-search-close]')!.addEventListener('click', close);
+  document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+  document.addEventListener('keydown', (e) => {
+    const tag = (e.target as HTMLElement).tagName;
+    if ((e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(tag)) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) { e.preventDefault(); open(); }
+    if (dlg.open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+      const links = [...res.querySelectorAll<HTMLAnchorElement>('a')];
+      if (!links.length) return;
+      e.preventDefault();
+      const i = links.indexOf(document.activeElement as HTMLAnchorElement);
+      const n = e.key === 'ArrowDown' ? Math.min(links.length - 1, i + 1) : i - 1;
+      n < 0 ? input.focus() : links[n].focus();
+    }
+  });
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { const a = res.querySelector<HTMLAnchorElement>('a'); if (a) location.href = a.href; } });
+</script>
