@@ -1,7 +1,7 @@
 ---
 titre: "Corbeaux, brouillard, projecteurs en panne : le week-end galère des terrains amateurs"
 date: 2026-11-08T17:00:00+01:00
-chapo: "Une pelouse ravagée par des corbeaux à une semaine d'un match de Coupe de France, un match reporté au lendemain de l'inauguration d'une tribune, un derby joué dans le brouillard. Bienvenue dans le foot amateur en novembre."
+chapo: "Une pelouse ravagée par des corbeaux avant un match de Coupe, un match reporté faute de lumière, un derby joué dans le brouillard : le foot amateur en novembre."
 image: /actualites/2026-11-08-galeres-terrains.webp
 imageAlt: "Un terrain de football amateur dans le brouillard, projecteurs allumés et corbeaux posés sur la pelouse"
 credit: "Illustration générée par IA"
