@@ -37,6 +37,8 @@ Battu 4-2 à domicile la semaine précédente, Vimy est allé gagner **1-0 à De
 - **Onet-le-Château – Chamalières : 2-0.**
 - **Blagnac – Anglet : 1-3.**
 - **Castanet-Tolosan – Toulouse FC B : 1-2.**
+- **Brétigny – Blois : 2-2** (dimanche). Après cinq victoires de rang, Blois est accroché mais reste invaincu.
+- **Sainte-Geneviève – Corte : 4-0** (dimanche). Soirée noire pour les Corses, déjà retardés par leur vol.
 - **Saint-Lô – Lannion : 4-1** et **Challans – Alençon : 3-0**, avec deux lanternes rouges en grande difficulté. [Lire notre article](/actualites/2026-11-08-national-2-lannion-alencon-lanternes-rouges/).
 
 **Ton club joue en N2 ? Tu étais au stade ce week-end ?** [Raconte-nous](/participer/) ton match.
