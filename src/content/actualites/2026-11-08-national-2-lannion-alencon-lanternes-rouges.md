@@ -9,7 +9,7 @@ source:
   nom: "Foot-National"
   url: "https://www.foot-national.com/actus/sept-defaites-en-sept-matchs-en-national-2-lannion-touche-le-fond-face-a-saint-lo-962883"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 En National 2, la saison n'a que sept journées, mais pour deux clubs de l'Ouest, elle ressemble déjà à un long tunnel.

@@ -9,7 +9,7 @@ source:
   nom: "Foot Mercato"
   url: "https://www.footmercato.net/a8349055141270077606-bordeaux-poursuit-son-sans-faute-en-regional-1"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 En 2009, les Girondins de Bordeaux étaient champions de France. Aujourd'hui, ils se déplacent à Villenave-d'Ornon, en Régional 1. Et samedi 7 novembre, ils ont rappelé à tout le monde qu'ils n'avaient pas l'intention d'y rester longtemps.

@@ -9,7 +9,7 @@ source:
   nom: "Ouest-France"
   url: "https://www.ouest-france.fr/sport/football/chateaubriant-voltigeurs/football-n1-je-suis-content-pour-les-garcons-qui-bossent-chateaubriant-remporte-sa-premiere-victoire-cdb54b94-daec-11f1-82ac-6c40d47aa0a6"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 Huit matchs, zéro victoire. Pour les Voltigeurs de Châteaubriant, le début de saison en National 1 commençait à peser lourd. Samedi 7 novembre, pour la 9e journée, la série s'est enfin arrêtée.

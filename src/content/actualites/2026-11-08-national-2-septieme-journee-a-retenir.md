@@ -9,7 +9,7 @@ source:
   nom: "Actu.fr"
   url: "https://actu.fr/normandie/caen_14118/menee-2-0-contre-le-cours-du-jeu-lasptt-caen-a-arrache-le-match-nul-a-saint-brieuc-glinglin_65030792.html"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 Samedi 7 novembre, la 7e journée de National 2 a livré son lot d'histoires. Voici ce qu'il faut retenir.

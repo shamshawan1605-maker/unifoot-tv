@@ -9,7 +9,7 @@ source:
   nom: "Actu.fr"
   url: "https://actu.fr/normandie/mondeville_14437/nous-ne-sommes-pas-epargnes-la-pelouse-du-stade-de-mondeville-ravagee-par-des-attaques-inhabituelles_65030940.html"
 themes: [vie-des-clubs, benevoles]
-brouillon: true
+brouillon: false
 ---
 
 Dans le foot amateur, on ne joue pas seulement contre l'adversaire. On joue aussi contre la météo, les installations et parfois… les oiseaux. Ce week-end, trois histoires l'ont encore prouvé.

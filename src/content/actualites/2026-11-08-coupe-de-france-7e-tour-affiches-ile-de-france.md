@@ -9,7 +9,7 @@ source:
   nom: "Footeo"
   url: "https://news.footeo.com/2026/10/28/coupe-de-france-le-tirage-complet-des-7e-et-8e-tours-lasse-et-nantes-face-aux-amateurs-16143"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 C'est le tour que tous les petits clubs attendent. Le week-end des 14 et 15 novembre, les 18 clubs de Ligue 2 font leur entrée en Coupe de France. Il reste 88 matchs au programme du 7e tour, et pour beaucoup d'amateurs, c'est peut-être le match d'une vie.

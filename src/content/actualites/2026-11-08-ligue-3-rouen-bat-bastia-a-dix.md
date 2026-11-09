@@ -9,7 +9,7 @@ source:
   nom: "Paris-Normandie"
   url: "https://www.paris-normandie.fr/id757832/article/2026-11-07/football-ligue-3-le-fc-rouen-renverse-bastia-malgre-une-double-inferiorite"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 Il y a des matchs où tout va contre toi, et où tu gagnes quand même. Samedi 7 novembre, pour la 12e journée de Ligue 3, le FC Rouen en a vécu un.
