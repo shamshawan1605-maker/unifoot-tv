@@ -16,7 +16,7 @@ En 2009, les Girondins de Bordeaux étaient champions de France. Aujourd'hui, il
 
 ## Quatre buts dans le derby
 
-Dans ce derby girondin, Bordeaux s'est imposé **4-0**. Les buts sont signés Bahassa, Jousselin, Droehnlé et Shamal. Tout n'a pourtant pas été simple : les Girondins ont eu une petite frayeur en première période avant de dérouler. En face, l'entraîneur de Villenave a salué le réalisme de son adversaire.
+Dans ce derby girondin, Bordeaux s'est imposé **4-0**. Les buts sont signés Bahassa, Jousselin, Droehnlé et Shamal.
 
 C'est la **quatrième victoire en quatre matchs** pour Bordeaux, qui compte 12 points. Mérignac est en tête avec 15 points, mais en six matchs. Saint-Médard-en-Jalles et Saint-Paul Sport ont eux aussi 12 points, en sept matchs. Avec ses matchs en retard, Bordeaux a toutes les cartes en main pour prendre la première place.
 
@@ -24,6 +24,6 @@ C'est la **quatrième victoire en quatre matchs** pour Bordeaux, qui compte 12 p
 
 Pour les clubs de R1 de la poule, recevoir Bordeaux, c'est un événement. Plus de monde dans les tribunes, plus de recettes à la buvette, et l'occasion pour des joueurs amateurs de se mesurer à un nom qui a marqué l'histoire du foot français. Chaque équipe qui affronte les Girondins joue le match de sa saison, ce qui ne facilite pas la tâche du favori.
 
-Léo Jousselin l'a dit après la rencontre : la série est belle, mais il faut rester sérieux jusqu'au bout.
+La route est encore longue, mais avec ce début de saison parfait, les Girondins montrent qu'ils ont les moyens de remonter.
 
 **Tu as déjà joué contre un grand nom tombé dans le foot amateur ?** [Raconte-nous](/participer/), on peut en parler dans Kick in the Foot.
