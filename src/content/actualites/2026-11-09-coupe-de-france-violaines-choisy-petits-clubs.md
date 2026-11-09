@@ -1,6 +1,6 @@
 ---
 titre: "Haie d'honneur, 1 000 billets vendus : la Coupe de France fait déjà vibrer les petits clubs"
-date: 2026-11-09T07:30:00+01:00
+date: 2026-11-09T03:00:00+01:00
 chapo: "À une semaine du 7e tour, Violaines (D2) a reçu une haie d'honneur de ses adversaires et Choisy-au-Bac (R2) a déjà vendu plus de 1 000 billets pour recevoir Caen."
 image: /actualites/2026-11-09-coupe-de-france-petits-clubs.webp
 imageAlt: "Des joueurs amateurs qui forment une haie d'honneur avant un match, sur un petit terrain de district"

@@ -1,6 +1,6 @@
 ---
 titre: "Cadeau d'anniversaire au président, penalty à la 90e+7, frères buteurs : les belles histoires du dimanche"
-date: 2026-11-09T07:40:00+01:00
+date: 2026-11-09T03:05:00+01:00
 chapo: "Une victoire offerte au président le jour de son anniversaire, un penalty au bout du temps additionnel, des frères qui marquent en série : le foot régional a encore régalé ce dimanche."
 image: /actualites/2026-11-09-belles-histoires-dimanche.webp
 imageAlt: "Des joueurs amateurs qui célèbrent un but au bord d'un petit terrain, le dimanche après-midi"
