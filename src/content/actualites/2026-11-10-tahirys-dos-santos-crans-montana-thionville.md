@@ -3,8 +3,8 @@ titre: "Brûlé dans l'incendie de Crans-Montana, Tahirys Dos Santos va découvr
 date: 2026-11-10T10:45:00+01:00
 chapo: "Onze mois après avoir frôlé la mort, le jeune défenseur formé au FC Metz est prêté à l'US Thionville Lusitanos pour toute la saison. Un premier vrai défi chez les pros."
 image: /actualites/2026-11-10-tahirys-dos-santos.webp
-imageAlt: "Un jeune footballeur de dos qui entre sur une pelouse sous les projecteurs"
-credit: "Illustration générée par IA"
+imageAlt: "Tahirys Dos Santos sous le maillot du FC Metz, sous la pluie"
+credit: "Photo : DR"
 source:
   nom: "La Dépêche du Midi"
   url: "https://www.ladepeche.fr/2026/11/10/incendie-de-crans-montana-onze-mois-apres-avoir-frole-la-mort-un-jeune-footballeur-brule-au-troisieme-degre-va-connaitre-sa-premiere-experience-13645275.php"
