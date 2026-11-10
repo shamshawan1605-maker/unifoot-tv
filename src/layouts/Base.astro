@@ -3,7 +3,7 @@ import '~/styles/global.css';
 import Header from '~/components/Header.astro';
 import Footer from '~/components/Footer.astro';
 import ConsentBanner from '~/components/ConsentBanner.astro';
-import { site } from '@config/site';
+import { site, google } from '@config/site';
 import { abs, organization, website, breadcrumbLd } from '~/lib/seo';
 import { isDemo } from '~/lib/content';
 import Breadcrumbs from '~/components/Breadcrumbs.astro';
@@ -74,6 +74,22 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={ld} />
     <slot name="head" />
+    {google.adsenseClient && <meta name="google-adsense-account" content={google.adsenseClient} />}
+    {(google.analyticsId || google.adsenseClient) && (
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+      </script>
+    )}
+    {google.adsenseClient && <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${google.adsenseClient}`} crossorigin="anonymous"></script>}
+    {google.analyticsId && <script async src={`https://www.googletagmanager.com/gtag/js?id=${google.analyticsId}`}></script>}
+    {google.analyticsId && (
+      <script is:inline define:vars={{ gaId: google.analyticsId }}>
+        gtag('js', new Date());
+        gtag('config', gaId);
+      </script>
+    )}
   </head>
   <body>
     <a class="skip" href="#contenu">Aller au contenu</a>

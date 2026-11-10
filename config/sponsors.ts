@@ -52,5 +52,5 @@ export const placements: {
   },
 };
 
-/** Catégories refusées, pour mémoire (aucune pub automatique n'est diffusée sur le site) */
+/** Catégories refusées, pour mémoire (à bloquer aussi dans AdSense > Contrôle des annonces) */
 export const categoriesRefusees = ['Paris sportifs et jeux d’argent', 'Alcool', 'Annonces sans lien avec le sport'];

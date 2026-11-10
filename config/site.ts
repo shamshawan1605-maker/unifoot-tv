@@ -25,6 +25,19 @@ export const site = {
   logo: { src: '/brand/logo-240.png' as string, width: 116, height: 55 },
 };
 
+/**
+ * Compteur de visites et publicité (Google, compte unifoot.uf@gmail.com).
+ * Laisser '' pour désactiver : rien n'est chargé tant que c'est vide.
+ */
+export const google = {
+  /** Google Analytics 4 : identifiant de mesure « G-XXXXXXXXXX » */
+  analyticsId: '',
+  /** AdSense : identifiant éditeur « ca-pub-XXXXXXXXXXXXXXXX » */
+  adsenseClient: '',
+  /** AdSense : identifiant du bloc d'annonces placé dans les actus (10 chiffres) */
+  slotActu: '',
+};
+
 export const links = {
   youtube: 'https://www.youtube.com/UNIFOOTTV',
   youtubeSubscribe: 'https://www.youtube.com/UNIFOOTTV?sub_confirmation=1',

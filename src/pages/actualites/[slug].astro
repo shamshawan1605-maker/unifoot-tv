@@ -12,6 +12,7 @@ import { themeBySlug, videos, episodes, formatDate, fr } from '~/lib/content';
 import { abs } from '~/lib/seo';
 import { site } from '@config/site';
 import SponsorSlot from '~/components/SponsorSlot.astro';
+import AdSlot from '~/components/AdSlot.astro';
 import { placements } from '@config/sponsors';
 
 export async function getStaticPaths() {
@@ -63,6 +64,7 @@ const ld = {
       </figure>
     )}
     <div class="prose art__text"><Content /></div>
+    <AdSlot mid />
     {d.source && (
       <p class="art__source">Source : {d.source.url ? <a href={d.source.url} rel="noopener nofollow" target="_blank">{d.source.nom}</a> : d.source.nom}</p>
     )}
