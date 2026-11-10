@@ -9,7 +9,7 @@ source:
   nom: "La Nouvelle République"
   url: "https://www.lanouvellerepublique.fr/indre-et-loire/commune/chanceaux-sur-choisille/de-sa-chambre-d-hopital-a-tours-au-camp-nou-la-belle-histoire-de-noham-emmene-voir-le-barca-par-des-fans-de-touraine-1794244094"
 themes: [vie-des-clubs, benevoles]
-brouillon: true
+brouillon: false
 ---
 
 Le foot, c'est aussi ça : des gens qui se mobilisent pour offrir un moment inoubliable à un jeune qui en a besoin.

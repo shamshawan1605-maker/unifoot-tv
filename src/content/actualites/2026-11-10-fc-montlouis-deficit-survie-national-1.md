@@ -9,7 +9,7 @@ source:
   nom: "La Nouvelle République"
   url: "https://www.lanouvellerepublique.fr/indre-et-loire/commune/montlouis-sur-loire/122-000-de-deficit-le-fc-montlouis-dans-une-sombre-situation-financiere-1794250022"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 Le FC Montlouis n'a jamais caché qu'il vivait avec peu de moyens. Mais la situation est encore plus grave qu'on le pensait.

@@ -9,7 +9,7 @@ source:
   nom: "La Dépêche du Midi"
   url: "https://www.ladepeche.fr/2026/11/10/incendie-de-crans-montana-onze-mois-apres-avoir-frole-la-mort-un-jeune-footballeur-brule-au-troisieme-degre-va-connaitre-sa-premiere-experience-13645275.php"
 themes: [formation]
-brouillon: true
+brouillon: false
 ---
 
 Certaines histoires de foot dépassent largement le terrain. Celle de **Tahirys Dos Santos** en fait partie.

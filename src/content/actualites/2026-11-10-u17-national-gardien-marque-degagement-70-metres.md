@@ -9,7 +9,7 @@ source:
   nom: "Midi Libre"
   url: "https://www.midilibre.fr/2026/11/10/video-trahi-par-le-rebond-sur-un-degagement-de-80-metres-le-gardien-dagde-encaisse-un-but-danthologie-dans-un-match-fou-13645233.php"
 themes: [formation]
-brouillon: true
+brouillon: false
 ---
 
 Le championnat U17 National réserve souvent des surprises. Dimanche 8 novembre, le match entre le **RCO Agde** et l'**Olympique Rovenain** en a offert une belle.

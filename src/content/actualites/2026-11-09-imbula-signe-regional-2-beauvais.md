@@ -9,7 +9,7 @@ source:
   nom: "Les Violets"
   url: "https://www.lesviolets.com/actu/jai-fait-une-saison-de-merde-au-tfc-imbula-tente-de-relancer-sa-carriere-en-regional-2,84997.html"
 themes: [vie-des-clubs]
-brouillon: true
+brouillon: false
 ---
 
 C'est le genre de signature qu'on ne voit pas tous les jours en Régional 2. **Giannelli Imbula**, 34 ans, a trouvé un nouveau club : l'**AS Beauvais Oise**.
