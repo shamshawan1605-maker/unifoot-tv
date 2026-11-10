@@ -2,7 +2,7 @@
 import Legal from '~/layouts/Legal.astro';
 import { legal, site } from '@config/site';
 ---
-<Legal title="Politique de confidentialité" description="Comment UNIFOOT TV collecte et utilise vos données personnelles : formulaires, newsletter, vidéos YouTube et vos droits.">
+<Legal title="Politique de confidentialité" description="Comment UNIFOOT TV collecte et utilise vos données personnelles : formulaires, newsletter, vidéos YouTube, publicité et vos droits.">
   <p>{legal.company} ({legal.address}) est responsable des traitements décrits ici. Pour toute question ou pour exercer tes droits : <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
   <h2>Données collectées et utilisation</h2>
   <ul>
@@ -13,6 +13,9 @@ import { legal, site } from '@config/site';
   <p>Les formulaires sont traités sur notre hébergement en France (O2switch) et nous parviennent par e-mail. Les données de tes formulaires ne sont jamais vendues ni utilisées à des fins publicitaires. La publicité et la mesure d'audience du site sont détaillées sur la page <a href="/cookies/">Cookies</a>.</p>
   <h2>Vidéos, images et audio</h2>
   <p>Les vidéos YouTube ne sont chargées que lorsque tu cliques sur Lecture, via le domaine youtube-nocookie.com. À ce moment, YouTube (Google) peut collecter des données selon sa propre politique. Les miniatures des vidéos sont affichées depuis les serveurs d'images de YouTube, ce qui transmet ton adresse IP à Google. Les épisodes audio sont lus depuis la plateforme d'hébergement du podcast, seulement si tu lances la lecture.</p>
+  <h2>Publicité et mesure d'audience</h2>
+  <p>Le site est financé en partie par la publicité, diffusée par Google AdSense. Google et ses partenaires utilisent des cookies pour afficher des annonces, mesurer leur efficacité et, si tu l'acceptes, les adapter à tes visites sur ce site et sur d'autres sites. Sans ton accord, les annonces restent non personnalisées. Tu fais ton choix dans le bandeau qui s'affiche à ta première visite et tu peux le modifier à tout moment depuis la page <a href="/cookies/">Cookies</a>.</p>
+  <p>Pour en savoir plus sur la façon dont Google utilise les données : <a href="https://policies.google.com/technologies/partner-sites?hl=fr" rel="noopener">policies.google.com/technologies/partner-sites</a>. Tu peux aussi gérer la personnalisation des annonces Google dans les <a href="https://adssettings.google.com" rel="noopener">paramètres des annonces</a>.</p>
   <h2>Tes droits</h2>
   <p>Tu disposes d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de tes données, et du droit de retirer ton consentement à tout moment. Écris-nous à <a href={`mailto:${site.email}`}>{site.email}</a>. Tu peux aussi saisir la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).</p>
   <p>Pour les cookies, voir la page <a href="/cookies/">Cookies</a>.</p>

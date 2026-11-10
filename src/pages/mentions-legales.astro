@@ -6,7 +6,7 @@ import { legal, site } from '@config/site';
 <Legal title="Mentions légales" description="Mentions légales du site UNIFOOT TV : éditeur, directeur de la publication, hébergeur et propriété intellectuelle.">
   <h2>Éditeur du site</h2>
   <dl>
-    <dt>Société</dt><dd>{legal.company}, {legal.form} au capital de <Val v={legal.capital} /></dd>
+    <dt>Société</dt><dd>{legal.company}, {legal.form}{legal.capital !== 'A_COMPLETER' && <> au capital de {legal.capital}</>}</dd>
     <dt>Siège social</dt><dd>{legal.address}</dd>
     <dt>SIRET</dt><dd>{legal.siret}</dd>
     <dt>RCS</dt><dd><Val v={legal.rcs} /></dd>

@@ -75,8 +75,8 @@ export const legal = {
   form: 'SASU',
   capital: 'A_COMPLETER',
   siret: '978 722 023 00014',
-  rcs: 'A_COMPLETER',
-  vat: 'A_COMPLETER',
+  rcs: 'RCS Paris 978 722 023',
+  vat: 'FR40978722023',
   address: '9 rue des Colonnes, 75002 Paris, France',
   publicationDirector: 'Khalid Shamsh Awan',
   host: {
