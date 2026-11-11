@@ -18,7 +18,7 @@ import { audienceHighlights } from '@config/audience';
 import { invites } from '@config/invites';
 // Nombre d'invités reçus, arrondi à la dizaine inférieure (« 50+ »)
 const invitesLabel = `${Math.floor(invites.length / 10) * 10}+`;
-import { latestEpisode, episodes, shorts, episodesOfShow, videoPath, showOf, formatDate, formatShortDate, durationLabel, thumbSrcset, fr, watchUrl } from '~/lib/content';
+import { latestEpisode, episodes, shorts, episodesOfShow, videoPath, showOf, formatDate, formatShortDate, durationLabel, thumbSrcset, hasCustomPhoto, fr, watchUrl } from '~/lib/content';
 import { podcastSeriesLd } from '~/lib/seo';
 import { allShows } from '@config/shows';
 import { getNews, newsPath, newsImage } from '~/lib/news';
@@ -49,7 +49,10 @@ if (hero && hero.show === allShows[0].slug) {
 const weekIds = new Set(week.map((w) => w.video?.id).filter(Boolean));
 const others = episodes.filter((v) => v.id !== hero?.id && !weekIds.has(v.id));
 // À ne pas manquer : uniquement de vraies émissions (10 min et plus), pas des reels
-const dontMiss = others.filter((v) => v.durationSec >= 600).slice(0, 5);
+// On n'y met que les émissions qui ont une vraie photo (public/photos), jamais la miniature YouTube avec texte
+const longEps = others.filter((v) => v.durationSec >= 600);
+const withPhoto = longEps.filter((v) => hasCustomPhoto(v));
+const dontMiss = (withPhoto.length >= 3 ? withPhoto : longEps).slice(0, 5);
 const news = await getNews();
 const ranked = news.length
   ? news.slice(0, 5).map((n) => ({ href: newsPath(n), title: n.data.titre, meta: formatShortDate(n.data.date.toISOString()), img: newsImage(n) }))
