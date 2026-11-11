@@ -10,7 +10,7 @@
     "dev": "astro dev",
     "sync": "tsx scripts/sync.ts",
     "redirects": "tsx scripts/build-redirects.ts",
-    "build": "tsx scripts/build-redirects.ts && astro build",
+    "build": "node scripts/og-images.mjs && tsx scripts/build-redirects.ts && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "test": "tsx tests/sync.test.ts && tsx tests/parse.test.ts"
