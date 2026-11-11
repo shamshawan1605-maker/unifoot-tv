@@ -17,6 +17,8 @@ const schema = z.object({
   /** Crédit photo (nom du photographe), affiché sous la photo */
   credit: z.string().optional(),
   source: z.object({ nom: z.string(), url: z.string().url().optional() }).optional(),
+  /** Auteur de l'article (rédaction) */
+  auteur: z.string().default('Shamsh Awan'),
   themes: z.array(z.enum(themeSlugs)).default([]),
   /** Identifiant YouTube d'un épisode ou extrait qui parle du sujet (facultatif) */
   video: z.string().optional(),

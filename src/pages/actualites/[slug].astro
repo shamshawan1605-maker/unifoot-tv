@@ -41,7 +41,7 @@ const ld = {
   inLanguage: 'fr-FR',
   mainEntityOfPage: abs(newsPath(news)),
   image: [abs(d.image || site.ogImage)],
-  author: { '@type': 'Organization', name: site.name, url: abs('/') },
+  author: { '@type': 'Person', name: d.auteur, url: abs('/equipe/') },
   publisher: { '@id': `${abs('/').replace(/\/$/, '')}/#organization` },
   ...(d.themes.length ? { articleSection: nThemes.map((t) => t!.name).join(', ') } : {}),
 };
@@ -55,6 +55,7 @@ const ld = {
       </p>
       <h1>{fr(d.titre)}</h1>
       <p class="art__chapo">{fr(d.chapo)}</p>
+      <p class="art__auteur">Par <strong>{d.auteur}</strong>, UNIFOOT TV</p>
       <div class="art__share"><Share url={abs(newsPath(news))} title={d.titre} /></div>
     </header>
     {d.image && (
@@ -109,6 +110,8 @@ const ld = {
   .art__fig img { width: 100%; border-radius: var(--r-m); aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface); }
   .art__fig figcaption { margin-top: 0.5rem; font: 700 0.875rem/1.3 var(--f-info); color: var(--texte-2); }
   .art__text { margin-top: 2rem; }
+  .art__auteur { margin: 0.9rem 0 0; font: 600 0.9375rem/1.3 var(--f-info); color: var(--texte-2); }
+  .art__auteur strong { color: var(--texte); }
   .art__source { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--trait); font: 700 1rem/1.3 var(--f-info); color: var(--texte-2); }
   .art__source a { color: var(--accent); }
   .art__video { margin-top: 2.5rem; }
