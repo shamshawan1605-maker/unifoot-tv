@@ -31,7 +31,7 @@ export const site = {
  */
 export const google = {
   /** Google Analytics 4 : identifiant de mesure « G-XXXXXXXXXX » */
-  analyticsId: '',
+  analyticsId: 'G-BEE0EE1NCD',
   /** AdSense : identifiant éditeur « ca-pub-XXXXXXXXXXXXXXXX » */
   adsenseClient: 'ca-pub-3017747107074972',
   /** AdSense : identifiant du bloc d'annonces placé dans les actus (10 chiffres) */
