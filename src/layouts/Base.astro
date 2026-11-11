@@ -102,7 +102,7 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     <Footer />
     <TabBar />
     <Search />
-    <ConsentBanner enabled={Boolean(analyticsSrc)} />
+    <ConsentBanner enabled={Boolean(analyticsSrc || google.analyticsId)} />
     <script>
       // Rails horizontaux : flèches gauche/droite au survol (la barre de défilement est masquée)
       const svg = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;

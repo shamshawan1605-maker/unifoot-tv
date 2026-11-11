@@ -9,7 +9,7 @@ const domain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN || '';
 ---
 {enabled && (
   <div class="consent" id="consent" role="region" aria-label="Cookies" hidden data-src={src} data-domain={domain}>
-    <p>On aimerait mesurer l'audience du site pour savoir quelles émissions vous intéressent. Aucune publicité. <a href="/cookies/">En savoir plus</a></p>
+    <p>On aimerait mesurer l'audience du site (Google Analytics) pour savoir quels articles et quelles émissions vous intéressent. <a href="/cookies/">En savoir plus</a></p>
     <div class="consent__btns">
       <button class="btn btn--small btn--ghost" type="button" data-consent="no">Refuser</button>
       <button class="btn btn--small" type="button" data-consent="yes">Accepter</button>
@@ -30,6 +30,8 @@ const domain = import.meta.env.PUBLIC_ANALYTICS_DOMAIN || '';
   function read(): string | null { try { return localStorage.getItem(KEY); } catch { return null; } }
   function write(v: string) { try { localStorage.setItem(KEY, v); } catch {} }
   function loadAnalytics() {
+    const g = (window as any).gtag;
+    if (typeof g === 'function') g('consent', 'update', { analytics_storage: 'granted' });
     if (!box?.dataset.src) return;
     const s = document.createElement('script');
     s.defer = true; s.src = box.dataset.src;
