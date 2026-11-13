@@ -1,14 +1,106 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-13T16:55:18.591Z",
+  "generatedAt": "2026-11-13T17:36:05.857Z",
   "channel": {
     "id": "UCEQftXZgbdrecbiPb_yM_hQ",
     "title": "UNIFOOT TV",
     "handle": "@unifoottv",
     "subscriberCount": 17900,
-    "videoCount": 1541
+    "videoCount": 1542
   },
   "videos": [
+    {
+      "id": "omXtAS9LM1U",
+      "slug": "un-buzzer-des-actus-et-zero-pitie-coups-de-coeur-et-coups-de-gueule",
+      "title": "Un buzzer, des actus et zéro pitié : coups de cœur et coups de gueule !",
+      "description": "☕ Soutiens UNIFOOT TV : https://fr.tipeee.com/unifoot-tv\n📲 Participe à l’émission : https://participez-unifoottv.netlify.app\n🤝 Prends rendez-vous avec DYF : https://presentation.doyourfootball.com/?ref=unifoot\n\nPour cette deuxième période, on change de format : chacun présente son coup de cœur et son coup de gueule du foot amateur, mais cette fois avec un buzzer devant lui. Si tu n’es pas d’accord, si le sujet est mal expliqué ou si l’éloquence n’est pas au niveau, tu buzzes. Le débat peut commencer.\n\nAu programme : une initiative de Montpellier autour de la santé mentale, la protection des femmes arbitres, le retard numérique du foot amateur, le Téléthon, un 12e joueur sur le terrain en Régional 1, un club de D2 qui quitte la pelouse après des insultes racistes, les Trophées Philippe-Séguin et le niveau d’exigence des formations d’éducateurs.\n\nEt toi, quel est ton coup de cœur et ton coup de gueule du foot amateur cette semaine ? Dis-le-nous en commentaire 👇\n\n⚽️ LES SUJETS\n\n00:00 Intro et règles du buzzer\n08:58 Coup de gueule d’Alexis : un 12e joueur sur le terrain en R1\n11:16 Coup de gueule de David : le numérique du foot amateur en retard\n17:05 Coup de gueule de Benoit : l’exigence dans les formations d’éducateurs\n30:00 Coup de gueule de Soufiane : protéger les femmes arbitres\n34:41 Coup de cœur d’Alexis : un club de D2 quitte le terrain\n36:16 Coup de cœur de David : la FFF et le Téléthon\n41:44 Coup de cœur de Benoit : les Trophées Philippe-Séguin\n45:20 Coup de cœur de Soufiane : Montpellier et la santé mentale\n\n⚽️ PARTENAIRE\n\nDYF (Do Your Football), l’application des clubs et des coachs amateurs pour suivre et faire progresser les joueurs.\n🏟️ Pour les clubs : https://club.doyourfootball.com/?ref=unifoot\n🤝 Prendre rendez-vous : https://presentation.doyourfootball.com/?ref=unifoot\n🎟️ Code UNIFOOT TV : 20 % de réduction\n\n📱 SUIVEZ UNIFOOT TV\nInstagram : https://www.instagram.com/unifoottvof./\nFacebook : https://www.facebook.com/unifoottv\nX : https://twitter.com/unifoottv\nSite : https://www.unifoottv.fr/\n\n⚽️ REMERCIEMENT\nMerci à toute l’équipe d’UNIFOOT TV",
+      "publishedAt": "2026-11-13T17:00:24Z",
+      "durationSec": 2968,
+      "thumbnails": [
+        {
+          "url": "https://i.ytimg.com/vi/omXtAS9LM1U/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        {
+          "url": "https://i.ytimg.com/vi/omXtAS9LM1U/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        },
+        {
+          "url": "https://i.ytimg.com/vi/omXtAS9LM1U/sddefault.jpg",
+          "width": 640,
+          "height": 480
+        },
+        {
+          "url": "https://i.ytimg.com/vi/omXtAS9LM1U/maxresdefault.jpg",
+          "width": 1280,
+          "height": 720
+        }
+      ],
+      "kind": "episode",
+      "show": "kick-in-the-foot",
+      "playlists": [
+        "PLA4Ou4xJxSSg"
+      ],
+      "chapters": [
+        {
+          "start": 0,
+          "label": "Intro et règles du buzzer"
+        },
+        {
+          "start": 538,
+          "label": "Coup de gueule d’Alexis : un 12e joueur sur le terrain en R1"
+        },
+        {
+          "start": 676,
+          "label": "Coup de gueule de David : le numérique du foot amateur en retard"
+        },
+        {
+          "start": 1025,
+          "label": "Coup de gueule de Benoit : l’exigence dans les formations d’éducateurs"
+        },
+        {
+          "start": 1800,
+          "label": "Coup de gueule de Soufiane : protéger les femmes arbitres"
+        },
+        {
+          "start": 2081,
+          "label": "Coup de cœur d’Alexis : un club de D2 quitte le terrain"
+        },
+        {
+          "start": 2176,
+          "label": "Coup de cœur de David : la FFF et le Téléthon"
+        },
+        {
+          "start": 2504,
+          "label": "Coup de cœur de Benoit : les Trophées Philippe-Séguin"
+        },
+        {
+          "start": 2720,
+          "label": "Coup de cœur de Soufiane : Montpellier et la santé mentale"
+        }
+      ],
+      "themes": [
+        "vie-des-clubs",
+        "educateurs",
+        "formation"
+      ],
+      "tags": [],
+      "thin": false,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 17,
+      "commentCount": 0,
+      "podcast": {
+        "guid": "1fbace20-d461-4214-b1ca-4e74f21230f5",
+        "title": "Un buzzer, des actus et zéro pitié : coups de cœur et coups de gueule !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Un-buzzer--des-actus-et-zro-piti--coups-de-cur-et-coups-de-gueule-e3s7v6l",
+        "audioUrl": "https://traffic.megaphone.fm/APO2343799233.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-11-13T17:00:00.000Z",
+        "durationSec": 2967
+      }
+    },
     {
       "id": "ukNVbE_U5nw",
       "slug": "de-lorient-a-la-depression",
@@ -47,7 +139,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 11,
       "commentCount": 0
     },
@@ -93,8 +185,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 2104,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2169,
       "commentCount": 7,
       "podcast": {
         "guid": "ba98259a-14c4-4ba8-824e-9e6411336680",
@@ -144,8 +236,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 306,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 300,
       "commentCount": 0
     },
     {
@@ -184,8 +276,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 424,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 418,
       "commentCount": 0
     },
     {
@@ -226,8 +318,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 1110,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 1091,
       "commentCount": 0
     },
     {
@@ -272,8 +364,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 7221,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 7283,
       "commentCount": 15,
       "podcast": {
         "guid": "b054e86d-76c2-4599-935e-15d10523ce50",
@@ -323,8 +415,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 298,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 295,
       "commentCount": 0
     },
     {
@@ -363,7 +455,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 164,
       "commentCount": 0
     },
@@ -405,8 +497,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 448,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 437,
       "commentCount": 0
     },
     {
@@ -445,7 +537,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 278,
       "commentCount": 0
     },
@@ -487,8 +579,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 503,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 502,
       "commentCount": 0
     },
     {
@@ -529,7 +621,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 238,
       "commentCount": 0
     },
@@ -569,7 +661,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 284,
       "commentCount": 0
     },
@@ -609,8 +701,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 672,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 671,
       "commentCount": 0
     },
     {
@@ -651,7 +743,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1174,
       "commentCount": 0
     },
@@ -691,8 +783,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 358,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 356,
       "commentCount": 0
     },
     {
@@ -731,8 +823,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 1016,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 1012,
       "commentCount": 0
     },
     {
@@ -773,7 +865,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 383,
       "commentCount": 0
     },
@@ -813,8 +905,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 921,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 916,
       "commentCount": 1,
       "comments": [
         {
@@ -865,7 +957,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 210,
       "commentCount": 0
     },
@@ -907,7 +999,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 832,
       "commentCount": 0
     },
@@ -950,7 +1042,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1063,
       "commentCount": 0
     },
@@ -992,7 +1084,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 263,
       "commentCount": 0
     },
@@ -1034,7 +1126,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 375,
       "commentCount": 0,
       "guest": "RESPONSABLES TECHNIQUES"
@@ -1078,7 +1170,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1569,
       "commentCount": 1,
       "comments": [
@@ -1131,7 +1223,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 287,
       "commentCount": 0
     },
@@ -1173,7 +1265,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 171,
       "commentCount": 0
     },
@@ -1213,7 +1305,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1050,
       "commentCount": 1,
       "comments": [
@@ -1266,7 +1358,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 332,
       "commentCount": 0
     },
@@ -1308,7 +1400,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1207,
       "commentCount": 0,
       "guest": "BONS D'ESSENCE"
@@ -1351,7 +1443,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 360,
       "commentCount": 1,
       "guest": "PROPOS RACISTES",
@@ -1402,7 +1494,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 217,
       "commentCount": 0
     },
@@ -1442,7 +1534,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 217,
       "commentCount": 0
     },
@@ -1482,7 +1574,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1035,
       "commentCount": 0,
       "guest": "MÊME SOUS SURVEILLANCE"
@@ -1523,7 +1615,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1441,
       "commentCount": 0
     },
@@ -1566,7 +1658,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1334,
       "commentCount": 0
     },
@@ -1608,8 +1700,8 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 1971,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 1969,
       "commentCount": 0
     },
     {
@@ -1648,7 +1740,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1513,
       "guest": "ZIDANE ALERTE",
       "commentCount": 2,
@@ -1706,7 +1798,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1352,
       "commentCount": 0
     },
@@ -1746,7 +1838,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1497,
       "commentCount": 0
     },
@@ -1786,7 +1878,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1573,
       "commentCount": 1,
       "comments": [
@@ -1838,7 +1930,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 123,
       "commentCount": 0
     },
@@ -1880,7 +1972,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1432,
       "commentCount": 0
     },
@@ -1920,7 +2012,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1255,
       "commentCount": 1,
       "comments": [
@@ -1970,8 +2062,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 2183,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2182,
       "commentCount": 2,
       "comments": [
         {
@@ -2027,7 +2119,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1197,
       "commentCount": 0
     },
@@ -2070,7 +2162,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 2060,
       "commentCount": 0
     },
@@ -2110,8 +2202,8 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
-      "viewCount": 2505,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2503,
       "commentCount": 0
     },
     {
@@ -2150,7 +2242,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1223,
       "commentCount": 0
     },
@@ -2190,7 +2282,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 520,
       "commentCount": 0
     },
@@ -2230,7 +2322,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1093,
       "commentCount": 0
     },
@@ -2272,7 +2364,7 @@
       ],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1066,
       "commentCount": 0
     },
@@ -2312,7 +2404,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 942,
       "commentCount": 0
     },
@@ -2352,7 +2444,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1753,
       "commentCount": 0
     },
@@ -2392,7 +2484,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1467,
       "commentCount": 0
     },
@@ -2432,7 +2524,7 @@
       "themes": [],
       "tags": [],
       "thin": false,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1346,
       "commentCount": 1,
       "comments": [],
@@ -2474,7 +2566,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-13T16:55:18.591Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1225,
       "commentCount": 0
     },
@@ -3346,8 +3438,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2256,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2260,
       "commentCount": 1,
       "comments": [
         {
@@ -3396,8 +3488,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 1513,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 1514,
       "commentCount": 1,
       "comments": [
         {
@@ -3446,7 +3538,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1394,
       "commentCount": 0
     },
@@ -51367,8 +51459,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
-      "viewCount": 63148,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 63149,
       "commentCount": 34
     },
     {
@@ -51409,8 +51501,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
-      "viewCount": 14035,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 14039,
       "commentCount": 21
     },
     {
@@ -51449,7 +51541,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 2061,
       "commentCount": 1
     },
@@ -51491,7 +51583,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3062,
       "commentCount": 0
     },
@@ -51533,7 +51625,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 18350,
       "commentCount": 3
     },
@@ -51615,8 +51707,8 @@
         "kick in the foot"
       ],
       "thin": false,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
-      "viewCount": 2394,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2397,
       "previousPaths": [
         "/emissions/hors-serie/etre-un-tres-bon-gardien-de-but-avec-le-coach-des-gardiennes-de-but-d1/"
       ],
@@ -51660,7 +51752,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4601,
       "commentCount": 3
     },
@@ -51700,7 +51792,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3626,
       "commentCount": 0
     },
@@ -51742,8 +51834,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
-      "viewCount": 15170,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 15173,
       "commentCount": 0
     },
     {
@@ -51785,7 +51877,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4734,
       "commentCount": 25
     },
@@ -51878,8 +51970,8 @@
         "projet de jeu"
       ],
       "thin": false,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
-      "viewCount": 15317,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 15343,
       "previousPaths": [
         "/emissions/hors-serie/construire-un-projet-de-jeu-avec-frederic-advice-desruisseaux-ex-coach-du-paris/"
       ],
@@ -51921,7 +52013,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3186,
       "commentCount": 0
     },
@@ -51963,7 +52055,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T11:57:25.082Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 15795,
       "commentCount": 11
     },
@@ -52003,8 +52095,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2190,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2191,
       "commentCount": 2
     },
     {
@@ -52043,7 +52135,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4140,
       "commentCount": 0
     },
@@ -52083,7 +52175,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 10275,
       "commentCount": 1
     },
@@ -52123,7 +52215,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 10683,
       "commentCount": 0
     },
@@ -52165,7 +52257,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 2027,
       "commentCount": 1
     },
@@ -52253,7 +52345,7 @@
         "coach foot"
       ],
       "thin": false,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3808,
       "podcast": {
         "guid": "52cac3094bc10eefe889850e0c5e2697268a0ea2",
@@ -52305,7 +52397,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 13103,
       "commentCount": 10
     },
@@ -52347,8 +52439,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2038,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2039,
       "commentCount": 0
     },
     {
@@ -52389,8 +52481,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2806,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2818,
       "commentCount": 1
     },
     {
@@ -52431,7 +52523,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3957,
       "commentCount": 0
     },
@@ -52471,8 +52563,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2553,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2555,
       "commentCount": 2
     },
     {
@@ -52511,8 +52603,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 2437,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 2438,
       "commentCount": 1
     },
     {
@@ -52553,7 +52645,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 2549,
       "commentCount": 0
     },
@@ -52597,8 +52689,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 4979,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 4981,
       "commentCount": 3
     },
     {
@@ -52639,7 +52731,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3073,
       "commentCount": 1
     },
@@ -52681,7 +52773,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 5474,
       "commentCount": 3
     },
@@ -52723,7 +52815,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 2303,
       "commentCount": 2
     },
@@ -52765,7 +52857,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 3134,
       "commentCount": 0
     },
@@ -52807,7 +52899,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4082,
       "commentCount": 0
     },
@@ -52849,8 +52941,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 19017,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 19020,
       "commentCount": 23
     },
     {
@@ -52891,8 +52983,8 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 8687,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 8688,
       "commentCount": 9
     },
     {
@@ -52931,7 +53023,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4904,
       "commentCount": 2
     },
@@ -52971,7 +53063,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 5580,
       "commentCount": 1
     },
@@ -53011,7 +53103,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4252,
       "commentCount": 1
     },
@@ -53053,7 +53145,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1704,
       "commentCount": 0
     },
@@ -53093,7 +53185,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1561,
       "commentCount": 3
     },
@@ -53133,8 +53225,8 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
-      "viewCount": 7603,
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
+      "viewCount": 7605,
       "commentCount": 1
     },
     {
@@ -53173,7 +53265,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 4048,
       "commentCount": 1
     },
@@ -53215,7 +53307,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 7754,
       "commentCount": 3
     },
@@ -53255,7 +53347,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 20873,
       "commentCount": 3
     },
@@ -53297,7 +53389,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1127,
       "commentCount": 0
     },
@@ -53339,7 +53431,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1554,
       "commentCount": 2
     },
@@ -53381,7 +53473,7 @@
       ],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1517,
       "commentCount": 1
     },
@@ -53421,7 +53513,7 @@
       "themes": [],
       "tags": [],
       "thin": true,
-      "refreshedAt": "2026-11-09T13:11:08.821Z",
+      "refreshedAt": "2026-11-13T17:36:05.857Z",
       "viewCount": 1060,
       "commentCount": 0
     },
@@ -73848,8 +73940,17 @@
   "removed": [],
   "podcast": {
     "title": "Kick in the Foot",
-    "fetchedAt": "2026-11-13T16:55:18.591Z",
+    "fetchedAt": "2026-11-13T17:36:05.857Z",
     "items": [
+      {
+        "guid": "1fbace20-d461-4214-b1ca-4e74f21230f5",
+        "title": "Un buzzer, des actus et zéro pitié : coups de cœur et coups de gueule !",
+        "url": "https://podcasters.spotify.com/pod/show/shamsh-awan/episodes/Un-buzzer--des-actus-et-zro-piti--coups-de-cur-et-coups-de-gueule-e3s7v6l",
+        "audioUrl": "https://traffic.megaphone.fm/APO2343799233.mp3",
+        "audioType": "audio/mpeg",
+        "publishedAt": "2026-11-13T17:00:00.000Z",
+        "durationSec": 2967
+      },
       {
         "guid": "ba98259a-14c4-4ba8-824e-9e6411336680",
         "title": "Pas conservé à Lorient, une saison blanche, sans club à 20 ans : Mohamed se confie...",
