@@ -1,6 +1,6 @@
 ---
 titre: "Philippe Diallo candidat à la présidence de la FIFA : et la FFF dans tout ça ?"
-date: 2026-11-17T15:30:00+01:00
+date: 2026-11-17T14:15:00+01:00
 chapo: "Soutenu à l'unanimité par l'Europe, le président de la FFF affrontera Gianni Infantino en mars 2027. Le Comex de la FFF a validé sa candidature ce mardi. S'il gagne, la Fédération devra changer de président."
 image: /actualites/2026-11-17-diallo-fifa.webp
 imageAlt: "Une grande salle de conférence vide avec un pupitre et des rangées de sièges, ambiance d'assemblée de fédération"

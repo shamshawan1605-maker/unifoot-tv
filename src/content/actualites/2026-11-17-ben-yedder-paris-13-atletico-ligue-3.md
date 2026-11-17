@@ -1,6 +1,6 @@
 ---
 titre: "Wissam Ben Yedder signe au Paris 13 Atlético, en Ligue 3"
-date: 2026-11-17T15:20:00+01:00
+date: 2026-11-17T13:00:00+01:00
 chapo: "À 36 ans, l'ancien attaquant de Monaco et des Bleus s'engage jusqu'à la fin de la saison avec le club parisien. Un retour aux sources pour le natif de Sarcelles, formé dans le foot amateur francilien."
 image: /actualites/2026-11-17-ben-yedder-paris13.webp
 imageAlt: "Un stade d'athlétisme parisien avec une piste autour du terrain, en soirée sous les projecteurs, tribunes clairsemées"

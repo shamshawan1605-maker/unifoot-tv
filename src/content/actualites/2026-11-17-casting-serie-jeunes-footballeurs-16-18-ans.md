@@ -1,6 +1,6 @@
 ---
 titre: "Casting : une série cherche des garçons de 16 à 18 ans qui savent jouer au foot"
-date: 2026-11-17T14:50:00+01:00
+date: 2026-11-17T13:30:00+01:00
 chapo: "Un tournage prévu le 16 décembre en Île-de-France recherche de jeunes footballeurs au naturel. Rémunération : 98,48 euros bruts pour la journée. Les candidatures se font sur Figurants.com."
 image: /actualites/2026-11-17-casting-serie-foot.webp
 imageAlt: "Un plateau de tournage au bord d'un terrain de foot synthétique, caméra sur pied et adolescents en tenue de sport qui jouent"

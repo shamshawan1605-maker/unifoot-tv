@@ -1,6 +1,6 @@
 ---
 titre: "Haute-Garonne : l'US Bérat fait évacuer son stade après des propos racistes"
-date: 2026-11-17T15:40:00+01:00
+date: 2026-11-17T13:15:00+01:00
 chapo: "Samedi soir, en Départemental 2, une spectatrice a insulté des joueurs adverses. Le président de l'US Bérat a fait sortir tout le public pour que le match se termine. Le District salue sa réaction."
 image: /actualites/2026-11-17-berat-racisme.webp
 imageAlt: "Une petite tribune de stade amateur vide le soir, sous les projecteurs, pendant qu'un match continue sur le terrain"

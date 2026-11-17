@@ -1,6 +1,6 @@
 ---
 titre: "Le Mans Villaret, plus gros club de la Sarthe, au bord du gouffre financier"
-date: 2026-11-17T15:10:00+01:00
+date: 2026-11-17T13:45:00+01:00
 chapo: "Plus de 600 licenciés, une équipe en Régional 1, mais un déficit cumulé de 140 000 euros. L'AS Le Mans Villaret est en cessation de paiements. Son nouveau président parle d'une semaine décisive."
 image: /actualites/2026-11-17-le-mans-villaret.webp
 imageAlt: "Le club-house d'un club de foot amateur le soir, une table couverte de factures et de classeurs, une calculatrice"

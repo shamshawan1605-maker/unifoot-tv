@@ -1,6 +1,6 @@
 ---
 titre: "Euro U17 : battus par l'Italie, les Bleuets passent quand même au tour suivant"
-date: 2026-11-17T14:40:00+01:00
+date: 2026-11-17T14:30:00+01:00
 chapo: "Déjà qualifiés après leurs victoires contre l'Arménie (4-0) et le Luxembourg (3-0), les U17 français ont perdu 1-0 face à l'Italie ce mardi. Ils terminent 2es de leur groupe et filent au Tour 2."
 image: /actualites/2026-11-17-u17-euro.webp
 imageAlt: "Des jeunes joueurs de 16 ans en maillot bleu qui se battent pour le ballon lors d'un match international de jeunes, petit stade, ciel d'automne"

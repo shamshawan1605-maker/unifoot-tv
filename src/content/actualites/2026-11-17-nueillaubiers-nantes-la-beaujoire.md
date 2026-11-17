@@ -1,6 +1,6 @@
 ---
 titre: "Coupe de France : Nueillaubiers (R1) défiera le FC Nantes à La Beaujoire"
-date: 2026-11-17T15:00:00+01:00
+date: 2026-11-17T14:00:00+01:00
 chapo: "Le petit club des Deux-Sèvres a choisi de « recevoir » les Canaris dans leur stade pour le 8e tour. Le match devrait se jouer le dimanche 29 novembre à 16 heures."
 image: /actualites/2026-11-17-nueillaubiers-beaujoire.webp
 imageAlt: "Un grand stade vu depuis la pelouse avant un match, tribunes immenses qui se remplissent, joueurs amateurs qui découvrent le terrain"
