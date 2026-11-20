@@ -11,8 +11,8 @@ const parcours = [
   { v: 'sujet', emoji: '💡', t: "J'ai un sujet", d: 'Une idée de débat, un problème dans ton club' },
   { v: 'temoignage', emoji: '🎙', t: 'Je veux témoigner', d: "Une situation vécue ou dont tu as été témoin" },
   { v: 'topbut', emoji: '⚽', t: "J'ai un top but", d: 'Une action de ton équipe à passer à l’antenne' },
-  { v: 'invite', emoji: '🙋', t: 'Je propose un invité', d: 'Toi ou quelqu’un qui a des choses à dire' },
-  { v: 'chroniqueur', emoji: '🤝', t: "Je veux rejoindre l'équipe", d: 'Devenir chroniqueur régulier' },
+  { v: 'invite', emoji: '🙋', t: 'Je propose un invité', d: 'Toi ou quelqu’un qui a des choses à dire · plateau à Paris' },
+  { v: 'chroniqueur', emoji: '🤝', t: "Je veux rejoindre l'équipe", d: 'Devenir chroniqueur · à Paris, au moins 1 fois par mois' },
 ];
 const roles = ['Joueur', 'Parent', 'Éducateur', 'Entraîneur', 'Arbitre', 'Dirigeant', 'Président de club', 'Ancien joueur', 'Autre'];
 const categories = ['U6-U9', 'U10-U13', 'U14-U15', 'U16-U19', 'Seniors', 'Vétérans', 'Féminines'];
@@ -32,6 +32,10 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
           <li><span>⚡</span><div><strong>On lit tout</strong>Chaque semaine. Si on retient ta proposition, on te recontacte.</div></li>
         </ul>
         <p class="pa__sched"><Icon name="mic" size={18} />{site.rendezVous.label}, dans Kick in the Foot</p>
+        <div class="pa__paris">
+          <span aria-hidden="true">📍</span>
+          <div><strong>L'émission se tourne à Paris</strong>Pour venir sur le plateau (invité ou chroniqueur), il faut pouvoir te déplacer jusqu'au studio, à Paris. Les frais de déplacement sont à ta charge. Pour un sujet ou un témoignage, tu peux aussi intervenir à distance, par téléphone ou en visio.</div>
+        </div>
       </div>
 
       <div class="pa__card sombre">
@@ -77,7 +81,7 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
             <h2 class="st__q">Tu veux en parler avec nous ?</h2>
             <div class="opts">
               <label class="opt"><input type="radio" name="participation" value="Oui, en direct (téléphone ou visio)" required /><span><strong>Oui, en direct</strong>Par téléphone ou en visio pendant l'émission</span></label>
-              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" /><span><strong>Oui, sur le plateau</strong>Je peux venir au studio</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" /><span><strong>Oui, sur le plateau</strong>Je peux venir au studio, à Paris (déplacement à ma charge)</span></label>
               <label class="opt"><input type="radio" name="participation" value="Traité sans moi" /><span><strong>Non, traitez-le sans moi</strong>Je propose juste le sujet</span></label>
             </div>
           </section>
@@ -101,7 +105,7 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
           <section class="st" data-step="tem-part" data-path="temoignage">
             <h2 class="st__q">Tu veux venir en parler ?</h2>
             <div class="opts">
-              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" required /><span><strong>Oui, sur le plateau</strong>Je viens raconter mon histoire</span></label>
+              <label class="opt"><input type="radio" name="participation" value="Sur le plateau" required /><span><strong>Oui, sur le plateau</strong>Je viens au studio, à Paris (déplacement à ma charge)</span></label>
               <label class="opt"><input type="radio" name="participation" value="Par téléphone ou en visio" /><span><strong>Oui, à distance</strong>Par téléphone ou en visio</span></label>
               <label class="opt"><input type="radio" name="participation" value="Traité sans moi" /><span><strong>Non</strong>Lisez-le ou parlez-en sans moi</span></label>
             </div>
@@ -146,6 +150,8 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
             <p class="st__h">Son parcours, les sujets qu'elle pourrait aborder. Écris ou enregistre un vocal.</p>
             <textarea name="message" rows="4" placeholder="Ce qui rend son histoire intéressante…"></textarea>
             <div class="rec-slot"></div>
+            <p class="st__info">📍 L'émission se tourne <strong>en studio, à Paris</strong>. L'invité vient sur le plateau et ses <strong>frais de déplacement sont à sa charge</strong>.</p>
+            <label class="tick"><input type="checkbox" name="accord_paris" value="oui" required /><span>J'ai compris : le tournage a lieu à Paris et le déplacement est à la charge de l'invité.</span></label>
           </section>
 
           <!-- ===== Chroniqueur ===== -->
@@ -160,6 +166,17 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
             <p class="st__h">Ton regard, tes sujets, ce qui te différencie. Écris ou enregistre un vocal.</p>
             <div class="rec-slot"></div>
             <textarea name="message" rows="4" placeholder="Pourquoi UNIFOOT TV, ce que tu veux apporter chaque semaine…"></textarea>
+          </section>
+
+          <section class="st" data-step="chr-dispo" data-path="chroniqueur">
+            <h2 class="st__q">Tu peux venir à Paris combien de fois ?</h2>
+            <p class="st__info">📍 L'émission se tourne <strong>en studio, à Paris</strong>. Un chroniqueur doit pouvoir venir <strong>au moins une fois par mois</strong>, et ses <strong>frais de déplacement sont à sa charge</strong>.</p>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="disponibilite" value="Toutes les semaines" required /><span><strong>Toutes les semaines</strong>Je peux venir à chaque tournage</span></label>
+              <label class="opt"><input type="radio" name="disponibilite" value="2 à 3 fois par mois" /><span><strong>2 à 3 fois par mois</strong>Assez souvent</span></label>
+              <label class="opt"><input type="radio" name="disponibilite" value="Une fois par mois" /><span><strong>Une fois par mois</strong>Le minimum demandé</span></label>
+            </div>
+            <label class="tick"><input type="checkbox" name="accord_paris" value="oui" required /><span>J'ai compris : le tournage a lieu à Paris, au moins une fois par mois, et mes déplacements sont à ma charge.</span></label>
           </section>
 
           <!-- ===== Commun : toi ===== -->
@@ -242,6 +259,12 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
   .pa__sched { display: inline-flex; align-items: center; gap: 0.5rem; margin: 1.75rem 0 0; padding: 0.6rem 0.9rem; border-radius: 999px; background: var(--marine); color: #fff; font: 700 0.875rem/1 var(--f-info); }
   .pa__sched :global(svg) { color: var(--menthe); }
   @media (max-width: 63.99rem) { .pa__trust, .pa__sched { display: none; } .pa__lead { margin-bottom: 0; } }
+  .pa__paris { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: start; margin: 1.5rem 0 0; padding: 1rem; border-radius: 16px; background: var(--fond); border: 2px solid var(--accent); box-shadow: 0 1px 3px rgb(10 12 44 / 0.08); }
+  .pa__paris > span { width: 2.5rem; height: 2.5rem; border-radius: 12px; display: grid; place-items: center; background: var(--marine); font-size: 1.2rem; }
+  .pa__paris strong { display: block; font: 800 1rem/1.2 var(--f-info); margin-bottom: 0.25rem; }
+  .pa__paris div { font-size: 0.9rem; color: var(--texte-2); line-height: 1.45; }
+  .st__info { margin: 0; padding: 0.75rem 0.9rem; border-radius: 12px; background: rgb(34 195 211 / 0.1); border: 1px solid rgb(34 195 211 / 0.35); font-size: 0.875rem; color: #d6f6fa; line-height: 1.45; }
+  .st__info strong { color: #fff; }
 
   /* Carte du formulaire */
   .pa__card { position: relative; border-radius: 24px; padding: clamp(1.25rem, 0.8rem + 2vw, 2.25rem); min-height: 34rem; overflow: hidden; box-shadow: 0 30px 60px -20px rgb(10 12 44 / 0.45); background:
@@ -515,6 +538,7 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
       if (form.querySelector('.rec.is-done:not([hidden])')) add('Vocal', '🎤 Enregistré');
       add('Lien', String(fd.get('lien') || ''));
       add('Participation', String(fd.get('participation') || ''));
+      add('Disponibilité', String(fd.get('disponibilite') || ''));
       add('À l’antenne', fd.get('anonyme') ? 'Anonyme' : String(fd.get('nom') || '') || 'Prénom non précisé');
       add('Contact', [fd.get('telephone'), fd.get('email')].filter(Boolean).join(' / '));
     };

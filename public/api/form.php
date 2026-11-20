@@ -96,7 +96,7 @@ $libelles = ['type' => 'Demande', 'sujet' => 'Sujet', 'concerne' => 'Concerne', 
     'niveau' => 'Niveau', 'adversaire' => 'Adversaire', 'date_match' => 'Date du match', 'accord_diffusion' => 'Accord de diffusion',
     'propose' => 'Propose', 'invite_contact' => 'Contact de l’invité', 'profil' => 'Profil', 'anonyme' => 'Anonyme à l’antenne', 'ville' => 'Ville', 'nom' => 'Nom', 'email' => 'E-mail', 'role' => 'Rôle', 'club' => 'Club / ville',
     'entreprise' => 'Entreprise', 'telephone' => 'Téléphone', 'formule' => 'Formule', 'lien' => 'Lien',
-    'anonymat' => 'Citation à l’antenne', 'consentement' => 'Consentement', 'message' => 'Message'];
+    'anonymat' => 'Citation à l’antenne', 'disponibilite' => 'Disponibilité', 'accord_paris' => 'Accord tournage à Paris (frais à sa charge)', 'consentement' => 'Consentement', 'message' => 'Message'];
 $corps = "Nouveau message depuis le site UNIFOOT TV ({$conf['titre']})\n\n";
 foreach ($champs as $k => $v) {
     if ($k === 'message') continue;
