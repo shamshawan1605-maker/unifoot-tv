@@ -44,7 +44,9 @@ if (hero && hero.show === allShows[0].slug) {
   const inWeek = mainEps.filter((v) => { const d = parisDay(v.publishedAt); return d >= wed && d < end; });
   weekIsCurrent = parisDay(new Date().toISOString()) < end;
   weekLabel = wed.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
-  week = [3, 4, 5, 6].map((day) => ({ day, video: [...inWeek].reverse().find((v) => parisDay(v.publishedAt).getDay() === day) }));
+  // Les prolongations peuvent sortir le samedi ou plus tard dans la semaine (dimanche, lundi, mardi)
+  const daysFor: Record<number, number[]> = { 3: [3], 4: [4], 5: [5], 6: [6, 0, 1, 2] };
+  week = [3, 4, 5, 6].map((day) => ({ day, video: [...inWeek].reverse().find((v) => daysFor[day].includes(parisDay(v.publishedAt).getDay())) }));
 }
 const weekIds = new Set(week.map((w) => w.video?.id).filter(Boolean));
 const others = episodes.filter((v) => v.id !== hero?.id && !weekIds.has(v.id));
@@ -151,7 +153,7 @@ const badgeFor = (i: number) => ['', 'menthe', 'jaune', 'corail', 'sarcelle'][i 
                 </span>
                 {w.video ? (
                   <a class="fil__txt" href={videoPath(w.video)}>
-                    <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.day]}</span></span>
+                    <span class="fil__part">{partNames[w.day]} <span class="fil__day">/ {dayNames[w.video ? parisDay(w.video.publishedAt).getDay() : w.day]}</span></span>
                     <span class="fil__t">{fr(w.video.title)}</span>
                     {w.video.id === hero?.id && <span class="fil__badge">À la une</span>}
                   </a>
