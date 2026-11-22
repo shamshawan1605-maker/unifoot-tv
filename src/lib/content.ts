@@ -135,11 +135,18 @@ const customPhotos: Map<string, string> = (() => {
   return m;
 })();
 export const hasCustomPhoto = (v: Video) => customPhotos.has(v.id);
+/** Cadrage des photos personnalisées : public/photos/cadrage.json (position horizontale de la personne, en %) */
+const photoFocus: Record<string, number> = (() => {
+  try { return JSON.parse(readFileSync(join(process.cwd(), 'public', 'photos', 'cadrage.json'), 'utf8')); } catch { return {}; }
+})();
 
 /** custom = true : utiliser la photo personnalisée (accueil uniquement). Ailleurs, la miniature YouTube. */
 export function thumbSrcset(v: Video, custom = false) {
   const photo = custom ? customPhotos.get(v.id) : undefined;
-  if (photo) return { src: photo, srcset: `${photo} 1280w`, largest: new URL(photo, import.meta.env.SITE).href };
+  if (photo) {
+    const fx = typeof photoFocus[v.id] === 'number' ? photoFocus[v.id] : 50;
+    return { src: photo, srcset: `${photo} 1280w`, largest: new URL(photo, import.meta.env.SITE).href, focus: `${fx}% 40%` };
+  }
   if (isDemo && v.id.startsWith('demo')) return { src: '/demo-sans-miniature.jpg', srcset: '/demo-sans-miniature.jpg 480w', largest: '/brand/og-default.png' };
   const t = v.thumbnails.length
     ? v.thumbnails

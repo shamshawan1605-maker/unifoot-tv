@@ -20,6 +20,7 @@ const fallback = vertical ? t.largest : '';
     width="480"
     height={ratio === '16x9' ? 270 : 853}
     alt={alt}
+    style={'focus' in t && t.focus ? `object-position: ${t.focus}` : undefined}
     loading={eager ? 'eager' : 'lazy'}
     decoding={eager ? 'sync' : 'async'}
     fetchpriority={eager ? 'high' : undefined}
