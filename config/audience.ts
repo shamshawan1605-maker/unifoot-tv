@@ -3,15 +3,15 @@
 
 export const audienceUpdatedAt = '2026-11';
 
-// Vues : Instagram + Facebook + YouTube sur les 30 derniers jours (Metricool, 20 nov. 2026)
+// Vues : Instagram + Facebook + YouTube sur les 30 derniers jours (Metricool, 21 nov. 2026)
 export const audienceHighlights = [
-  { value: '6,8 M', label: 'vues par mois sur nos réseaux' },
+  { value: '7 M', label: 'vues par mois sur nos réseaux' },
   { value: '219 K', label: 'abonnés sur nos réseaux' },
 ];
 
-// Abonnés par réseau (source : Metricool, 20 nov. 2026)
+// Abonnés par réseau (source : Metricool, 21 nov. 2026)
 export const audienceByNetwork = [
-  { network: 'TikTok', value: '117 K' },
+  { network: 'TikTok', value: '118 K' },
   { network: 'Facebook', value: '54 K' },
   { network: 'Instagram', value: '25 K' },
   { network: 'YouTube', value: '18 K' },
