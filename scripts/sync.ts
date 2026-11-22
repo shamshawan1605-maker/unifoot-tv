@@ -240,11 +240,12 @@ export async function runSync(): Promise<SyncResult> {
 
     const byId = new Map(nextVideos.map((v) => [v.id, v]));
     for (const d of details) {
-      if (d.status.privacyStatus !== 'public') continue;
-      if (d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') continue; // direct en cours / à venir
-      if (d.status.uploadStatus && !['processed', 'uploaded'].includes(d.status.uploadStatus)) continue;
+      const skip = (why: string) => { if (!byId.has(d.id)) log(`vidéo ${d.id} pas encore ajoutée (${why}) : ${d.snippet.title}`); };
+      if (d.status.privacyStatus !== 'public') { skip(`statut ${d.status.privacyStatus}`); continue; }
+      if (d.snippet.liveBroadcastContent && d.snippet.liveBroadcastContent !== 'none') { skip(`Première ou direct : ${d.snippet.liveBroadcastContent}`); continue; } // direct en cours / à venir
+      if (d.status.uploadStatus && !['processed', 'uploaded'].includes(d.status.uploadStatus)) { skip(`traitement YouTube : ${d.status.uploadStatus}`); continue; }
       const durationSec = parseIsoDuration(d.contentDetails.duration);
-      if (!durationSec) continue;
+      if (!durationSec) { skip('durée pas encore connue'); continue; }
       const existing = byId.get(d.id);
       const base: Video = existing
         ? { ...existing }

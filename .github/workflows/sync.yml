@@ -6,6 +6,8 @@ on:
     - cron: '7 * * * *'
     # Toutes les 10 minutes du mercredi au samedi de 16h à 19h59 UTC ; le script ne garde que 18h-20h heure de Paris (été comme hiver)
     - cron: '*/10 16-19 * * 3-6'
+    # Le dimanche, les Prolongations peuvent sortir en fin de matinée : toutes les 10 minutes de 9h à 12h59 UTC
+    - cron: '*/10 9-12 * * 0'
   workflow_dispatch:
     inputs:
       full:
