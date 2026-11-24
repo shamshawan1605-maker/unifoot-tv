@@ -4,6 +4,8 @@ name: Mise en ligne (o2switch)
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'veille/**'
   workflow_dispatch:
 
 permissions:
