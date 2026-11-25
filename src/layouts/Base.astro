@@ -103,6 +103,26 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     <TabBar />
     <Search />
     <ConsentBanner enabled={Boolean(analyticsSrc || google.analyticsId)} />
+    {google.analyticsId && (
+      <script is:inline>
+        // Événements clés Google Analytics : clics sur « Participer », vers YouTube, partages, « À lire aussi », inscription newsletter
+        (function () {
+          function send(name, params) { if (typeof gtag === 'function') gtag('event', name, params || {}); }
+          document.addEventListener('click', function (e) {
+            var el = e.target.closest && e.target.closest('a, button');
+            if (!el) return;
+            if (el.dataset.track) return send(el.dataset.track, { link_url: el.href || '' });
+            if (el.closest('.share')) return send('partage', { method: el.dataset.k || (el.classList.contains('share__copy') ? 'copie' : 'natif') });
+            var h = el.getAttribute('href') || '';
+            if (/\/participer\//.test(h)) return send('clic_participer', { link_url: h });
+            if (/youtube\.com|youtu\.be/.test(h)) return send('clic_youtube', { link_url: h });
+          }, true);
+          document.addEventListener('submit', function (e) {
+            if (e.target && e.target.name === 'newsletter') send('inscription_newsletter');
+          }, true);
+        })();
+      </script>
+    )}
     <script>
       // Rails horizontaux : flèches gauche/droite au survol (la barre de défilement est masquée)
       const svg = (d: string) => `<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;

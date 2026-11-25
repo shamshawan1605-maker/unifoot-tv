@@ -29,8 +29,11 @@ const relatedNews = all
   .filter((n) => n.id !== news.id)
   .map((n) => ({ n, s: n.data.themes.filter((t) => d.themes.includes(t)).length }))
   .sort((a, b) => b.s - a.s || b.n.data.date.getTime() - a.n.data.date.getTime())
-  .slice(0, 3)
+  .slice(0, 5)
   .map((x) => x.n);
+// 2 actus proposées au milieu de l'article (« À lire aussi »), les 3 suivantes en bas de page
+const inlineNews = relatedNews.slice(0, 2);
+const bottomNews = relatedNews.length > 3 ? relatedNews.slice(2, 5) : relatedNews.slice(0, 3);
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: d.titre }];
 const ld = {
   '@type': 'NewsArticle',
@@ -65,6 +68,12 @@ const ld = {
       </figure>
     )}
     <div class="prose art__text"><Content /></div>
+    {inlineNews.length > 0 && (
+      <aside class="lire" id="lire-aussi" aria-label="À lire aussi">
+        <p class="lire__t">À lire aussi</p>
+        <ul>{inlineNews.map((n) => <li><a href={newsPath(n)} data-track="clic_lire_aussi">{fr(n.data.titre)}</a></li>)}</ul>
+      </aside>
+    )}
     <AdSlot mid />
     {d.source && (
       <p class="art__source">Source : {d.source.url ? <a href={d.source.url} rel="noopener nofollow" target="_blank">{d.source.nom}</a> : d.source.nom}</p>
@@ -82,11 +91,11 @@ const ld = {
     <p class="art__cta"><Icon name="mic" size={18} /><span>Tu as vécu une situation similaire&nbsp;? <a href="/participer/?type=temoignage">Raconte-la-nous</a>.</span></p>
   </article>
 
-  {relatedNews.length > 0 && (
+  {bottomNews.length > 0 && (
     <section class="section alt" aria-labelledby="ra">
       <div class="wrap">
         <div class="section-head"><h2 id="ra">Autres actus</h2><a class="more" href="/actualites/">Toute l'actu</a></div>
-        <div class="grid3 rel-news">{relatedNews.map((n) => <NewsCard news={n} />)}</div>
+        <div class="grid3 rel-news">{bottomNews.map((n) => <NewsCard news={n} />)}</div>
       </div>
     </section>
   )}
@@ -100,6 +109,14 @@ const ld = {
   )}
   <ShortsDialog />
 </Base>
+<script>
+  // « À lire aussi » : remonté au milieu de l'article, là où beaucoup de lecteurs décrochent,
+  // juste avant le 2e intertitre (sans couper un paragraphe et sa liste)
+  const box = document.getElementById('lire-aussi');
+  const text = document.querySelector('.art__text');
+  const h2s = text ? text.querySelectorAll(':scope > h2') : [];
+  if (box && h2s.length >= 2) h2s[1].before(box);
+</script>
 <style>
   .art { max-width: 48rem; padding-block: 2rem 3rem; }
   .art .meta a { color: var(--accent); text-decoration: none; }
@@ -125,6 +142,11 @@ const ld = {
     .rel-news > :global(.nc:first-child) { padding-top: 0; }
     .rel-news > :global(.nc .nc__title) { font-size: 0.9375rem; }
   }
+  .lire { margin: 1.75rem 0; padding: 1rem 1.1rem; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 var(--r-s) var(--r-s) 0; }
+  .lire__t { margin: 0 0 0.5rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .lire ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .lire a { font: 700 1rem/1.35 var(--f-texte); color: var(--texte); text-decoration: none; }
+  .lire a:hover { color: var(--accent); text-decoration: underline; }
   .art__cta { display: flex; gap: 0.6rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
   .art__cta a { color: var(--accent); font-weight: 700; }
   .art__cta :global(svg) { flex: none; }
