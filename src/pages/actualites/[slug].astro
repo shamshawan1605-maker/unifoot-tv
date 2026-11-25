@@ -6,6 +6,7 @@ import ShortCard from '~/components/ShortCard.astro';
 import ShortsDialog from '~/components/ShortsDialog.astro';
 import Icon from '~/components/Icon.astro';
 import Share from '~/components/Share.astro';
+import Newsletter from '~/components/Newsletter.astro';
 import { render } from 'astro:content';
 import { getNews, newsPath } from '~/lib/news';
 import { themeBySlug, videos, episodes, formatDate, fr } from '~/lib/content';
@@ -90,6 +91,8 @@ const ld = {
     )}
     <p class="art__cta"><Icon name="mic" size={18} /><span>Tu as vécu une situation similaire&nbsp;? <a href="/participer/?type=temoignage">Raconte-la-nous</a>.</span></p>
   </article>
+
+  <Newsletter titre="Ne rate plus l'actu du foot amateur" texte="Chaque semaine dans ta boîte mail : les actus qui font parler, les meilleurs extraits de l'émission et les infos utiles pour ton club. Gratuit, désinscription en un clic." origine="article" />
 
   {bottomNews.length > 0 && (
     <section class="section alt" aria-labelledby="ra">

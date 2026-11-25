@@ -74,7 +74,7 @@ foreach (glob("$dataDir/rate-*") ?: [] as $f) if (filemtime($f) < time() - 7200)
 // Newsletter : enregistrement dans un CSV
 if ($nomForm === 'newsletter') {
     $fh = @fopen("$dataDir/newsletter.csv", 'a');
-    if ($fh) { fputcsv($fh, [date('c'), $email]); fclose($fh); }
+    if ($fh) { fputcsv($fh, [date('c'), $email, $champs['origine'] ?? '']); fclose($fh); }
 }
 
 // Vocal (Participer) : fichier audio joint à l'e-mail, 10 Mo maximum

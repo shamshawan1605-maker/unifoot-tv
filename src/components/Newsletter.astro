@@ -2,17 +2,23 @@
 import FormEnhance from './FormEnhance.astro';
 import Icon from './Icon.astro';
 import { links } from '@config/site';
-interface Props { withSupport?: boolean }
-const { withSupport = false } = Astro.props;
+interface Props { withSupport?: boolean; titre?: string; texte?: string; origine?: string }
+const {
+  withSupport = false,
+  titre = 'Le récap de la semaine',
+  texte = "Un e-mail par semaine avec les 4 parties de l'émission, les meilleurs extraits et l'actu. Désinscription en un clic.",
+  origine = 'accueil',
+} = Astro.props;
 ---
 <section class:list={['nl papier', { 'nl--duo': withSupport }]} aria-labelledby="nl-title">
   <div class="wrap nl__in">
     <div>
-      <h2 id="nl-title">Le récap de la semaine</h2>
-      <p>Un e-mail par semaine avec les 4 parties de l'émission, les meilleurs extraits et l'actu. Désinscription en un clic.</p>
+      <h2 id="nl-title">{titre}</h2>
+      <p>{texte}</p>
     </div>
     <form class="form nl__form" name="newsletter" method="POST" action="/api/form.php" data-enhance data-success="C'est noté : tu recevras le prochain récap de la semaine.">
       <input type="hidden" name="form-name" value="newsletter" />
+      <input type="hidden" name="origine" value={origine} />
       <p class="hp"><label>Ne pas remplir <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
       <div class="form-body">
         <div class="field">
