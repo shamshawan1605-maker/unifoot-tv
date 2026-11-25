@@ -35,7 +35,7 @@ export const google = {
   /** AdSense : identifiant éditeur « ca-pub-XXXXXXXXXXXXXXXX » */
   adsenseClient: 'ca-pub-3017747107074972',
   /** AdSense : identifiant du bloc d'annonces placé dans les actus (10 chiffres) */
-  slotActu: '',
+  slotActu: '7925177652',
 };
 
 export const links = {
