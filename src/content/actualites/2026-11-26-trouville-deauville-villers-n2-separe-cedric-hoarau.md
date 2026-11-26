@@ -1,6 +1,6 @@
 ---
 titre: "National 2 : lanterne rouge, l'AS Trouville Deauville Villers se sépare de son coach"
-date: 2026-11-26T09:06:00+01:00
+date: 2026-11-26T09:03:00+01:00
 chapo: "Dernier de la poule D de N2, le club de la Côte fleurie a mis fin aux fonctions de Cédric Hoarau, arrivé à l'été 2024 et artisan du maintien après la fusion."
 image: /actualites/2026-11-26-trouville-coach.webp
 imageAlt: "Un banc de touche vide au bord d'un terrain de football en bord de mer normand, par temps gris"
