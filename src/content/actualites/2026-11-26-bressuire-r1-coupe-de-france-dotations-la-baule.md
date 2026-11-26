@@ -1,6 +1,6 @@
 ---
 titre: "Coupe de France : trois matchs à domicile, la belle opération du FC Bressuire"
-date: 2026-11-26T19:50:00+01:00
+date: 2026-11-26T09:04:00+01:00
 chapo: "Le club de Régional 1 des Deux-Sèvres reçoit La Baule - Le Pouliguen samedi au 8e tour. Son parcours lui rapporte déjà de quoi souffler côté finances."
 image: /actualites/2026-11-26-bressuire-coupe.webp
 imageAlt: "Un stade de football amateur avec une petite tribune pleine de supporters sous les projecteurs, un soir de Coupe de France"

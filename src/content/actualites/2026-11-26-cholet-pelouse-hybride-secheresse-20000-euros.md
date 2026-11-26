@@ -1,6 +1,6 @@
 ---
 titre: "Sécheresse : la pelouse du stade de Cholet a coûté plus de 20 000 € à refaire"
-date: 2026-11-26T19:45:00+01:00
+date: 2026-11-26T09:02:00+01:00
 chapo: "Privé d'arrosage tout l'été à cause des restrictions d'eau, le terrain hybride du stade omnisports de Cholet s'était transformé en champ de paille. La facture vient de tomber."
 image: /actualites/2026-11-26-cholet-pelouse.webp
 imageAlt: "Un terrain de football à la pelouse jaunie et sèche, comme de la paille, dans un stade municipal sous un ciel d'été"

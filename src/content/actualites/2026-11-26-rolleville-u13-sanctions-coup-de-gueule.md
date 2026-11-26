@@ -1,6 +1,6 @@
 ---
 titre: "Sanctionné pour ses U13, un petit club normand pousse un coup de gueule"
-date: 2026-11-26T19:40:00+01:00
+date: 2026-11-26T09:00:00+01:00
 chapo: "Amende, président et dirigeant suspendus : le FC Rollevillais (Seine-Maritime) reconnaît son erreur de licences en U13, mais juge les sanctions du District beaucoup trop lourdes."
 image: /actualites/2026-11-26-rolleville-u13.webp
 imageAlt: "Un petit stade de village normand en fin d'après-midi, avec des cages de foot à 8 et un banc vide sous un ciel gris"
