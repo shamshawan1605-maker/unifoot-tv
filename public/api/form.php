@@ -89,14 +89,37 @@ if ($nomForm === 'participer' && isset($_FILES['vocal']) && is_array($_FILES['vo
     $vocal = ['data' => (string) file_get_contents($f['tmp_name']), 'nom' => 'vocal-' . date('Ymd-His') . '.' . $ext, 'type' => ($ext === 'm4a' || $ext === 'mp4') ? 'audio/mp4' : ($ext === 'ogg' ? 'audio/ogg' : 'audio/webm')];
 }
 
+// Photo (Participer) : image jointe à l'e-mail et rangée dans data/photos (lue par photos.php), 10 Mo maximum
+$photo = null;
+if ($nomForm === 'participer' && ($champs['type'] ?? '') === 'photo') {
+    $f = $_FILES['photo'] ?? null;
+    if (!is_array($f) || ($f['error'] ?? 1) !== UPLOAD_ERR_OK) repondre(false, 'Photo manquante', 422);
+    if ($f['size'] > 10 * 1024 * 1024) repondre(false, 'Photo trop lourde (10 Mo maximum)', 413);
+    $mime = function_exists('mime_content_type') ? (string) @mime_content_type($f['tmp_name']) : '';
+    $exts = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/heic' => 'heic', 'image/heif' => 'heic'];
+    if (!isset($exts[$mime])) repondre(false, 'Format de photo non reconnu (JPG, PNG ou HEIC)', 415);
+    if (($champs['accord_photo'] ?? '') !== 'oui' || ($champs['photographe'] ?? '') === '') repondre(false, 'Crédit et accord du photographe obligatoires', 422);
+    $photoDir = "$dataDir/photos";
+    if (!is_dir($photoDir)) @mkdir($photoDir, 0750, true);
+    $base = date('Ymd-His') . '-' . bin2hex(random_bytes(3));
+    $nomPhoto = "$base.{$exts[$mime]}";
+    @copy($f['tmp_name'], "$photoDir/$nomPhoto");
+    $meta = ['fichier' => $nomPhoto, 'recu' => date('c'), 'club' => $champs['club'] ?? '', 'niveau' => $champs['niveau'] ?? '',
+        'contexte' => $champs['sujet'] ?? '', 'photographe' => $champs['photographe'] ?? '', 'nom' => $champs['nom'] ?? '',
+        'email' => $email ?: '', 'telephone' => $champs['telephone'] ?? '', 'utilisee' => false];
+    @file_put_contents("$photoDir/$base.json", json_encode($meta, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+    $photo = ['data' => (string) file_get_contents($f['tmp_name']), 'nom' => $nomPhoto, 'type' => $mime];
+}
+$piece = $vocal ?? $photo;
+
 // E-mail
-$typesParticiper = ['sujet' => 'Proposition de sujet', 'temoignage' => 'Témoignage', 'topbut' => 'Top but', 'invite' => 'Proposition d’invité', 'chroniqueur' => 'Candidature chroniqueur'];
+$typesParticiper = ['sujet' => 'Proposition de sujet', 'temoignage' => 'Témoignage', 'topbut' => 'Top but', 'invite' => 'Proposition d’invité', 'chroniqueur' => 'Candidature chroniqueur', 'photo' => 'Photo pour les actus'];
 if ($nomForm === 'participer' && isset($typesParticiper[$champs['type'] ?? ''])) $conf['titre'] = $typesParticiper[$champs['type']];
 $libelles = ['type' => 'Demande', 'sujet' => 'Sujet', 'concerne' => 'Concerne', 'participation' => 'Participation', 'categorie' => 'Catégorie',
     'niveau' => 'Niveau', 'adversaire' => 'Adversaire', 'date_match' => 'Date du match', 'accord_diffusion' => 'Accord de diffusion',
     'propose' => 'Propose', 'invite_contact' => 'Contact de l’invité', 'profil' => 'Profil', 'anonyme' => 'Anonyme à l’antenne', 'ville' => 'Ville', 'nom' => 'Nom', 'email' => 'E-mail', 'role' => 'Rôle', 'club' => 'Club / ville',
     'entreprise' => 'Entreprise', 'telephone' => 'Téléphone', 'formule' => 'Formule', 'lien' => 'Lien',
-    'anonymat' => 'Citation à l’antenne', 'disponibilite' => 'Disponibilité', 'accord_paris' => 'Accord tournage à Paris (frais à sa charge)', 'consentement' => 'Consentement', 'message' => 'Message'];
+    'anonymat' => 'Citation à l’antenne', 'photographe' => 'Crédit photo', 'accord_photo' => 'Accord du photographe et des personnes visibles', 'disponibilite' => 'Disponibilité', 'accord_paris' => 'Accord tournage à Paris (frais à sa charge)', 'consentement' => 'Consentement', 'message' => 'Message'];
 $corps = "Nouveau message depuis le site UNIFOOT TV ({$conf['titre']})\n\n";
 foreach ($champs as $k => $v) {
     if ($k === 'message') continue;
@@ -104,18 +127,19 @@ foreach ($champs as $k => $v) {
 }
 if (isset($champs['message'])) $corps .= "\nMessage :\n{$champs['message']}\n";
 if ($vocal) $corps .= "\n🎤 Un vocal est joint à cet e-mail.\n";
+if ($photo) $corps .= "\n📸 La photo est jointe à cet e-mail.\n";
 $corps .= "\n---\nEnvoyé le " . date('d/m/Y à H:i') . " depuis " . ($_SERVER['HTTP_HOST'] ?? 'unifoottv.fr');
 
-$sujetBrut = '[Site] ' . $conf['titre'] . (($champs['nom'] ?? '') !== '' ? ' : ' . $champs['nom'] : '') . ($vocal ? ' 🎤' : '');
+$sujetBrut = '[Site] ' . $conf['titre'] . (($champs['nom'] ?? '') !== '' ? ' : ' . $champs['nom'] : '') . ($vocal ? ' 🎤' : '') . ($photo ? ' 📸' : '');
 $sujet = '=?UTF-8?B?' . base64_encode(mb_substr($sujetBrut, 0, 150)) . '?=';
 $base = ['From: UNIFOOT TV <' . EXPEDITEUR . '>', 'MIME-Version: 1.0'];
 if ($email) $base[] = 'Reply-To: ' . $email;
-if ($vocal) {
+if ($piece) {
     $limite = 'uf' . bin2hex(random_bytes(8));
     $entetes = implode("\r\n", [...$base, "Content-Type: multipart/mixed; boundary=\"$limite\""]);
     $corpsMail = "--$limite\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n$corps\r\n"
-        . "--$limite\r\nContent-Type: {$vocal['type']}; name=\"{$vocal['nom']}\"\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"{$vocal['nom']}\"\r\n\r\n"
-        . chunk_split(base64_encode($vocal['data'])) . "--$limite--\r\n";
+        . "--$limite\r\nContent-Type: {$piece['type']}; name=\"{$piece['nom']}\"\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"{$piece['nom']}\"\r\n\r\n"
+        . chunk_split(base64_encode($piece['data'])) . "--$limite--\r\n";
 } else {
     $entetes = implode("\r\n", [...$base, 'Content-Type: text/plain; charset=UTF-8', 'Content-Transfer-Encoding: 8bit']);
     $corpsMail = $corps;

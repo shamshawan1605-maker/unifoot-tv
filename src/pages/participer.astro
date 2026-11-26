@@ -1,6 +1,6 @@
 ---
 // Participer : un parcours en étapes, une question à la fois, pensé pour le téléphone.
-// 5 parcours (sujet, témoignage, top but, invité, chroniqueur), possibilité d'enregistrer un vocal,
+// 6 parcours (sujet, témoignage, top but, photo, invité, chroniqueur), possibilité d'enregistrer un vocal,
 // envoi direct (sans appli mail) vers /api/form.php, qui transmet à contact@unifoottv.fr.
 import Base from '~/layouts/Base.astro';
 import Icon from '~/components/Icon.astro';
@@ -11,6 +11,7 @@ const parcours = [
   { v: 'sujet', emoji: '💡', t: "J'ai un sujet", d: 'Une idée de débat, un problème dans ton club' },
   { v: 'temoignage', emoji: '🎙', t: 'Je veux témoigner', d: "Une situation vécue ou dont tu as été témoin" },
   { v: 'topbut', emoji: '⚽', t: "J'ai un top but", d: 'Une action de ton équipe à passer à l’antenne' },
+  { v: 'photo', emoji: '📸', t: "J'ai une photo", d: 'Une photo de match ou de ton club pour illustrer nos actus' },
   { v: 'invite', emoji: '🙋', t: 'Je propose un invité', d: 'Toi ou quelqu’un qui a des choses à dire · plateau à Paris' },
   { v: 'chroniqueur', emoji: '🤝', t: "Je veux rejoindre l'équipe", d: 'Devenir chroniqueur · à Paris, au moins 1 fois par mois' },
 ];
@@ -19,7 +20,7 @@ const categories = ['U6-U9', 'U10-U13', 'U14-U15', 'U16-U19', 'Seniors', 'Vété
 const roleInvite = ['Joueur', 'Éducateur', 'Dirigeant', 'Président de club', 'Arbitre', 'Ancien pro', 'Journaliste ou créateur', 'Autre'];
 const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant', 'Arbitre', 'Journaliste', 'Créateur de contenu', 'Autre'];
 ---
-<Base title="Participer : raconte, propose, rejoins l'émission" description="Un sujet, un témoignage, un top but, un invité à proposer ou l'envie de rejoindre l'équipe : participe à Kick in the Foot en 2 minutes, même en vocal." breadcrumbs={crumbs} fond="gris">
+<Base title="Participer : raconte, propose, rejoins l'émission" description="Un sujet, un témoignage, un top but, une photo, un invité à proposer ou l'envie de rejoindre l'équipe : participe à Kick in the Foot en 2 minutes, même en vocal." breadcrumbs={crumbs} fond="gris">
   <div class="papier pa">
     <section class="wrap pa__wrap">
       <div class="pa__intro">
@@ -129,6 +130,23 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
               <label class="fld"><span>Date du match <em>(facultatif)</em></span><input name="date_match" type="date" /></label>
             </div>
             <label class="tick"><input type="checkbox" name="accord_diffusion" value="oui" required /><span>J'ai l'accord des personnes filmées pour la diffusion, et celui des parents pour les mineurs.</span></label>
+          </section>
+
+          <!-- ===== Photo ===== -->
+          <section class="st" data-step="pho-file" data-path="photo">
+            <h2 class="st__q">Envoie-nous ta photo</h2>
+            <label class="fld"><span>Ta photo <em>(JPG, PNG ou HEIC, 10 Mo maximum)</em></span><input name="photo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" required /></label>
+            <p class="st__h">📸 Une photo de match, de ton stade ou de ton équipe. Elle pourra illustrer une actu sur unifoottv.fr, toujours avec le nom du photographe.</p>
+          </section>
+          <section class="st" data-step="pho-info" data-path="photo">
+            <h2 class="st__q">C'est où, et qui l'a prise ?</h2>
+            <div class="duo">
+              <label class="fld"><span>Club</span><input name="club" required placeholder="Ex. : FC Rollevillais" /></label>
+              <label class="fld"><span>Niveau <em>(facultatif)</em></span><input name="niveau" placeholder="Ex. : R2, D1, U13…" /></label>
+            </div>
+            <label class="fld"><span>Le contexte <em>(facultatif)</em></span><input name="sujet" maxlength="160" placeholder="Ex. : derby contre Montivilliers, le 22 novembre" /></label>
+            <label class="fld"><span>Crédit photo : nom du photographe</span><input name="photographe" required maxlength="80" placeholder="Ex. : Léa Martin ou @lea.photosport" /></label>
+            <label class="tick"><input type="checkbox" name="accord_photo" value="oui" required /><span>Je suis l'auteur de la photo ou j'ai l'accord du photographe, ainsi que celui des personnes visibles (et de leurs parents pour les mineurs). J'autorise UNIFOOT TV à la publier avec ce crédit.</span></label>
           </section>
 
           <!-- ===== Invité ===== -->
@@ -423,7 +441,7 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
     const enterHint = form.querySelector<HTMLElement>('.pa__enter')!;
     const err = form.querySelector<HTMLElement>('.pa__err')!;
     const sendBtn = form.querySelector<HTMLButtonElement>('.pa__send')!;
-    const labels: Record<string, string> = { sujet: 'Sujet', temoignage: 'Témoignage', topbut: 'Top but', invite: 'Invité', chroniqueur: 'Chroniqueur' };
+    const labels: Record<string, string> = { sujet: 'Sujet', temoignage: 'Témoignage', topbut: 'Top but', photo: 'Photo', invite: 'Invité', chroniqueur: 'Chroniqueur' };
 
     let path: string[] = ['choix'];
     let cur = 0;
@@ -537,6 +555,9 @@ const profils = ['Éducateur', 'Entraîneur', 'Joueur', 'Ancien pro', 'Dirigeant
       add('Message', String(fd.get('message') || ''));
       if (form.querySelector('.rec.is-done:not([hidden])')) add('Vocal', '🎤 Enregistré');
       add('Lien', String(fd.get('lien') || ''));
+      const ph = fd.get('photo');
+      if (ph instanceof File && ph.size) add('Photo', `📸 ${ph.name}`);
+      add('Crédit photo', String(fd.get('photographe') || ''));
       add('Participation', String(fd.get('participation') || ''));
       add('Disponibilité', String(fd.get('disponibilite') || ''));
       add('À l’antenne', fd.get('anonyme') ? 'Anonyme' : String(fd.get('nom') || '') || 'Prénom non précisé');
