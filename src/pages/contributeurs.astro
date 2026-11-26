@@ -1,0 +1,100 @@
+---
+// Programme contributeurs : page de présentation + lien vers le parcours de candidature (Participer > contributeur).
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Deviens contributeur' }];
+const profils = [
+  { e: '✍️', t: 'Étudiant en journalisme ou en com', d: 'Des articles signés de ton nom pour ton book et ton dossier d’école.' },
+  { e: '📸', t: 'Photographe de match', d: 'Tes photos publiées avec ton nom et un lien vers ton compte.' },
+  { e: '🏟️', t: 'Dirigeant ou chargé de com de club', d: 'Les infos de ton club et de ton district racontées au plus près.' },
+  { e: '⚽', t: 'Passionné de ton championnat', d: 'Tu suis ton district chaque week-end : raconte-le.' },
+];
+const gains = [
+  { t: 'Ta signature', d: 'Ton nom sur chaque article et ta page auteur sur unifoottv.fr.' },
+  { t: 'Une attestation', d: 'Signée par UNIFOOT TV, pour ton CV ou ton dossier d’école.' },
+  { t: 'De la visibilité', d: 'Tes articles relayés sur nos réseaux, toi tagué à chaque fois.' },
+  { t: 'Le plateau', d: 'Les meilleurs viennent présenter leur sujet dans Kick in the Foot.' },
+  { t: 'Le titre de correspondant', d: '« Correspondant UNIFOOT TV » pour ta région.' },
+];
+const etapes = [
+  { t: 'Tu proposes un sujet', d: 'Une phrase et ta source. On te répond sous 24 h.' },
+  { t: 'Tu écris', d: 'Ton article et tes photos, à ton rythme.' },
+  { t: 'On relit', d: 'Corrections, vérification des faits et des crédits photo.' },
+  { t: 'On publie', d: 'Signé de ton nom, relayé en post et en story.' },
+];
+const regles = [
+  'Des faits vérifiés, avec au moins une source, et jamais de copier-coller d’un autre média.',
+  'Uniquement tes photos, ou celles d’un photographe d’accord, toujours créditées. Pour les mineurs, l’accord des parents.',
+  'Pas d’affaire judiciaire impliquant un mineur, pas de rumeur : les faits et les décisions officielles.',
+  'Si tu écris sur ton propre club, tu le signales.',
+  'C’est bénévole et à ton rythme : aucun quota, aucune obligation.',
+];
+---
+<Base title="Deviens contributeur : écris sur le foot amateur de ta région" description="UNIFOOT TV cherche des correspondants partout en France : étudiants en journalisme, photographes de match, passionnés. Tes articles signés de ton nom, relayés sur nos réseaux." breadcrumbs={crumbs} fond="gris">
+  <div class="papier ct">
+    <header class="wrap ct__hero">
+      <p class="ct__kicker"><span class="ct__dot"></span>On recrute partout en France</p>
+      <h1>Écris sur le foot amateur de ta région, signé de ton nom.</h1>
+      <p class="ct__lead">UNIFOOT TV cherche des correspondants : étudiants, photographes de match, dirigeants, passionnés. Tu proposes tes sujets, on relit, on publie et on te met en avant.</p>
+      <a class="btn btn--menthe" href="/participer/?type=contributeur"><Icon name="arrow-right" size={20} />Je candidate en 2 minutes</a>
+    </header>
+
+    <section class="wrap ct__sec" aria-labelledby="pour-qui">
+      <h2 id="pour-qui">Pour qui ?</h2>
+      <ul class="ct__grid">
+        {profils.map((p) => <li class="ct__card"><span class="ct__e" aria-hidden="true">{p.e}</span><strong>{p.t}</strong><span>{p.d}</span></li>)}
+      </ul>
+    </section>
+
+    <section class="wrap ct__sec" aria-labelledby="gains">
+      <h2 id="gains">Ce que tu y gagnes</h2>
+      <ul class="ct__list">
+        {gains.map((g) => <li><strong>{g.t}</strong><span>{g.d}</span></li>)}
+      </ul>
+    </section>
+
+    <section class="wrap ct__sec" aria-labelledby="comment">
+      <h2 id="comment">Comment ça marche</h2>
+      <ol class="ct__steps">
+        {etapes.map((e, i) => <li><span class="ct__n">{i + 1}</span><strong>{e.t}</strong><span>{e.d}</span></li>)}
+      </ol>
+    </section>
+
+    <section class="wrap ct__sec" aria-labelledby="regles">
+      <h2 id="regles">Les règles du jeu</h2>
+      <ul class="ct__rules">{regles.map((r) => <li>{r}</li>)}</ul>
+    </section>
+
+    <section class="wrap ct__cta sombre">
+      <h2>Prêt à raconter ton foot ?</h2>
+      <p>Dis-nous qui tu es et ce que tu suis. On te recontacte sous 7 jours.</p>
+      <a class="btn btn--menthe" href="/participer/?type=contributeur"><Icon name="arrow-right" size={20} />Je deviens contributeur</a>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .ct { padding-bottom: 4rem; }
+  .ct__hero { padding-block: clamp(2rem, 4vw, 3.5rem) 1rem; max-width: 52rem; }
+  .ct__kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .ct__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--menthe); }
+  .ct__hero h1 { font-size: var(--t-xxl); line-height: 1.1; margin: 0 0 1rem; }
+  .ct__lead { font-size: var(--t-l); color: var(--texte-2); margin: 0 0 1.5rem; max-width: 42rem; }
+  .ct__sec { padding-block: 1.75rem; }
+  .ct__sec h2 { font-size: var(--t-xl); margin: 0 0 1rem; }
+  .ct__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  .ct__card { display: grid; gap: 0.35rem; padding: 1.1rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .ct__card span:last-child { color: var(--texte-2); font-size: var(--t-s); }
+  .ct__e { font-size: 1.6rem; }
+  .ct__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .ct__list li { display: grid; gap: 0.25rem; padding: 0.9rem 1rem; border-left: 3px solid var(--menthe); background: var(--fond); border-radius: 0 var(--r-s) var(--r-s) 0; }
+  .ct__list span { color: var(--texte-2); font-size: var(--t-s); }
+  .ct__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+  .ct__steps li { display: grid; gap: 0.3rem; padding: 1rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .ct__steps span:last-child { color: var(--texte-2); font-size: var(--t-s); }
+  .ct__n { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--marine); color: #fff; font-weight: 800; }
+  .ct__rules { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 48rem; }
+  .ct__cta { margin-top: 1.5rem; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--r-m); text-align: center; }
+  .ct__cta h2 { margin: 0 0 0.5rem; font-size: var(--t-xl); }
+  .ct__cta p { margin: 0 0 1.25rem; opacity: 0.85; }
+</style>

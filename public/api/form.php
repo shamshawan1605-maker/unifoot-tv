@@ -113,13 +113,13 @@ if ($nomForm === 'participer' && ($champs['type'] ?? '') === 'photo') {
 $piece = $vocal ?? $photo;
 
 // E-mail
-$typesParticiper = ['sujet' => 'Proposition de sujet', 'temoignage' => 'Témoignage', 'topbut' => 'Top but', 'invite' => 'Proposition d’invité', 'chroniqueur' => 'Candidature chroniqueur', 'photo' => 'Photo pour les actus'];
+$typesParticiper = ['sujet' => 'Proposition de sujet', 'temoignage' => 'Témoignage', 'topbut' => 'Top but', 'invite' => 'Proposition d’invité', 'chroniqueur' => 'Candidature chroniqueur', 'photo' => 'Photo pour les actus', 'contributeur' => 'Candidature contributeur'];
 if ($nomForm === 'participer' && isset($typesParticiper[$champs['type'] ?? ''])) $conf['titre'] = $typesParticiper[$champs['type']];
 $libelles = ['type' => 'Demande', 'sujet' => 'Sujet', 'concerne' => 'Concerne', 'participation' => 'Participation', 'categorie' => 'Catégorie',
     'niveau' => 'Niveau', 'adversaire' => 'Adversaire', 'date_match' => 'Date du match', 'accord_diffusion' => 'Accord de diffusion',
     'propose' => 'Propose', 'invite_contact' => 'Contact de l’invité', 'profil' => 'Profil', 'anonyme' => 'Anonyme à l’antenne', 'ville' => 'Ville', 'nom' => 'Nom', 'email' => 'E-mail', 'role' => 'Rôle', 'club' => 'Club / ville',
     'entreprise' => 'Entreprise', 'telephone' => 'Téléphone', 'formule' => 'Formule', 'lien' => 'Lien',
-    'anonymat' => 'Citation à l’antenne', 'photographe' => 'Crédit photo', 'accord_photo' => 'Accord du photographe et des personnes visibles', 'disponibilite' => 'Disponibilité', 'accord_paris' => 'Accord tournage à Paris (frais à sa charge)', 'consentement' => 'Consentement', 'message' => 'Message'];
+    'anonymat' => 'Citation à l’antenne', 'photographe' => 'Crédit photo', 'region' => 'Région', 'accord_charte' => 'Accord avec les règles des contributeurs', 'accord_photo' => 'Accord du photographe et des personnes visibles', 'disponibilite' => 'Disponibilité', 'accord_paris' => 'Accord tournage à Paris (frais à sa charge)', 'consentement' => 'Consentement', 'message' => 'Message'];
 $corps = "Nouveau message depuis le site UNIFOOT TV ({$conf['titre']})\n\n";
 foreach ($champs as $k => $v) {
     if ($k === 'message') continue;
