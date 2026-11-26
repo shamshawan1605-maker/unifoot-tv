@@ -102,7 +102,8 @@ const analyticsSrc = import.meta.env.PUBLIC_ANALYTICS_SRC;
     <Footer />
     <TabBar />
     <Search />
-    <ConsentBanner enabled={Boolean(analyticsSrc || google.analyticsId)} />
+    {/* Consentement : géré par le message Google (AdSense > Confidentialité et messages), le bandeau maison ne sert qu'en l'absence d'AdSense */}
+    <ConsentBanner enabled={!google.adsenseClient && Boolean(analyticsSrc || google.analyticsId)} />
     {google.analyticsId && (
       <script is:inline>
         // Événements clés Google Analytics : clics sur « Participer », vers YouTube, partages, « À lire aussi », inscription newsletter
