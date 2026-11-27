@@ -23,13 +23,105 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         <p class="es__note">Pas encore contributeur ? <a href="/contributeurs/">Découvre le programme</a>.</p>
       </div>
 
+      <!-- Admin : clé -->
+      <div class="es__login" data-vue="admin-cle" hidden>
+        <h1>Mode admin</h1>
+        <form class="es__form es__cle-form">
+          <label class="fld"><span>Clé admin</span><input name="cle" type="password" autocomplete="off" required /></label>
+          <button class="btn btn--menthe" type="submit">Entrer</button>
+        </form>
+        <p class="es__msg es__cle-msg" role="status" hidden></p>
+      </div>
+
+      <!-- Admin : vue d'ensemble -->
+      <div data-vue="admin" hidden>
+        <div class="es__head"><h1>Rédaction · admin</h1><button type="button" class="es__out es__admin-out">Quitter le mode admin</button></div>
+        <h2>Contributeurs</h2>
+        <div class="es__scroll"><table class="es__table es__adm-contrib"><thead><tr><th>Nom</th><th class="num">Vues</th><th class="num">Cagnotte</th><th class="num">À relire</th><th></th></tr></thead><tbody></tbody></table></div>
+        <p class="es__vide es__adm-vide" hidden>Aucun contributeur pour l'instant.</p>
+        <h2>Articles reçus</h2>
+        <ul class="es__soum es__adm-soum"></ul>
+        <p class="es__vide es__adm-soum-vide" hidden>Aucun article reçu pour l'instant.</p>
+      </div>
+
+      <!-- Admin : lecture d'un article -->
+      <div data-vue="lecture" hidden>
+        <button type="button" class="es__back">← Retour</button>
+        <p class="es__badge-l"></p>
+        <h1 class="lc__titre"></h1>
+        <p class="lc__meta"></p>
+        <p class="lc__chapo"></p>
+        <div class="lc__photos"></div>
+        <div class="lc__texte"></div>
+        <p class="lc__source"></p>
+        <form class="es__decision">
+          <h2>Décision</h2>
+          <label class="fld"><span>Retour au contributeur (visible dans son espace et envoyé par mail)</span><textarea name="retour" rows="4"></textarea></label>
+          <label class="fld"><span>Lien de l'article publié (si publié)</span><input name="lien" placeholder="https://unifoottv.fr/actualites/…" /></label>
+          <div class="es__btns">
+            <button class="btn" type="button" data-st="en_relecture">En relecture</button>
+            <button class="btn" type="button" data-st="a_corriger">À corriger</button>
+            <button class="btn btn--menthe" type="button" data-st="publie">Publié</button>
+            <button class="btn" type="button" data-st="refuse">Refuser</button>
+          </div>
+          <p class="es__msg es__dec-msg" role="status" hidden></p>
+        </form>
+      </div>
+
       <!-- Tableau de bord -->
       <div class="es__tb" data-vue="tb" hidden>
+        <p class="es__adminbar" hidden>Mode admin : tu vois l'espace de <b data-k="nomcomplet"></b> exactement comme lui. <button type="button" class="es__back es__back-adm">← Retour à la rédaction</button></p>
         <div class="es__head">
           <h1>Salut <span data-k="nom"></span> 👋</h1>
-          <button type="button" class="es__out">Se déconnecter</button>
+          <button type="button" class="es__out es__logout">Se déconnecter</button>
         </div>
 
+        <nav class="es__tabs" role="tablist">
+          <button type="button" role="tab" data-tab="stats" aria-selected="true">Tableau de bord</button>
+          <button type="button" role="tab" data-tab="ecrire">✍️ Écrire</button>
+          <button type="button" role="tab" data-tab="mes">Mes articles <span class="es__count" data-k="nb_soum"></span></button>
+        </nav>
+
+        <!-- Onglet : écrire -->
+        <div data-panel="ecrire" hidden>
+          <form class="ed">
+            <p class="ed__etat" aria-live="polite"></p>
+            <div class="ed__retour" hidden><strong>À corriger :</strong> <span></span></div>
+            <label class="fld"><span>Titre</span><input name="titre" maxlength="160" placeholder="Ex. : Le FC Machin s'offre le leader au bout du suspense" /></label>
+            <label class="fld"><span>Chapô (1 à 2 phrases qui résument)</span><textarea name="chapo" rows="2" maxlength="400"></textarea></label>
+            <div class="fld"><span>Ton article</span>
+              <div class="ed__tool"><button type="button" data-ins="h">Intertitre</button><button type="button" data-ins="b"><b>Gras</b></button><span class="ed__mots"></span></div>
+              <textarea name="texte" rows="16" placeholder="Qui, quoi, où, quand. Des faits, des citations. 250 à 600 mots."></textarea>
+            </div>
+            <div class="ed__grid">
+              <label class="fld"><span>Région</span><input name="region" maxlength="80" /></label>
+              <label class="fld"><span>Club(s) concerné(s)</span><input name="club" maxlength="120" /></label>
+            </div>
+            <label class="fld"><span>Ta source (club, district, témoin direct, lien…)</span><input name="source" maxlength="300" /></label>
+            <label class="ed__chk"><input type="checkbox" name="propre_club" /> J'écris sur mon propre club</label>
+
+            <div class="fld"><span>Photos (1 à 5, 12 Mo max chacune)</span>
+              <div class="ed__photos"></div>
+              <label class="btn ed__add">+ Ajouter des photos<input type="file" accept="image/*" multiple hidden /></label>
+            </div>
+            <label class="ed__chk"><input type="checkbox" name="accord_photo" /> Ces photos sont de moi ou j'ai l'accord écrit du photographe. Pour un mineur reconnaissable, j'ai l'accord des parents.</label>
+
+            <div class="es__btns">
+              <button class="btn btn--menthe ed__send" type="button">Envoyer à la rédaction</button>
+              <button class="btn ed__new" type="button">Nouvel article</button>
+            </div>
+            <p class="es__msg ed__msg" role="status" hidden></p>
+          </form>
+        </div>
+
+        <!-- Onglet : mes articles -->
+        <div data-panel="mes" hidden>
+          <ul class="es__soum es__mes"></ul>
+          <p class="es__vide es__mes-vide" hidden>Pas encore d'article. Va dans « Écrire » pour te lancer !</p>
+        </div>
+
+        <!-- Onglet : tableau de bord -->
+        <div data-panel="stats">
         <div class="es__tiles">
           <div class="es__tile"><span>Vues au total</span><strong data-k="vues"></strong></div>
           <div class="es__tile"><span>Vues ce mois-ci</span><strong data-k="vues_mois"></strong></div>
@@ -45,14 +137,14 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         </div>
         <p class="es__attente" hidden></p>
 
-        <h2>Tes articles</h2>
+        <h2>Tes articles publiés</h2>
         <div class="es__scroll">
           <table class="es__table">
             <thead><tr><th>Article</th><th>Publié le</th><th class="num">Vues</th><th class="num">Ce mois</th><th class="num">Revenus</th><th class="num">Ta part</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
-        <p class="es__vide" hidden>Tu n'as pas encore d'article publié. Propose ton premier sujet sur le groupe des contributeurs ou via le formulaire.</p>
+        <p class="es__vide es__vide-pub" hidden>Tu n'as pas encore d'article publié. Va dans l'onglet « Écrire » pour te lancer.</p>
 
         <h2>Comment tu es payé</h2>
         <ul class="es__calc">
@@ -90,6 +182,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           <li><strong>Ta part :</strong> <span data-k="pourcent2"></span> % des revenus de tes articles, versée une fois que Google a payé UNIFOOT TV pour le mois.</li>
           <li>Les vues du mois en cours sont comptées en direct ; leurs revenus apparaissent quand le mois est clôturé (début du mois suivant).</li>
         </ul>
+        </div>
       </div>
     </section>
   </div>
@@ -99,15 +192,40 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   const api = '/api/espace.php';
   const euros = (n: number) => n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
   const nb = (n: number) => n.toLocaleString('fr-FR');
+  const $ = <T extends HTMLElement = HTMLElement>(s: string) => document.querySelector<T>(s)!;
   const vues = document.querySelectorAll<HTMLElement>('[data-vue]');
-  const show = (v: string) => vues.forEach((el) => (el.hidden = el.dataset.vue !== v));
+  const show = (v: string) => { vues.forEach((el) => (el.hidden = el.dataset.vue !== v)); window.scrollTo(0, 0); };
   const set = (k: string, v: string) => document.querySelectorAll<HTMLElement>(`[data-k="${k}"]`).forEach((el) => (el.textContent = v));
-  const date = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  const date = (d: string) => !d ? '' : new Date(d.length === 10 ? d + 'T12:00:00' : d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+  const el = (tag: string, props: Record<string, any> = {}, ...kids: (Node | string)[]) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
+  const STATUTS: Record<string, string> = { brouillon: 'Brouillon', envoye: 'Envoyé', en_relecture: 'En relecture', a_corriger: 'À corriger', publie: 'Publié', refuse: 'Refusé' };
+  const badge = (st: string) => el('span', { className: `es__badge es__badge--${st}`, textContent: STATUTS[st] || st });
 
-  async function charger() {
-    const r = await fetch(`${api}?action=moi`, { credentials: 'same-origin' });
+  // Mode admin : clé gardée pour la session du navigateur uniquement
+  let cle = ''; try { cle = sessionStorage.getItem('uftv_cle') || ''; } catch {}
+  let vueAdmin: string | null = null; // e-mail du contributeur regardé en mode admin
+  const q = (params: Record<string, string>) => api + '?' + new URLSearchParams(cle ? { ...params, k: cle } : params);
+  const photoUrl = (id: string, f: string) => q({ action: 'photo_voir', id, f });
+
+  // ---------- Onglets ----------
+  const tabs = document.querySelectorAll<HTMLButtonElement>('[data-tab]');
+  const panels = document.querySelectorAll<HTMLElement>('[data-panel]');
+  function onglet(t: string) {
+    tabs.forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === t)));
+    panels.forEach((p) => (p.hidden = p.dataset.panel !== t));
+  }
+  tabs.forEach((b) => b.addEventListener('click', () => onglet(b.dataset.tab!)));
+
+  // ---------- Tableau de bord ----------
+  let soums: any[] = [];
+  async function charger(as?: string) {
+    const r = await fetch(as ? q({ action: 'moi', as }) : `${api}?action=moi`, { credentials: 'same-origin' });
     if (!r.ok) return show('login');
     const d = await r.json();
+    vueAdmin = as || null;
+    $('.es__adminbar').hidden = !as;
+    $('.es__logout').hidden = !!as;
+    set('nomcomplet', d.nom);
     set('nom', d.nom.split(' ')[0]);
     set('vues', nb(d.totaux.vues));
     set('vues_mois', nb(d.totaux.vues_mois));
@@ -118,46 +236,234 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     set('verse', euros(d.verse));
     set('solde', euros(d.solde));
     const seuil = d.seuil || 50, pct = Math.min(100, (d.solde / seuil) * 100);
-    document.querySelector<HTMLElement>('.es__fill')!.style.width = pct + '%';
+    $('.es__fill').style.width = pct + '%';
     set('cagnotte_txt', d.solde >= seuil ? 'Bravo, tu as atteint le seuil : prépare ta facture ci-dessous et envoie-la nous.' : `Plus que ${euros(seuil - d.solde)} avant ton premier versement de ${euros(seuil)}.`);
     const mt = document.querySelector<HTMLInputElement>('[name=f_mt]'); if (mt) mt.value = d.solde.toFixed(2).replace('.', ',');
     const nm = document.querySelector<HTMLInputElement>('[name=f_nom]'); if (nm && !nm.value) nm.value = d.nom;
-    const att = document.querySelector<HTMLElement>('.es__attente')!;
-    if (d.totaux.vues_en_attente > 0) { att.hidden = false; att.textContent = `${nb(d.totaux.vues_en_attente)} vues en attente de calcul : leurs revenus s'afficheront à la clôture du mois.`; }
-    const tb = document.querySelector('.es__table tbody')!;
+    const att = $('.es__attente');
+    att.hidden = !(d.totaux.vues_en_attente > 0);
+    att.textContent = `${nb(d.totaux.vues_en_attente)} vues en attente de calcul : leurs revenus s'afficheront à la clôture du mois.`;
+    const tb = $('.es__table:not(.es__adm-contrib) tbody');
     tb.replaceChildren(...d.articles.map((a: any) => {
-      const tr = document.createElement('tr');
-      const td = (t: string, cls = '') => Object.assign(document.createElement('td'), { textContent: t, className: cls });
-      const lien = document.createElement('td');
-      lien.append(Object.assign(document.createElement('a'), { href: `/actualites/${a.slug}/`, textContent: a.titre }));
-      tr.append(lien, td(date(a.date)), td(nb(a.vues), 'num'), td(nb(a.vues_mois), 'num'), td(euros(a.revenus), 'num'), td(euros(a.part), 'num'));
-      return tr;
+      const td = (t: string, cls = '') => el('td', { textContent: t, className: cls });
+      return el('tr', {}, el('td', {}, el('a', { href: `/actualites/${a.slug}/`, textContent: a.titre })), td(date(a.date)), td(nb(a.vues), 'num'), td(nb(a.vues_mois), 'num'), td(euros(a.revenus), 'num'), td(euros(a.part), 'num'));
     }));
-    document.querySelector<HTMLElement>('.es__vide')!.hidden = d.articles.length > 0;
-    document.querySelector<HTMLElement>('.es__scroll')!.hidden = d.articles.length === 0;
+    $('.es__vide-pub').hidden = d.articles.length > 0;
+    $('.es__table:not(.es__adm-contrib)').parentElement!.hidden = d.articles.length === 0;
+    soums = d.soumissions || [];
+    rendreMes();
+    edLock();
     show('tb');
   }
 
+  // ---------- Mes articles ----------
+  function rendreMes() {
+    set('nb_soum', soums.length ? `(${soums.length})` : '');
+    const ul = $('.es__mes');
+    ul.replaceChildren(...soums.map((x) => {
+      const actions = el('div', { className: 'es__soum-act' });
+      if (['brouillon', 'a_corriger'].includes(x.statut)) actions.append(el('button', { type: 'button', className: 'btn', textContent: x.statut === 'a_corriger' ? 'Corriger' : 'Continuer', onclick: () => { edOuvrir(x); onglet('ecrire'); } }));
+      if (x.statut === 'publie' && x.lien) actions.append(el('a', { className: 'btn btn--menthe', href: x.lien, textContent: 'Voir en ligne' }));
+      if (x.statut === 'brouillon' && !vueAdmin) actions.append(el('button', { type: 'button', className: 'btn es__suppr', textContent: 'Supprimer', onclick: () => supprimer(x.id) }));
+      if (vueAdmin) actions.append(el('button', { type: 'button', className: 'btn', textContent: 'Lire et décider', onclick: () => lire(x) }));
+      const li = el('li', { className: 'es__soum-item' },
+        el('div', { className: 'es__soum-top' }, badge(x.statut), el('span', { className: 'es__soum-date', textContent: 'Modifié le ' + date(x.maj) })),
+        el('strong', { textContent: x.titre || 'Sans titre' }),
+        el('span', { className: 'es__soum-meta', textContent: [x.region, x.club, `${(x.photos || []).length} photo(s)`].filter(Boolean).join(' · ') }));
+      if (x.retour && ['a_corriger', 'refuse', 'publie'].includes(x.statut)) li.append(el('p', { className: 'es__soum-retour', textContent: 'Retour de la rédaction : ' + x.retour }));
+      li.append(actions);
+      return li;
+    }));
+    $('.es__mes-vide').hidden = soums.length > 0;
+  }
+  async function supprimer(id: string) {
+    if (!confirm('Supprimer ce brouillon ?')) return;
+    await post({ action: 'supprimer', id });
+    soums = soums.filter((x) => x.id !== id);
+    if (cur?.id === id) edOuvrir(null);
+    rendreMes();
+  }
+
+  // ---------- Éditeur ----------
+  const ed = $<HTMLFormElement>('.ed');
+  const champ = (n: string) => ed.elements.namedItem(n) as HTMLInputElement;
+  const CHAMPS = ['titre', 'chapo', 'texte', 'region', 'club', 'source'];
+  let cur: any = null; let minuteur = 0; let sale = false;
+  const etat = (t: string) => ($('.ed__etat').textContent = t);
+  const msg = (t: string, ok = false) => { const m = $('.ed__msg'); m.hidden = !t; m.textContent = t; m.classList.toggle('es__msg--err', !ok); };
+  const mots = () => { const n = (champ('texte').value.trim().match(/\S+/g) || []).length; $('.ed__mots').textContent = `${n} mot${n > 1 ? 's' : ''}${n < 150 ? ' (150 minimum)' : ''}`; };
+  function modifiable() { return !vueAdmin && (!cur || ['brouillon', 'a_corriger'].includes(cur.statut)); }
+  function edLock() {
+    const ok = modifiable();
+    ed.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((i) => { if (!i.classList.contains('ed__new')) i.disabled = !ok; });
+    $('.ed__new').hidden = !!vueAdmin;
+  }
+  function edOuvrir(x: any) {
+    cur = x; sale = false;
+    for (const k of CHAMPS) champ(k).value = x?.[k] || '';
+    champ('propre_club').checked = !!x?.propre_club;
+    champ('accord_photo').checked = !!x?.accord_photo;
+    const rt = $('.ed__retour'); rt.hidden = !(x?.statut === 'a_corriger' && x.retour); rt.querySelector('span')!.textContent = x?.retour || '';
+    photos(); mots(); msg(''); edLock();
+    etat(x ? `${STATUTS[x.statut]} · enregistré le ${new Date(x.maj).toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' })}` : 'Nouvel article : il s\'enregistre tout seul pendant que tu écris.');
+  }
+  function photos() {
+    const box = $('.ed__photos');
+    box.replaceChildren(...(cur?.photos || []).map((p: any) => el('div', { className: 'ed__ph' },
+      el('img', { src: photoUrl(cur.id, p.f), alt: '' }),
+      el('input', { value: p.credit || '', placeholder: 'Nom du photographe', className: 'ed__credit', oninput: (e: any) => { p.credit = e.target.value; planifier(); }, disabled: !modifiable() }),
+      modifiable() ? el('button', { type: 'button', className: 'ed__x', textContent: '✕', title: 'Retirer', onclick: () => retirerPhoto(p.f) }) : '')));
+  }
+  async function post(o: Record<string, string>, fichier?: File) {
+    const fd = new FormData();
+    for (const [k, v] of Object.entries(o)) fd.append(k, v);
+    if (fichier) fd.append('photo', fichier);
+    const r = await fetch(api, { method: 'POST', body: fd, credentials: 'same-origin' });
+    const d = await r.json().catch(() => ({ ok: false, message: 'Erreur réseau' }));
+    if (r.status === 401) show('login');
+    return d;
+  }
+  function donnees() {
+    const o: Record<string, string> = { action: 'enregistrer' };
+    if (cur) o.id = cur.id;
+    for (const k of CHAMPS) o[k] = champ(k).value;
+    o.propre_club = champ('propre_club').checked ? '1' : '';
+    o.accord_photo = champ('accord_photo').checked ? '1' : '';
+    o.credits = JSON.stringify(Object.fromEntries((cur?.photos || []).map((p: any) => [p.f, p.credit || ''])));
+    return o;
+  }
+  async function enregistrer() {
+    clearTimeout(minuteur);
+    if (!modifiable()) return true;
+    if (!cur && !CHAMPS.some((k) => champ(k).value.trim())) return true;
+    etat('Enregistrement…');
+    const d = await post(donnees());
+    if (!d.ok) { etat(''); msg(d.message || 'Enregistrement impossible'); return false; }
+    const neuf = !cur; cur = d.soumission; sale = false;
+    if (neuf) soums.unshift(cur); else soums = soums.map((x) => (x.id === cur.id ? cur : x));
+    rendreMes();
+    etat(`${STATUTS[cur.statut]} · enregistré à ${new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`);
+    return true;
+  }
+  function planifier() { sale = true; etat('Modifications non enregistrées…'); clearTimeout(minuteur); minuteur = window.setTimeout(enregistrer, 2500); }
+  ed.addEventListener('input', (e) => { if ((e.target as HTMLElement).classList.contains('ed__credit')) return; mots(); planifier(); });
+  window.addEventListener('beforeunload', (e) => { if (sale) { enregistrer(); e.preventDefault(); } });
+  ed.querySelectorAll<HTMLButtonElement>('[data-ins]').forEach((b) => b.addEventListener('click', () => {
+    const t = champ('texte') as unknown as HTMLTextAreaElement; const a = t.selectionStart, z = t.selectionEnd, sel = t.value.slice(a, z);
+    const ins = b.dataset.ins === 'h' ? `\n\n## ${sel || 'Intertitre'}\n\n` : `**${sel || 'texte en gras'}**`;
+    t.setRangeText(ins, a, z, 'end'); t.focus(); mots(); planifier();
+  }));
+  ed.querySelector<HTMLInputElement>('.ed__add input')!.addEventListener('change', async (e) => {
+    const input = e.target as HTMLInputElement; const fichiers = [...(input.files || [])]; input.value = '';
+    if (!(await enregistrer())) return;
+    if (!cur) { const d = await post(donnees()); if (!d.ok) return msg(d.message); cur = d.soumission; soums.unshift(cur); rendreMes(); }
+    for (const f of fichiers) {
+      etat(`Envoi de ${f.name}…`);
+      const d = await post({ action: 'photo', id: cur.id, credit: '' }, f);
+      if (!d.ok) { msg(d.message || 'Photo refusée'); break; }
+      cur = d.soumission;
+    }
+    soums = soums.map((x) => (x.id === cur.id ? cur : x));
+    photos(); etat('Photos enregistrées. Pense à mettre le nom du photographe sous chacune.');
+  });
+  async function retirerPhoto(f: string) {
+    const d = await post({ action: 'photo_suppr', id: cur.id, f });
+    if (d.ok) { cur = d.soumission; photos(); }
+  }
+  $('.ed__send').addEventListener('click', async () => {
+    if (!(await enregistrer())) return;
+    if (!cur) return msg('Écris ton article avant de l\'envoyer.');
+    const d = await post({ action: 'envoyer', id: cur.id });
+    if (!d.ok) return msg(d.message || 'Envoi impossible');
+    cur = d.soumission; soums = soums.map((x) => (x.id === cur.id ? cur : x)); rendreMes(); edOuvrir(cur);
+    msg('C\'est envoyé ! La rédaction te répond sous 24 h. Tu suis tout dans « Mes articles ».', true);
+  });
+  $('.ed__new').addEventListener('click', async () => { await enregistrer(); edOuvrir(null); });
+
+  // ---------- Admin ----------
+  async function admin() {
+    const r = await fetch(q({ action: 'liste' }));
+    if (r.status === 403) { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; return show('admin-cle'); }
+    const d = await r.json();
+    const s = await (await fetch(q({ action: 'soumissions' }))).json();
+    const ents = Object.entries(d.contributeurs || {}) as [string, any][];
+    $('.es__adm-contrib tbody').replaceChildren(...ents.map(([email, c]) => el('tr', {},
+      el('td', {}, el('strong', { textContent: c.nom }), el('br'), el('small', { textContent: email })),
+      el('td', { className: 'num', textContent: nb(c.totaux.vues) }), el('td', { className: 'num', textContent: euros(c.solde) }),
+      el('td', { className: 'num', textContent: String(c.a_relire || 0) }),
+      el('td', {}, el('button', { type: 'button', className: 'btn', textContent: 'Voir son espace', onclick: () => charger(email) })))));
+    $('.es__adm-vide').hidden = ents.length > 0;
+    const ordre = ['envoye', 'en_relecture', 'a_corriger', 'brouillon', 'publie', 'refuse'];
+    const liste = (s.soumissions || []).sort((a: any, b: any) => ordre.indexOf(a.statut) - ordre.indexOf(b.statut));
+    $('.es__adm-soum').replaceChildren(...liste.map((x: any) => el('li', { className: 'es__soum-item' },
+      el('div', { className: 'es__soum-top' }, badge(x.statut), el('span', { className: 'es__soum-date', textContent: (s.noms?.[x.email] || x.email) + ' · ' + date(x.maj) })),
+      el('strong', { textContent: x.titre || 'Sans titre' }),
+      el('div', { className: 'es__soum-act' }, el('button', { type: 'button', className: 'btn', textContent: 'Lire et décider', onclick: () => lire(x) })))));
+    $('.es__adm-soum-vide').hidden = liste.length > 0;
+    show('admin');
+  }
+  let lu: any = null;
+  function lire(x: any) {
+    lu = x;
+    $('.es__badge-l').replaceChildren(badge(x.statut));
+    $('.lc__titre').textContent = x.titre || 'Sans titre';
+    $('.lc__meta').textContent = [x.region, x.club, x.propre_club ? 'écrit par un membre du club' : '', `${(x.texte.match(/\S+/g) || []).length} mots`].filter(Boolean).join(' · ');
+    $('.lc__chapo').textContent = x.chapo || '';
+    $('.lc__photos').replaceChildren(...(x.photos || []).map((p: any) => el('figure', {}, el('a', { href: photoUrl(x.id, p.f), target: '_blank' }, el('img', { src: photoUrl(x.id, p.f), alt: '' })), el('figcaption', { textContent: 'Photo : ' + (p.credit || '?') }))));
+    $('.lc__texte').replaceChildren(...(x.texte || '').split(/\n{2,}/).map((b: string) => b.startsWith('## ') ? el('h2', { textContent: b.slice(3) }) : el('p', { textContent: b.replace(/\*\*/g, '') })));
+    $('.lc__source').textContent = 'Source : ' + (x.source || '?') + (x.photos?.length ? ` · Accord photos : ${x.accord_photo ? 'oui' : 'non'}` : '');
+    const f = $<HTMLFormElement>('.es__decision');
+    (f.elements.namedItem('retour') as HTMLTextAreaElement).value = x.retour || '';
+    (f.elements.namedItem('lien') as HTMLInputElement).value = x.lien || '';
+    $('.es__dec-msg').hidden = true;
+    show('lecture');
+  }
+  document.querySelectorAll<HTMLButtonElement>('.es__decision [data-st]').forEach((b) => b.addEventListener('click', async () => {
+    const f = $<HTMLFormElement>('.es__decision');
+    const fd = new FormData(); fd.append('k', cle); fd.append('action', 'statut'); fd.append('id', lu.id); fd.append('statut', b.dataset.st!);
+    fd.append('retour', (f.elements.namedItem('retour') as HTMLTextAreaElement).value); fd.append('lien', (f.elements.namedItem('lien') as HTMLInputElement).value);
+    const d = await (await fetch(api, { method: 'POST', body: fd })).json();
+    const m = $('.es__dec-msg'); m.hidden = false;
+    m.textContent = d.ok ? `Statut « ${STATUTS[b.dataset.st!]} » enregistré, le contributeur est prévenu par mail.` : d.message || 'Erreur';
+    if (d.ok) { lu = d.soumission; $('.es__badge-l').replaceChildren(badge(lu.statut)); }
+  }));
+  document.querySelectorAll('.es__back').forEach((b) => b.addEventListener('click', () => admin()));
+  $('.es__admin-out').addEventListener('click', () => { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; location.href = '/espace/'; });
+  $<HTMLFormElement>('.es__cle-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    cle = ((e.currentTarget as HTMLFormElement).elements.namedItem('cle') as HTMLInputElement).value.trim();
+    const r = await fetch(q({ action: 'liste' }));
+    if (!r.ok) { cle = ''; const m = $('.es__cle-msg'); m.hidden = false; m.textContent = 'Clé incorrecte.'; return; }
+    try { sessionStorage.setItem('uftv_cle', cle); } catch {}
+    admin();
+  });
+
+  // ---------- Démarrage ----------
   async function init() {
-    const t = new URLSearchParams(location.search).get('t');
+    const p = new URLSearchParams(location.search);
+    if (p.has('admin')) { onglet('stats'); return cle ? admin() : show('admin-cle'); }
+    cle = '';
+    const t = p.get('t');
     if (t) {
       history.replaceState(null, '', '/espace/');
       const r = await fetch(`${api}?action=entrer&t=${encodeURIComponent(t)}`, { credentials: 'same-origin' });
       if (!r.ok) {
         show('login');
-        const m = document.querySelector<HTMLElement>('.es__msg')!;
-        m.hidden = false; m.textContent = 'Ce lien a expiré ou a déjà servi. Demande-en un nouveau.';
+        const m = $('.es__msg'); m.hidden = false; m.textContent = 'Ce lien a expiré ou a déjà servi. Demande-en un nouveau.';
         return;
       }
     }
-    charger();
+    await charger();
+    const brouillon = soums.find((x) => ['brouillon', 'a_corriger'].includes(x.statut));
+    edOuvrir(brouillon || null);
+    if (p.get('onglet')) onglet(p.get('onglet')!);
   }
 
-  document.querySelector<HTMLFormElement>('.es__form')!.addEventListener('submit', async (e) => {
+  $<HTMLFormElement>('.es__form:not(.es__cle-form)').addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = e.currentTarget as HTMLFormElement;
     const btn = f.querySelector('button')!;
-    const m = document.querySelector<HTMLElement>('.es__msg')!;
+    const m = $('.es__msg');
     btn.disabled = true;
     const r = await fetch(api, { method: 'POST', body: new URLSearchParams({ action: 'lien', email: (f.elements.namedItem('email') as HTMLInputElement).value }) });
     const d = await r.json().catch(() => ({}));
@@ -166,13 +472,14 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     btn.disabled = false;
   });
 
-  document.querySelector('.es__out')!.addEventListener('click', async () => {
+  $('.es__logout').addEventListener('click', async () => {
+    await enregistrer();
     await fetch(api, { method: 'POST', body: new URLSearchParams({ action: 'sortir' }), credentials: 'same-origin' });
     show('login');
   });
 
   // Facture : infos gardées sur l'appareil, numéro auto, impression
-  const ff = document.querySelector<HTMLFormElement>('.es__fac-form')!;
+  const ff = $<HTMLFormElement>('.es__fac-form');
   const LS = 'uftv_facture';
   try { const v = JSON.parse(localStorage.getItem(LS) || '{}'); for (const k of ['f_adr', 'f_siret']) if (v[k]) (ff.elements.namedItem(k) as HTMLInputElement).value = v[k]; } catch {}
   (ff.elements.namedItem('f_num') as HTMLInputElement).value = `${new Date().getFullYear()}-001`;
@@ -180,19 +487,20 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     e.preventDefault();
     const g = (k: string) => (ff.elements.namedItem(k) as HTMLInputElement).value.trim();
     try { localStorage.setItem(LS, JSON.stringify({ f_adr: g('f_adr'), f_siret: g('f_siret') })); } catch {}
-    const f = (k: string, v: string) => document.querySelectorAll<HTMLElement>(`[data-f="${k}"]`).forEach((el) => (el.textContent = v));
+    const f = (k: string, v: string) => document.querySelectorAll<HTMLElement>(`[data-f="${k}"]`).forEach((e2) => (e2.textContent = v));
     const today = new Date().toLocaleDateString('fr-FR');
     const m = euros(parseFloat(g('f_mt').replace(',', '.')) || 0);
     f('nom', g('f_nom')); f('adr', g('f_adr')); f('siret', g('f_siret')); f('num', g('f_num')); f('date', today); f('date2', today); f('mt', m); f('mt2', m);
-    document.querySelector<HTMLElement>('.es__facture')!.hidden = false;
+    $('.es__facture').hidden = false;
   });
-  document.querySelector('.es__print')!.addEventListener('click', () => { document.body.classList.add('print-facture'); window.print(); document.body.classList.remove('print-facture'); });
+  $('.es__print').addEventListener('click', () => { document.body.classList.add('print-facture'); window.print(); document.body.classList.remove('print-facture'); });
 
   init();
 </script>
 
-<style>
+<style is:global>
   .es { padding-bottom: 4rem; }
+  .es [hidden] { display: none !important; }
   .es__wrap { max-width: 60rem; padding-block: clamp(2rem, 4vw, 3rem); }
   .es__kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
   .es__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--menthe); }
@@ -245,10 +553,55 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .fa__t .num { text-align: right; white-space: nowrap; }
   .fa__m { font-size: 0.85rem; color: #444; margin: 0; }
   @media print {
-    :global(body.print-facture *) { visibility: hidden; }
-    :global(body.print-facture .es__facture), :global(body.print-facture .es__facture *) { visibility: visible; }
-    :global(body.print-facture .es__facture) { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
-    :global(body.print-facture .es__print) { display: none; }
+    body.print-facture * { visibility: hidden; }
+    body.print-facture .es__facture, body.print-facture .es__facture * { visibility: visible; }
+    body.print-facture .es__facture { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
+    body.print-facture .es__print { display: none; }
   }
+  .es__tabs { display: flex; gap: 0.4rem; margin: 1.25rem 0 0.5rem; overflow-x: auto; border-bottom: 1px solid var(--trait); }
+  .es__tabs button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 0.7rem 0.9rem; font: 700 0.95rem var(--f-texte); color: var(--texte-2); cursor: pointer; white-space: nowrap; }
+  .es__tabs button[aria-selected='true'] { color: var(--texte); border-bottom-color: var(--menthe); }
+  .es__count { color: var(--texte-2); font-weight: 600; }
+  .es__adminbar { margin: 0 0 1rem; padding: 0.7rem 1rem; border-radius: var(--r-s); background: #fff4d6; color: #5a4300; display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .es__back { background: none; border: 0; color: var(--accent); font-weight: 700; cursor: pointer; padding: 0.4rem 0; }
+  .ed { display: grid; gap: 1rem; margin-top: 1rem; }
+  .ed .fld { display: grid; gap: 0.35rem; font-weight: 600; }
+  .ed input:not([type=checkbox]), .ed textarea, .es__decision textarea, .es__decision input { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: 400 1rem/1.5 var(--f-texte); background: var(--fond); box-sizing: border-box; }
+  .ed textarea[name=texte] { min-height: 22rem; }
+  .ed__etat { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
+  .ed__retour { padding: 0.8rem 1rem; border-radius: var(--r-s); background: #fff4d6; color: #5a4300; }
+  .ed__tool { display: flex; gap: 0.4rem; align-items: center; }
+  .ed__tool button { padding: 0.35rem 0.7rem; border: 1px solid var(--trait); border-radius: var(--r-s); background: var(--fond); cursor: pointer; font: 600 0.85rem var(--f-texte); }
+  .ed__mots { margin-left: auto; font-size: var(--t-s); color: var(--texte-2); font-weight: 400; }
+  .ed__grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .ed__chk { display: flex; gap: 0.6rem; align-items: flex-start; font-size: var(--t-s); color: var(--texte-2); }
+  .ed__chk input { margin-top: 0.2rem; }
+  .ed__photos { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); }
+  .ed__ph { position: relative; display: grid; gap: 0.35rem; }
+  .ed__ph img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r-s); background: var(--trait); }
+  .ed__ph input { padding: 0.45rem 0.6rem !important; font-size: 0.85rem !important; }
+  .ed__x { position: absolute; top: 0.3rem; right: 0.3rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; border: 0; background: rgba(0, 0, 0, 0.65); color: #fff; cursor: pointer; }
+  .ed__add { justify-self: start; cursor: pointer; }
+  .es__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .es__msg--err { border-left-color: #d64545; }
+  .es__soum { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
+  .es__soum-item { display: grid; gap: 0.4rem; padding: 1rem 1.1rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .es__soum-top { display: flex; justify-content: space-between; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .es__soum-date, .es__soum-meta { font-size: var(--t-s); color: var(--texte-2); }
+  .es__soum-retour { margin: 0.2rem 0 0; padding: 0.6rem 0.8rem; border-radius: var(--r-s); background: #fff4d6; color: #5a4300; font-size: var(--t-s); }
+  .es__soum-act { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.3rem; }
+  .es__badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 999px; font: 800 0.72rem/1.4 var(--f-info); text-transform: uppercase; letter-spacing: 0.04em; background: var(--trait); color: var(--texte); }
+  .es__badge--envoye, .es__badge--en_relecture { background: #e7f1fb; color: #1a4e80; }
+  .es__badge--a_corriger { background: #f9eeda; color: #7a4d00; }
+  .es__badge--publie { background: #e5f4e4; color: #1d6a2a; }
+  .es__badge--refuse { background: #fbebeb; color: #8a2020; }
+  .lc__meta, .lc__source { color: var(--texte-2); font-size: var(--t-s); }
+  .lc__chapo { font-weight: 700; font-size: var(--t-l); }
+  .lc__photos { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); }
+  .lc__photos img { width: 100%; border-radius: var(--r-s); }
+  .lc__photos figcaption { font-size: var(--t-s); color: var(--texte-2); }
+  .lc__texte { max-width: 44rem; line-height: 1.65; }
+  .es__decision { display: grid; gap: 0.9rem; margin-top: 2rem; padding: 1.2rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .es__decision .fld { display: grid; gap: 0.35rem; font-weight: 600; font-size: var(--t-s); }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>
