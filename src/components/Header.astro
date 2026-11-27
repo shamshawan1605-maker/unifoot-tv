@@ -35,6 +35,7 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
       </ul>
     </nav>
     <button class="hd__search" type="button" data-search-open aria-label="Rechercher"><Icon name="search" size={22} /></button>
+    <a class="hd__search hd__compte" href="/espace/" aria-label="Espace contributeur : se connecter" title="Espace contributeur" aria-current={path.startsWith('/espace/') ? 'page' : undefined}><Icon name="user" size={22} /></a>
     <a class="btn btn--small hd__support" href={links.tipeee} rel="noopener" target="_blank"><Icon name="heart" size={16} /><span class="hd__sl">Soutenir</span></a>
     <button class="hd__toggle" type="button" aria-expanded="false" aria-controls="menu">
       <Icon name="menu" size={26} class="i-open" /><Icon name="close" size={26} class="i-close" />
@@ -65,6 +66,8 @@ const isActive = (href: string) => (href.startsWith('/emissions/') ? path.starts
   .hd__search { display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 0; background: rgb(255 255 255 / 0.08); color: #fff; cursor: pointer; transition: background .2s, color .2s; }
   .hd__search:hover { background: var(--menthe); color: var(--marine); }
   .hd__search:focus-visible { box-shadow: var(--focus); }
+  .hd__compte { text-decoration: none; }
+  .hd__compte[aria-current='page'] { background: var(--menthe); color: var(--marine); }
   /* Téléphone : l'en-tête se cache quand on descend, revient quand on remonte */
   @media (max-width: 47.99rem) { .hd[data-hide]:not([data-open]) { transform: translateY(-100%); } .hd__support { padding-inline: 0.9rem; } }
   @media (max-width: 24rem) { .hd__sl { display: none; } .hd__support { padding-inline: 0.75rem; } }
