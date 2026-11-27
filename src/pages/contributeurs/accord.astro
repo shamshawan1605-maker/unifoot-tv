@@ -1,0 +1,21 @@
+---
+import Base from '~/layouts/Base.astro';
+import { accord, ACCORD_DATE } from '~/lib/accord';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Deviens contributeur', href: '/contributeurs/' }, { name: 'Accord de contribution' }];
+---
+<Base title="Accord de contribution" description="L'accord entre UNIFOOT TV et ses contributeurs : droits sur les articles et les photos, relecture, part des revenus." breadcrumbs={crumbs}>
+  <article class="wrap acp">
+    <h1>Accord de contribution</h1>
+    <p class="acp__v">Version du {ACCORD_DATE}. Chaque contributeur l'accepte depuis son espace avant son premier article.</p>
+    {accord.map((a, i) => <section><h2>{i + 1}. {a.t}</h2>{a.p.map((x) => <p>{x}</p>)}</section>)}
+    <p class="acp__v"><a href="/contributeurs/">← Retour au programme contributeurs</a></p>
+  </article>
+</Base>
+<style>
+  .acp { max-width: 46rem; padding-block: 2rem 3rem; }
+  .acp h1 { font-size: var(--t-xxl); }
+  .acp h2 { font-size: var(--t-l); margin: 1.75rem 0 0.5rem; }
+  .acp p { color: var(--texte-2); line-height: 1.6; }
+  .acp__v { font-size: var(--t-s); }
+  .acp a { color: var(--accent); }
+</style>

@@ -1,0 +1,60 @@
+---
+// Aperçu d'un article de contributeur, avec la mise en page exacte d'une actu publiée.
+// Les données viennent de l'espace contributeur (localStorage « uftv_apercu »), rien n'est publié.
+import Base from '~/layouts/Base.astro';
+import Icon from '~/components/Icon.astro';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: 'Aperçu' }];
+---
+<Base title="Aperçu de ton article" description="Aperçu avant publication." breadcrumbs={crumbs} noindex>
+  <p class="ap__bandeau"><Icon name="news" size={18} />Aperçu : cet article n'est pas encore publié. Ferme cet onglet pour revenir à ton espace.</p>
+  <article class="wrap art">
+    <header class="art__head">
+      <p class="meta"><a href="#">Actualités</a> <time class="ap__date"></time></p>
+      <h1 class="ap__titre">Ton titre</h1>
+      <p class="art__chapo ap__chapo"></p>
+      <p class="art__auteur">Par <strong class="ap__auteur"></strong>, UNIFOOT TV</p>
+    </header>
+    <figure class="art__fig ap__fig" hidden>
+      <img class="ap__img" alt="" width="1200" height="675" />
+      <figcaption class="ap__credit"></figcaption>
+    </figure>
+    <div class="prose art__text ap__texte"></div>
+    <p class="art__source ap__source" hidden></p>
+  </article>
+</Base>
+
+<script>
+  const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+  const inline = (t: string) => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  let d: any = {};
+  try { d = JSON.parse(localStorage.getItem('uftv_apercu') || '{}'); } catch {}
+  const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+  $('.ap__titre').textContent = d.titre || 'Ton titre';
+  $('.ap__chapo').textContent = d.chapo || '';
+  $('.ap__auteur').textContent = d.auteur || '';
+  $('.ap__date').textContent = new Date(d.date || Date.now()).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  if (d.photo) {
+    $('.ap__fig').hidden = false;
+    (document.querySelector('.ap__img') as HTMLImageElement).src = d.photo;
+    $('.ap__credit').textContent = d.credit ? `Photo : ${d.credit}` : '';
+  }
+  $('.ap__texte').innerHTML = (d.texte || '').split(/\n{2,}/).map((b: string) => b.trim()).filter(Boolean)
+    .map((b: string) => (b.startsWith('## ') ? `<h2>${inline(b.slice(3))}</h2>` : `<p>${inline(b).replace(/\n/g, '<br>')}</p>`)).join('');
+  if (d.source) { $('.ap__source').hidden = false; $('.ap__source').textContent = `Source : ${d.source}`; }
+  document.title = `Aperçu : ${d.titre || 'ton article'} | UNIFOOT TV`;
+</script>
+
+<style>
+  .ap__bandeau { position: sticky; top: 0; z-index: 50; display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin: 0; padding: 0.7rem 1rem; background: #fff4d6; color: #5a4300; font: 700 0.9rem/1.3 var(--f-info); text-align: center; }
+  .art { max-width: 48rem; padding-block: 2rem 3rem; }
+  .art .meta a { color: var(--accent); text-decoration: none; }
+  .art h1 { font-size: var(--t-xxl); margin-top: 0.6rem; }
+  .art__chapo { font: 600 var(--t-l)/1.45 var(--f-texte); margin-top: 1.1rem; }
+  .art__fig { margin: 2rem 0 0; }
+  .art__fig img { width: 100%; border-radius: var(--r-m); aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface); }
+  .art__fig figcaption { margin-top: 0.5rem; font: 700 0.875rem/1.3 var(--f-info); color: var(--texte-2); }
+  .art__text { margin-top: 2rem; }
+  .art__auteur { margin: 0.9rem 0 0; font: 600 0.9375rem/1.3 var(--f-info); color: var(--texte-2); }
+  .art__auteur strong { color: var(--texte); }
+  .art__source { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--trait); font: 700 1rem/1.3 var(--f-info); color: var(--texte-2); }
+</style>

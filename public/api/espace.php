@@ -12,7 +12,8 @@
 // Articles écrits dans l'espace : soumissions/<id>.json (+ dossier soumissions/<id>/ pour les photos)
 //   statut : brouillon → envoye → en_relecture → a_corriger | publie | refuse
 // Contributeur : GET mes_articles · POST enregistrer · POST photo · POST photo_suppr · POST envoyer · POST supprimer · GET photo_voir
-// Admin (?k=CLE) : action=liste · contributeur&email&nom&part · rpm&mois&rpm · paiement&email&montant&note
+// Profil & accord : POST accepter_accord · POST profil · POST profil_photo · public GET auteur&slug · GET auteur_photo&slug
+// Admin (?k=CLE) : candidatures · candidature&id&decision=accepter|refuser[&nom] · action=liste · contributeur&email&nom&part · rpm&mois&rpm · paiement&email&montant&note
 //                  · moi&as=EMAIL (voir l'espace d'un contributeur) · soumissions · statut&id&statut&retour&lien
 declare(strict_types=1);
 
@@ -25,13 +26,15 @@ const DESTINATAIRE = 'contact@unifoottv.fr';
 const STATUTS = ['brouillon', 'envoye', 'en_relecture', 'a_corriger', 'publie', 'refuse'];
 const MAX_PHOTOS = 5;
 const PHOTO_MAX_OCTETS = 12 * 1024 * 1024;
+const ACCORD_VERSION = '1';
+const DUREE_LIEN_BIENVENUE = 604800; // 7 jours
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Robots-Tag: noindex');
 
 $data = __DIR__ . '/data';
-foreach (['', '/jetons', '/sessions', '/soumissions'] as $s) if (!is_dir("$data$s")) @mkdir("$data$s", 0750, true);
+foreach (['', '/jetons', '/sessions', '/soumissions', '/profils', '/candidatures'] as $s) if (!is_dir("$data$s")) @mkdir("$data$s", 0750, true);
 
 function sortie(array $r, int $code = 200): void { http_response_code($code); echo json_encode($r, JSON_UNESCAPED_UNICODE); exit; }
 function lire(string $f, array $defaut = []): array { return is_file($f) ? (json_decode((string) file_get_contents($f), true) ?: $defaut) : $defaut; }
@@ -65,6 +68,28 @@ function soumissions(?string $email = null): array {
 function texteChamp(string $k, int $max): string { return mb_substr(trim(str_replace("\r", '', (string) ($_POST[$k] ?? ''))), 0, $max); }
 function nbMots(string $t): int { return count(preg_split('/\s+/u', trim($t), -1, PREG_SPLIT_NO_EMPTY) ?: []); }
 
+/** Palier atteint selon le nombre d'articles publiés */
+function palier(int $n): array {
+    if ($n >= 15) return ['nom' => 'Correspondant confirmé', 'niveau' => 3, 'prochain' => null, 'manque' => 0];
+    if ($n >= 5) return ['nom' => 'Correspondant', 'niveau' => 2, 'prochain' => 'Correspondant confirmé', 'manque' => 15 - $n];
+    if ($n >= 1) return ['nom' => 'Contributeur', 'niveau' => 1, 'prochain' => 'Correspondant', 'manque' => 5 - $n];
+    return ['nom' => 'Nouveau', 'niveau' => 0, 'prochain' => 'Contributeur', 'manque' => 1];
+}
+function lienConnexion(string $email, int $duree): string {
+    global $data;
+    $jeton = bin2hex(random_bytes(24));
+    ecrire("$data/jetons/" . hash('sha256', $jeton) . '.json', ['email' => $email, 'exp' => time() + $duree]);
+    return SITE . '/espace/?t=' . $jeton;
+}
+function profilPublic(string $email, array $c): array {
+    global $data;
+    $n = 0; $slug = slugNom($c['nom']);
+    foreach (articles() as $a) if (slugNom((string) ($a['auteur'] ?? '')) === $slug) $n++;
+    $p = $c['profil'] ?? [];
+    return ['nom' => $c['nom'], 'slug' => $slug, 'bio' => $p['bio'] ?? '', 'region' => $p['region'] ?? '', 'liens' => $p['liens'] ?? [],
+        'photo' => is_file("$data/profils/" . hash('sha256', $email) . '.jpg'), 'depuis' => $c['depuis'] ?? '', 'articles' => $n, 'palier' => palier($n)];
+}
+
 /** Statistiques d'un contributeur : vues par article, revenus estimés mois par mois, sa part */
 function stats(string $email, array $c): array {
     global $data;
@@ -95,7 +120,8 @@ function stats(string $email, array $c): array {
     $tot['revenus'] = round($tot['revenus'], 2); $tot['part'] = round($tot['part'], 2);
     return ['nom' => $c['nom'], 'part_pourcent' => (int) round($part * 100), 'articles' => $liste, 'totaux' => $tot,
         'verse' => round($verse, 2), 'solde' => round(max(0, $tot['part'] - $verse), 2), 'paiements' => $paiements, 'seuil' => 50,
-        'rpm_dernier' => $rpm ? ['mois' => array_key_last($rpm), 'rpm' => end($rpm)] : null];
+        'rpm_dernier' => $rpm ? ['mois' => array_key_last($rpm), 'rpm' => end($rpm)] : null,
+        'accord' => (($c['accord']['version'] ?? '') === ACCORD_VERSION) ? $c['accord']['date'] : null, 'profil' => profilPublic($email, $c)];
 }
 
 $action = (string) ($_REQUEST['action'] ?? '');
@@ -142,7 +168,63 @@ Ton espace : " . SITE . "/espace/
 L'équipe UNIFOOT TV");
     sortie(['ok' => true, 'soumission' => $x]);
 }
-if ($admin && $action === 'photo_voir') { /* traité plus bas */ }
+if ($admin && $action === 'candidatures') {
+    $l = [];
+    foreach (glob("$data/candidatures/*.json") ?: [] as $f) $l[] = lire($f);
+    usort($l, fn($a, $b) => strcmp((string) $b['date'], (string) $a['date']));
+    sortie(['ok' => true, 'candidatures' => $l]);
+}
+if ($admin && $action === 'candidature') {
+    $id = basename((string) ($_REQUEST['id'] ?? ''));
+    $f = "$data/candidatures/$id.json";
+    $x = lire($f);
+    if (!$x) sortie(['ok' => false, 'message' => 'candidature introuvable'], 404);
+    $dec = (string) ($_REQUEST['decision'] ?? '');
+    if ($dec === 'accepter') {
+        $e = strtolower(trim((string) ($x['email'] ?? '')));
+        if (!filter_var($e, FILTER_VALIDATE_EMAIL)) sortie(['ok' => false, 'message' => 'Pas d\'e-mail valide dans la candidature : ajoute-le à la main'], 422);
+        $nom = trim((string) ($_REQUEST['nom'] ?? ($x['nom'] ?? '')));
+        if ($nom === '') sortie(['ok' => false, 'message' => 'nom manquant'], 422);
+        $contributeurs[$e] = ($contributeurs[$e] ?? []) + ['nom' => $nom, 'part' => 0.3, 'depuis' => date('Y-m-d'), 'profil' => ['region' => (string) ($x['region'] ?? '')]];
+        ecrire("$data/contributeurs.json", $contributeurs);
+        $lien = lienConnexion($e, DUREE_LIEN_BIENVENUE);
+        envoyerMail($e, 'Bienvenue chez les contributeurs UNIFOOT TV !', "Salut $nom,
+
+Bonne nouvelle : ta candidature est acceptée, tu fais maintenant partie des contributeurs d'UNIFOOT TV !
+
+Voici ton lien pour entrer dans ton espace (valable 7 jours) :
+$lien
+
+Par la suite, tu te connectes sur " . SITE . "/espace/ avec ton e-mail, sans mot de passe.
+
+Tes premières étapes :
+1. Lis et accepte l'accord de contribution (2 minutes).
+2. Complète ton profil : photo, bio, région. C'est ta page auteur sur le site.
+3. Va dans « Écrire » et lance ton premier article. Il s'enregistre tout seul.
+
+Pour les photos au téléphone : toujours à l'horizontale, 3 à 5 photos (une action, un moment fort, l'ambiance, le club), jamais d'enfant reconnaissable sans l'accord des parents, et toujours le nom du photographe.
+
+On te répond sous 24 h sur chaque article. Bienvenue dans l'équipe !
+
+Shamsh Awan
+UNIFOOT TV");
+        $x['statut'] = 'acceptee';
+    } elseif ($dec === 'refuser') {
+        $x['statut'] = 'refusee';
+        $e = filter_var($x['email'] ?? '', FILTER_VALIDATE_EMAIL);
+        if ($e && ($_REQUEST['prevenir'] ?? '1') === '1') envoyerMail($e, 'Ta candidature UNIFOOT TV', "Salut " . ($x['nom'] ?? '') . ",
+
+Merci pour ta candidature comme contributeur UNIFOOT TV. On ne peut pas la retenir pour le moment, souvent parce que ta région est déjà couverte.
+
+On garde ton contact et on revient vers toi dès qu'une place se libère.
+
+L'équipe UNIFOOT TV");
+    } else sortie(['ok' => false, 'message' => 'décision'], 422);
+    $x['decision_date'] = date('c');
+    ecrire($f, $x);
+    sortie(['ok' => true, 'candidature' => $x]);
+}
+if ($admin && in_array($action, ['photo_voir', 'auteur', 'auteur_photo'], true)) { /* traité plus bas */ }
 elseif ($admin) {
     if ($action === 'contributeur') {
         $e = strtolower(trim((string) ($_GET['email'] ?? '')));
@@ -167,6 +249,19 @@ elseif ($admin) {
     $vue = [];
     foreach ($contributeurs as $e => $c) $vue[$e] = stats($e, $c) + ['a_relire' => count(array_filter(soumissions($e), fn($x) => $x['statut'] === 'envoye'))];
     sortie(['ok' => true, 'rpm' => lire("$data/rpm.json"), 'contributeurs' => $vue]);
+}
+
+// ===== Page auteur (public) =====
+if ($action === 'auteur' || $action === 'auteur_photo') {
+    $slug = slugNom((string) ($_GET['slug'] ?? ''));
+    foreach ($contributeurs as $e => $c) {
+        if (slugNom($c['nom']) !== $slug) continue;
+        if ($action === 'auteur') { header('Cache-Control: public, max-age=300'); sortie(['ok' => true] + profilPublic($e, $c)); }
+        $f = "$data/profils/" . hash('sha256', $e) . '.jpg';
+        if (!is_file($f)) sortie(['ok' => false], 404);
+        header('Content-Type: image/jpeg'); header('Cache-Control: public, max-age=3600'); readfile($f); exit;
+    }
+    sortie(['ok' => false], 404);
 }
 
 // ===== Demande de lien de connexion =====
@@ -218,6 +313,35 @@ if ($action === 'sortir') {
 if ($action === 'moi') {
     if (!$connecte) sortie(['ok' => false], 401);
     sortie(['ok' => true] + stats($session['email'], $contributeurs[$session['email']]) + ['soumissions' => soumissions($session['email'])]);
+}
+
+// ===== Accord et profil (contributeur connecté) =====
+if (in_array($action, ['accepter_accord', 'profil', 'profil_photo'], true)) {
+    if (!$connecte) sortie(['ok' => false], 401);
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') sortie(['ok' => false], 405);
+    $e = $session['email'];
+    if ($action === 'accepter_accord') {
+        $contributeurs[$e]['accord'] = ['version' => ACCORD_VERSION, 'date' => date('c'), 'ip' => hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '')];
+    } elseif ($action === 'profil') {
+        $liens = [];
+        foreach (['instagram', 'x', 'linkedin', 'site'] as $k) {
+            $v = trim((string) ($_POST[$k] ?? ''));
+            if ($v !== '' && !preg_match('#^https?://#', $v)) $v = 'https://' . ltrim($v, '@/');
+            if ($v !== '' && filter_var($v, FILTER_VALIDATE_URL)) $liens[$k] = mb_substr($v, 0, 200);
+        }
+        $contributeurs[$e]['profil'] = ['bio' => texteChamp('bio', 400), 'region' => texteChamp('region', 80), 'liens' => $liens];
+    } else {
+        $f = $_FILES['photo'] ?? null;
+        if (!$f || ($f['error'] ?? 1) !== UPLOAD_ERR_OK || $f['size'] > PHOTO_MAX_OCTETS) sortie(['ok' => false, 'message' => 'Photo trop lourde ou envoi raté'], 422);
+        $img = @imagecreatefromstring((string) file_get_contents($f['tmp_name']));
+        if (!$img) sortie(['ok' => false, 'message' => 'Format non reconnu (JPG ou PNG)'], 415);
+        $w = imagesx($img); $h = imagesy($img); $c = min($w, $h);
+        $out = imagecreatetruecolor(400, 400);
+        imagecopyresampled($out, $img, 0, 0, (int) (($w - $c) / 2), (int) (($h - $c) / 2), 400, 400, $c, $c);
+        imagejpeg($out, "$data/profils/" . hash('sha256', $e) . '.jpg', 85);
+    }
+    ecrire("$data/contributeurs.json", $contributeurs);
+    sortie(['ok' => true] + stats($e, $contributeurs[$e]));
 }
 
 // ===== Photo d'une soumission (contributeur propriétaire ou admin) =====

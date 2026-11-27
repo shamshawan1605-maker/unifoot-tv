@@ -1,6 +1,7 @@
 ---
 // Espace contributeur : connexion par lien e-mail, vues et part des revenus de chaque article (données : /api/espace.php).
 import Base from '~/layouts/Base.astro';
+import { accord, ACCORD_DATE } from '~/lib/accord';
 const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }];
 ---
 <Base title="Espace contributeur" description="Tes articles, leurs vues et ta part des revenus." breadcrumbs={crumbs} fond="gris" noindex>
@@ -23,6 +24,17 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         <p class="es__note">Pas encore contributeur ? <a href="/contributeurs/">Découvre le programme</a>.</p>
       </div>
 
+      <!-- Accord de contribution (première connexion) -->
+      <div data-vue="accord" hidden>
+        <h1>Bienvenue <span data-k="nom"></span> ! Avant de commencer</h1>
+        <p class="es__lead">Lis l'accord de contribution : il explique ce que tu peux publier, tes droits sur tes articles et comment tu es payé. Version du {ACCORD_DATE}.</p>
+        <div class="ac__txt">
+          {accord.map((a, i) => <section><h2>{i + 1}. {a.t}</h2>{a.p.map((x) => <p>{x}</p>)}</section>)}
+        </div>
+        <label class="ed__chk ac__chk"><input type="checkbox" class="ac__ok" /> J'ai lu l'accord de contribution et la charte, et je les accepte.</label>
+        <button type="button" class="btn btn--menthe ac__btn" disabled>J'accepte et j'entre dans mon espace</button>
+      </div>
+
       <!-- Admin : clé -->
       <div class="es__login" data-vue="admin-cle" hidden>
         <h1>Mode admin</h1>
@@ -39,6 +51,9 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         <h2>Contributeurs</h2>
         <div class="es__scroll"><table class="es__table es__adm-contrib"><thead><tr><th>Nom</th><th class="num">Vues</th><th class="num">Cagnotte</th><th class="num">À relire</th><th></th></tr></thead><tbody></tbody></table></div>
         <p class="es__vide es__adm-vide" hidden>Aucun contributeur pour l'instant.</p>
+        <h2>Candidatures</h2>
+        <ul class="es__soum es__adm-cand"></ul>
+        <p class="es__vide es__adm-cand-vide" hidden>Aucune candidature pour l'instant.</p>
         <h2>Articles reçus</h2>
         <ul class="es__soum es__adm-soum"></ul>
         <p class="es__vide es__adm-soum-vide" hidden>Aucun article reçu pour l'instant.</p>
@@ -54,6 +69,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         <div class="lc__photos"></div>
         <div class="lc__texte"></div>
         <p class="lc__source"></p>
+        <button type="button" class="btn lc__apercu">Voir l'aperçu comme sur le site</button>
         <form class="es__decision">
           <h2>Décision</h2>
           <label class="fld"><span>Retour au contributeur (visible dans son espace et envoyé par mail)</span><textarea name="retour" rows="4"></textarea></label>
@@ -80,11 +96,30 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           <button type="button" role="tab" data-tab="stats" aria-selected="true">Tableau de bord</button>
           <button type="button" role="tab" data-tab="ecrire">✍️ Écrire</button>
           <button type="button" role="tab" data-tab="mes">Mes articles <span class="es__count" data-k="nb_soum"></span></button>
+          <button type="button" role="tab" data-tab="profil">Mon profil</button>
         </nav>
+
+        <!-- Onglet : profil -->
+        <div data-panel="profil" hidden>
+          <form class="ed pr">
+            <p class="es__lead">C'est ta page auteur publique<span class="pr__dispo"> : <a class="pr__lien" href="#" target="_blank">voir ma page</a></span><span class="pr__bientot"> (elle sera en ligne dès ton premier article publié)</span>. Ton nom est cliquable sous chacun de tes articles.</p>
+            <div class="pr__photo"><img alt="" class="pr__img" /><label class="btn ed__add">Changer ma photo<input type="file" accept="image/*" hidden /></label></div>
+            <label class="fld"><span>Ta bio (2 à 3 phrases : qui tu es, ce que tu suis)</span><textarea name="bio" rows="3" maxlength="400"></textarea></label>
+            <label class="fld"><span>Ta région</span><input name="region" maxlength="80" /></label>
+            <div class="ed__grid">
+              <label class="fld"><span>Instagram</span><input name="instagram" placeholder="instagram.com/ton-compte" /></label>
+              <label class="fld"><span>X</span><input name="x" placeholder="x.com/ton-compte" /></label>
+              <label class="fld"><span>LinkedIn</span><input name="linkedin" placeholder="linkedin.com/in/…" /></label>
+              <label class="fld"><span>Site ou portfolio</span><input name="site" /></label>
+            </div>
+            <div class="es__btns"><button class="btn btn--menthe" type="submit">Enregistrer mon profil</button></div>
+            <p class="es__msg pr__msg" role="status" hidden></p>
+          </form>
+        </div>
 
         <!-- Onglet : écrire -->
         <div data-panel="ecrire" hidden>
-          <form class="ed">
+          <form class="ed ed__form">
             <p class="ed__etat" aria-live="polite"></p>
             <div class="ed__retour" hidden><strong>À corriger :</strong> <span></span></div>
             <label class="fld"><span>Titre</span><input name="titre" maxlength="160" placeholder="Ex. : Le FC Machin s'offre le leader au bout du suspense" /></label>
@@ -107,6 +142,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
             <label class="ed__chk"><input type="checkbox" name="accord_photo" /> Ces photos sont de moi ou j'ai l'accord écrit du photographe. Pour un mineur reconnaissable, j'ai l'accord des parents.</label>
 
             <div class="es__btns">
+              <button class="btn ed__apercu" type="button">👁 Aperçu sur le site</button>
               <button class="btn btn--menthe ed__send" type="button">Envoyer à la rédaction</button>
               <button class="btn ed__new" type="button">Nouvel article</button>
             </div>
@@ -122,6 +158,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
 
         <!-- Onglet : tableau de bord -->
         <div data-panel="stats">
+        <div class="es__palier"><span class="es__palier-n" data-k="palier"></span><span data-k="palier_txt"></span></div>
         <div class="es__tiles">
           <div class="es__tile"><span>Vues au total</span><strong data-k="vues"></strong></div>
           <div class="es__tile"><span>Vues ce mois-ci</span><strong data-k="vues_mois"></strong></div>
@@ -223,7 +260,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     if (!r.ok) return show('login');
     const d = await r.json();
     vueAdmin = as || null;
-    $('.es__adminbar').hidden = !as;
+    document.querySelector<HTMLElement>('.es__adminbar:not(.es__demobar)')!.hidden = !as;
     $('.es__logout').hidden = !!as;
     set('nomcomplet', d.nom);
     set('nom', d.nom.split(' ')[0]);
@@ -253,8 +290,23 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     soums = d.soumissions || [];
     rendreMes();
     edLock();
+    const pf = d.profil || {};
+    moiNom = d.nom;
+    const pa = pf.palier || { nom: 'Nouveau', manque: 1, prochain: 'Contributeur' };
+    set('palier', pa.nom);
+    set('palier_txt', pa.prochain ? `Encore ${pa.manque} article${pa.manque > 1 ? 's' : ''} publié${pa.manque > 1 ? 's' : ''} pour devenir ${pa.prochain}` + (pa.prochain === 'Correspondant' ? ' (badge et attestation)' : pa.prochain === 'Correspondant confirmé' ? ' (passage dans Kick in the Foot)' : '') + '.' : 'Tu es au plus haut niveau, bravo !');
+    const prf = $<HTMLFormElement>('.pr');
+    (prf.elements.namedItem('bio') as HTMLTextAreaElement).value = pf.bio || '';
+    (prf.elements.namedItem('region') as HTMLInputElement).value = pf.region || '';
+    for (const k of ['instagram', 'x', 'linkedin', 'site']) (prf.elements.namedItem(k) as HTMLInputElement).value = pf.liens?.[k] || '';
+    $<HTMLAnchorElement>('.pr__lien').href = `/auteurs/${pf.slug}/`;
+    $('.pr__dispo').hidden = !(pf.articles > 0); $('.pr__bientot').hidden = pf.articles > 0;
+    $<HTMLImageElement>('.pr__img').src = pf.photo ? `${api}?action=auteur_photo&slug=${pf.slug}&v=${Date.now()}` : '/brand/logo-480.png';
+    prf.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((i) => (i.disabled = !!as));
+    if (!as && !d.accord) return show('accord');
     show('tb');
   }
+  let moiNom = '';
 
   // ---------- Mes articles ----------
   function rendreMes() {
@@ -263,7 +315,13 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     ul.replaceChildren(...soums.map((x) => {
       const actions = el('div', { className: 'es__soum-act' });
       if (['brouillon', 'a_corriger'].includes(x.statut)) actions.append(el('button', { type: 'button', className: 'btn', textContent: x.statut === 'a_corriger' ? 'Corriger' : 'Continuer', onclick: () => { edOuvrir(x); onglet('ecrire'); } }));
-      if (x.statut === 'publie' && x.lien) actions.append(el('a', { className: 'btn btn--menthe', href: x.lien, textContent: 'Voir en ligne' }));
+      if (x.statut === 'publie' && x.lien) {
+        const u = new URL(x.lien, location.origin).href, t = encodeURIComponent(x.titre + ' ' + u);
+        actions.append(el('a', { className: 'btn btn--menthe', href: x.lien, textContent: 'Voir en ligne' }),
+          el('a', { className: 'btn', href: `https://wa.me/?text=${t}`, target: '_blank', rel: 'noopener', textContent: 'Partager sur WhatsApp' }),
+          el('a', { className: 'btn', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}`, target: '_blank', rel: 'noopener', textContent: 'Facebook' }),
+          el('button', { type: 'button', className: 'btn', textContent: 'Copier le lien', onclick: (e: any) => { navigator.clipboard?.writeText(u); e.target.textContent = 'Lien copié !'; } }));
+      }
       if (x.statut === 'brouillon' && !vueAdmin) actions.append(el('button', { type: 'button', className: 'btn es__suppr', textContent: 'Supprimer', onclick: () => supprimer(x.id) }));
       if (vueAdmin) actions.append(el('button', { type: 'button', className: 'btn', textContent: 'Lire et décider', onclick: () => lire(x) }));
       const li = el('li', { className: 'es__soum-item' },
@@ -285,7 +343,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   }
 
   // ---------- Éditeur ----------
-  const ed = $<HTMLFormElement>('.ed');
+  const ed = $<HTMLFormElement>('.ed__form');
   const champ = (n: string) => ed.elements.namedItem(n) as HTMLInputElement;
   const CHAMPS = ['titre', 'chapo', 'texte', 'region', 'club', 'source'];
   let cur: any = null; let minuteur = 0; let sale = false;
@@ -295,7 +353,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   function modifiable() { return !vueAdmin && (!cur || ['brouillon', 'a_corriger'].includes(cur.statut)); }
   function edLock() {
     const ok = modifiable();
-    ed.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((i) => { if (!i.classList.contains('ed__new')) i.disabled = !ok; });
+    ed.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((i) => { if (!i.classList.contains('ed__new') && !i.classList.contains('ed__apercu')) i.disabled = !ok; });
     $('.ed__new').hidden = !!vueAdmin;
   }
   function edOuvrir(x: any) {
@@ -380,12 +438,51 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   });
   $('.ed__new').addEventListener('click', async () => { await enregistrer(); edOuvrir(null); });
 
+  // ---------- Aperçu comme sur le site ----------
+  function apercu(x: any, auteur: string) {
+    const ph = (x.photos || [])[0];
+    const data = { titre: x.titre, chapo: x.chapo, texte: x.texte, auteur, source: x.source,
+      photo: ph ? new URL(photoUrl(x.id, ph.f), location.origin).href : '', credit: ph?.credit || '', date: new Date().toISOString() };
+    try { localStorage.setItem('uftv_apercu', JSON.stringify(data)); } catch {}
+    window.open('/espace/apercu/', '_blank');
+  }
+  $('.ed__apercu').addEventListener('click', async () => {
+    if (modifiable()) await enregistrer();
+    const x = cur || { id: '', photos: [] };
+    for (const k of CHAMPS) x[k] = champ(k).value;
+    apercu(x, moiNom);
+  });
+
+  // ---------- Accord ----------
+  $<HTMLInputElement>('.ac__ok').addEventListener('change', (e) => ($<HTMLButtonElement>('.ac__btn').disabled = !(e.target as HTMLInputElement).checked));
+  $('.ac__btn').addEventListener('click', async () => {
+    const d = await post({ action: 'accepter_accord' });
+    if (d.ok) charger();
+  });
+
+  // ---------- Profil ----------
+  const prf = $<HTMLFormElement>('.pr');
+  prf.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const o: Record<string, string> = { action: 'profil' };
+    for (const k of ['bio', 'region', 'instagram', 'x', 'linkedin', 'site']) o[k] = (prf.elements.namedItem(k) as HTMLInputElement).value;
+    const d = await post(o);
+    const m = $('.pr__msg'); m.hidden = false; m.textContent = d.ok ? 'Profil enregistré. Ta page auteur est à jour.' : d.message || 'Erreur';
+  });
+  prf.querySelector<HTMLInputElement>('.pr__photo input')!.addEventListener('change', async (e) => {
+    const f = (e.target as HTMLInputElement).files?.[0]; if (!f) return;
+    const d = await post({ action: 'profil_photo' }, f);
+    const m = $('.pr__msg'); m.hidden = false; m.textContent = d.ok ? 'Photo mise à jour.' : d.message || 'Erreur';
+    if (d.ok) $<HTMLImageElement>('.pr__img').src = `${api}?action=auteur_photo&slug=${d.profil.slug}&v=${Date.now()}`;
+  });
+
   // ---------- Admin ----------
   async function admin() {
     const r = await fetch(q({ action: 'liste' }));
     if (r.status === 403) { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; return show('admin-cle'); }
     const d = await r.json();
     const s = await (await fetch(q({ action: 'soumissions' }))).json();
+    nomsAdmin = s.noms || {};
     const ents = Object.entries(d.contributeurs || {}) as [string, any][];
     $('.es__adm-contrib tbody').replaceChildren(...ents.map(([email, c]) => el('tr', {},
       el('td', {}, el('strong', { textContent: c.nom }), el('br'), el('small', { textContent: email })),
@@ -400,9 +497,34 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       el('strong', { textContent: x.titre || 'Sans titre' }),
       el('div', { className: 'es__soum-act' }, el('button', { type: 'button', className: 'btn', textContent: 'Lire et décider', onclick: () => lire(x) })))));
     $('.es__adm-soum-vide').hidden = liste.length > 0;
+    const c = await (await fetch(q({ action: 'candidatures' }))).json();
+    const cands = (c.candidatures || []).sort((a: any, b: any) => (a.statut === 'nouvelle' ? 0 : 1) - (b.statut === 'nouvelle' ? 0 : 1));
+    $('.es__adm-cand').replaceChildren(...cands.map((x: any) => {
+      const st = { nouvelle: 'envoye', acceptee: 'publie', refusee: 'refuse' }[x.statut as string] || 'brouillon';
+      const lab = { nouvelle: 'Nouvelle', acceptee: 'Acceptée', refusee: 'Refusée' }[x.statut as string] || x.statut;
+      const li = el('li', { className: 'es__soum-item' },
+        el('div', { className: 'es__soum-top' }, el('span', { className: `es__badge es__badge--${st}`, textContent: lab }), el('span', { className: 'es__soum-date', textContent: date(x.date) })),
+        el('strong', { textContent: `${x.nom || '?'} · ${x.region || 'région ?'}` }),
+        el('span', { className: 'es__soum-meta', textContent: [x.role, x.club, x.email || x.telephone, x.lien].filter(Boolean).join(' · ') }));
+      if (x.sujet || x.message) li.append(el('p', { className: 'es__soum-retour', textContent: [x.sujet, x.message].filter(Boolean).join(' · ') }));
+      if (x.statut === 'nouvelle') {
+        const dec = async (decision: string) => {
+          const fd = new FormData(); fd.append('k', cle); fd.append('action', 'candidature'); fd.append('id', x.id); fd.append('decision', decision);
+          const d2 = await (await fetch(api, { method: 'POST', body: fd })).json();
+          if (!d2.ok) return alert(d2.message || 'Erreur');
+          admin();
+        };
+        li.append(el('div', { className: 'es__soum-act' },
+          el('button', { type: 'button', className: 'btn btn--menthe', textContent: 'Accepter (crée son compte et lui envoie le mail de bienvenue)', onclick: () => dec('accepter') }),
+          el('button', { type: 'button', className: 'btn', textContent: 'Refuser', onclick: () => dec('refuser') })));
+      }
+      return li;
+    }));
+    $('.es__adm-cand-vide').hidden = cands.length > 0;
     show('admin');
   }
   let lu: any = null;
+  let nomsAdmin: Record<string, string> = {};
   function lire(x: any) {
     lu = x;
     $('.es__badge-l').replaceChildren(badge(x.statut));
@@ -427,6 +549,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     m.textContent = d.ok ? `Statut « ${STATUTS[b.dataset.st!]} » enregistré, le contributeur est prévenu par mail.` : d.message || 'Erreur';
     if (d.ok) { lu = d.soumission; $('.es__badge-l').replaceChildren(badge(lu.statut)); }
   }));
+  $('.lc__apercu').addEventListener('click', () => apercu(lu, nomsAdmin[lu.email] || ''));
   document.querySelectorAll('.es__back').forEach((b) => b.addEventListener('click', () => admin()));
   $('.es__admin-out').addEventListener('click', () => { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; location.href = '/espace/'; });
   $<HTMLFormElement>('.es__cle-form').addEventListener('submit', async (e) => {
@@ -447,7 +570,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       { id: 'demo000000000002', statut: 'a_corriger', titre: 'U15 : la belle aventure de Loudéac en Coupe de Bretagne', chapo: 'Les U15 de Loudéac filent en quarts.', texte: 'Samedi, les U15 de Loudéac ont signé un exploit...', region: 'Bretagne', club: 'Loudéac OC', source: 'Le club', photos: [], maj: '2026-11-25T18:00:00', retour: 'Ajoute une citation de l\'éducateur et le score exact de la séance de tirs au but.' },
       { id: 'demo000000000003', statut: 'brouillon', titre: 'Arbitres : le district du Morbihan manque de bras', chapo: '', texte: 'Ce week-end encore, plusieurs matchs...', region: 'Bretagne', club: '', source: '', photos: [], maj: now },
     ];
-    const moi = { ok: true, nom: 'Léa Martin', part_pourcent: 30, seuil: 50, verse: 0, solde: 23.4, paiements: [],
+    const moi = { ok: true, nom: 'Léa Martin', accord: now, profil: { slug: 'lea-martin', bio: 'Étudiante en journalisme à Rennes, je suis la R1 et la R2 bretonnes chaque week-end.', region: 'Bretagne', liens: { instagram: 'https://instagram.com/' }, photo: false, palier: { nom: 'Contributeur', manque: 2, prochain: 'Correspondant' } }, part_pourcent: 30, seuil: 50, verse: 0, solde: 23.4, paiements: [],
       totaux: { vues: 14250, vues_mois: 3120, revenus: 78, part: 23.4, vues_en_attente: 3120 },
       articles: [
         { slug: '', titre: 'Le FC Pontivy renverse le leader au bout du temps additionnel', date: '2026-11-23', vues: 6420, vues_mois: 1480, revenus: 35.2, part: 10.56 },
@@ -474,7 +597,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       return rep({ ok: true });
     }) as typeof fetch;
     const bandeau = document.createElement('p');
-    bandeau.className = 'es__adminbar';
+    bandeau.className = 'es__adminbar es__demobar';
     bandeau.textContent = 'Démo : faux compte, rien n\'est enregistré.';
     document.querySelector('.es__wrap')!.prepend(bandeau);
   }
@@ -644,5 +767,15 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .lc__texte { max-width: 44rem; line-height: 1.65; }
   .es__decision { display: grid; gap: 0.9rem; margin-top: 2rem; padding: 1.2rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
   .es__decision .fld { display: grid; gap: 0.35rem; font-weight: 600; font-size: var(--t-s); }
+  .es__palier { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin: 1rem 0 0; padding: 0.75rem 1rem; border-radius: var(--r-m); background: var(--marine); color: #fff; font-size: var(--t-s); }
+  .es__palier-n { padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--menthe); color: #0a0a0a; font: 800 0.8rem/1.4 var(--f-info); text-transform: uppercase; letter-spacing: 0.04em; }
+  .ac__txt { max-height: 55vh; overflow-y: auto; margin: 1rem 0; padding: 1rem 1.2rem; border: 1px solid var(--trait); border-radius: var(--r-m); background: var(--fond); }
+  .ac__txt h2 { font-size: 1.05rem; margin: 1rem 0 0.4rem; }
+  .ac__txt p { margin: 0 0 0.6rem; color: var(--texte-2); font-size: var(--t-s); line-height: 1.55; }
+  .ac__chk { margin: 0.5rem 0 1rem; font-size: 1rem; color: var(--texte); }
+  .pr__photo { display: flex; gap: 1rem; align-items: center; }
+  .pr__img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: var(--marine); }
+  .pr a, .es__lead a { color: var(--accent); }
+  .lc__apercu { margin-top: 1.5rem; }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>

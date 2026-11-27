@@ -71,6 +71,14 @@ if ($n >= MAX_ENVOIS_PAR_HEURE) repondre(false, 'Trop d’envois, réessaie dans
 @file_put_contents($compteur, (string) ($n + 1));
 foreach (glob("$dataDir/rate-*") ?: [] as $f) if (filemtime($f) < time() - 7200) @unlink($f);
 
+// Candidature contributeur : enregistrée pour le mode admin de l'espace contributeur
+if ($nomForm === 'participer' && ($champs['type'] ?? '') === 'contributeur') {
+    if (!is_dir("$dataDir/candidatures")) @mkdir("$dataDir/candidatures", 0750, true);
+    $cid = date('Ymd-His') . '-' . bin2hex(random_bytes(3));
+    $cand = $champs; unset($cand['consentement']);
+    @file_put_contents("$dataDir/candidatures/$cid.json", json_encode(['id' => $cid, 'date' => date('c'), 'statut' => 'nouvelle'] + $cand, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+}
+
 // Newsletter : enregistrement dans un CSV
 if ($nomForm === 'newsletter') {
     $fh = @fopen("$dataDir/newsletter.csv", 'a');

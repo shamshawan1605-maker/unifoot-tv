@@ -1,0 +1,74 @@
+---
+// Page auteur : profil (bio, photo, région, liens, palier) chargé depuis l'espace contributeur + tous ses articles.
+import Base from '~/layouts/Base.astro';
+import NewsCard from '~/components/NewsCard.astro';
+import Icon from '~/components/Icon.astro';
+import { getNews } from '~/lib/news';
+import { slugNom } from '~/lib/slug';
+
+export async function getStaticPaths() {
+  const all = await getNews();
+  const par = new Map<string, { nom: string; articles: typeof all }>();
+  for (const n of all) {
+    const nom = n.data.auteur || 'Shamsh Awan';
+    const k = slugNom(nom);
+    if (!par.has(k)) par.set(k, { nom, articles: [] });
+    par.get(k)!.articles.push(n);
+  }
+  return [...par.entries()].map(([slug, v]) => ({ params: { slug }, props: v }));
+}
+const { nom, articles } = Astro.props;
+const slug = slugNom(nom);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Auteurs' }, { name: nom }];
+const ld = { '@type': 'Person', name: nom, url: `https://unifoottv.fr/auteurs/${slug}/`, worksFor: { '@type': 'Organization', name: 'UNIFOOT TV' } };
+---
+<Base title={`${nom}, auteur UNIFOOT TV`} description={`Tous les articles de ${nom} sur le football amateur, pour UNIFOOT TV.`} path={`/auteurs/${slug}/`} breadcrumbs={crumbs} jsonLd={[ld]}>
+  <header class="wrap au" data-slug={slug}>
+    <img class="au__photo" src="/brand/logo-480.png" alt="" width="120" height="120" />
+    <div>
+      <p class="au__kicker"><span class="au__palier">Auteur</span><span class="au__region"></span></p>
+      <h1>{nom}</h1>
+      <p class="au__bio"></p>
+      <p class="au__liens"></p>
+      <p class="au__meta">{articles.length} article{articles.length > 1 ? 's' : ''} sur UNIFOOT TV</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>Ses articles</h2></div>
+      <div class="grid3">{articles.map((n) => <NewsCard news={n} />)}</div>
+    </div>
+  </section>
+  <section class="wrap au__cta">
+    <p><Icon name="mic" size={18} /> Toi aussi, écris sur le foot amateur de ta région. <a href="/contributeurs/">Deviens contributeur</a></p>
+  </section>
+</Base>
+<script>
+  const box = document.querySelector<HTMLElement>('.au')!;
+  const slug = box.dataset.slug!;
+  fetch(`/api/espace.php?action=auteur&slug=${encodeURIComponent(slug)}`).then((r) => (r.ok ? r.json() : null)).then((p) => {
+    if (!p?.ok) return;
+    const q = (s: string) => box.querySelector<HTMLElement>(s)!;
+    if (p.photo) (q('.au__photo') as HTMLImageElement).src = `/api/espace.php?action=auteur_photo&slug=${encodeURIComponent(slug)}`;
+    if (p.palier?.niveau >= 2) q('.au__palier').textContent = p.palier.nom + ' UNIFOOT TV';
+    else q('.au__palier').textContent = 'Contributeur UNIFOOT TV';
+    if (p.region) q('.au__region').textContent = p.region;
+    q('.au__bio').textContent = p.bio || '';
+    const noms: Record<string, string> = { instagram: 'Instagram', x: 'X', linkedin: 'LinkedIn', site: 'Site' };
+    q('.au__liens').replaceChildren(...Object.entries(p.liens || {}).map(([k, u]) => Object.assign(document.createElement('a'), { href: u as string, textContent: noms[k] || k, target: '_blank', rel: 'noopener me' })));
+  });
+</script>
+<style>
+  .au { display: flex; gap: 1.5rem; align-items: center; padding-block: 2.5rem 1rem; flex-wrap: wrap; }
+  .au__photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; background: var(--marine); flex: none; }
+  .au h1 { font-size: var(--t-xxl); margin: 0.3rem 0 0.5rem; }
+  .au__kicker { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin: 0; }
+  .au__palier { padding: 0.2rem 0.65rem; border-radius: 999px; background: var(--menthe); color: #0a0a0a; font: 800 0.75rem/1.4 var(--f-info); text-transform: uppercase; letter-spacing: 0.04em; }
+  .au__region { font: 700 0.875rem var(--f-info); color: var(--texte-2); }
+  .au__bio { margin: 0; max-width: 40rem; color: var(--texte-2); font-size: var(--t-l); }
+  .au__liens { display: flex; gap: 1rem; margin: 0.6rem 0 0; }
+  .au__liens a { color: var(--accent); font-weight: 700; }
+  .au__meta { margin: 0.5rem 0 0; font-size: var(--t-s); color: var(--texte-2); }
+  .au__cta { padding-block: 1rem 3rem; }
+  .au__cta a { color: var(--accent); font-weight: 700; }
+</style>
