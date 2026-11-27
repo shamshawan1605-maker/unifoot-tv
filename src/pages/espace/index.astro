@@ -122,9 +122,11 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           <form class="ed ed__form">
             <p class="ed__etat" aria-live="polite"></p>
             <div class="ed__retour" hidden><strong>À corriger :</strong> <span></span></div>
-            <div class="ed__type" role="radiogroup" aria-label="Ce que tu envoies">
-              <label><input type="radio" name="type" value="article" checked /> ✍️ Un article</label>
-              <label><input type="radio" name="type" value="photos" /> 📸 Des photos d'un match</label>
+            <div class="fld"><span>Qu'est-ce que tu envoies ?</span>
+              <div class="ed__type" role="radiogroup" aria-label="Ce que tu envoies">
+                <label><input type="radio" name="type" value="article" checked /><span><strong>✍️ Un article</strong><small>Tu écris le texte (150 mots minimum)</small></span></label>
+                <label><input type="radio" name="type" value="photos" /><span><strong>📸 Des photos d'un match</strong><small>Tu envoies tes photos et quelques infos, on écrit l'article</small></span></label>
+              </div>
             </div>
             <p class="ed__type-aide" hidden>Envoie tes photos avec quelques infos (qui jouait, le score, le moment fort). La rédaction écrit l'article et te crédite comme photographe.</p>
             <label class="fld"><span>Titre</span><input name="titre" maxlength="160" placeholder="Ex. : Le FC Machin s'offre le leader au bout du suspense" /></label>
@@ -780,10 +782,13 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .es__back { background: none; border: 0; color: var(--accent); font-weight: 700; cursor: pointer; padding: 0.4rem 0; }
   .ed { display: grid; gap: 1rem; margin-top: 1rem; }
   .ed .fld { display: grid; gap: 0.35rem; font-weight: 600; }
-  .ed input:not([type=checkbox]), .ed textarea, .es__decision textarea, .es__decision input { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: 400 1rem/1.5 var(--f-texte); background: var(--fond); box-sizing: border-box; }
+  .ed input:not([type=checkbox]):not([type=radio]), .ed textarea, .es__decision textarea, .es__decision input { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: 400 1rem/1.5 var(--f-texte); background: var(--fond); box-sizing: border-box; }
   .ed textarea[name=texte] { min-height: 22rem; }
-  .ed__type { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .ed__type label { display: flex; gap: 0.45rem; align-items: center; padding: 0.6rem 0.9rem; border: 1px solid var(--trait); border-radius: 999px; background: var(--fond); font-weight: 700; cursor: pointer; }
+  .ed__type { display: grid; gap: 0.6rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+  .ed__type label { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.8rem 1rem; border: 2px solid var(--trait); border-radius: var(--r-m); background: var(--fond); cursor: pointer; }
+  .ed__type input { margin: 0.25rem 0 0; width: 1.1rem; height: 1.1rem; flex: none; accent-color: var(--accent); }
+  .ed__type label span { display: grid; gap: 0.2rem; }
+  .ed__type small { font-weight: 400; font-size: 0.85rem; color: var(--texte-2); }
   .ed__type label:has(input:checked) { border-color: var(--menthe); background: color-mix(in srgb, var(--menthe) 15%, var(--fond)); }
   .ed__type-aide { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
   .ed__etat { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
