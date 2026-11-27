@@ -438,6 +438,47 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     admin();
   });
 
+
+  // ---------- Démo (?demo) : faux compte, rien n'est enregistré ----------
+  if (new URLSearchParams(location.search).has('demo')) {
+    const now = new Date().toISOString();
+    const S: any[] = [
+      { id: 'demo000000000001', statut: 'publie', titre: 'Le FC Pontivy renverse le leader au bout du temps additionnel', chapo: '', texte: '', region: 'Bretagne', club: 'FC Pontivy', photos: [{ f: 'a' }, { f: 'b' }], maj: '2026-11-22T20:10:00', retour: 'Super article, bravo pour les citations du coach !', lien: '/actualites/' },
+      { id: 'demo000000000002', statut: 'a_corriger', titre: 'U15 : la belle aventure de Loudéac en Coupe de Bretagne', chapo: 'Les U15 de Loudéac filent en quarts.', texte: 'Samedi, les U15 de Loudéac ont signé un exploit...', region: 'Bretagne', club: 'Loudéac OC', source: 'Le club', photos: [], maj: '2026-11-25T18:00:00', retour: 'Ajoute une citation de l\'éducateur et le score exact de la séance de tirs au but.' },
+      { id: 'demo000000000003', statut: 'brouillon', titre: 'Arbitres : le district du Morbihan manque de bras', chapo: '', texte: 'Ce week-end encore, plusieurs matchs...', region: 'Bretagne', club: '', source: '', photos: [], maj: now },
+    ];
+    const moi = { ok: true, nom: 'Léa Martin', part_pourcent: 30, seuil: 50, verse: 0, solde: 23.4, paiements: [],
+      totaux: { vues: 14250, vues_mois: 3120, revenus: 78, part: 23.4, vues_en_attente: 3120 },
+      articles: [
+        { slug: '', titre: 'Le FC Pontivy renverse le leader au bout du temps additionnel', date: '2026-11-23', vues: 6420, vues_mois: 1480, revenus: 35.2, part: 10.56 },
+        { slug: '', titre: 'Coupe de France : Guingamp B sort Plabennec aux tirs au but', date: '2026-11-09', vues: 5180, vues_mois: 980, revenus: 28.6, part: 8.58 },
+        { slug: '', titre: 'Portrait : Yvonne, 40 ans de bénévolat à la buvette', date: '2026-10-26', vues: 2650, vues_mois: 660, revenus: 14.2, part: 4.26 },
+      ], soumissions: S };
+    const vrai = window.fetch.bind(window);
+    window.fetch = (async (u: any, o: any = {}) => {
+      if (!String(u).includes('/api/espace.php')) return vrai(u, o);
+      const rep = (d: any, st = 200) => new Response(JSON.stringify(d), { status: st, headers: { 'Content-Type': 'application/json' } });
+      if (String(u).includes('action=moi')) return rep(moi);
+      const b: FormData | URLSearchParams | undefined = o.body;
+      const g = (k: string) => (b ? String((b as any).get(k) ?? '') : '');
+      const a = g('action');
+      if (a === 'enregistrer') {
+        let x = S.find((z) => z.id === g('id'));
+        if (!x) { x = { id: 'demo' + Math.random().toString(36).slice(2, 14).padEnd(12, '0'), statut: 'brouillon', photos: [] }; S.unshift(x); }
+        for (const k of ['titre', 'chapo', 'texte', 'region', 'club', 'source']) x[k] = g(k);
+        x.maj = new Date().toISOString(); return rep({ ok: true, soumission: x });
+      }
+      if (a === 'envoyer') { const x = S.find((z) => z.id === g('id')); if (x) { x.statut = 'envoye'; x.maj = new Date().toISOString(); } return rep({ ok: true, soumission: x }); }
+      if (a === 'photo') return rep({ ok: false, message: 'Démo : l\'envoi de photos est désactivé.' }, 422);
+      if (a === 'supprimer') { const i = S.findIndex((z) => z.id === g('id')); if (i >= 0) S.splice(i, 1); return rep({ ok: true }); }
+      return rep({ ok: true });
+    }) as typeof fetch;
+    const bandeau = document.createElement('p');
+    bandeau.className = 'es__adminbar';
+    bandeau.textContent = 'Démo : faux compte, rien n\'est enregistré.';
+    document.querySelector('.es__wrap')!.prepend(bandeau);
+  }
+
   // ---------- Démarrage ----------
   async function init() {
     const p = new URLSearchParams(location.search);
