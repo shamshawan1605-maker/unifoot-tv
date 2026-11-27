@@ -1,8 +1,8 @@
-# Seuls form.php et photos.php (protégé par clé) sont accessibles
+# Seuls les scripts form, photos (clé), vue (compteur) et espace (contributeurs) sont accessibles
 Options -Indexes
 <FilesMatch ".*">
   Require all denied
 </FilesMatch>
-<FilesMatch "^(form|photos)\.php$">
+<FilesMatch "^(form|photos|vue|espace)\.php$">
   Require all granted
 </FilesMatch>

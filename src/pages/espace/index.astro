@@ -1,0 +1,174 @@
+---
+// Espace contributeur : connexion par lien e-mail, vues et part des revenus de chaque article (données : /api/espace.php).
+import Base from '~/layouts/Base.astro';
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }];
+---
+<Base title="Espace contributeur" description="Tes articles, leurs vues et ta part des revenus." breadcrumbs={crumbs} fond="gris" noindex>
+  <div class="papier es">
+    <section class="wrap es__wrap">
+      <p class="es__kicker"><span class="es__dot"></span>Espace contributeur</p>
+
+      <!-- Chargement -->
+      <p class="es__etat" data-vue="charge">Chargement…</p>
+
+      <!-- Connexion -->
+      <div class="es__login" data-vue="login" hidden>
+        <h1>Ton espace contributeur</h1>
+        <p class="es__lead">Tes articles, leurs vues et ce qu'ils te rapportent. Entre l'adresse e-mail que tu nous as donnée : on t'envoie un lien pour te connecter, sans mot de passe.</p>
+        <form class="es__form">
+          <label class="fld"><span>Ton e-mail</span><input name="email" type="email" inputmode="email" autocomplete="email" required /></label>
+          <button class="btn btn--menthe" type="submit">Recevoir mon lien</button>
+        </form>
+        <p class="es__msg" role="status" hidden></p>
+        <p class="es__note">Pas encore contributeur ? <a href="/contributeurs/">Découvre le programme</a>.</p>
+      </div>
+
+      <!-- Tableau de bord -->
+      <div class="es__tb" data-vue="tb" hidden>
+        <div class="es__head">
+          <h1>Salut <span data-k="nom"></span> 👋</h1>
+          <button type="button" class="es__out">Se déconnecter</button>
+        </div>
+
+        <div class="es__tiles">
+          <div class="es__tile"><span>Vues au total</span><strong data-k="vues"></strong></div>
+          <div class="es__tile"><span>Vues ce mois-ci</span><strong data-k="vues_mois"></strong></div>
+          <div class="es__tile"><span>Revenus générés</span><strong data-k="revenus"></strong></div>
+          <div class="es__tile es__tile--main"><span>Ta part (<b data-k="pourcent"></b> %)</span><strong data-k="part"></strong></div>
+        </div>
+
+        <div class="es__solde">
+          <div><span>Déjà versé</span><strong data-k="verse"></strong></div>
+          <div><span>Reste à recevoir</span><strong data-k="solde"></strong></div>
+        </div>
+        <p class="es__attente" hidden></p>
+
+        <h2>Tes articles</h2>
+        <div class="es__scroll">
+          <table class="es__table">
+            <thead><tr><th>Article</th><th>Publié le</th><th class="num">Vues</th><th class="num">Ce mois</th><th class="num">Revenus</th><th class="num">Ta part</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <p class="es__vide" hidden>Tu n'as pas encore d'article publié. Propose ton premier sujet sur le groupe des contributeurs ou via le formulaire.</p>
+
+        <h2>Comment c'est calculé</h2>
+        <ul class="es__calc">
+          <li><strong>Vues :</strong> une vue par lecteur, par article et par jour. Les robots ne sont pas comptés.</li>
+          <li><strong>Revenus :</strong> vues du mois × revenu publicitaire réel du mois pour 1 000 vues, relevé dans le compte Google AdSense d'UNIFOOT TV.</li>
+          <li><strong>Ta part :</strong> <span data-k="pourcent2"></span> % des revenus de tes articles, versée une fois que Google a payé UNIFOOT TV pour le mois.</li>
+          <li>Les vues du mois en cours sont comptées en direct ; leurs revenus apparaissent quand le mois est clôturé (début du mois suivant).</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  const api = '/api/espace.php';
+  const euros = (n: number) => n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
+  const nb = (n: number) => n.toLocaleString('fr-FR');
+  const vues = document.querySelectorAll<HTMLElement>('[data-vue]');
+  const show = (v: string) => vues.forEach((el) => (el.hidden = el.dataset.vue !== v));
+  const set = (k: string, v: string) => document.querySelectorAll<HTMLElement>(`[data-k="${k}"]`).forEach((el) => (el.textContent = v));
+  const date = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  async function charger() {
+    const r = await fetch(`${api}?action=moi`, { credentials: 'same-origin' });
+    if (!r.ok) return show('login');
+    const d = await r.json();
+    set('nom', d.nom.split(' ')[0]);
+    set('vues', nb(d.totaux.vues));
+    set('vues_mois', nb(d.totaux.vues_mois));
+    set('revenus', euros(d.totaux.revenus));
+    set('part', euros(d.totaux.part));
+    set('pourcent', String(d.part_pourcent));
+    set('pourcent2', String(d.part_pourcent));
+    set('verse', euros(d.verse));
+    set('solde', euros(d.solde));
+    const att = document.querySelector<HTMLElement>('.es__attente')!;
+    if (d.totaux.vues_en_attente > 0) { att.hidden = false; att.textContent = `${nb(d.totaux.vues_en_attente)} vues en attente de calcul : leurs revenus s'afficheront à la clôture du mois.`; }
+    const tb = document.querySelector('.es__table tbody')!;
+    tb.replaceChildren(...d.articles.map((a: any) => {
+      const tr = document.createElement('tr');
+      const td = (t: string, cls = '') => Object.assign(document.createElement('td'), { textContent: t, className: cls });
+      const lien = document.createElement('td');
+      lien.append(Object.assign(document.createElement('a'), { href: `/actualites/${a.slug}/`, textContent: a.titre }));
+      tr.append(lien, td(date(a.date)), td(nb(a.vues), 'num'), td(nb(a.vues_mois), 'num'), td(euros(a.revenus), 'num'), td(euros(a.part), 'num'));
+      return tr;
+    }));
+    document.querySelector<HTMLElement>('.es__vide')!.hidden = d.articles.length > 0;
+    document.querySelector<HTMLElement>('.es__scroll')!.hidden = d.articles.length === 0;
+    show('tb');
+  }
+
+  async function init() {
+    const t = new URLSearchParams(location.search).get('t');
+    if (t) {
+      history.replaceState(null, '', '/espace/');
+      const r = await fetch(`${api}?action=entrer&t=${encodeURIComponent(t)}`, { credentials: 'same-origin' });
+      if (!r.ok) {
+        show('login');
+        const m = document.querySelector<HTMLElement>('.es__msg')!;
+        m.hidden = false; m.textContent = 'Ce lien a expiré ou a déjà servi. Demande-en un nouveau.';
+        return;
+      }
+    }
+    charger();
+  }
+
+  document.querySelector<HTMLFormElement>('.es__form')!.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const btn = f.querySelector('button')!;
+    const m = document.querySelector<HTMLElement>('.es__msg')!;
+    btn.disabled = true;
+    const r = await fetch(api, { method: 'POST', body: new URLSearchParams({ action: 'lien', email: (f.elements.namedItem('email') as HTMLInputElement).value }) });
+    const d = await r.json().catch(() => ({}));
+    m.hidden = false;
+    m.textContent = r.ok ? "C'est envoyé ! Si cette adresse est celle d'un contributeur, tu vas recevoir un lien de connexion d'ici une minute (pense à regarder les spams)." : d.message || 'Une erreur est survenue, réessaie.';
+    btn.disabled = false;
+  });
+
+  document.querySelector('.es__out')!.addEventListener('click', async () => {
+    await fetch(api, { method: 'POST', body: new URLSearchParams({ action: 'sortir' }), credentials: 'same-origin' });
+    show('login');
+  });
+
+  init();
+</script>
+
+<style>
+  .es { padding-bottom: 4rem; }
+  .es__wrap { max-width: 60rem; padding-block: clamp(2rem, 4vw, 3rem); }
+  .es__kicker { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .es__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--menthe); }
+  .es h1 { font-size: var(--t-xxl); margin: 0 0 0.75rem; }
+  .es h2 { font-size: var(--t-xl); margin: 2.25rem 0 0.9rem; }
+  .es__lead { color: var(--texte-2); font-size: var(--t-l); max-width: 40rem; }
+  .es__form { display: flex; gap: 0.75rem; align-items: end; flex-wrap: wrap; margin-top: 1.25rem; max-width: 36rem; }
+  .es__form .fld { flex: 1 1 16rem; display: grid; gap: 0.35rem; font-weight: 600; }
+  .es__form input { padding: 0.75rem 0.9rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: inherit; background: var(--fond); }
+  .es__msg { margin-top: 1rem; padding: 0.8rem 1rem; border-radius: var(--r-s); background: var(--fond); border-left: 3px solid var(--menthe); }
+  .es__note { margin-top: 1.5rem; color: var(--texte-2); }
+  .es__note a, .es__table a { color: var(--accent); }
+  .es__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .es__out { background: none; border: 1px solid var(--trait); border-radius: 999px; padding: 0.45rem 0.9rem; font: 600 0.875rem var(--f-texte); color: var(--texte-2); cursor: pointer; }
+  .es__tiles { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); margin-top: 1rem; }
+  .es__tile { display: grid; gap: 0.35rem; padding: 1rem 1.1rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .es__tile span { font-size: var(--t-s); color: var(--texte-2); }
+  .es__tile strong { font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+  .es__tile--main { border: 2px solid var(--menthe); }
+  .es__solde { display: flex; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; padding: 0.9rem 1.1rem; border-radius: var(--r-m); background: var(--fond); }
+  .es__solde div { display: grid; gap: 0.2rem; }
+  .es__solde span { font-size: var(--t-s); color: var(--texte-2); }
+  .es__solde strong { font-variant-numeric: tabular-nums; }
+  .es__attente { margin-top: 0.75rem; font-size: var(--t-s); color: var(--texte-2); }
+  .es__scroll { overflow-x: auto; }
+  .es__table { width: 100%; border-collapse: collapse; background: var(--fond); border-radius: var(--r-m); overflow: hidden; min-width: 36rem; }
+  .es__table th, .es__table td { padding: 0.7rem 0.8rem; text-align: left; border-bottom: 1px solid var(--trait); font-size: var(--t-s); }
+  .es__table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--texte-2); }
+  .es__table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .es__vide { color: var(--texte-2); }
+  .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
+</style>

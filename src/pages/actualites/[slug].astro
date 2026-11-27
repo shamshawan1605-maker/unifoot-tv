@@ -119,6 +119,9 @@ const ld = {
   const text = document.querySelector('.art__text');
   const h2s = text ? text.querySelectorAll(':scope > h2') : [];
   if (box && h2s.length >= 2) h2s[1].before(box);
+  // Compteur de vues (sans cookie) pour les statistiques des contributeurs
+  const slug = location.pathname.split('/').filter(Boolean).pop();
+  if (slug && navigator.sendBeacon && !navigator.webdriver) navigator.sendBeacon('/api/vue.php', new Blob([slug], { type: 'text/plain' }));
 </script>
 <style>
   .art { max-width: 48rem; padding-block: 2rem 3rem; }
