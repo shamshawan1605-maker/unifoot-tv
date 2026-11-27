@@ -1,6 +1,6 @@
 ---
 titre: "R1 Futsal : match arrêté, un capitaine agressé à la sortie du gymnase"
-date: 2026-11-27T09:32:00+01:00
+date: 2026-11-27T09:31:00+01:00
 chapo: "À Mont-de-Marsan, la rencontre entre le FC Moun et l'Union Charentes Futsal a été arrêtée après des jets de projectiles. Le capitaine charentais a ensuite été retrouvé blessé à l'extérieur."
 image: /actualites/2026-11-27-futsal-agression.webp
 imageAlt: "Un gymnase de futsal vide le soir, avec des canettes et des débris au bord du terrain sous les néons"

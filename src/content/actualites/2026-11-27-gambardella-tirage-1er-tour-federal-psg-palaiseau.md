@@ -1,6 +1,6 @@
 ---
 titre: "Gambardella : le PSG chez l'US Palaiseau, le tirage du 1er tour fédéral"
-date: 2026-11-27T09:36:00+01:00
+date: 2026-11-27T09:33:00+01:00
 chapo: "Les clubs pros entrent en jeu dans la Coupe de France des U18. Le 13 décembre, Palaiseau reçoit le PSG et le Sablé FC file à Plabennec."
 image: /actualites/2026-11-27-gambardella-tirage.webp
 imageAlt: "Un match de football de jeunes U18 sur un terrain synthétique de banlieue en hiver, avec quelques parents au bord du terrain"

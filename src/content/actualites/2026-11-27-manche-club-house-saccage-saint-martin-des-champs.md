@@ -1,6 +1,6 @@
 ---
 titre: "Club-house saccagé pour la 2e fois en six mois : un président de la Manche exaspéré"
-date: 2026-11-27T09:34:00+01:00
+date: 2026-11-27T09:32:00+01:00
 chapo: "Fenêtres cassées, tout fouillé, et pire encore : le club de Saint-Martin-des-Champs/Saint-Jean-de-la-Haize a encore été vandalisé. Son président craint surtout pour ses bénévoles."
 image: /actualites/2026-11-27-club-house-saccage.webp
 imageAlt: "L'intérieur d'un petit club-house de foot amateur en désordre, avec une fenêtre brisée, des chaises renversées et des papiers au sol"
