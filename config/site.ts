@@ -84,5 +84,5 @@ export const legal = {
     address: '222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France',
     url: 'https://www.o2switch.fr',
   },
-  updatedAt: '2026-11-06',
+  updatedAt: '2026-11-27',
 };
