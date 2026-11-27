@@ -15,12 +15,21 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       <!-- Connexion -->
       <div class="es__login" data-vue="login" hidden>
         <h1>Ton espace contributeur</h1>
-        <p class="es__lead">Tes articles, leurs vues et ce qu'ils te rapportent. Entre l'adresse e-mail que tu nous as donnée : on t'envoie un lien pour te connecter, sans mot de passe.</p>
-        <form class="es__form">
-          <label class="fld"><span>Ton e-mail</span><input name="email" type="email" inputmode="email" autocomplete="email" required /></label>
-          <button class="btn btn--menthe" type="submit">Recevoir mon lien</button>
+        <p class="es__lead">Tes articles, leurs vues et ce qu'ils te rapportent.</p>
+        <form class="es__form es__mdp-form">
+          <label class="fld"><span>Ton e-mail</span><input name="email" type="email" inputmode="email" autocomplete="username" required /></label>
+          <label class="fld"><span>Ton mot de passe</span><input name="mdp" type="password" autocomplete="current-password" required /></label>
+          <button class="btn btn--menthe" type="submit">Se connecter</button>
         </form>
-        <p class="es__msg" role="status" hidden></p>
+        <p class="es__msg es__mdp-msg" role="status" hidden></p>
+        <details class="es__sans-mdp">
+          <summary>Pas de mot de passe ou oublié ? Recevoir un lien de connexion par e-mail</summary>
+          <form class="es__form es__lien-form">
+            <label class="fld"><span>Ton e-mail</span><input name="email" type="email" inputmode="email" autocomplete="email" required /></label>
+            <button class="btn" type="submit">Recevoir mon lien</button>
+          </form>
+          <p class="es__msg es__lien-msg" role="status" hidden></p>
+        </details>
         <p class="es__note">Pas encore contributeur ? <a href="/contributeurs/">Découvre le programme</a>.</p>
       </div>
 
@@ -115,6 +124,16 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
             </div>
             <div class="es__btns"><button class="btn btn--menthe" type="submit">Enregistrer mon profil</button></div>
             <p class="es__msg pr__msg" role="status" hidden></p>
+          </form>
+          <form class="ed md">
+            <h2>Mot de passe</h2>
+            <p class="es__lead md__etat">Définis un mot de passe pour te connecter directement avec ton e-mail, sans attendre de lien.</p>
+            <div class="ed__grid">
+              <label class="fld"><span>Nouveau mot de passe (10 caractères minimum)</span><input name="mdp1" type="password" autocomplete="new-password" minlength="10" required /></label>
+              <label class="fld"><span>Confirme-le</span><input name="mdp2" type="password" autocomplete="new-password" minlength="10" required /></label>
+            </div>
+            <div class="es__btns"><button class="btn btn--menthe" type="submit">Enregistrer mon mot de passe</button></div>
+            <p class="es__msg md__msg" role="status" hidden></p>
           </form>
         </div>
 
@@ -309,6 +328,8 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     edLock();
     const pf = d.profil || {};
     moiNom = d.nom;
+    if (d.a_mdp) $('.md__etat').textContent = 'Tu as un mot de passe. Tu peux le changer ici.';
+    $<HTMLFormElement>('.md').hidden = !!as;
     $('.es__vers-admin').hidden = !d.est_admin || !!as;
     const pa = pf.palier || { nom: 'Nouveau', manque: 1, prochain: 'Contributeur' };
     set('palier', pa.nom);
@@ -524,6 +545,18 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     if (d.ok) $<HTMLImageElement>('.pr__img').src = `${api}?action=auteur_photo&slug=${d.profil.slug}&v=${Date.now()}`;
   });
 
+  // ---------- Mot de passe ----------
+  $<HTMLFormElement>('.md').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const a = (f.elements.namedItem('mdp1') as HTMLInputElement).value, b2 = (f.elements.namedItem('mdp2') as HTMLInputElement).value;
+    const m = $('.md__msg'); m.hidden = false;
+    if (a !== b2) { m.textContent = 'Les deux mots de passe ne sont pas identiques.'; return; }
+    const d = await post({ action: 'mdp', mdp: a });
+    m.textContent = d.ok ? 'Mot de passe enregistré. La prochaine fois, connecte-toi avec ton e-mail et ce mot de passe.' : d.message || 'Erreur';
+    if (d.ok) { f.reset(); $('.md__etat').textContent = 'Tu as un mot de passe. Tu peux le changer ici.'; }
+  });
+
   // ---------- Admin ----------
   async function admin() {
     const r = await fetch(q({ action: 'liste' }), { credentials: 'same-origin' });
@@ -673,7 +706,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       const r = await fetch(`${api}?action=entrer&t=${encodeURIComponent(t)}`, { credentials: 'same-origin' });
       if (!r.ok) {
         show('login');
-        const m = $('.es__msg'); m.hidden = false; m.textContent = 'Ce lien a expiré ou a déjà servi. Demande-en un nouveau.';
+        const m = $('.es__mdp-msg'); m.hidden = false; m.textContent = 'Ce lien a expiré ou a déjà servi. Connecte-toi avec ton mot de passe ou demande un nouveau lien.';
         return;
       }
     }
@@ -683,11 +716,20 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     if (p.get('onglet')) onglet(p.get('onglet')!);
   }
 
-  $<HTMLFormElement>('.es__form:not(.es__cle-form)').addEventListener('submit', async (e) => {
+  $<HTMLFormElement>('.es__mdp-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = e.currentTarget as HTMLFormElement;
+    const g = (k: string) => (f.elements.namedItem(k) as HTMLInputElement).value;
+    const r = await fetch(api, { method: 'POST', credentials: 'same-origin', body: new URLSearchParams({ action: 'connexion', email: g('email'), mdp: g('mdp') }) });
+    const d = await r.json().catch(() => ({}));
+    if (r.ok) { await charger(); const b2 = soums.find((x) => ['brouillon', 'a_corriger'].includes(x.statut)); edOuvrir(b2 || null); return; }
+    const m = $('.es__mdp-msg'); m.hidden = false; m.textContent = d.message || 'Connexion impossible';
+  });
+  $<HTMLFormElement>('.es__lien-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = e.currentTarget as HTMLFormElement;
     const btn = f.querySelector('button')!;
-    const m = $('.es__msg');
+    const m = $('.es__lien-msg');
     btn.disabled = true;
     const r = await fetch(api, { method: 'POST', body: new URLSearchParams({ action: 'lien', email: (f.elements.namedItem('email') as HTMLInputElement).value }) });
     const d = await r.json().catch(() => ({}));
@@ -857,5 +899,9 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .cl__n small { opacity: 0.7; font-size: 0.78rem; }
   .cl__v { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .cl__prix, .cl__prec, .cl__vide { margin: 0.9rem 0 0; font-size: var(--t-s); opacity: 0.9; }
+  .es__sans-mdp { margin-top: 1.5rem; max-width: 36rem; }
+  .es__sans-mdp summary { cursor: pointer; color: var(--accent); font-weight: 600; }
+  .md { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--trait); }
+  .md h2 { margin: 0 !important; }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>

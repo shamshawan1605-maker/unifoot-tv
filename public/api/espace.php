@@ -327,16 +327,37 @@ if ($action === 'lien' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
     sortie(['ok' => true]);
 }
 
+function ouvrirSession(string $email): void {
+    global $data;
+    $sid = bin2hex(random_bytes(32));
+    ecrire("$data/sessions/" . hash('sha256', $sid) . '.json', ['email' => $email, 'exp' => time() + DUREE_SESSION]);
+    setcookie('uftv_espace', $sid, ['expires' => time() + DUREE_SESSION, 'path' => '/api/', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
+    foreach (glob("$data/sessions/*.json") ?: [] as $s) if (filemtime($s) < time() - DUREE_SESSION) @unlink($s);
+}
+
+// ===== Connexion par e-mail + mot de passe (pour les comptes qui en ont défini un) =====
+if ($action === 'connexion' && ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
+    $e = strtolower(trim((string) ($_POST['email'] ?? '')));
+    // Limite : 8 essais par heure par adresse IP et 8 par compte
+    $cles = ["$data/rate-mdp-" . hash('sha256', ($_SERVER['REMOTE_ADDR'] ?? '') . date('Y-m-d-H')), "$data/rate-mdp-" . hash('sha256', $e . date('Y-m-d-H'))];
+    foreach ($cles as $rl) if ((is_file($rl) ? (int) file_get_contents($rl) : 0) >= 8) sortie(['ok' => false, 'message' => 'Trop d\'essais, réessaie dans une heure ou demande un lien par e-mail'], 429);
+    $c = $contributeurs[$e] ?? null;
+    if (!$c || empty($c['mdp']) || !password_verify((string) ($_POST['mdp'] ?? ''), $c['mdp'])) {
+        foreach ($cles as $rl) @file_put_contents($rl, (string) ((is_file($rl) ? (int) file_get_contents($rl) : 0) + 1));
+        foreach (glob("$data/rate-mdp-*") ?: [] as $f) if (filemtime($f) < time() - 7200) @unlink($f);
+        sortie(['ok' => false, 'message' => 'E-mail ou mot de passe incorrect'], 401);
+    }
+    ouvrirSession($e);
+    sortie(['ok' => true]);
+}
+
 // ===== Lien cliqué : ouverture de la session =====
 if ($action === 'entrer') {
     $f = "$data/jetons/" . hash('sha256', (string) ($_GET['t'] ?? '')) . '.json';
     $j = lire($f);
     @unlink($f);
     if (!$j || ($j['exp'] ?? 0) < time() || !isset($contributeurs[$j['email']])) sortie(['ok' => false, 'message' => 'Lien expiré ou déjà utilisé'], 401);
-    $sid = bin2hex(random_bytes(32));
-    ecrire("$data/sessions/" . hash('sha256', $sid) . '.json', ['email' => $j['email'], 'exp' => time() + DUREE_SESSION]);
-    setcookie('uftv_espace', $sid, ['expires' => time() + DUREE_SESSION, 'path' => '/api/', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
-    foreach (glob("$data/sessions/*.json") ?: [] as $s) if (filemtime($s) < time() - DUREE_SESSION) @unlink($s);
+    ouvrirSession($j['email']);
     sortie(['ok' => true]);
 }
 
@@ -348,10 +369,19 @@ if ($action === 'sortir') {
 }
 if ($action === 'moi') {
     if (!$connecte) sortie(['ok' => false], 401);
-    sortie(['ok' => true, 'est_admin' => in_array($session['email'], ADMINS, true)] + stats($session['email'], $contributeurs[$session['email']]) + ['soumissions' => soumissions($session['email'])]);
+    sortie(['ok' => true, 'est_admin' => in_array($session['email'], ADMINS, true), 'a_mdp' => !empty($contributeurs[$session['email']]['mdp'])] + stats($session['email'], $contributeurs[$session['email']]) + ['soumissions' => soumissions($session['email'])]);
 }
 
 // ===== Accord et profil (contributeur connecté) =====
+if ($action === 'mdp') {
+    if (!$connecte) sortie(['ok' => false], 401);
+    if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') sortie(['ok' => false], 405);
+    $m = (string) ($_POST['mdp'] ?? '');
+    if (mb_strlen($m) < 10) sortie(['ok' => false, 'message' => 'Au moins 10 caractères'], 422);
+    $contributeurs[$session['email']]['mdp'] = password_hash($m, PASSWORD_DEFAULT);
+    ecrire("$data/contributeurs.json", $contributeurs);
+    sortie(['ok' => true]);
+}
 if (in_array($action, ['accepter_accord', 'profil', 'profil_photo'], true)) {
     if (!$connecte) sortie(['ok' => false], 401);
     if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') sortie(['ok' => false], 405);
