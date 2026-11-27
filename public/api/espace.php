@@ -97,6 +97,7 @@ function classement(string $mois, array $contributeurs): array {
     global $data;
     $arts = articles(); $l = [];
     foreach ($contributeurs as $e => $c) {
+        if (in_array($e, ADMINS, true)) continue; // le compte de la rédaction n'entre pas dans le classement
         $slug = slugNom($c['nom']); $v = 0; $n = 0;
         foreach ($arts as $a) {
             if (slugNom((string) ($a['auteur'] ?? '')) !== $slug) continue;
