@@ -174,6 +174,15 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         </div>
         <p class="es__attente" hidden></p>
 
+        <div class="cl">
+          <div class="cl__head"><h2>🏆 Classement du mois</h2><span class="cl__mois"></span></div>
+          <p class="cl__moi"></p>
+          <ol class="cl__liste"></ol>
+          <p class="cl__vide" hidden>Le classement démarre avec les premiers articles publiés du mois.</p>
+          <p class="cl__prix"><strong>Le n°1 du mois</strong> devient « Correspondant du mois » : mis en avant sur la page d'accueil, en story sur tous nos réseaux et annoncé dans Kick in the Foot.</p>
+          <p class="cl__prec" hidden></p>
+        </div>
+
         <h2>Tes articles publiés</h2>
         <div class="es__scroll">
           <table class="es__table">
@@ -303,10 +312,26 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     $('.pr__dispo').hidden = !(pf.articles > 0); $('.pr__bientot').hidden = pf.articles > 0;
     $<HTMLImageElement>('.pr__img').src = pf.photo ? `${api}?action=auteur_photo&slug=${pf.slug}&v=${Date.now()}` : '/brand/logo-480.png';
     prf.querySelectorAll<HTMLInputElement>('input, textarea, button').forEach((i) => (i.disabled = !!as));
+    const cm = d.classement;
+    $('.cl__moi').textContent = cm && cm.vues > 0 ? (cm.rang === 1 ? `Tu es 1er ce mois-ci avec ${nb(cm.vues)} vues. Garde ta place !` : `Tu es ${cm.rang}e sur ${cm.total} avec ${nb(cm.vues)} vues, à ${nb(cm.devant)} vues de la place au-dessus.`) : 'Publie un article ce mois-ci pour entrer dans le classement.';
+    chargerClassement(pf.slug);
     if (!as && !d.accord) return show('accord');
     show('tb');
   }
   let moiNom = '';
+  async function chargerClassement(monSlug: string) {
+    const r = await fetch(`${api}?action=classement`); if (!r.ok) return;
+    const c = await r.json();
+    $('.cl__mois').textContent = new Date(c.mois + '-15').toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    $('.cl__liste').replaceChildren(...c.top.map((x: any) => el('li', { className: 'cl__l' + (x.slug === monSlug ? ' cl__l--moi' : '') },
+      el('span', { className: 'cl__r', textContent: x.rang === 1 ? '🥇' : x.rang === 2 ? '🥈' : x.rang === 3 ? '🥉' : String(x.rang) }),
+      el('span', { className: 'cl__n' }, el('strong', { textContent: x.nom }), el('small', { textContent: x.region || '' })),
+      el('span', { className: 'cl__v', textContent: nb(x.vues) + ' vues' }))));
+    $('.cl__vide').hidden = c.top.length > 0;
+    const g = c.gagnant_precedent;
+    $('.cl__prec').hidden = !g;
+    if (g) $('.cl__prec').textContent = `Correspondant du mois dernier : ${g.nom} (${nb(g.vues)} vues). Bravo !`;
+  }
 
   // ---------- Mes articles ----------
   function rendreMes() {
@@ -570,7 +595,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       { id: 'demo000000000002', statut: 'a_corriger', titre: 'U15 : la belle aventure de Loudéac en Coupe de Bretagne', chapo: 'Les U15 de Loudéac filent en quarts.', texte: 'Samedi, les U15 de Loudéac ont signé un exploit...', region: 'Bretagne', club: 'Loudéac OC', source: 'Le club', photos: [], maj: '2026-11-25T18:00:00', retour: 'Ajoute une citation de l\'éducateur et le score exact de la séance de tirs au but.' },
       { id: 'demo000000000003', statut: 'brouillon', titre: 'Arbitres : le district du Morbihan manque de bras', chapo: '', texte: 'Ce week-end encore, plusieurs matchs...', region: 'Bretagne', club: '', source: '', photos: [], maj: now },
     ];
-    const moi = { ok: true, nom: 'Léa Martin', accord: now, profil: { slug: 'lea-martin', bio: 'Étudiante en journalisme à Rennes, je suis la R1 et la R2 bretonnes chaque week-end.', region: 'Bretagne', liens: { instagram: 'https://instagram.com/' }, photo: false, palier: { nom: 'Contributeur', manque: 2, prochain: 'Correspondant' } }, part_pourcent: 30, seuil: 50, verse: 0, solde: 23.4, paiements: [],
+    const moi = { ok: true, nom: 'Léa Martin', accord: now, classement: { rang: 2, vues: 3120, total: 5, devant: 1750 }, profil: { slug: 'lea-martin', bio: 'Étudiante en journalisme à Rennes, je suis la R1 et la R2 bretonnes chaque week-end.', region: 'Bretagne', liens: { instagram: 'https://instagram.com/' }, photo: false, palier: { nom: 'Contributeur', manque: 2, prochain: 'Correspondant' } }, part_pourcent: 30, seuil: 50, verse: 0, solde: 23.4, paiements: [],
       totaux: { vues: 14250, vues_mois: 3120, revenus: 78, part: 23.4, vues_en_attente: 3120 },
       articles: [
         { slug: '', titre: 'Le FC Pontivy renverse le leader au bout du temps additionnel', date: '2026-11-23', vues: 6420, vues_mois: 1480, revenus: 35.2, part: 10.56 },
@@ -582,6 +607,12 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       if (!String(u).includes('/api/espace.php')) return vrai(u, o);
       const rep = (d: any, st = 200) => new Response(JSON.stringify(d), { status: st, headers: { 'Content-Type': 'application/json' } });
       if (String(u).includes('action=moi')) return rep(moi);
+      if (String(u).includes('action=classement')) return rep({ ok: true, mois: new Date().toISOString().slice(0, 7), top: [
+        { rang: 1, nom: 'Hugo Lefèvre', slug: 'hugo', region: 'Hauts-de-France', vues: 4870 },
+        { rang: 2, nom: 'Léa Martin', slug: 'lea-martin', region: 'Bretagne', vues: 3120 },
+        { rang: 3, nom: 'Karim Benali', slug: 'karim', region: 'Île-de-France', vues: 2640 },
+        { rang: 4, nom: 'Sarah Dupuis', slug: 'sarah', region: 'Occitanie', vues: 1310 },
+        { rang: 5, nom: 'Tom Durand', slug: 'tom', region: 'Normandie', vues: 880 } ], gagnant_precedent: { nom: 'Karim Benali', vues: 5420 } });
       const b: FormData | URLSearchParams | undefined = o.body;
       const g = (k: string) => (b ? String((b as any).get(k) ?? '') : '');
       const a = g('action');
@@ -777,5 +808,18 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .pr__img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; background: var(--marine); }
   .pr a, .es__lead a { color: var(--accent); }
   .lc__apercu { margin-top: 1.5rem; }
+  .cl { margin-top: 1.5rem; padding: 1.2rem; border-radius: var(--r-m); background: var(--marine); color: #fff; }
+  .cl__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .cl h2 { margin: 0 !important; color: #fff; }
+  .cl__mois { text-transform: capitalize; opacity: 0.75; font-size: var(--t-s); }
+  .cl__moi { margin: 0.6rem 0 0.9rem; font-weight: 700; color: var(--menthe); }
+  .cl__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
+  .cl__l { display: grid; grid-template-columns: 2.2rem 1fr auto; gap: 0.6rem; align-items: center; padding: 0.55rem 0.8rem; border-radius: var(--r-s); background: rgba(255, 255, 255, 0.07); }
+  .cl__l--moi { background: var(--menthe); color: #0a0a0a; }
+  .cl__r { font: 800 1.05rem var(--f-info); text-align: center; }
+  .cl__n { display: grid; }
+  .cl__n small { opacity: 0.7; font-size: 0.78rem; }
+  .cl__v { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cl__prix, .cl__prec, .cl__vide { margin: 0.9rem 0 0; font-size: var(--t-s); opacity: 0.9; }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>

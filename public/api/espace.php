@@ -90,6 +90,26 @@ function profilPublic(string $email, array $c): array {
         'photo' => is_file("$data/profils/" . hash('sha256', $email) . '.jpg'), 'depuis' => $c['depuis'] ?? '', 'articles' => $n, 'palier' => palier($n)];
 }
 
+/** Classement des contributeurs par vues sur un mois (AAAA-MM) */
+function classement(string $mois, array $contributeurs): array {
+    global $data;
+    $arts = articles(); $l = [];
+    foreach ($contributeurs as $e => $c) {
+        $slug = slugNom($c['nom']); $v = 0; $n = 0;
+        foreach ($arts as $a) {
+            if (slugNom((string) ($a['auteur'] ?? '')) !== $slug) continue;
+            $j = lire("$data/vues/" . basename((string) $a['slug']) . '.json', ['jours' => []]);
+            $nm = 0;
+            foreach (($j['jours'] ?? []) as $jour => $x) if (str_starts_with((string) $jour, $mois)) $nm += (int) $x;
+            $v += $nm; if ($nm > 0) $n++;
+        }
+        $l[] = ['email' => $e, 'nom' => $c['nom'], 'slug' => $slug, 'region' => $c['profil']['region'] ?? '', 'vues' => $v, 'articles' => $n];
+    }
+    usort($l, fn($a, $b) => $b['vues'] <=> $a['vues'] ?: strcmp($a['nom'], $b['nom']));
+    foreach ($l as $i => &$x) $x['rang'] = $i + 1;
+    return $l;
+}
+
 /** Statistiques d'un contributeur : vues par article, revenus estimés mois par mois, sa part */
 function stats(string $email, array $c): array {
     global $data;
@@ -121,7 +141,8 @@ function stats(string $email, array $c): array {
     return ['nom' => $c['nom'], 'part_pourcent' => (int) round($part * 100), 'articles' => $liste, 'totaux' => $tot,
         'verse' => round($verse, 2), 'solde' => round(max(0, $tot['part'] - $verse), 2), 'paiements' => $paiements, 'seuil' => 50,
         'rpm_dernier' => $rpm ? ['mois' => array_key_last($rpm), 'rpm' => end($rpm)] : null,
-        'accord' => (($c['accord']['version'] ?? '') === ACCORD_VERSION) ? $c['accord']['date'] : null, 'profil' => profilPublic($email, $c)];
+        'accord' => (($c['accord']['version'] ?? '') === ACCORD_VERSION) ? $c['accord']['date'] : null, 'profil' => profilPublic($email, $c),
+        'classement' => (function () use ($email) { global $contributeurs; $l = classement(date('Y-m'), $contributeurs); foreach ($l as $x) if ($x['email'] === $email) return ['rang' => $x['rang'], 'vues' => $x['vues'], 'total' => count($l), 'devant' => $x['rang'] > 1 ? $l[$x['rang'] - 2]['vues'] - $x['vues'] : null]; return null; })()];
 }
 
 $action = (string) ($_REQUEST['action'] ?? '');
@@ -224,7 +245,7 @@ L'équipe UNIFOOT TV");
     ecrire($f, $x);
     sortie(['ok' => true, 'candidature' => $x]);
 }
-if ($admin && in_array($action, ['photo_voir', 'auteur', 'auteur_photo'], true)) { /* traité plus bas */ }
+if ($admin && in_array($action, ['photo_voir', 'auteur', 'auteur_photo', 'classement'], true)) { /* traité plus bas */ }
 elseif ($admin) {
     if ($action === 'contributeur') {
         $e = strtolower(trim((string) ($_GET['email'] ?? '')));
@@ -249,6 +270,15 @@ elseif ($admin) {
     $vue = [];
     foreach ($contributeurs as $e => $c) $vue[$e] = stats($e, $c) + ['a_relire' => count(array_filter(soumissions($e), fn($x) => $x['statut'] === 'envoye'))];
     sortie(['ok' => true, 'rpm' => lire("$data/rpm.json"), 'contributeurs' => $vue]);
+}
+
+// ===== Classement du mois (public : noms, région et vues ; l'e-mail n'est jamais renvoyé) =====
+if ($action === 'classement') {
+    $mois = preg_match('/^\d{4}-\d{2}$/', (string) ($_GET['mois'] ?? '')) ? (string) $_GET['mois'] : date('Y-m');
+    $prec = date('Y-m', strtotime("$mois-01 -1 month"));
+    $pub = fn($l) => array_map(fn($x) => array_diff_key($x, ['email' => 1]), array_slice(array_values(array_filter($l, fn($x) => $x['vues'] > 0)), 0, 10));
+    header('Cache-Control: public, max-age=600');
+    sortie(['ok' => true, 'mois' => $mois, 'top' => $pub(classement($mois, $contributeurs)), 'mois_precedent' => $prec, 'gagnant_precedent' => $pub(classement($prec, $contributeurs))[0] ?? null]);
 }
 
 // ===== Page auteur (public) =====
