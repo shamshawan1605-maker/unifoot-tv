@@ -1,36 +1,62 @@
 ---
-// Aperçu d'un article de contributeur, avec la mise en page exacte d'une actu publiée.
-// Les données viennent de l'espace contributeur (localStorage « uftv_apercu »), rien n'est publié.
+// Aperçu d'un article de contributeur : même gabarit que /actualites/[slug] (en-tête, partage, photo, texte,
+// source, appel à témoigner, newsletter, autres actus). Les données viennent de l'espace contributeur
+// (localStorage « uftv_apercu ») : rien n'est publié.
 import Base from '~/layouts/Base.astro';
+import NewsCard from '~/components/NewsCard.astro';
 import Icon from '~/components/Icon.astro';
-const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: 'Aperçu' }];
+import Share from '~/components/Share.astro';
+import Newsletter from '~/components/Newsletter.astro';
+import { getNews, newsPath } from '~/lib/news';
+import { fr } from '~/lib/content';
+const recentes = await getNews();
+const lire = recentes.slice(0, 2);
+const autres = recentes.slice(2, 5);
+const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/actualites/' }, { name: 'Aperçu de ton article' }];
 ---
 <Base title="Aperçu de ton article" description="Aperçu avant publication." breadcrumbs={crumbs} noindex>
-  <p class="ap__bandeau"><Icon name="news" size={18} />Aperçu : cet article n'est pas encore publié. Ferme cet onglet pour revenir à ton espace.</p>
   <article class="wrap art">
+    <p class="ap__bandeau"><Icon name="news" size={18} /><span>Aperçu : ton article n'est pas encore publié. Ferme cet onglet pour revenir à ton espace.</span></p>
     <header class="art__head">
-      <p class="meta"><a href="#">Actualités</a> <time class="ap__date"></time></p>
+      <p class="meta"><a href="/actualites/">Actualités</a> <time class="ap__date"></time></p>
       <h1 class="ap__titre">Ton titre</h1>
       <p class="art__chapo ap__chapo"></p>
       <p class="art__auteur">Par <strong class="ap__auteur"></strong>, UNIFOOT TV</p>
+      <div class="art__share"><Share url="https://unifoottv.fr/actualites/" title="Aperçu" /></div>
     </header>
     <figure class="art__fig ap__fig" hidden>
       <img class="ap__img" alt="" width="1200" height="675" />
       <figcaption class="ap__credit"></figcaption>
     </figure>
     <div class="prose art__text ap__texte"></div>
+    <aside class="lire" id="lire-aussi" aria-label="À lire aussi">
+      <p class="lire__t">À lire aussi</p>
+      <ul>{lire.map((n) => <li><a href={newsPath(n)}>{fr(n.data.titre)}</a></li>)}</ul>
+    </aside>
     <p class="art__source ap__source" hidden></p>
+    <p class="art__cta"><Icon name="mic" size={18} /><span>Tu as vécu une situation similaire&nbsp;? <a href="/participer/?type=temoignage">Raconte-la-nous</a>.</span></p>
   </article>
+
+  <Newsletter titre="Ne rate plus l'actu du foot amateur" texte="Chaque semaine dans ta boîte mail : les actus qui font parler, les meilleurs extraits de l'émission et les infos utiles pour ton club. Gratuit, désinscription en un clic." origine="apercu" />
+
+  <section class="section alt" aria-labelledby="ra">
+    <div class="wrap">
+      <div class="section-head"><h2 id="ra">Autres actus</h2><a class="more" href="/actualites/">Toute l'actu</a></div>
+      <div class="grid3 rel-news">{autres.map((n) => <NewsCard news={n} />)}</div>
+    </div>
+  </section>
 </Base>
 
 <script>
   const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
   const inline = (t: string) => esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Même typographie que les actus publiées (apostrophes et espaces fines avant ? ! : ;)
+  const fr = (t: string) => t.replace(/\s+([?!:;»])/g, '\u00a0$1').replace(/«\s+/g, '«\u00a0');
   let d: any = {};
   try { d = JSON.parse(localStorage.getItem('uftv_apercu') || '{}'); } catch {}
   const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
-  $('.ap__titre').textContent = d.titre || 'Ton titre';
-  $('.ap__chapo').textContent = d.chapo || '';
+  $('.ap__titre').textContent = fr(d.titre || 'Ton titre');
+  $('.ap__chapo').textContent = fr(d.chapo || '');
   $('.ap__auteur').textContent = d.auteur || '';
   $('.ap__date').textContent = new Date(d.date || Date.now()).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
   if (d.photo) {
@@ -39,16 +65,24 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/a
     $('.ap__credit').textContent = d.credit ? `Photo : ${d.credit}` : '';
   }
   $('.ap__texte').innerHTML = (d.texte || '').split(/\n{2,}/).map((b: string) => b.trim()).filter(Boolean)
-    .map((b: string) => (b.startsWith('## ') ? `<h2>${inline(b.slice(3))}</h2>` : `<p>${inline(b).replace(/\n/g, '<br>')}</p>`)).join('');
+    .map((b: string) => (b.startsWith('## ') ? `<h2>${inline(fr(b.slice(3)))}</h2>` : `<p>${inline(fr(b)).replace(/\n/g, '<br>')}</p>`)).join('');
   if (d.source) { $('.ap__source').hidden = false; $('.ap__source').textContent = `Source : ${d.source}`; }
+  // « À lire aussi » remonté avant le 2e intertitre, comme sur les vraies actus
+  const box = document.getElementById('lire-aussi'), h2s = $('.ap__texte').querySelectorAll(':scope > h2');
+  if (box && h2s.length >= 2) h2s[1].before(box);
   document.title = `Aperçu : ${d.titre || 'ton article'} | UNIFOOT TV`;
+  // Les boutons de partage ne servent à rien dans un aperçu
+  document.querySelectorAll<HTMLAnchorElement>('.art__share a, .art__share button').forEach((b) => b.addEventListener('click', (e) => e.preventDefault()));
 </script>
 
 <style>
-  .ap__bandeau { position: sticky; top: 0; z-index: 50; display: flex; gap: 0.5rem; align-items: center; justify-content: center; margin: 0; padding: 0.7rem 1rem; background: #fff4d6; color: #5a4300; font: 700 0.9rem/1.3 var(--f-info); text-align: center; }
+  .ap__bandeau { display: flex; gap: 0.6rem; align-items: center; margin: 0 0 1.5rem; padding: 0.8rem 1rem; border-radius: var(--r-s); background: #fff4d6; color: #5a4300; font: 700 0.9rem/1.35 var(--f-info); }
+  /* Copie exacte des styles de /actualites/[slug] */
   .art { max-width: 48rem; padding-block: 2rem 3rem; }
   .art .meta a { color: var(--accent); text-decoration: none; }
   .art h1 { font-size: var(--t-xxl); margin-top: 0.6rem; }
+  .art h1, .art__chapo, .art__text { overflow-wrap: anywhere; }
+  .art__share { margin-top: 1.25rem; }
   .art__chapo { font: 600 var(--t-l)/1.45 var(--f-texte); margin-top: 1.1rem; }
   .art__fig { margin: 2rem 0 0; }
   .art__fig img { width: 100%; border-radius: var(--r-m); aspect-ratio: 16 / 9; object-fit: cover; background: var(--surface); }
@@ -57,4 +91,18 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Actualités', href: '/a
   .art__auteur { margin: 0.9rem 0 0; font: 600 0.9375rem/1.3 var(--f-info); color: var(--texte-2); }
   .art__auteur strong { color: var(--texte); }
   .art__source { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--trait); font: 700 1rem/1.3 var(--f-info); color: var(--texte-2); }
+  .lire { margin: 1.75rem 0; padding: 1rem 1.1rem; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 var(--r-s) var(--r-s) 0; }
+  .lire__t { margin: 0 0 0.5rem; font: 800 0.75rem/1 var(--f-info); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); }
+  .lire ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .lire a { font: 700 1rem/1.35 var(--f-texte); color: var(--texte); text-decoration: none; }
+  .art__cta { display: flex; gap: 0.6rem; align-items: center; margin-top: 2rem; padding: 1rem 1.1rem; background: var(--surface); border-radius: var(--r-s); max-width: none; }
+  .art__cta a { color: var(--accent); font-weight: 700; }
+  .art__cta :global(svg) { flex: none; }
+  .ap__texte :global(h2), .ap__texte :global(p) { overflow-wrap: anywhere; }
+  @media (max-width: 40rem) {
+    .rel-news { gap: 0 !important; }
+    .rel-news > :global(.nc) { grid-template-columns: 7.5rem 1fr; gap: 0.9rem; align-items: start; padding-block: 1.1rem; border-bottom: 1px solid var(--trait); }
+    .rel-news > :global(.nc:first-child) { padding-top: 0; }
+    .rel-news > :global(.nc .nc__title) { font-size: 0.9375rem; }
+  }
 </style>
