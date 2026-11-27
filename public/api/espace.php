@@ -28,6 +28,8 @@ const MAX_PHOTOS = 5;
 const PHOTO_MAX_OCTETS = 12 * 1024 * 1024;
 const ACCORD_VERSION = '1';
 const DUREE_LIEN_BIENVENUE = 604800; // 7 jours
+// Comptes qui ont aussi le mode admin quand ils sont connectés par lien e-mail (sans clé)
+const ADMINS = ['shamshawan1605@gmail.com'];
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -149,9 +151,18 @@ $action = (string) ($_REQUEST['action'] ?? '');
 $contributeurs = lire("$data/contributeurs.json");
 
 // ===== Administration (clé) =====
+// ===== Session en cours =====
+$sid = (string) ($_COOKIE['uftv_espace'] ?? '');
+$sf = "$data/sessions/" . hash('sha256', $sid) . '.json';
+$session = $sid !== '' ? lire($sf) : [];
+$connecte = $session && ($session['exp'] ?? 0) > time() && isset($contributeurs[$session['email']]);
+
 $cle = (string) ($_GET['k'] ?? ($_POST['k'] ?? ''));
 $admin = $cle !== '' && hash_equals(CLE_SHA256, hash('sha256', $cle));
 if ($cle !== '' && !$admin) sortie(['ok' => false], 403);
+// Admin connecté par son lien e-mail : mode admin sans clé, seulement pour les actions d'admin
+$actionsAdmin = ['liste', 'photo_voir', 'contributeur', 'rpm', 'paiement', 'soumissions', 'statut', 'candidatures', 'candidature'];
+if (!$admin && $connecte && in_array($session['email'], ADMINS, true) && (in_array($action, $actionsAdmin, true) || ($action === 'moi' && isset($_GET['as'])))) $admin = true;
 if ($admin && $action === 'moi') {
     $e = strtolower(trim((string) ($_GET['as'] ?? '')));
     if (!isset($contributeurs[$e])) sortie(['ok' => false, 'message' => 'contributeur inconnu'], 404);
@@ -329,11 +340,6 @@ if ($action === 'entrer') {
     sortie(['ok' => true]);
 }
 
-// ===== Session en cours =====
-$sid = (string) ($_COOKIE['uftv_espace'] ?? '');
-$sf = "$data/sessions/" . hash('sha256', $sid) . '.json';
-$session = $sid !== '' ? lire($sf) : [];
-$connecte = $session && ($session['exp'] ?? 0) > time() && isset($contributeurs[$session['email']]);
 
 if ($action === 'sortir') {
     if ($sid !== '') @unlink($sf);
@@ -342,7 +348,7 @@ if ($action === 'sortir') {
 }
 if ($action === 'moi') {
     if (!$connecte) sortie(['ok' => false], 401);
-    sortie(['ok' => true] + stats($session['email'], $contributeurs[$session['email']]) + ['soumissions' => soumissions($session['email'])]);
+    sortie(['ok' => true, 'est_admin' => in_array($session['email'], ADMINS, true)] + stats($session['email'], $contributeurs[$session['email']]) + ['soumissions' => soumissions($session['email'])]);
 }
 
 // ===== Accord et profil (contributeur connecté) =====

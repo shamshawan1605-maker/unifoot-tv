@@ -89,6 +89,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
         <p class="es__adminbar" hidden>Mode admin : tu vois l'espace de <b data-k="nomcomplet"></b> exactement comme lui. <button type="button" class="es__back es__back-adm">← Retour à la rédaction</button></p>
         <div class="es__head">
           <h1>Salut <span data-k="nom"></span> 👋</h1>
+          <a class="btn es__vers-admin" href="/espace/?admin" hidden>Rédaction (admin)</a>
           <button type="button" class="es__out es__logout">Se déconnecter</button>
         </div>
 
@@ -308,6 +309,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     edLock();
     const pf = d.profil || {};
     moiNom = d.nom;
+    $('.es__vers-admin').hidden = !d.est_admin || !!as;
     const pa = pf.palier || { nom: 'Nouveau', manque: 1, prochain: 'Contributeur' };
     set('palier', pa.nom);
     set('palier_txt', pa.prochain ? `Encore ${pa.manque} article${pa.manque > 1 ? 's' : ''} publié${pa.manque > 1 ? 's' : ''} pour devenir ${pa.prochain}` + (pa.prochain === 'Correspondant' ? ' (badge et attestation)' : pa.prochain === 'Correspondant confirmé' ? ' (passage dans Kick in the Foot)' : '') + '.' : 'Tu es au plus haut niveau, bravo !');
@@ -524,8 +526,8 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
 
   // ---------- Admin ----------
   async function admin() {
-    const r = await fetch(q({ action: 'liste' }));
-    if (r.status === 403) { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; return show('admin-cle'); }
+    const r = await fetch(q({ action: 'liste' }), { credentials: 'same-origin' });
+    if (!r.ok) { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; return show('admin-cle'); }
     const d = await r.json();
     const s = await (await fetch(q({ action: 'soumissions' }))).json();
     nomsAdmin = s.noms || {};
@@ -598,6 +600,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   $('.lc__apercu').addEventListener('click', () => apercu(lu, nomsAdmin[lu.email] || ''));
   document.querySelectorAll('.es__back').forEach((b) => b.addEventListener('click', () => admin()));
   $('.es__admin-out').addEventListener('click', () => { try { sessionStorage.removeItem('uftv_cle'); } catch {} cle = ''; location.href = '/espace/'; });
+  $('.es__admin-out').textContent = 'Retour à mon espace';
   $<HTMLFormElement>('.es__cle-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     cle = ((e.currentTarget as HTMLFormElement).elements.namedItem('cle') as HTMLInputElement).value.trim();
@@ -657,7 +660,12 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   // ---------- Démarrage ----------
   async function init() {
     const p = new URLSearchParams(location.search);
-    if (p.has('admin')) { onglet('stats'); return cle ? admin() : show('admin-cle'); }
+    if (p.has('admin')) {
+      onglet('stats');
+      if (cle) return admin();
+      const t2 = await fetch(`${api}?action=liste`, { credentials: 'same-origin' });
+      return t2.ok ? admin() : show('admin-cle');
+    }
     cle = '';
     const t = p.get('t');
     if (t) {
