@@ -39,8 +39,8 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Extraits' }];
   .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
   .shorts-grid { list-style: none; margin: 0; padding: 0; }
   .shorts-grid li[hidden], .shorts-grid li.is-more { display: none; }
-  .follow { margin-top: 1.5rem; text-align: center; }
-  .more-wrap { margin-top: 2rem; text-align: center; }
+  .follow { margin-top: 1.5rem; text-align: center; max-width: none; }
+  .more-wrap { margin-top: 2rem; text-align: center; max-width: none; }
   /* Téléphone : les filtres sur une seule ligne qui défile */
   @media (max-width: 47.99rem) {
     .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gouttiere) * -1); padding-inline: var(--gouttiere); }
