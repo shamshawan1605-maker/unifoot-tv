@@ -122,9 +122,14 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           <form class="ed ed__form">
             <p class="ed__etat" aria-live="polite"></p>
             <div class="ed__retour" hidden><strong>À corriger :</strong> <span></span></div>
+            <div class="ed__type" role="radiogroup" aria-label="Ce que tu envoies">
+              <label><input type="radio" name="type" value="article" checked /> ✍️ Un article</label>
+              <label><input type="radio" name="type" value="photos" /> 📸 Des photos d'un match</label>
+            </div>
+            <p class="ed__type-aide" hidden>Envoie tes photos avec quelques infos (qui jouait, le score, le moment fort). La rédaction écrit l'article et te crédite comme photographe.</p>
             <label class="fld"><span>Titre</span><input name="titre" maxlength="160" placeholder="Ex. : Le FC Machin s'offre le leader au bout du suspense" /></label>
             <label class="fld"><span>Chapô (1 à 2 phrases qui résument)</span><textarea name="chapo" rows="2" maxlength="400"></textarea></label>
-            <div class="fld"><span>Ton article</span>
+            <div class="fld"><span class="ed__texte-lab">Ton article</span>
               <div class="ed__tool"><button type="button" data-ins="h">Intertitre</button><button type="button" data-ins="b"><b>Gras</b></button><span class="ed__mots"></span></div>
               <textarea name="texte" rows="16" placeholder="Qui, quoi, où, quand. Des faits, des citations. 250 à 600 mots."></textarea>
             </div>
@@ -352,7 +357,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
       const li = el('li', { className: 'es__soum-item' },
         el('div', { className: 'es__soum-top' }, badge(x.statut), el('span', { className: 'es__soum-date', textContent: 'Modifié le ' + date(x.maj) })),
         el('strong', { textContent: x.titre || 'Sans titre' }),
-        el('span', { className: 'es__soum-meta', textContent: [x.region, x.club, `${(x.photos || []).length} photo(s)`].filter(Boolean).join(' · ') }));
+        el('span', { className: 'es__soum-meta', textContent: [x.type === 'photos' ? '📸 Photos' : '✍️ Article', x.region, x.club, `${(x.photos || []).length} photo(s)`].filter(Boolean).join(' · ') }));
       if (x.retour && ['a_corriger', 'refuse', 'publie'].includes(x.statut)) li.append(el('p', { className: 'es__soum-retour', textContent: 'Retour de la rédaction : ' + x.retour }));
       li.append(actions);
       return li;
@@ -374,7 +379,18 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   let cur: any = null; let minuteur = 0; let sale = false;
   const etat = (t: string) => ($('.ed__etat').textContent = t);
   const msg = (t: string, ok = false) => { const m = $('.ed__msg'); m.hidden = !t; m.textContent = t; m.classList.toggle('es__msg--err', !ok); };
-  const mots = () => { const n = (champ('texte').value.trim().match(/\S+/g) || []).length; $('.ed__mots').textContent = `${n} mot${n > 1 ? 's' : ''}${n < 150 ? ' (150 minimum)' : ''}`; };
+  const typeEd = () => (ed.querySelector<HTMLInputElement>('[name=type]:checked')?.value || 'article');
+  const mots = () => { const n = (champ('texte').value.trim().match(/\S+/g) || []).length, min = typeEd() === 'photos' ? 20 : 150; $('.ed__mots').textContent = `${n} mot${n > 1 ? 's' : ''}${n < min ? ` (${min} minimum)` : ''}`; };
+  function majType() {
+    const ph = typeEd() === 'photos';
+    $('.ed__type-aide').hidden = !ph;
+    $('.ed__texte-lab').textContent = ph ? 'Infos du match (qui jouait, le score, le moment fort, une anecdote)' : 'Ton article';
+    (champ('texte') as unknown as HTMLTextAreaElement).rows = ph ? 5 : 16;
+    champ('texte').placeholder = ph ? 'Ex. : FC Test 2-1 AS Exemple, R2. But victorieux de la tête à la 90e, gros public.' : 'Qui, quoi, où, quand. Des faits, des citations. 250 à 600 mots.';
+    $<HTMLTextAreaElement>('textarea[name=texte]').style.minHeight = ph ? '7rem' : '';
+    mots();
+  }
+  ed.querySelectorAll<HTMLInputElement>('[name=type]').forEach((r) => r.addEventListener('change', majType));
   function modifiable() { return !vueAdmin && (!cur || ['brouillon', 'a_corriger'].includes(cur.statut)); }
   function edLock() {
     const ok = modifiable();
@@ -385,6 +401,8 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     cur = x; sale = false;
     for (const k of CHAMPS) champ(k).value = x?.[k] || '';
     champ('propre_club').checked = !!x?.propre_club;
+    ed.querySelectorAll<HTMLInputElement>('[name=type]').forEach((r) => (r.checked = r.value === (x?.type || 'article')));
+    majType();
     champ('accord_photo').checked = !!x?.accord_photo;
     const rt = $('.ed__retour'); rt.hidden = !(x?.statut === 'a_corriger' && x.retour); rt.querySelector('span')!.textContent = x?.retour || '';
     photos(); mots(); msg(''); edLock();
@@ -411,6 +429,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     if (cur) o.id = cur.id;
     for (const k of CHAMPS) o[k] = champ(k).value;
     o.propre_club = champ('propre_club').checked ? '1' : '';
+    o.type = typeEd();
     o.accord_photo = champ('accord_photo').checked ? '1' : '';
     o.credits = JSON.stringify(Object.fromEntries((cur?.photos || []).map((p: any) => [p.f, p.credit || ''])));
     return o;
@@ -554,7 +573,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     lu = x;
     $('.es__badge-l').replaceChildren(badge(x.statut));
     $('.lc__titre').textContent = x.titre || 'Sans titre';
-    $('.lc__meta').textContent = [x.region, x.club, x.propre_club ? 'écrit par un membre du club' : '', `${(x.texte.match(/\S+/g) || []).length} mots`].filter(Boolean).join(' · ');
+    $('.lc__meta').textContent = [x.type === 'photos' ? '📸 Envoi de photos : l\'article est à écrire par la rédaction' : '', x.region, x.club, x.propre_club ? 'écrit par un membre du club' : '', `${(x.texte.match(/\S+/g) || []).length} mots`].filter(Boolean).join(' · ');
     $('.lc__chapo').textContent = x.chapo || '';
     $('.lc__photos').replaceChildren(...(x.photos || []).map((p: any) => el('figure', {}, el('a', { href: photoUrl(x.id, p.f), target: '_blank' }, el('img', { src: photoUrl(x.id, p.f), alt: '' })), el('figcaption', { textContent: 'Photo : ' + (p.credit || '?') }))));
     $('.lc__texte').replaceChildren(...(x.texte || '').split(/\n{2,}/).map((b: string) => b.startsWith('## ') ? el('h2', { textContent: b.slice(3) }) : el('p', { textContent: b.replace(/\*\*/g, '') })));
@@ -763,6 +782,10 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .ed .fld { display: grid; gap: 0.35rem; font-weight: 600; }
   .ed input:not([type=checkbox]), .ed textarea, .es__decision textarea, .es__decision input { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: 400 1rem/1.5 var(--f-texte); background: var(--fond); box-sizing: border-box; }
   .ed textarea[name=texte] { min-height: 22rem; }
+  .ed__type { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .ed__type label { display: flex; gap: 0.45rem; align-items: center; padding: 0.6rem 0.9rem; border: 1px solid var(--trait); border-radius: 999px; background: var(--fond); font-weight: 700; cursor: pointer; }
+  .ed__type label:has(input:checked) { border-color: var(--menthe); background: color-mix(in srgb, var(--menthe) 15%, var(--fond)); }
+  .ed__type-aide { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
   .ed__etat { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
   .ed__retour { padding: 0.8rem 1rem; border-radius: var(--r-s); background: #fff4d6; color: #5a4300; }
   .ed__tool { display: flex; gap: 0.4rem; align-items: center; }

@@ -407,6 +407,7 @@ if (in_array($action, ['mes_articles', 'enregistrer', 'photo', 'photo_suppr', 'e
             $x = ['id' => substr(bin2hex(random_bytes(8)), 0, 16), 'email' => $email, 'statut' => 'brouillon', 'cree' => date('c'), 'photos' => [], 'historique' => [['date' => date('c'), 'statut' => 'brouillon']]];
         }
         foreach (['titre' => 160, 'chapo' => 400, 'texte' => 20000, 'region' => 80, 'club' => 120, 'source' => 300] as $k => $max) $x[$k] = texteChamp($k, $max);
+        $x['type'] = ($_POST['type'] ?? '') === 'photos' ? 'photos' : 'article';
         $x['propre_club'] = ($_POST['propre_club'] ?? '') === '1';
         $x['accord_photo'] = ($_POST['accord_photo'] ?? '') === '1';
         if (isset($_POST['credits']) && is_array($c = json_decode((string) $_POST['credits'], true)))
@@ -451,7 +452,11 @@ if (in_array($action, ['mes_articles', 'enregistrer', 'photo', 'photo_suppr', 'e
         if (!$modifiable) sortie(['ok' => false, 'message' => 'Déjà envoyé'], 409);
         $manque = [];
         if (mb_strlen($x['titre'] ?? '') < 10) $manque[] = 'un titre';
-        if (nbMots($x['texte'] ?? '') < 150) $manque[] = 'un texte d\'au moins 150 mots';
+        $photosSeules = ($x['type'] ?? 'article') === 'photos';
+        if ($photosSeules) {
+            if (!$x['photos']) $manque[] = 'au moins une photo';
+            if (nbMots($x['texte'] ?? '') < 20) $manque[] = 'quelques infos sur le match (au moins 20 mots : qui, score, moment fort)';
+        } elseif (nbMots($x['texte'] ?? '') < 150) $manque[] = 'un texte d\'au moins 150 mots';
         if (trim($x['source'] ?? '') === '') $manque[] = 'ta source (club, district, témoin…)';
         foreach ($x['photos'] as $p) if (trim($p['credit'] ?? '') === '') { $manque[] = 'le nom du photographe pour chaque photo'; break; }
         if ($x['photos'] && empty($x['accord_photo'])) $manque[] = 'cocher l\'accord pour les photos';
@@ -462,7 +467,7 @@ if (in_array($action, ['mes_articles', 'enregistrer', 'photo', 'photo_suppr', 'e
         $x['historique'][] = ['date' => date('c'), 'statut' => 'envoye'];
         sauverSoumission($x);
         $nom = $contributeurs[$email]['nom'] ?? $email;
-        envoyerMail(DESTINATAIRE, ($deja ? 'Article corrigé' : 'Nouvel article') . " de $nom : {$x['titre']}",
+        envoyerMail(DESTINATAIRE, ($deja ? 'Article corrigé' : ($photosSeules ? 'Nouvelles photos' : 'Nouvel article')) . " de $nom : {$x['titre']}",
             "$nom vient d'envoyer " . ($deja ? 'la version corrigée de ' : '') . "son article depuis son espace.\n\nTitre : {$x['titre']}\nRégion : {$x['region']}\nClub : {$x['club']}\nMots : " . nbMots($x['texte']) . "\nPhotos : " . count($x['photos']) . "\n\nÀ relire dans l'espace (mode admin).");
         sortie(['ok' => true, 'soumission' => $x]);
     }
