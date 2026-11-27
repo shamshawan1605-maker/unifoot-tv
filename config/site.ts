@@ -73,7 +73,7 @@ export const socials = [
 export const legal = {
   company: 'UNIFOOT',
   form: 'SASU',
-  capital: 'A_COMPLETER',
+  capital: '10 000 €',
   siret: '978 722 023 00014',
   rcs: 'RCS Paris 978 722 023',
   vat: 'FR40978722023',

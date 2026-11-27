@@ -4,7 +4,7 @@ export const ACCORD_VERSION = '1';
 export const ACCORD_DATE = '27 novembre 2026';
 export const accord: { t: string; p: string[] }[] = [
   { t: 'Les parties', p: [
-    "Cet accord lie UNIFOOT, SASU au capital indiqué dans les mentions légales, 9 rue des Colonnes, 75002 Paris, SIRET 978 722 023 00014, éditrice du média UNIFOOT TV (ci-après « UNIFOOT TV »), et la personne qui l'accepte depuis son espace contributeur (ci-après « le contributeur »).",
+    "Cet accord lie UNIFOOT, SASU au capital de 10 000 €, 9 rue des Colonnes, 75002 Paris, SIRET 978 722 023 00014, éditrice du média UNIFOOT TV (ci-après « UNIFOOT TV »), et la personne qui l'accepte depuis son espace contributeur (ci-après « le contributeur »).",
   ] },
   { t: 'Une contribution libre et bénévole', p: [
     "Le contributeur propose librement des articles et des photos sur le football amateur. Il n'a ni horaire, ni quota, ni obligation de production, et peut arrêter à tout moment.",
