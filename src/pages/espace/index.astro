@@ -37,9 +37,11 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           <div class="es__tile es__tile--main"><span>Ta part (<b data-k="pourcent"></b> %)</span><strong data-k="part"></strong></div>
         </div>
 
-        <div class="es__solde">
-          <div><span>Déjà versé</span><strong data-k="verse"></strong></div>
-          <div><span>Reste à recevoir</span><strong data-k="solde"></strong></div>
+        <div class="es__cagnotte">
+          <div class="es__cag-head"><span>Ta cagnotte</span><strong data-k="solde"></strong></div>
+          <div class="es__bar" role="progressbar" aria-valuemin="0" aria-valuemax="50"><span class="es__fill"></span></div>
+          <p class="es__cag-txt" data-k="cagnotte_txt"></p>
+          <p class="es__cag-sub">Déjà versé depuis le début : <b data-k="verse"></b></p>
         </div>
         <p class="es__attente" hidden></p>
 
@@ -51,6 +53,35 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
           </table>
         </div>
         <p class="es__vide" hidden>Tu n'as pas encore d'article publié. Propose ton premier sujet sur le groupe des contributeurs ou via le formulaire.</p>
+
+        <h2>Comment tu es payé</h2>
+        <ul class="es__calc">
+          <li><strong>Seuil :</strong> versement dès que ta cagnotte atteint 50 €, ou une fois par an en juin si tu préfères.</li>
+          <li><strong>Sur facture :</strong> il faut le statut d'auto-entrepreneur (création gratuite sur <a href="https://autoentrepreneur.urssaf.fr" target="_blank" rel="noopener">autoentrepreneur.urssaf.fr</a>). Tu nous envoies ta facture, on te fait un virement.</li>
+          <li><strong>Pas de statut ?</strong> Ta cagnotte reste en attente, sans limite de temps.</li>
+        </ul>
+
+        <details class="es__fac">
+          <summary>Préparer ma facture</summary>
+          <p class="es__fac-intro">Remplis tes infos une fois (elles restent sur ton appareil), puis imprime ou enregistre en PDF et envoie-la à contact@unifoottv.fr.</p>
+          <form class="es__fac-form">
+            <label class="fld"><span>Nom et prénom</span><input name="f_nom" required /></label>
+            <label class="fld"><span>Adresse</span><input name="f_adr" required /></label>
+            <label class="fld"><span>SIRET</span><input name="f_siret" inputmode="numeric" required /></label>
+            <label class="fld"><span>N° de facture</span><input name="f_num" required /></label>
+            <label class="fld"><span>Montant (€)</span><input name="f_mt" inputmode="decimal" required /></label>
+            <button class="btn btn--menthe" type="submit">Afficher et imprimer</button>
+          </form>
+          <div class="es__facture" hidden>
+            <div class="fa__top"><div><strong data-f="nom"></strong><br /><span data-f="adr"></span><br />SIRET <span data-f="siret"></span></div><div class="fa__r"><strong>FACTURE <span data-f="num"></span></strong><br />Date : <span data-f="date"></span></div></div>
+            <p><strong>Client</strong><br />UNIFOOT SASU (UNIFOOT TV)<br />9 rue des Colonnes, 75002 Paris<br />SIRET 978 722 023 00014</p>
+            <table class="fa__t"><thead><tr><th>Désignation</th><th class="num">Montant</th></tr></thead>
+              <tbody><tr><td>Rémunération des contributions publiées sur unifoottv.fr (part des revenus publicitaires) jusqu'au <span data-f="date2"></span></td><td class="num" data-f="mt"></td></tr></tbody>
+              <tfoot><tr><th>Total à payer</th><th class="num" data-f="mt2"></th></tr></tfoot></table>
+            <p class="fa__m">TVA non applicable, art. 293 B du CGI. Paiement par virement à réception.</p>
+            <button type="button" class="btn btn--menthe es__print">Imprimer / PDF</button>
+          </div>
+        </details>
 
         <h2>Comment c'est calculé</h2>
         <ul class="es__calc">
@@ -86,6 +117,11 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     set('pourcent2', String(d.part_pourcent));
     set('verse', euros(d.verse));
     set('solde', euros(d.solde));
+    const seuil = d.seuil || 50, pct = Math.min(100, (d.solde / seuil) * 100);
+    document.querySelector<HTMLElement>('.es__fill')!.style.width = pct + '%';
+    set('cagnotte_txt', d.solde >= seuil ? 'Bravo, tu as atteint le seuil : prépare ta facture ci-dessous et envoie-la nous.' : `Plus que ${euros(seuil - d.solde)} avant ton premier versement de ${euros(seuil)}.`);
+    const mt = document.querySelector<HTMLInputElement>('[name=f_mt]'); if (mt) mt.value = d.solde.toFixed(2).replace('.', ',');
+    const nm = document.querySelector<HTMLInputElement>('[name=f_nom]'); if (nm && !nm.value) nm.value = d.nom;
     const att = document.querySelector<HTMLElement>('.es__attente')!;
     if (d.totaux.vues_en_attente > 0) { att.hidden = false; att.textContent = `${nb(d.totaux.vues_en_attente)} vues en attente de calcul : leurs revenus s'afficheront à la clôture du mois.`; }
     const tb = document.querySelector('.es__table tbody')!;
@@ -135,6 +171,23 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     show('login');
   });
 
+  // Facture : infos gardées sur l'appareil, numéro auto, impression
+  const ff = document.querySelector<HTMLFormElement>('.es__fac-form')!;
+  const LS = 'uftv_facture';
+  try { const v = JSON.parse(localStorage.getItem(LS) || '{}'); for (const k of ['f_adr', 'f_siret']) if (v[k]) (ff.elements.namedItem(k) as HTMLInputElement).value = v[k]; } catch {}
+  (ff.elements.namedItem('f_num') as HTMLInputElement).value = `${new Date().getFullYear()}-001`;
+  ff.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const g = (k: string) => (ff.elements.namedItem(k) as HTMLInputElement).value.trim();
+    try { localStorage.setItem(LS, JSON.stringify({ f_adr: g('f_adr'), f_siret: g('f_siret') })); } catch {}
+    const f = (k: string, v: string) => document.querySelectorAll<HTMLElement>(`[data-f="${k}"]`).forEach((el) => (el.textContent = v));
+    const today = new Date().toLocaleDateString('fr-FR');
+    const m = euros(parseFloat(g('f_mt').replace(',', '.')) || 0);
+    f('nom', g('f_nom')); f('adr', g('f_adr')); f('siret', g('f_siret')); f('num', g('f_num')); f('date', today); f('date2', today); f('mt', m); f('mt2', m);
+    document.querySelector<HTMLElement>('.es__facture')!.hidden = false;
+  });
+  document.querySelector('.es__print')!.addEventListener('click', () => { document.body.classList.add('print-facture'); window.print(); document.body.classList.remove('print-facture'); });
+
   init();
 </script>
 
@@ -170,5 +223,32 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .es__table th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--texte-2); }
   .es__table .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .es__vide { color: var(--texte-2); }
+  .es__cagnotte { margin-top: 1rem; padding: 1.1rem 1.2rem; border-radius: var(--r-m); background: var(--fond); border: 2px solid var(--menthe); display: grid; gap: 0.6rem; }
+  .es__cag-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .es__cag-head strong { font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+  .es__bar { height: 12px; border-radius: 999px; background: var(--trait); overflow: hidden; }
+  .es__fill { display: block; height: 100%; width: 0; background: var(--menthe); border-radius: 999px; transition: width 0.6s; }
+  .es__cag-txt { margin: 0; font-weight: 600; }
+  .es__cag-sub { margin: 0; font-size: var(--t-s); color: var(--texte-2); }
+  .es__calc a, .es__fac a { color: var(--accent); }
+  .es__fac { margin-top: 1rem; padding: 1rem 1.2rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
+  .es__fac summary { cursor: pointer; font-weight: 700; }
+  .es__fac-intro { color: var(--texte-2); font-size: var(--t-s); }
+  .es__fac-form { display: grid; gap: 0.7rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); align-items: end; }
+  .es__fac-form .fld { display: grid; gap: 0.3rem; font-weight: 600; font-size: var(--t-s); }
+  .es__fac-form input { padding: 0.65rem 0.8rem; border: 1px solid var(--trait); border-radius: var(--r-s); font: inherit; background: #fff; }
+  .es__facture { margin-top: 1.25rem; padding: 1.5rem; background: #fff; color: #111; border: 1px solid var(--trait); border-radius: var(--r-s); display: grid; gap: 1rem; }
+  .fa__top { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .fa__r { text-align: right; }
+  .fa__t { width: 100%; border-collapse: collapse; }
+  .fa__t th, .fa__t td { padding: 0.6rem; border-bottom: 1px solid #ddd; text-align: left; }
+  .fa__t .num { text-align: right; white-space: nowrap; }
+  .fa__m { font-size: 0.85rem; color: #444; margin: 0; }
+  @media print {
+    :global(body.print-facture *) { visibility: hidden; }
+    :global(body.print-facture .es__facture), :global(body.print-facture .es__facture *) { visibility: visible; }
+    :global(body.print-facture .es__facture) { position: absolute; left: 0; top: 0; width: 100%; border: 0; }
+    :global(body.print-facture .es__print) { display: none; }
+  }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>

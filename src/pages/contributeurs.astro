@@ -15,6 +15,19 @@ const gains = [
   { t: 'De la visibilité', d: 'Tes articles relayés sur nos réseaux, toi tagué à chaque fois.' },
   { t: 'Le plateau', d: 'Les meilleurs viennent présenter leur sujet dans Kick in the Foot.' },
   { t: 'Le titre de correspondant', d: '« Correspondant UNIFOOT TV » pour ta région.' },
+  { t: 'Ton espace perso', d: 'Tes articles, leurs vues et ce qu’ils te rapportent, mis à jour chaque mois.' },
+  { t: '30 % des revenus pub', d: 'Sur chaque article que tu signes, dans ta cagnotte.' },
+];
+const paliers = [
+  { t: 'Contributeur', q: '1er article', d: 'Ta page auteur et ton espace perso.' },
+  { t: 'Correspondant', q: '5 articles', d: 'Badge pour tes réseaux et attestation signée.' },
+  { t: 'Correspondant confirmé', q: '15 articles', d: 'Passage dans Kick in the Foot et accès prioritaire aux sujets.' },
+];
+const argent = [
+  { t: 'Ta cagnotte monte chaque mois', d: '30 % des revenus publicitaires réels de tes articles, calculés sur leurs vues. Tu la suis en direct dans ton espace.' },
+  { t: 'Versement dès 50 €', d: 'Ou une fois par an, en juin, si tu préfères. Pas de minimum d’articles.' },
+  { t: 'Sur facture d’auto-entrepreneur', d: 'Tu nous envoies une facture (un modèle prêt à remplir est dans ton espace), on te fait un virement. Le statut se crée gratuitement en ligne.' },
+  { t: 'Pas de statut ? Pas de souci', d: 'Ta cagnotte reste en attente, sans limite de temps. Tu la touches le jour où tu as ton statut.' },
 ];
 const etapes = [
   { t: 'Tu proposes un sujet', d: 'Une phrase et ta source. On te répond sous 24 h.' },
@@ -51,6 +64,21 @@ const regles = [
       <ul class="ct__list">
         {gains.map((g) => <li><strong>{g.t}</strong><span>{g.d}</span></li>)}
       </ul>
+    </section>
+
+    <section class="wrap ct__sec" aria-labelledby="paliers">
+      <h2 id="paliers">Monte en grade</h2>
+      <ol class="ct__steps">
+        {paliers.map((p, i) => <li><span class="ct__n">{i + 1}</span><strong>{p.t} <em class="ct__q">{p.q}</em></strong><span>{p.d}</span></li>)}
+      </ol>
+    </section>
+
+    <section class="wrap ct__sec" aria-labelledby="argent">
+      <h2 id="argent">Ta cagnotte et comment tu es payé</h2>
+      <ul class="ct__list">
+        {argent.map((g) => <li><strong>{g.t}</strong><span>{g.d}</span></li>)}
+      </ul>
+      <p class="ct__note">Déjà contributeur ? <a href="/espace/">Connecte-toi à ton espace</a> pour voir tes vues et ta cagnotte.</p>
     </section>
 
     <section class="wrap ct__sec" aria-labelledby="comment">
@@ -93,6 +121,9 @@ const regles = [
   .ct__steps li { display: grid; gap: 0.3rem; padding: 1rem; border-radius: var(--r-m); background: var(--fond); border: 1px solid var(--trait); }
   .ct__steps span:last-child { color: var(--texte-2); font-size: var(--t-s); }
   .ct__n { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--marine); color: #fff; font-weight: 800; }
+  .ct__q { font-style: normal; font-weight: 600; font-size: var(--t-s); color: var(--accent); margin-left: 0.35rem; }
+  .ct__note { margin: 1rem 0 0; color: var(--texte-2); }
+  .ct__note a { color: var(--accent); font-weight: 600; }
   .ct__rules { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 48rem; }
   .ct__cta { margin-top: 1.5rem; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: var(--r-m); text-align: center; }
   .ct__cta h2 { margin: 0 0 0.5rem; font-size: var(--t-xl); }

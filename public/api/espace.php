@@ -67,7 +67,7 @@ function stats(string $email, array $c): array {
     $verse = array_sum(array_map(fn($p) => (float) $p['montant'], $paiements));
     $tot['revenus'] = round($tot['revenus'], 2); $tot['part'] = round($tot['part'], 2);
     return ['nom' => $c['nom'], 'part_pourcent' => (int) round($part * 100), 'articles' => $liste, 'totaux' => $tot,
-        'verse' => round($verse, 2), 'solde' => round(max(0, $tot['part'] - $verse), 2), 'paiements' => $paiements,
+        'verse' => round($verse, 2), 'solde' => round(max(0, $tot['part'] - $verse), 2), 'paiements' => $paiements, 'seuil' => 50,
         'rpm_dernier' => $rpm ? ['mois' => array_key_last($rpm), 'rpm' => end($rpm)] : null];
 }
 
