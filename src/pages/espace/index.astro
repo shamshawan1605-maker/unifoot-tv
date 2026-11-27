@@ -185,6 +185,9 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
 
         <!-- Onglet : tableau de bord -->
         <div data-panel="stats">
+        <div class="es__admin-note" hidden>
+          <strong>Compte de la rédaction.</strong> Tu n'as pas de cagnotte ni de classement : tout se gère dans <a href="/espace/?admin">Rédaction (admin)</a>. Les onglets Écrire et Mes articles te servent à tester ce que voient les contributeurs.
+        </div>
         <div class="es__palier"><span class="es__palier-n" data-k="palier"></span><span data-k="palier_txt"></span></div>
         <div class="es__tiles">
           <div class="es__tile"><span>Vues au total</span><strong data-k="vues"></strong></div>
@@ -310,7 +313,7 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     set('solde', euros(d.solde));
     const seuil = d.seuil || 50, pct = Math.min(100, (d.solde / seuil) * 100);
     $('.es__fill').style.width = pct + '%';
-    set('cagnotte_txt', d.solde >= seuil ? 'Bravo, tu as atteint le seuil : prépare ta facture ci-dessous et envoie-la nous.' : `Plus que ${euros(seuil - d.solde)} avant ton premier versement de ${euros(seuil)}.`);
+    set('cagnotte_txt', d.solde >= seuil ? 'Bravo, tu as atteint le seuil : prépare ta facture ci-dessous et envoie-la nous.' : d.solde <= 0 ? `Ta cagnotte se remplit dès que tes articles publiés sont lus. Premier versement à partir de ${euros(seuil)}.` : `Plus que ${euros(seuil - d.solde)} avant ton premier versement de ${euros(seuil)}.`);
     const mt = document.querySelector<HTMLInputElement>('[name=f_mt]'); if (mt) mt.value = d.solde.toFixed(2).replace('.', ',');
     const nm = document.querySelector<HTMLInputElement>('[name=f_nom]'); if (nm && !nm.value) nm.value = d.nom;
     const att = $('.es__attente');
@@ -328,6 +331,11 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
     edLock();
     const pf = d.profil || {};
     moiNom = d.nom;
+    // Compte de la rédaction : pas de cagnotte, de palier ni de place au classement
+    const redac = !!d.est_admin && !as;
+    $('.es__admin-note').hidden = !redac;
+    document.querySelectorAll<HTMLElement>('[data-panel=stats] > :not(.es__admin-note):not(.cl)').forEach((e) => e.classList.toggle('es__cache', redac));
+    $('.cl__moi').classList.toggle('es__cache', redac);
     if (d.a_mdp) $('.md__etat').textContent = 'Tu as un mot de passe. Tu peux le changer ici.';
     $<HTMLFormElement>('.md').hidden = !!as;
     $('.es__vers-admin').hidden = !d.est_admin || !!as;
@@ -903,5 +911,8 @@ const crumbs = [{ name: 'Accueil', href: '/' }, { name: 'Espace contributeur' }]
   .es__sans-mdp summary { cursor: pointer; color: var(--accent); font-weight: 600; }
   .md { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--trait); }
   .md h2 { margin: 0 !important; }
+  .es__cache { display: none !important; }
+  .es__admin-note { margin-top: 1rem; padding: 1rem 1.2rem; border-radius: var(--r-m); background: #fff4d6; color: #5a4300; line-height: 1.5; }
+  .es__admin-note a { color: inherit; font-weight: 700; }
   .es__calc { padding-left: 1.2rem; display: grid; gap: 0.5rem; color: var(--texte-2); max-width: 44rem; }
 </style>
