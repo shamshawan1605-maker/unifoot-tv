@@ -86,7 +86,7 @@ def cta(photo,out):
     y=360
     for l in ['Candidate en 2 minutes']: y+=box(d,W,y,l,FN('ExtraBold',66))+16
     y+=box(d,W,y,'Bénévole, à ton rythme',FN('ExtraBold',50),fill=TEAL,tc=(10,10,10))+80
-    for l,f,c in [('Toutes les infos et la candidature :',FN('SemiBold',42),(235,235,235)),('unifoottv.fr/contributeurs',FN('ExtraBold',62),(255,255,255)),('Lien cliquable en description et en story',FN('Bold',40),TEAL)]:
+    for l,f,c in [('Toutes les infos et la candidature :',FN('SemiBold',42),(235,235,235)),('unifoottv.fr/contributeurs',FN('ExtraBold',62),(255,255,255)),('Lien cliquable dans notre story du jour',FN('Bold',40),TEAL)]:
         w=d.textlength(l,font=f); d.text(((W-w)/2,y),l,font=f,fill=c); y+=f.size+40
     y+=70
     for l in ['Partage à un pote qui écrit bien','ou qui shoote tous les matchs 📲']:
